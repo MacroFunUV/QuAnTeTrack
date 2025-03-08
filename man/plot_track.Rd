@@ -123,7 +123,7 @@ plot_track(PaluxyRiver, colours = NULL, shape.f = c(16, 16),
 
 }
 \seealso{
-\code{\link{tps.to.track}}
+\code{\link{tps_to_track}}
 }
 \author{
 Humberto G. Ferrón

@@ -102,7 +102,7 @@ print(plot4)
 
 }
 \seealso{
-\code{\link{tps.to.track}}, \code{\link{velocity_track}}, \code{\link[ggplot2]{scale_color_gradientn}}
+\code{\link{tps_to_track}}, \code{\link{velocity_track}}, \code{\link[ggplot2]{scale_color_gradientn}}
 }
 \author{
 Humberto G. Ferrón

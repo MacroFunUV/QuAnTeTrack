@@ -88,7 +88,7 @@ Benhamou, S. (2004). How to reliably estimate the tortuosity of an animal's path
 Bovet, P., & Benhamou, S. (1988). Spatial analysis of animals' movements using a correlated random walk model. Journal of theoretical biology, 131(4), 419-433.
 }
 \seealso{
-\code{\link{tps.to.track}}
+\code{\link{tps_to_track}}
 }
 \author{
 Humberto G. Ferrón

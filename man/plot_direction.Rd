@@ -102,7 +102,7 @@ plot_direction(PaluxyRiver, plot_type = "polar_steps", y_labels_position = -90)
 
 }
 \seealso{
-\code{\link{tps.to.track}}, \code{\link{test.direction}}
+\code{\link{tps_to_track}}, \code{\link{test_direction}}
 }
 \author{
 Humberto G. Ferrón

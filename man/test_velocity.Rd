@@ -89,7 +89,7 @@ test_velocity(PaluxyRiver, V_paluxyriver)
 
 }
 \seealso{
-\code{\link{tps.to.track}}, \code{\link{velocity_track}}
+\code{\link{tps_to_track}}, \code{\link{velocity_track}}
 }
 \author{
 Humberto G. Ferrón

@@ -79,7 +79,7 @@
 #' @importFrom stringr str_pad
 #' @importFrom stats aov cor.test kruskal.test glm pnorm shapiro.test
 #'
-#' @seealso \code{\link{tps.to.track}}, \code{\link{velocity_track}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{velocity_track}}
 #'
 #' @export
 

@@ -108,7 +108,7 @@ Ruiz, J., & Torices, A. (2013). Humans running at stadiums and beaches and the a
 Thulborn, R. A., & Wade, M. (1984). Dinosaur trackways in the Winton Formation (mid-Cretaceous) of Queensland. Memoirs of the Queensland Museum, 21(2), 413-517.
 }
 \seealso{
-\code{\link{tps.to.track}}
+\code{\link{tps_to_track}}
 }
 \author{
 Humberto G. Ferrón

@@ -30,7 +30,7 @@
 #' # Example 2:  Subset the tracks at indices 5, 7, and 10.
 #' subset_data <- subset_track(MountTom, tracks = c(5, 7, 10))
 #'
-#' @seealso \code{\link{tps.to.track}}
+#' @seealso \code{\link{tps_to_track}}
 #'
 #' @export
 

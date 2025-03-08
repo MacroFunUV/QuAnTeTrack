@@ -75,7 +75,7 @@ test_direction(PaluxyRiver, analysis = "GLM")
 
 }
 \seealso{
-\code{\link{tps.to.track}}, \code{\link{plot.direction}}
+\code{\link{tps_to_track}}, \code{\link{plot_direction}}
 }
 \author{
 Humberto G. Ferrón

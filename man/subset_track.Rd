@@ -39,7 +39,7 @@ subset_data <- subset_track(MountTom, tracks = c(5, 7, 10))
 
 }
 \seealso{
-\code{\link{tps.to.track}}
+\code{\link{tps_to_track}}
 }
 \author{
 Humberto G. Ferrón

@@ -92,7 +92,7 @@
 #'
 #' @importFrom stringr str_pad
 #'
-#' @seealso \code{\link{tps.to.track}}
+#' @seealso \code{\link{tps_to_track}}
 #'
 #' @export
 

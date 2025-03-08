@@ -89,7 +89,7 @@
 #' @importFrom dplyr group_by summarise ungroup n
 #' @importFrom magrittr %>%
 #'
-#' @seealso \code{\link{tps.to.track}}, \code{\link{test.direction}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{test_direction}}
 #'
 #' @export
 

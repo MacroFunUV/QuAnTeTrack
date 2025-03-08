@@ -99,7 +99,7 @@
 #' @importFrom stats runif sd
 #' @importFrom NISTunits NISTdegTOradian
 #'
-#' @seealso \code{\link{tps_to_track}}, \code{\link{plot.sim}}, \code{\link{subset_track}}, \code{\link[trajr]{TrajGenerate}}, \code{\link[trajr]{TrajStepLengths}}, \code{\link[trajr]{TrajAngles}}, \code{\link[trajr]{TrajRotate}}, \code{\link[trajr]{TrajTranslate}}, \code{\link[NISTunits]{NISTdegTOradian}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{plot_sim}}, \code{\link{subset_track}}, \code{\link[trajr]{TrajGenerate}}, \code{\link[trajr]{TrajStepLengths}}, \code{\link[trajr]{TrajAngles}}, \code{\link[trajr]{TrajRotate}}, \code{\link[trajr]{TrajTranslate}}, \code{\link[NISTunits]{NISTdegTOradian}}
 #'
 #' @export
 

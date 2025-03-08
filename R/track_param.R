@@ -84,7 +84,7 @@
 #' @importFrom trajr TrajSinuosity2
 #' @importFrom trajr TrajStraightness
 #'
-#' @seealso \code{\link{tps.to.track}}
+#' @seealso \code{\link{tps_to_track}}
 #'
 #' @export
 

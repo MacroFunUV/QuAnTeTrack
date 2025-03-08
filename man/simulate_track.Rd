@@ -113,7 +113,7 @@ Cheung, A., Zhang, S., Stricker, C., & Srinivasan, M. V. (2007). Animal navigati
 Cheung, A., Zhang, S., Stricker, C., & Srinivasan, M. V. (2008). Animal navigation: general properties of directed walks. Biological cybernetics, 99, 197-217.
 }
 \seealso{
-\code{\link{tps_to_track}}, \code{\link{plot.sim}}, \code{\link{subset_track}}, \code{\link[trajr]{TrajGenerate}}, \code{\link[trajr]{TrajStepLengths}}, \code{\link[trajr]{TrajAngles}}, \code{\link[trajr]{TrajRotate}}, \code{\link[trajr]{TrajTranslate}}, \code{\link[NISTunits]{NISTdegTOradian}}
+\code{\link{tps_to_track}}, \code{\link{plot_sim}}, \code{\link{subset_track}}, \code{\link[trajr]{TrajGenerate}}, \code{\link[trajr]{TrajStepLengths}}, \code{\link[trajr]{TrajAngles}}, \code{\link[trajr]{TrajRotate}}, \code{\link[trajr]{TrajTranslate}}, \code{\link[NISTunits]{NISTdegTOradian}}
 }
 \author{
 Humberto G. Ferrón

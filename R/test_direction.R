@@ -65,7 +65,7 @@
 #' @importFrom car leveneTest
 #' @importFrom dunn.test dunn.test
 #'
-#' @seealso \code{\link{tps.to.track}}, \code{\link{plot.direction}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{plot_direction}}
 #'
 #' @export
 

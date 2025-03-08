@@ -16,7 +16,7 @@
 #' trajectories' origins.
 #'
 #' @details
-#' The \code{track_instersection()} function calculates the number of unique intersections between trajectories.
+#' The \code{track_intersection()} function calculates the number of unique intersections between trajectories.
 #' The function also provides options for conducting hypothesis testing through simulated data with permutations of simulated
 #' trajectory origins, enabling the calculation of p-values to evaluate the significance of observed intersections.
 #'
@@ -85,26 +85,26 @@
 #' # Example 1: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
 #' # No origin permutation is applied ("None").
 #' s1 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Directed")
-#' int1 <- track_instersection(PaluxyRiver, test = TRUE, sim = s1, origin.permutation = "None")
+#' int1 <- track_intersection(PaluxyRiver, test = TRUE, sim = s1, origin.permutation = "None")
 #' print(int1)
 #'
 #' # Example 2: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
 #' # The origin permutation is applied using the minimum bounding box ("Min.Box").
 #' s2 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Constrained")
-#' int2 <- track_instersection(PaluxyRiver, test = TRUE, sim = s2, origin.permutation = "Min.Box")
+#' int2 <- track_intersection(PaluxyRiver, test = TRUE, sim = s2, origin.permutation = "Min.Box")
 #' print(int2)
 #'
 #' # Example 3: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
 #' # The origin permutation is applied using the convex hull ("Conv.Hull").
 #' s3 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Unconstrained")
-#' int3 <- track_instersection(PaluxyRiver, test = TRUE, sim = s3, origin.permutation = "Conv.Hull")
+#' int3 <- track_intersection(PaluxyRiver, test = TRUE, sim = s3, origin.permutation = "Conv.Hull")
 #' print(int3)
 #'
 #' # Example 4: Simulating tracks and comparing intersection metrics in a subsample of the MoutTom dataset.
 #' # The "Min.Box" origin permutation is applied.
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 #' s4 <- simulate_track(sbMountTom, nsim = 1000)
-#' int4 <- track_instersection(sbMountTom, test = TRUE, sim = s4, origin.permutation = "Min.Box")
+#' int4 <- track_intersection(sbMountTom, test = TRUE, sim = s4, origin.permutation = "Min.Box")
 #' print(int4)
 #'
 #' # Example 5: Simulating tracks and comparing intersection metrics in a subsample of the MoutTom dataset.
@@ -116,7 +116,7 @@
 #'                         10, 20,
 #'                         50, 20),
 #'                       ncol = 2, byrow = TRUE)
-#' int5 <- track_instersection(sbMountTom, test = TRUE, sim = s5, origin.permutation = "Custom", custom.coord = area_origin)
+#' int5 <- track_intersection(sbMountTom, test = TRUE, sim = s5, origin.permutation = "Custom", custom.coord = area_origin)
 #' print(int5)
 #'
 #' @importFrom grDevices chull
@@ -129,7 +129,7 @@
 #' @export
 
 
-track_instersection <- function(data, test = NULL, sim = NULL, origin.permutation = NULL, custom.coord = NULL) {
+track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation = NULL, custom.coord = NULL) {
 
   ## Set default values if arguments are NULL----
   if (is.null(test)) test <- FALSE  # Set default if 'test' is NULL

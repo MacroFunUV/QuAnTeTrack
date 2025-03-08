@@ -88,7 +88,7 @@
 #' @importFrom ggplot2 theme_light
 #' @importFrom ggplot2 labs
 #'
-#' @seealso \code{\link{tps.to.track}}, \code{\link{velocity_track}}, \code{\link[ggplot2]{scale_color_gradientn}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{velocity_track}}, \code{\link[ggplot2]{scale_color_gradientn}}
 #'
 #' @export
 

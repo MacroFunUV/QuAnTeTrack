@@ -1,13 +1,13 @@
 #' Test for differences in velocity means with pairwise comparisons
 #'
-#' \code{test_velocity} evaluates differences in velocity means across different tracks using a specified statistical test. It includes options for ANOVA, Kruskal-Wallis test, and Generalized Linear Models (GLM), and checks for assumptions such as normality and homogeneity of variances. For datasets with more than two tracks, it performs pairwise comparisons to identify specific differences between tracks.
+#' \code{test_velocity()} evaluates differences in velocity means across different tracks using a specified statistical test. It includes options for ANOVA, Kruskal-Wallis test, and Generalized Linear Models (GLM), and checks for assumptions such as normality and homogeneity of variances. For datasets with more than two tracks, it performs pairwise comparisons to identify specific differences between tracks.
 #'
 #' @param data A 'track' R object, which is a list consisting of two elements:
 #'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
 #'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #' @param trackvel A 'track velocity' R object consisting of a list where each element corresponds to a track and contains velocity or relative stride length data.
 #' @param plot A logical value indicating whether to plot a boxplot of velocities by track (default is \code{FALSE}).
-#' @param analysis A character string specifying the type of analysis: `"ANOVA"`, `"Kruskal-Wallis"`, or `"GLM"`. Default is `"ANOVA"`.
+#' @param analysis A character string specifying the type of analysis: \code{"ANOVA"}, \code{"Kruskal-Wallis"}, or \code{"GLM"}. Default is \code{"ANOVA"}.
 #'
 #' @details
 #' The \code{test_velocity} function performs the following operations:
@@ -21,7 +21,7 @@
 #' - **Statistical Analysis:**
 #'   - **ANOVA:** Compares mean velocities across tracks, assuming normality and homogeneity of variances. Includes Tukey's HSD post-hoc test for pairwise comparisons.
 #'   - **Kruskal-Wallis Test:** Non-parametric alternative to ANOVA for comparing median velocities across tracks when assumptions are violated. Includes Dunn's test for pairwise comparisons.
-#'   - **GLM:** Generalized Linear Model with a Gaussian family for comparing means if ANOVA assumptions are not met. Pairwise comparisons are done using `emmeans`.
+#'   - **GLM:** Generalized Linear Model with a Gaussian family for comparing means if ANOVA assumptions are not met. Pairwise comparisons are done using \pkg{emmeans} package.
 #'
 #' - **Plotting:**
 #'   - If \code{plot} is \code{TRUE}, a boxplot of velocities by track is generated.
@@ -53,7 +53,7 @@
 #' H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872, 1.648, 1.760, 1.612)
 #'
 #' # Calculate velocities using the default Method "A"
-#' V_mounttom <- velocity.track(MountTom, H = H_mounttom)
+#' V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 #'
 #' # Test for Differences in Velocity Means with Pairwise Comparisons
 #' test_velocity(MountTom, V_mounttom)
@@ -67,7 +67,7 @@
 #' Method_paluxyriver <- c("A", "B")
 #'
 #' # Calculate velocities using specified methods
-#' V_paluxyriver <- velocity.track(PaluxyRiver, H = H_paluxyriver, Method = Method_paluxyriver)
+#' V_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 #'
 #' # Test for Differences in Velocity Means with Pairwise Comparisons
 #' test_velocity(PaluxyRiver, V_paluxyriver)
@@ -79,7 +79,7 @@
 #' @importFrom stringr str_pad
 #' @importFrom stats aov cor.test kruskal.test glm pnorm shapiro.test
 #'
-#' @seealso \code{\link[tps.to.track]{tps.to.track}}, \code{\link[velocity.track]{velocity.track}}
+#' @seealso \code{\link{tps.to.track}}, \code{\link{velocity_track}}
 #'
 #' @export
 

@@ -24,9 +24,9 @@ Options are \code{"None"}, \code{"Centroid"}, or \code{"Origin"}. Default is \co
 \value{
 A 'track similarity' R object consisting ofa list containing the following elements:
 \item{Frechet_distance_metric}{A matrix containing the pairwise Frechet distances between trajectories.}
-\item{Frechet_distance_metric_p_values}{(If \code{test} is TRUE) A matrix containing the p-values for the pairwise Frechet distances.}
-\item{Frechet_metric_p_values_combined}{(If \code{test} is TRUE) The overall p-value for the combined Frechet distances.}
-\item{Frechet_distance_metric_simulations}{(If \code{test} is TRUE) A list of Frechet distance matrices from each simulated dataset.}
+\item{Frechet_distance_metric_p_values}{(If \code{test} is \code{TRUE)} A matrix containing the p-values for the pairwise Frechet distances.}
+\item{Frechet_metric_p_values_combined}{(If \code{test} is \code{TRUE)} The overall p-value for the combined Frechet distances.}
+\item{Frechet_distance_metric_simulations}{(If \code{test} is \code{TRUE)} A list of Frechet distance matrices from each simulated dataset.}
 }
 \description{
 \code{simil_Frechet_metric()} computes similarity metrics between two or more trajectories using
@@ -35,7 +35,7 @@ to align trajectories before calculating the Fréchet distance  metrics. The fun
 testing with simulations to calculate p-values for the Fréchet distance metrics.
 }
 \details{
-The \code{simil_Frechet_metric} function calculates the similarity between trajectories using
+The \code{simil_Frechet_metric()} function calculates the similarity between trajectories using
 the \code{Frechet()} function from the \pkg{SimilarityMeasures} package.
 
 The Fréchet distance is a measure of similarity between two curves or continuous trajectories, which takes into account
@@ -98,7 +98,7 @@ simil_Frechet_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin"
 Cleasby, I. R., Wakefield, E. D., Morrissey, B. J., Bodey, T. W., Votier, S. C., Bearhop, S., & Hamer, K. C. (2019). Using time-series similarity measures to compare animal movement trajectories in ecology. Behavioral Ecology and Sociobiology, 73, 1-19.
 }
 \seealso{
-\code{\link[tps_to_track]{tps_to_track}}, \code{\link[simulate_track]{simulate_track}}, \code{\link[SimilarityMeasures]{Frechet}}
+\code{\link{tps_to_track}}, \code{\link{simulate_track}}, \code{\link[SimilarityMeasures]{Frechet}}
 }
 \author{
 Humberto G. Ferrón

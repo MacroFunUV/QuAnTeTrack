@@ -58,16 +58,16 @@ This model is suitable for simulating exploratory or dispersal behavior in open 
 
 Note: Simulations cannot be applied to trajectories with fewer than four steps as the standard deviations of angles and step lengths cannot be computed for such short trajectories. Consider using the \code{subset_track()} function to filter tracks with four or more steps.
 
-The function utilizes the \code{trajr} package for key calculations:
+The function utilizes the \pkg{trajr} package for key calculations:
 \itemize{
-\item \code{TrajGenerate}: Generates a new trajectory based on random or directed movement models, constrained by specified parameters.
-\item \code{TrajStepLengths}: Calculates the step lengths (distances between consecutive points) of the original trajectory.
-\item \code{TrajAngles}: Computes the angles between consecutive segments of the trajectory, used to maintain directional movement in constrained models.
-\item \code{TrajRotate}: Rotates the trajectory by a specified angle to match the original direction or a random angle for unconstrained models.
-\item \code{TrajTranslate}: Translates the simulated trajectory to start at the same geographic location as the original.
+\item \code{TrajGenerate()}: Generates a new trajectory based on random or directed movement models, constrained by specified parameters.
+\item \code{TrajStepLengths()}: Calculates the step lengths (distances between consecutive points) of the original trajectory.
+\item \code{TrajAngles()}: Computes the angles between consecutive segments of the trajectory, used to maintain directional movement in constrained models.
+\item \code{TrajRotate()}: Rotates the trajectory by a specified angle to match the original direction or a random angle for unconstrained models.
+\item \code{TrajTranslate()}: Translates the simulated trajectory to start at the same geographic location as the original.
 }
 
-The \code{NISTdegTOradian} function from the \code{NISTunits} package is used to convert angles from degrees to radians.
+The \code{NISTdegTOradian()} function from the \pkg{NISTunits} package is used to convert angles from degrees to radians.
 }
 \section{Logo}{
 
@@ -113,7 +113,7 @@ Cheung, A., Zhang, S., Stricker, C., & Srinivasan, M. V. (2007). Animal navigati
 Cheung, A., Zhang, S., Stricker, C., & Srinivasan, M. V. (2008). Animal navigation: general properties of directed walks. Biological cybernetics, 99, 197-217.
 }
 \seealso{
-\code{\link[tps_to_track]{tps_to_track}}, \code{\link[plot.sim]{plot.sim}}, \code{\link[subset_track]{subset_track}}, \code{\link[trajr]{TrajGenerate}}, \code{\link[trajr]{TrajStepLengths}}, \code{\link[trajr]{TrajAngles}}, \code{\link[trajr]{TrajRotate}}, \code{\link[trajr]{TrajTranslate}}, \code{\link[NISTunits]{NISTdegTOradian}}
+\code{\link{tps_to_track}}, \code{\link{plot.sim}}, \code{\link{subset_track}}, \code{\link[trajr]{TrajGenerate}}, \code{\link[trajr]{TrajStepLengths}}, \code{\link[trajr]{TrajAngles}}, \code{\link[trajr]{TrajRotate}}, \code{\link[trajr]{TrajTranslate}}, \code{\link[NISTunits]{NISTdegTOradian}}
 }
 \author{
 Humberto G. Ferrón

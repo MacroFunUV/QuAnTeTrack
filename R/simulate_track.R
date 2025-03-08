@@ -12,37 +12,37 @@
 #' This function simulates movement trajectories based on the following models:
 #'
 #' - **Directed**: This model simulates movement that follows a specific direction navigating with a compass (i.e., a directed walk/allothetic directed walk/oriented path) (Cheung et al., 2007, 2008). The trajectory is constrained by both the angular and linear properties of the original track, with minor deviations allowed to reflect natural variability.
-#'     - **Angular constraints**: The trajectory closely follows a specific direction, maintaining the overall angular orientation of the original track. Deviations of consecutive steps are governed by the angular standard deviation calculated from the original track using `TrajAngles()`.
-#'     - **Linear constraints**: Step lengths are constrained to the mean of the original track's step lengths, with variability allowed according to the standard deviation of step lengths computed with `TrajStepLengths()`.
+#'     - **Angular constraints**: The trajectory closely follows a specific direction, maintaining the overall angular orientation of the original track. Deviations of consecutive steps are governed by the angular standard deviation calculated from the original track using \code{TrajAngles()}.
+#'     - **Linear constraints**: Step lengths are constrained to the mean of the original track's step lengths, with variability allowed according to the standard deviation of step lengths computed with \code{TrajStepLengths()}.
 #'     - **Starting direction**: Fixed to the original direction (overall angular orientation) of the track.
 #'
 #' This model is ideal for simulating movement directed toward a specific resource or constrained by natural barriers, with a relatively fixed direction and minor deviations.
 #'
 #' - **Constrained**: This model simulates movement that correspond to a correllated random walk/idiothetic directed walk (Kareiva & Shigesada, 1983), corresponding to an animal navigating without a compass (Cheung et al., 2008), while still maintaining certain angular and linear characteristics of the original track. It provides more flexibility than the Directed model but is not entirely random like the Unconstrained model.
-#'     - **Angular constraints**: The trajectory does not follow a specific direction. Deviations of consecutive steps are governed by the angular standard deviation calculated from the original track using `TrajAngles()`.
-#'     - **Linear constraints**: Step lengths are constrained to the mean of the original track's step lengths, with variability allowed according to the standard deviation of step lengths computed with `TrajStepLengths()`.
+#'     - **Angular constraints**: The trajectory does not follow a specific direction. Deviations of consecutive steps are governed by the angular standard deviation calculated from the original track using \code{TrajAngles()}.
+#'     - **Linear constraints**: Step lengths are constrained to the mean of the original track's step lengths, with variability allowed according to the standard deviation of step lengths computed with \code{TrajStepLengths()}.
 #'     - **Starting direction**: Fixed to the original direction (overall angular orientation) of the track.
 #'
 #' This model is suitable for scenarios where movement is influenced by external constraints but allows for some degree of random exploration.
 #'
 #' - **Unconstrained**: This model simulates movement that correspond to a correllated random walk/idiothetic directed walk (Kareiva & Shigesada, 1983), corresponding to an animal navigating without a compass (Cheung et al., 2008), while still maintaining certain angular and linear characteristics of the original track.
-#'     - **Angular constraints**: The trajectory does not follow a specific direction. Deviations of consecutive steps are governed by the angular standard deviation calculated from the original track using `TrajAngles()`.
-#'     - **Linear constraints**: Step lengths are constrained to the mean of the original track's step lengths, with variability allowed according to the standard deviation of step lengths computed with `TrajStepLengths()`.
+#'     - **Angular constraints**: The trajectory does not follow a specific direction. Deviations of consecutive steps are governed by the angular standard deviation calculated from the original track using \code{TrajAngles()}.
+#'     - **Linear constraints**: Step lengths are constrained to the mean of the original track's step lengths, with variability allowed according to the standard deviation of step lengths computed with \code{TrajStepLengths()}.
 #'     - **Starting direction**: Randomly determined.
 #'
 #' This model is suitable for simulating exploratory or dispersal behavior in open environments, where movement is random and not influenced by specific constraints.
 #'
-#' Note: Simulations cannot be applied to trajectories with fewer than four steps as the standard deviations of angles and step lengths cannot be computed for such short trajectories. Consider using the `subset_track()` function to filter tracks with four or more steps.
+#' Note: Simulations cannot be applied to trajectories with fewer than four steps as the standard deviations of angles and step lengths cannot be computed for such short trajectories. Consider using the \code{subset_track()} function to filter tracks with four or more steps.
 #'
-#' The function utilizes the `trajr` package for key calculations:
+#' The function utilizes the \pkg{trajr} package for key calculations:
 #'
-#' - `TrajGenerate`: Generates a new trajectory based on random or directed movement models, constrained by specified parameters.
-#' - `TrajStepLengths`: Calculates the step lengths (distances between consecutive points) of the original trajectory.
-#' - `TrajAngles`: Computes the angles between consecutive segments of the trajectory, used to maintain directional movement in constrained models.
-#' - `TrajRotate`: Rotates the trajectory by a specified angle to match the original direction or a random angle for unconstrained models.
-#' - `TrajTranslate`: Translates the simulated trajectory to start at the same geographic location as the original.
+#' - \code{TrajGenerate()}: Generates a new trajectory based on random or directed movement models, constrained by specified parameters.
+#' - \code{TrajStepLengths()}: Calculates the step lengths (distances between consecutive points) of the original trajectory.
+#' - \code{TrajAngles()}: Computes the angles between consecutive segments of the trajectory, used to maintain directional movement in constrained models.
+#' - \code{TrajRotate()}: Rotates the trajectory by a specified angle to match the original direction or a random angle for unconstrained models.
+#' - \code{TrajTranslate()}: Translates the simulated trajectory to start at the same geographic location as the original.
 #'
-#' The `NISTdegTOradian` function from the `NISTunits` package is used to convert angles from degrees to radians.
+#' The \code{NISTdegTOradian()} function from the \pkg{NISTunits} package is used to convert angles from degrees to radians.
 #'
 #' @return A 'track simulation' R object consisting of a list of simulated trajectories stored as 'track' R objects.
 #'
@@ -99,7 +99,7 @@
 #' @importFrom stats runif sd
 #' @importFrom NISTunits NISTdegTOradian
 #'
-#' @seealso \code{\link[tps_to_track]{tps_to_track}}, \code{\link[plot.sim]{plot.sim}}, \code{\link[subset_track]{subset_track}}, \code{\link[trajr]{TrajGenerate}}, \code{\link[trajr]{TrajStepLengths}}, \code{\link[trajr]{TrajAngles}}, \code{\link[trajr]{TrajRotate}}, \code{\link[trajr]{TrajTranslate}}, \code{\link[NISTunits]{NISTdegTOradian}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{plot.sim}}, \code{\link{subset_track}}, \code{\link[trajr]{TrajGenerate}}, \code{\link[trajr]{TrajStepLengths}}, \code{\link[trajr]{TrajAngles}}, \code{\link[trajr]{TrajRotate}}, \code{\link[trajr]{TrajTranslate}}, \code{\link[NISTunits]{NISTdegTOradian}}
 #'
 #' @export
 

@@ -38,7 +38,7 @@
 #' in a chasing or hunting scene or queuing, where one trackmaker is moving ahead of the other, the paths may intersect more frequently than
 #' random movement would predict, leading to an increase in intersections. In both cases, significant similarity metrics may also emerge,
 #' as these structured, non-random movement patterns deviate considerably from those in random simulations. Therefore, combining results
-#' from intersection counts and similarity metrics from \code{simil_DTW_metric} and \code{simil_Frechet_metric} functions might be advisable
+#' from intersection counts and similarity metrics from \code{simil_DTW_metric()} and \code{simil_Frechet_metric()} functions might be advisable
 #' when testing specific behavioral hypotheses.
 #'
 #' The application of permutation to the origins of simulated trajectories, and the method selected, depends on the hypothesis being tested.
@@ -59,14 +59,14 @@
 #' @return A 'track intersection' R object consisting of a list containing the following elements:
 #' \item{Intersection_metric}{A matrix of unique intersection counts between trajectories. Each entry
 #' represents the number of unique intersection points between the corresponding pair of trajectories.}
-#' \item{Intersection_metric_p_values}{(If `test` is TRUE) A matrix of p-values associated with
+#' \item{Intersection_metric_p_values}{(If \code{test = TRUE}) A matrix of p-values associated with
 #' the intersection metrics, calculated through permutations of simulated trajectory origins. Each entry
 #' reflects the probability of observing an intersection count as extreme as the observed one,
 #' given the null hypothesis of no difference.}
-#' \item{Intersection_metric_p_values_combined}{(If `test` is TRUE) A numeric value representing
+#' \item{Intersection_metric_p_values_combined}{(If \code{test = TRUE}) A numeric value representing
 #' the combined p-value for all intersections, indicating the overall significance of the
 #' intersection metrics across all pairs of trajectories.}
-#' \item{Intersection_metric_simulations}{(If `test` is TRUE) A list containing matrices of
+#' \item{Intersection_metric_simulations}{(If \code{test = TRUE}) A list containing matrices of
 #' intersection counts for each simulation iteration, allowing for further inspection of the
 #' distribution of intersections across multiple randomized scenarios.}
 #'
@@ -124,7 +124,7 @@
 #' @importFrom splancs csr
 #' @importFrom trajr TrajTranslate
 #'
-#' @seealso \code{\link[tps_to_track]{tps_to_track}}, \code{\link[simulate_track]{simulate_track}}, \code{\link[simil_DTW_metric]{simil_DTW_metric}}, \code{\link[simil_Frechet_metric]{simil_Frechet_metric}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{simulate_track}}, \code{\link{simil_DTW_metric}}, \code{\link{simil_Frechet_metric}}
 #'
 #' @export
 

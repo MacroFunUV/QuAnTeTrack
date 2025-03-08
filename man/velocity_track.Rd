@@ -39,7 +39,7 @@ The parameters included are:
 \code{velocity_track()} calculates the velocities and relative stride lengths for each step in a series of tracks, based on the step length, height at the hip, and gravity acceleration.
 }
 \details{
-The \code{velocity_track} function calculates velocities using two methods:
+The \code{velocity_track()} function calculates velocities using two methods:
 
 \strong{Method A}: Based on Alexander (1976), with the formula:
 \deqn{v = 0.25 \cdot \sqrt{G} \cdot S^{1.67} \cdot H^{-1.17}}{v = 0.25 * sqrt(G) * S^1.67 * H^-1.17}
@@ -108,7 +108,7 @@ Ruiz, J., & Torices, A. (2013). Humans running at stadiums and beaches and the a
 Thulborn, R. A., & Wade, M. (1984). Dinosaur trackways in the Winton Formation (mid-Cretaceous) of Queensland. Memoirs of the Queensland Museum, 21(2), 413-517.
 }
 \seealso{
-\code{\link[tps.to.track]{tps.to.track}}
+\code{\link{tps.to.track}}
 }
 \author{
 Humberto G. Ferrón

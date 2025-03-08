@@ -20,16 +20,16 @@ A list with the results of the statistical analysis and diagnostic tests:
 \itemize{
 \item \code{normality_results}: A matrix of test statistics and p-values from the Shapiro-Wilk test for each track, with rows for the test statistic and p-value, and columns for each track.
 \item \code{homogeneity_test}: The result of Levene's test, including the p-value for homogeneity of variances.
-\item \code{ANOVA} (If \code{analysis} is "ANOVA"): A list containing the ANOVA table and Tukey HSD post-hoc test results.
-\item \code{Kruskal_Wallis} (If \code{analysis} is "Kruskal-Wallis"): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.
-\item \code{GLM} (If \code{analysis} is "GLM"): A summary of the GLM fit.
+\item \code{ANOVA} (If \code{analysis} is \code{"ANOVA"}): A list containing the ANOVA table and Tukey HSD post-hoc test results.
+\item \code{Kruskal_Wallis} (If \code{analysis} is \code{"Kruskal-Wallis"}): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.
+\item \code{GLM} (If \code{analysis} is \code{"GLM"}): A summary of the GLM fit.
 }
 }
 \description{
-\code{test_direction} evaluates differences in mean direction across different tracks using a specified statistical test. It includes options for ANOVA, Kruskal-Wallis test, and Generalized Linear Models (GLM), and checks for assumptions such as normality and homogeneity of variances. For datasets with more than two tracks, it performs pairwise comparisons to identify specific differences between tracks.
+\code{test_direction()} evaluates differences in mean direction across different tracks using a specified statistical test. It includes options for ANOVA, Kruskal-Wallis test, and Generalized Linear Models (GLM), and checks for assumptions such as normality and homogeneity of variances. For datasets with more than two tracks, it performs pairwise comparisons to identify specific differences between tracks.
 }
 \details{
-The \code{test_direction} function performs the following operations:
+The \code{test_direction()} function performs the following operations:
 \itemize{
 \item \strong{Condition Testing:}
 \itemize{
@@ -40,7 +40,7 @@ The \code{test_direction} function performs the following operations:
 \itemize{
 \item \strong{ANOVA:} Compares step mean directions across tracks, assuming normality and homogeneity of variances. Includes Tukey's HSD post-hoc test for pairwise comparisons.
 \item \strong{Kruskal-Wallis Test:} Non-parametric alternative to ANOVA for comparing step median directions across tracks when assumptions are violated. Includes Dunn's test for pairwise comparisons.
-\item \strong{GLM:} Generalized Linear Model with a Gaussian family for comparing step means if ANOVA assumptions are not met.
+\item \strong{GLM:} Generalized Linear Model with a Gaussian family for comparing step means if ANOVA assumptions are not met. Pairwise comparisons are done using \pkg{emmeans} package.
 }
 \item \strong{Direction Measurement:}
 \itemize{
@@ -75,7 +75,7 @@ test_direction(PaluxyRiver, analysis = "GLM")
 
 }
 \seealso{
-\code{\link[tps.to.track]{tps.to.track}}, \code{\link[plot.direction]{plot.direction}}
+\code{\link{tps.to.track}}, \code{\link{plot.direction}}
 }
 \author{
 Humberto G. Ferrón

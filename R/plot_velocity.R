@@ -1,6 +1,6 @@
 #' Plot trajectories colored by velocity or relative stride length
 #'
-#' \code{plot_velocity()} creates a plot of trajectories, colored by either velocity or relative stride length from 'track' and 'track velocity' R objects. The function uses `ggplot2` for visualization and allows customization of line width and color gradients.
+#' \code{plot_velocity()} creates a plot of trajectories, colored by either velocity or relative stride length from 'track' and 'track velocity' R objects. The function uses \pkg{ggplot2} package for visualization and allows customization of line width and color gradients.
 #'
 #' @param data A 'track' R object, which is a list consisting of two elements:
 #'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
@@ -15,9 +15,9 @@
 #' @param legend Logical. If \code{TRUE}, the legend will be shown. If \code{FALSE}, the legend will be removed. Default is \code{TRUE}.
 #'
 #' @details
-#' The function creates a plot where each trajectory is colored based on the specified parameter (`"V"` for velocity or `"RSL"` for relative stride length). The `ggplot2` package is used for plotting.
+#' The function creates a plot where each trajectory is colored based on the specified parameter (\code{"V"} for velocity or \code{"RSL"} for relative stride length). The \pkg{ggplot2} package is used for plotting.
 #'
-#' The color gradient for the parameter is applied using `scale_color_gradientn()`. The color palette can be customized via the `colours` argument.
+#' The color gradient for the parameter is applied using \code{scale_color_gradientn()}. The color palette can be customized via the \code{colours} argument.
 #'
 #' @return A ggplot object showing the trajectories colored by the specified parameter.
 #'
@@ -88,7 +88,7 @@
 #' @importFrom ggplot2 theme_light
 #' @importFrom ggplot2 labs
 #'
-#' @seealso \code{\link[tps.to.track]{tps.to.track}}, \code{\link[velocity_track]{velocity_track}}, \code{\link[ggplot2]{scale_color_gradientn}}
+#' @seealso \code{\link{tps.to.track}}, \code{\link{velocity_track}}, \code{\link[ggplot2]{scale_color_gradientn}}
 #'
 #' @export
 

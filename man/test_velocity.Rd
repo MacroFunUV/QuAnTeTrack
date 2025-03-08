@@ -31,7 +31,7 @@ A list with the results of the statistical analysis and diagnostic tests:
 }
 }
 \description{
-\code{test_velocity} evaluates differences in velocity means across different tracks using a specified statistical test. It includes options for ANOVA, Kruskal-Wallis test, and Generalized Linear Models (GLM), and checks for assumptions such as normality and homogeneity of variances. For datasets with more than two tracks, it performs pairwise comparisons to identify specific differences between tracks.
+\code{test_velocity()} evaluates differences in velocity means across different tracks using a specified statistical test. It includes options for ANOVA, Kruskal-Wallis test, and Generalized Linear Models (GLM), and checks for assumptions such as normality and homogeneity of variances. For datasets with more than two tracks, it performs pairwise comparisons to identify specific differences between tracks.
 }
 \details{
 The \code{test_velocity} function performs the following operations:
@@ -47,7 +47,7 @@ The results of this test are stored in \code{homogeneity_test}, with the p-value
 \itemize{
 \item \strong{ANOVA:} Compares mean velocities across tracks, assuming normality and homogeneity of variances. Includes Tukey's HSD post-hoc test for pairwise comparisons.
 \item \strong{Kruskal-Wallis Test:} Non-parametric alternative to ANOVA for comparing median velocities across tracks when assumptions are violated. Includes Dunn's test for pairwise comparisons.
-\item \strong{GLM:} Generalized Linear Model with a Gaussian family for comparing means if ANOVA assumptions are not met. Pairwise comparisons are done using \code{emmeans}.
+\item \strong{GLM:} Generalized Linear Model with a Gaussian family for comparing means if ANOVA assumptions are not met. Pairwise comparisons are done using \pkg{emmeans} package.
 }
 \item \strong{Plotting:}
 \itemize{
@@ -68,7 +68,7 @@ The results of this test are stored in \code{homogeneity_test}, with the p-value
 H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872, 1.648, 1.760, 1.612)
 
 # Calculate velocities using the default Method "A"
-V_mounttom <- velocity.track(MountTom, H = H_mounttom)
+V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 
 # Test for Differences in Velocity Means with Pairwise Comparisons
 test_velocity(MountTom, V_mounttom)
@@ -82,14 +82,14 @@ H_paluxyriver <- c(3.472,2.200)
 Method_paluxyriver <- c("A", "B")
 
 # Calculate velocities using specified methods
-V_paluxyriver <- velocity.track(PaluxyRiver, H = H_paluxyriver, Method = Method_paluxyriver)
+V_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 
 # Test for Differences in Velocity Means with Pairwise Comparisons
 test_velocity(PaluxyRiver, V_paluxyriver)
 
 }
 \seealso{
-\code{\link[tps.to.track]{tps.to.track}}, \code{\link[velocity.track]{velocity.track}}
+\code{\link{tps.to.track}}, \code{\link{velocity_track}}
 }
 \author{
 Humberto G. Ferrón

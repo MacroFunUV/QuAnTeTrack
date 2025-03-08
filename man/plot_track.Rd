@@ -52,7 +52,7 @@ plot_track(
 \item{alpha.l}{The transparency of the labels. Default is 0.5.}
 }
 \value{
-A \code{ggplot} object that displays the specified plot type, including tracks, footprints, or both, from 'track' R objects. The \code{ggplot2} package is used for plotting.
+A \code{ggplot} object that displays the specified plot type, including tracks, footprints, or both, from 'track' R objects. The \pkg{ggplot2} package is used for plotting.
 }
 \description{
 \code{plot_track()} visualizes track and footprint data in various ways, allowing for the plotting of trajectories, footprints, or both combined, with customizable aesthetics.
@@ -123,7 +123,7 @@ plot_track(PaluxyRiver, colours = NULL, shape.f = c(16, 16),
 
 }
 \seealso{
-\code{\link[tps.to.track]{tps.to.track}}
+\code{\link{tps.to.track}}
 }
 \author{
 Humberto G. Ferrón

@@ -1,11 +1,11 @@
 #' Test for steady, acceleration, or deceleration along trajectories
 #'
-#' \code{mode_velocity} evaluates the trend in velocity along each trajectory by applying Spearman's rank correlation test. The function classifies the trend into "acceleration," "deceleration," or "steady" based on the correlation and the p-value.
+#' \code{mode_velocity()} evaluates the trend in velocity along each trajectory by applying Spearman's rank correlation test. The function classifies the trend into "acceleration," "deceleration," or "steady" based on the correlation and the p-value.
 #'
 #' @param trackvel A list where each element corresponds to a track and contains a vector of velocity or relative stride length data.
 #'
 #' @details
-#' The \code{mode_velocity} function performs the following operations:
+#' The \code{mode_velocity()} function performs the following operations:
 #'
 #' - **Spearman's Rank Correlation Test:**
 #'   - This non-parametric test assesses the strength and direction of a monotonic relationship between two variables. It does not require assumptions about the normality of data or a linear relationship between velocity and step number.
@@ -58,7 +58,7 @@
 #' H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872, 1.648, 1.760, 1.612)
 #'
 #' # Calculate velocities using the default Method "A"
-#' V_mounttom <- velocity.track(MountTom, H = H_mounttom)
+#' V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 #'
 #' # Test for Steady, Acceleration, or Deceleration
 #' mode_velocity(V_mounttom)
@@ -72,14 +72,14 @@
 #' Method_paluxyriver <- c("A", "B")
 #'
 #' # Calculate velocities using specified methods
-#' V_paluxyriver <- velocity.track(PaluxyRiver, H = H_paluxyriver, Method = Method_paluxyriver)
+#' V_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 #'
 #' # Test for Steady, Acceleration, or Deceleration
 #' mode_velocity(V_paluxyriver)
 #'
 #' @importFrom stringr str_pad
 #'
-#' @seealso \code{\link[tps.to.track]{tps.to.track}}, \code{\link[velocity.track]{velocity.track}}, \code{\link[plot.velocity]{plot.velocity}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{velocity_track}}, \code{\link{plot_velocity}}
 #'
 #' @export
 

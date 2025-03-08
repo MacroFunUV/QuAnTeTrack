@@ -7,7 +7,7 @@
 #'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #' @param veltrack A 'track velocity' R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.
 #' @param variables A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include: \code{"TurnAng"}, \code{"sdTurnAng"}, \code{"Distance"}, \code{"Length"}, \code{"StLength"}, \code{"sdStLength"}, \code{"Sinuosity"}, \code{"Straightness"}, \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"}.
-#'
+#'a
 #' @details
 #' The \code{cluster_track()} function performs a model-based clustering analysis on track parameters using the \code{Mclust()} function from the \pkg{mclust} package.
 #'
@@ -75,24 +75,13 @@
 #'  Scrucca L., Fop M., Murphy T. B., & Raftery A. E. (2016) mclust 5: clustering, classification and density estimation using Gaussian finite mixture models. The R Journal, 8(1), 289-317.
 #'
 #' @examples
-#' # Load example data
-#' data(MountTom)
-#' data(PaluxyRiver)
-#'
-#' # Compute velocity for MountTom dataset
-#' H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768,
-#'                 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620,
-#'                 0.636, 1.784, 1.676, 1.872, 1.648, 1.760, 1.612)
-#' veltrack_MountTom <- velocity_track(MountTom, H = H_mounttom)
-#'
-#' # Compute velocity for PaluxyRiver dataset
-#' H_paluxyriver <- c(3.472, 2.200)
-#' Method_paluxyriver <- c("A", "B")
-#' veltrack_PaluxyRiver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
-#'
 #' # Example 1: Cluster MountTom tracks using TurnAng and Velocity
+#' H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
+#'                 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784,
+#'                 1.676, 1.872, 1.648, 1.760, 1.612) # Hip heights for MountTom tracks
+#' veltrack_MountTom <- velocity_track(MountTom, H = H_mounttom)
 #' result1 <- cluster_track(MountTom, veltrack_MountTom, variables = c("TurnAng", "Velocity"))
-#' summary(result1$clust)
+#' result1$clust$classification
 #'
 #' # Example 2: Cluster MountTom tracks using Sinuosity and Step Length
 #' result2 <- cluster_track(MountTom, veltrack_MountTom, variables = c("Sinuosity", "StLength"))
@@ -100,31 +89,37 @@
 #'
 #' # Example 3: Cluster MountTom tracks using Maximum and Minimum Velocity
 #' result3 <- cluster_track(MountTom, veltrack_MountTom, variables = c("MaxVelocity", "MinVelocity"))
-#' table(result3$clust$classification)
+#' result3$clust$classification
 #'
 #' # Example 4: Cluster MountTom tracks using Straightness
 #' result4 <- cluster_track(MountTom, veltrack_MountTom, variables = "Straightness")
-#' BIC(result4$clust)
+#' result4$clust$classification
 #'
 #' # Example 5: Cluster PaluxyRiver tracks using Distance and Straightness
+#' H_paluxyriver <- c(3.472, 2.200) # Hip heights for PaluxyRiver tracks
+#' Method_paluxyriver <- c("A", "B") # Different methods for different tracks
+#' veltrack_PaluxyRiver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 #' result5 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver, variables = c("Distance", "Straightness"))
+#' result5$matrix
 #' result5$clust$classification
 #'
 #' # Example 6: Cluster PaluxyRiver tracks using Length and SD of Velocity
 #' result6 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver, variables = c("Length", "sdVelocity"))
-#' hist(result6$matrix$Length, main = "Distribution of Track Lengths", xlab = "Length")
+#' plot(result6$clust)
 #'
 #' # Example 7: Cluster PaluxyRiver tracks using TurnAng and SD of TurnAng
 #' result7 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver, variables = c("TurnAng", "sdTurnAng"))
-#' str(result7$clust)
+#' result7$clust$classification
 #'
-#' # Example 8: Cluster PaluxyRiver tracks using Step Length and Sinuosity
-#' result8 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver, variables = c("StLength", "Sinuosity"))
-#' pairs(result8$matrix, col = result8$clust$classification, pch = 16)
+#' # Example 8: Cluster PaluxyRiver tracks using Sinuosity
+#' result8 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver, variables = c("Sinuosity"))
+#' result8$clust$classification
 #'
 #' @importFrom mclust Mclust
+#' @importFrom mclust mclustBIC
+#' @importFrom mclust mclust.options
 #'
-#' @seealso \code{\link[track_param]{track_param}}, \code{\link[velocity_track]{velocity_track}}, \code{\link[mclust]{Mclust}}
+#' @seealso \code{\link{track_param}}, \code{\link{velocity_track}}, \code{\link[mclust]{Mclust}}
 #'
 #' @export
 

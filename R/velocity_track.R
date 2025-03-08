@@ -10,7 +10,7 @@
 #' @param method A character vector specifying the method to calculate velocities for each track. Method "A" follows the approach from Alexander (1976), while method "B" is based on Ruiz & Torices (2013). If \code{NULL}, method "A" will be used for all tracks.
 #'
 #' @details
-#' The `velocity_track` function calculates velocities using two methods:
+#' The \code{velocity_track()} function calculates velocities using two methods:
 #'
 #' **Method A**: Based on Alexander (1976), with the formula:
 #' \deqn{v = 0.25 \cdot \sqrt{G} \cdot S^{1.67} \cdot H^{-1.17}}{v = 0.25 * sqrt(G) * S^1.67 * H^-1.17}
@@ -92,7 +92,7 @@
 #'
 #' @importFrom stringr str_pad
 #'
-#' @seealso \code{\link[tps.to.track]{tps.to.track}}
+#' @seealso \code{\link{tps.to.track}}
 #'
 #' @export
 

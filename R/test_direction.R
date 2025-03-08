@@ -1,14 +1,14 @@
 #' Test for Differences in Direction Means with Pairwise Comparisons
 #'
-#' \code{test_direction} evaluates differences in mean direction across different tracks using a specified statistical test. It includes options for ANOVA, Kruskal-Wallis test, and Generalized Linear Models (GLM), and checks for assumptions such as normality and homogeneity of variances. For datasets with more than two tracks, it performs pairwise comparisons to identify specific differences between tracks.
+#' \code{test_direction()} evaluates differences in mean direction across different tracks using a specified statistical test. It includes options for ANOVA, Kruskal-Wallis test, and Generalized Linear Models (GLM), and checks for assumptions such as normality and homogeneity of variances. For datasets with more than two tracks, it performs pairwise comparisons to identify specific differences between tracks.
 #'
 #' @param data A 'track' R object, which is a list consisting of two elements:
 #'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
 #'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
-#' @param analysis A character string specifying the type of analysis: `"ANOVA"`, `"Kruskal-Wallis"`, or `"GLM"`. Default is `"ANOVA"`.
+#' @param analysis A character string specifying the type of analysis: \code{"ANOVA"}, \code{"Kruskal-Wallis"}, or \code{"GLM"}. Default is \code{"ANOVA"}.
 #'
 #' @details
-#' The \code{test_direction} function performs the following operations:
+#' The \code{test_direction()} function performs the following operations:
 #'
 #' - **Condition Testing:**
 #'   - **Normality:** Shapiro-Wilk test for normality on step direction data within each track. Returns the test statistic and p-value.
@@ -17,7 +17,7 @@
 #' - **Statistical Analysis:**
 #'   - **ANOVA:** Compares step mean directions across tracks, assuming normality and homogeneity of variances. Includes Tukey's HSD post-hoc test for pairwise comparisons.
 #'   - **Kruskal-Wallis Test:** Non-parametric alternative to ANOVA for comparing step median directions across tracks when assumptions are violated. Includes Dunn's test for pairwise comparisons.
-#'   - **GLM:** Generalized Linear Model with a Gaussian family for comparing step means if ANOVA assumptions are not met.
+#'   - **GLM:** Generalized Linear Model with a Gaussian family for comparing step means if ANOVA assumptions are not met. Pairwise comparisons are done using \pkg{emmeans} package.
 #'
 #' - **Direction Measurement:**
 #'   - The direction is measured in degrees. The reference direction, or 0 degrees, is considered to be along the positive x-axis. Angles are measured counterclockwise from the positive x-axis, with 0 degrees pointing directly along this axis.
@@ -25,9 +25,9 @@
 #' @return A list with the results of the statistical analysis and diagnostic tests:
 #'   - \code{normality_results}: A matrix of test statistics and p-values from the Shapiro-Wilk test for each track, with rows for the test statistic and p-value, and columns for each track.
 #'   - \code{homogeneity_test}: The result of Levene's test, including the p-value for homogeneity of variances.
-#'   - \code{ANOVA} (If \code{analysis} is "ANOVA"): A list containing the ANOVA table and Tukey HSD post-hoc test results.
-#'   - \code{Kruskal_Wallis} (If \code{analysis} is "Kruskal-Wallis"): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.
-#'   - \code{GLM} (If \code{analysis} is "GLM"): A summary of the GLM fit.
+#'   - \code{ANOVA} (If \code{analysis} is \code{"ANOVA"}): A list containing the ANOVA table and Tukey HSD post-hoc test results.
+#'   - \code{Kruskal_Wallis} (If \code{analysis} is \code{"Kruskal-Wallis"}): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.
+#'   - \code{GLM} (If \code{analysis} is \code{"GLM"}): A summary of the GLM fit.
 #'
 #' @section Logo:
 #'\if{html}{\figure{Logo.png}{options: width=30\%}}
@@ -65,7 +65,7 @@
 #' @importFrom car leveneTest
 #' @importFrom dunn.test dunn.test
 #'
-#' @seealso \code{\link[tps.to.track]{tps.to.track}}, \code{\link[plot.direction]{plot.direction}}
+#' @seealso \code{\link{tps.to.track}}, \code{\link{plot.direction}}
 #'
 #' @export
 
@@ -99,17 +99,17 @@ test_direction <- function(data, analysis = NULL) {
 
   ## Code----
 
-  # Extract trajectory parameters from the 'track.param' function
-  track.param <- track.param(data)
+  # Extract trajectory parameters from the 'track_param' function
+  track_param <- track_param(data)
   data <- data[[1]]  # Update 'data' to only contain the first element (typically 'Trajectories')
 
   # Combine direction data from all tracks into a single vector 'n'
-  n <- c(track.param[[1]][[1]], track.param[[1]][[1]][[length(track.param[[1]][[1]])]])
+  n <- c(track_param[[1]][[1]], track_param[[1]][[1]][[length(track_param[[1]][[1]])]])
 
   # If more than one track is present, concatenate their direction data
   if (length(data) > 1) {
     for (i in 2:length(data)) {
-      n <- c(n, c(track.param[[i]][[1]], track.param[[i]][[1]][[length(track.param[[i]][[1]])]]))
+      n <- c(n, c(track_param[[i]][[1]], track_param[[i]][[1]][[length(track_param[[i]][[1]])]]))
     }
   }
 

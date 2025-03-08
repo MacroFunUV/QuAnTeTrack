@@ -79,7 +79,7 @@ combined_prob(sbMountTom, metrics = list(DTW5, Frechet5, int5))
 
 }
 \seealso{
-\code{\link[tps_to_track]{tps_to_track}}, \code{\link[simulate_track]{simulate_track}}, \code{\link[track_intersection]{track_intersection}}, \code{\link[simil_DTW_metric]{simil_DTW_metric}}, \code{\link[simil_Frechet_metric]{simil_Frechet_metric}}
+\code{\link{tps_to_track}}, \code{\link{simulate_track}}, \code{\link{track_intersection}}, \code{\link{simil_DTW_metric}}, \code{\link{simil_Frechet_metric}}
 }
 \author{
 Humberto G. Ferrón

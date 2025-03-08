@@ -19,7 +19,7 @@ subset_track(data, tracks = NULL)
 A 'track' R object that contains only the specified subset of tracks. The structure of the returned object mirrors the input structure but includes only the selected tracks.
 }
 \description{
-\code{subset_track} is a function that subsets tracks from a list of track data based on the specified indices.
+\code{subset_track()} is a function that subsets tracks from a list of track data based on the specified indices.
 }
 \details{
 This function subsets both the \strong{Trajectories} and \strong{Footprints} elements of the input data based on the provided vector of indices.
@@ -39,7 +39,7 @@ subset_data <- subset_track(MountTom, tracks = c(5, 7, 10))
 
 }
 \seealso{
-\code{\link[tps.to.track]{tps.to.track}}
+\code{\link{tps.to.track}}
 }
 \author{
 Humberto G. Ferrón

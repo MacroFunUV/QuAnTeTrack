@@ -1,19 +1,19 @@
 #' Print track parameters
 #'
-#' \code{track_param} is a function to compute and print various parameters of tracks from a list of track data.
+#' \code{track_param()} is a function to compute and print various parameters of tracks from a list of track data.
 #'
 #' @param data A 'track' R object, which is a list consisting of two elements:
 #'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
 #'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #'
 #' @details This function calculates various movement parameters for each track in the provided data.
-#' It uses the following helper functions from the \code{trajr} (Animal Trajectory Analysis) package:
-#'    * \code{TrajAngles}: Calculates the turning angles of the track.
-#'    * \code{TrajDistance}: Calculates the total distance covered by the track.
-#'    * \code{TrajLength}: Calculates the length of the track.
-#'    * \code{TrajStepLengths}: Calculates the step lengths of the track.
-#'    * \code{TrajSinuosity2}: Calculates the sinuosity of the track.
-#'    * \code{TrajStraightness}: Calculates the straightness of the track.
+#' It uses the following helper functions from the \pkg{trajr} (Animal Trajectory Analysis) package:
+#'    * \code{TrajAngles()}: Calculates the turning angles of the track.
+#'    * \code{TrajDistance()}: Calculates the total distance covered by the track.
+#'    * \code{TrajLength()}: Calculates the length of the track.
+#'    * \code{TrajStepLengths()}: Calculates the step lengths of the track.
+#'    * \code{TrajSinuosity2()}: Calculates the sinuosity of the track.
+#'    * \code{TrajStraightness()}: Calculates the straightness of the track.
 #'
 #' @return A list of lists, where each sublist contains the computed parameters for a corresponding track.
 #' The parameters included are:
@@ -84,7 +84,7 @@
 #' @importFrom trajr TrajSinuosity2
 #' @importFrom trajr TrajStraightness
 #'
-#' @seealso \code{\link[tps.to.track]{tps.to.track}}
+#' @seealso \code{\link{tps.to.track}}
 #'
 #' @export
 

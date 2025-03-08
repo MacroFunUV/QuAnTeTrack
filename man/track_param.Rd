@@ -52,18 +52,18 @@ for random trajectories, as the index for a random walk tends towards zero with 
 to use this measure to compare the tortuosity of random walks only if they consist of a similar number of steps.
 }
 \description{
-\code{track_param} is a function to compute and print various parameters of tracks from a list of track data.
+\code{track_param()} is a function to compute and print various parameters of tracks from a list of track data.
 }
 \details{
 This function calculates various movement parameters for each track in the provided data.
-It uses the following helper functions from the \code{trajr} (Animal Trajectory Analysis) package:
+It uses the following helper functions from the \pkg{trajr} (Animal Trajectory Analysis) package:
 \itemize{
-\item \code{TrajAngles}: Calculates the turning angles of the track.
-\item \code{TrajDistance}: Calculates the total distance covered by the track.
-\item \code{TrajLength}: Calculates the length of the track.
-\item \code{TrajStepLengths}: Calculates the step lengths of the track.
-\item \code{TrajSinuosity2}: Calculates the sinuosity of the track.
-\item \code{TrajStraightness}: Calculates the straightness of the track.
+\item \code{TrajAngles()}: Calculates the turning angles of the track.
+\item \code{TrajDistance()}: Calculates the total distance covered by the track.
+\item \code{TrajLength()}: Calculates the length of the track.
+\item \code{TrajStepLengths()}: Calculates the step lengths of the track.
+\item \code{TrajSinuosity2()}: Calculates the sinuosity of the track.
+\item \code{TrajStraightness()}: Calculates the straightness of the track.
 }
 }
 \section{Logo}{
@@ -88,7 +88,7 @@ Benhamou, S. (2004). How to reliably estimate the tortuosity of an animal's path
 Bovet, P., & Benhamou, S. (1988). Spatial analysis of animals' movements using a correlated random walk model. Journal of theoretical biology, 131(4), 419-433.
 }
 \seealso{
-\code{\link[tps.to.track]{tps.to.track}}
+\code{\link{tps.to.track}}
 }
 \author{
 Humberto G. Ferrón

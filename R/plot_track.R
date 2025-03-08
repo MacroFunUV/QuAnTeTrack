@@ -18,7 +18,7 @@
 #' @param cex.l The size of the labels. Default is 3.88.
 #' @param alpha.l The transparency of the labels. Default is 0.5.
 #'
-#' @return A \code{ggplot} object that displays the specified plot type, including tracks, footprints, or both, from 'track' R objects. The `ggplot2` package is used for plotting.
+#' @return A \code{ggplot} object that displays the specified plot type, including tracks, footprints, or both, from 'track' R objects. The \pkg{ggplot2} package is used for plotting.
 #'
 #' @section Logo:
 #'\if{html}{\figure{Logo.png}{options: width=30\%}}
@@ -103,7 +103,7 @@
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom dplyr bind_rows
 #'
-#' @seealso \code{\link[tps.to.track]{tps.to.track}}
+#' @seealso \code{\link{tps.to.track}}
 #'
 #' @export
 

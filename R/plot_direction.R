@@ -1,6 +1,6 @@
 #' Plot direction data in tracks.
 #'
-#' \code{plot_direction}  generates different types of plots to visualize the direction data from 'track' R objects. The function allows for the creation of boxplots, polar histograms of step directions, polar histograms of average directions per track, and faceted polar histograms.
+#' \code{plot_direction()}  generates different types of plots to visualize the direction data from 'track' R objects. The function allows for the creation of boxplots, polar histograms of step directions, polar histograms of average directions per track, and faceted polar histograms.
 #'
 #' @param data A 'track' R object, which is a list consisting of two elements:
 #'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
@@ -16,7 +16,7 @@
 #'   in polar plots. If \code{NULL}, the breaks are calculated automatically. Default is \code{NULL}.
 #'
 #' @details
-#' The \code{plot_direction} function provides four types of plots:
+#' The \code{plot_direction()} function provides four types of plots:
 #'
 #' \itemize{
 #'   \item \code{"boxplot"}: A boxplot showing the distribution of step direction values
@@ -34,7 +34,7 @@
 #' The \code{y_breaks_manual} parameter lets users manually specify the breaks
 #' on the y-axis for finer control over the appearance of the polar plots.
 #'
-#' @return A \code{ggplot} object that displays the specified plot type. The `ggplot2` package is used for plotting.
+#' @return A \code{ggplot} object that displays the specified plot type. The \pkg{ggplot2} package is used for plotting.
 #'
 #' @section Logo:
 #'\if{html}{\figure{Logo.png}{options: width=30\%}}
@@ -87,8 +87,9 @@
 #'
 #' @importFrom ggplot2 ggplot aes element_blank geom_boxplot geom_point geom_text theme_classic labs scale_y_continuous theme element_text geom_bar coord_polar scale_x_continuous scale_y_continuous theme_minimal facet_wrap annotate
 #' @importFrom dplyr group_by summarise ungroup n
+#' @importFrom magrittr %>%
 #'
-#' @seealso \code{\link[tps.to.track]{tps.to.track}}, \code{\link[test.direction]{test.direction}}
+#' @seealso \code{\link{tps.to.track}}, \code{\link{test.direction}}
 #'
 #' @export
 

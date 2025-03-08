@@ -24,9 +24,9 @@ Options are \code{"None"}, \code{"Centroid"}, or \code{"Origin"}. Default is \co
 \value{
 A 'track similarity' R object consisting ofa list containing the following elements:
 \item{DTW_distance_metric}{A matrix containing the pairwise DTW distances between trajectories.}
-\item{DTW_distance_metric_p_values}{(If \code{test} is TRUE) A matrix containing the p-values for the pairwise DTW distances.}
-\item{DTW_metric_p_values_combined}{(If \code{test} is TRUE) The overall p-value for the combined DTW distances.}
-\item{DTW_distance_metric_simulations}{(If \code{test} is TRUE) A list of DTW distance matrices from each simulated dataset.}
+\item{DTW_distance_metric_p_values}{(If \code{test} is \code{TRUE}) A matrix containing the p-values for the pairwise DTW distances.}
+\item{DTW_metric_p_values_combined}{(If \code{test} is \code{TRUE)} The overall p-value for the combined DTW distances.}
+\item{DTW_distance_metric_simulations}{(If \code{test} is \code{TRUE)} A list of DTW distance matrices from each simulated dataset.}
 }
 \description{
 \code{simil_DTW_metric()}  computes similarity metrics between two or more trajectories using
@@ -35,9 +35,9 @@ to align trajectories before calculating the DTW metric. The function also suppo
 testing with simulations to calculate p-values for the DTW distance metrics.
 }
 \details{
-The \code{simil_DTW_metric} function calculates the similarity between trajectories using
+The \code{simil_DTW_metric()} function calculates the similarity between trajectories using
 the Dynamic Time Warping (DTW) algorithm from the \pkg{dtw} package. The \code{dtw()} function
-is used with the \code{dist.method} argument set to "Euclidean" for computing the local distances
+is used with the \code{dist.method} argument set to \code{"Euclidean"} for computing the local distances
 between points in the trajectories.
 
 DTW aligns two time series by minimizing the cumulative distance between their points, creating an optimal alignment despite
@@ -101,7 +101,7 @@ simil_DTW_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
 Cleasby, I. R., Wakefield, E. D., Morrissey, B. J., Bodey, T. W., Votier, S. C., Bearhop, S., & Hamer, K. C. (2019). Using time-series similarity measures to compare animal movement trajectories in ecology. Behavioral Ecology and Sociobiology, 73, 1-19.
 }
 \seealso{
-\code{\link[tps_to_track]{tps_to_track}}, \code{\link[simulate_track]{simulate_track}}, \code{\link[dtw]{dtw}}
+\code{\link{tps_to_track}}, \code{\link{simulate_track}}, \code{\link[dtw]{dtw}}
 }
 \author{
 Humberto G. Ferrón

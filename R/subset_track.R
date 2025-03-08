@@ -1,6 +1,6 @@
 #' Subset tracks
 #'
-#' \code{subset_track} is a function that subsets tracks from a list of track data based on the specified indices.
+#' \code{subset_track()} is a function that subsets tracks from a list of track data based on the specified indices.
 #'
 #' @param data A 'track' R object, which is a list consisting of two elements:
 #'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
@@ -30,7 +30,7 @@
 #' # Example 2:  Subset the tracks at indices 5, 7, and 10.
 #' subset_data <- subset_track(MountTom, tracks = c(5, 7, 10))
 #'
-#' @seealso \code{\link[tps.to.track]{tps.to.track}}
+#' @seealso \code{\link{tps.to.track}}
 #'
 #' @export
 

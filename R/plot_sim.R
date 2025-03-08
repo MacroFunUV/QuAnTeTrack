@@ -6,19 +6,19 @@
 #'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
 #'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #' @param sim A 'track simulation' R object, where each object is a list of simulated trajectories stored as 'track' R objects.
-#' @param colours_sim A vector of colors for plotting each set of simulated trajectories. If `NULL`, the default color will be black ("#000000").
+#' @param colours_sim A vector of colors for plotting each set of simulated trajectories. If \code{NULL}, the default color will be black ("#000000").
 #' @param alpha_sim A numeric value between 0 and 1 for the transparency level of simulated trajectories. The default is 0.1.
 #' @param lwd_sim A numeric value for the line width of the simulated trajectory lines. The default is 0.5.
-#' @param colours_act A vector of colors for plotting actual trajectories. If `NULL`, the default color will be black ("#000000").
+#' @param colours_act A vector of colors for plotting actual trajectories. If \code{NULL}, the default color will be black ("#000000").
 #' @param alpha_act A numeric value between 0 and 1 for the transparency level of actual trajectories. The default is 0.6.
 #' @param lwd_act A numeric value for the line width of the actual trajectory lines. The default is 0.8.
 #'
 #' @details
-#' The function uses `ggplot2` to create a plot with the following components:
-#' - Simulated trajectories are displayed with paths colored according to the `colours_sim` parameter, with the specified transparency (`alpha_sim`) and line width (`lwd_sim`).
-#' - Actual trajectories are overlaid in the colors specified by `colours_act`, with a transparency level (`alpha_act`) and line width (`lwd_act`) to provide a clear comparison.
+#' The function uses \pkg{ggplot2} to create a plot with the following components:
+#' - Simulated trajectories are displayed with paths colored according to the \code{colours_sim} parameter, with the specified transparency \code{alpha_sim} and line width \code{lwd_sim}.
+#' - Actual trajectories are overlaid in the colors specified by \code{colours_act}, with a transparency level \code{alpha_act} and line width \code{lwd_act} to provide a clear comparison.
 #'
-#' @return A `ggplot` object displaying the simulated and actual trajectories.
+#' @return A \code{ggplot} object displaying the simulated and actual trajectories.
 #'
 #' @section Logo:
 #' \if{html}{\figure{Logo.png}{options: width=30\%}}
@@ -105,7 +105,7 @@
 #'
 #' @importFrom ggplot2 ggplot geom_path coord_fixed theme_classic theme scale_color_manual xlab ylab
 #'
-#' @seealso \code{\link[tps_to_track]{tps_to_track}}, \code{\link[simulate_track]{simulate_track}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{simulate_track}}
 #'
 #' @export
 

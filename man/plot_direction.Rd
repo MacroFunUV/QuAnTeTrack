@@ -33,13 +33,13 @@ of the y-axis labels in the polar plots. Default is 90 degrees.}
 in polar plots. If \code{NULL}, the breaks are calculated automatically. Default is \code{NULL}.}
 }
 \value{
-A \code{ggplot} object that displays the specified plot type. The \code{ggplot2} package is used for plotting.
+A \code{ggplot} object that displays the specified plot type. The \pkg{ggplot2} package is used for plotting.
 }
 \description{
-\code{plot_direction}  generates different types of plots to visualize the direction data from 'track' R objects. The function allows for the creation of boxplots, polar histograms of step directions, polar histograms of average directions per track, and faceted polar histograms.
+\code{plot_direction()}  generates different types of plots to visualize the direction data from 'track' R objects. The function allows for the creation of boxplots, polar histograms of step directions, polar histograms of average directions per track, and faceted polar histograms.
 }
 \details{
-The \code{plot_direction} function provides four types of plots:
+The \code{plot_direction()} function provides four types of plots:
 
 \itemize{
 \item \code{"boxplot"}: A boxplot showing the distribution of step direction values
@@ -102,7 +102,7 @@ plot_direction(PaluxyRiver, plot_type = "polar_steps", y_labels_position = -90)
 
 }
 \seealso{
-\code{\link[tps.to.track]{tps.to.track}}, \code{\link[test.direction]{test.direction}}
+\code{\link{tps.to.track}}, \code{\link{test.direction}}
 }
 \author{
 Humberto G. Ferrón

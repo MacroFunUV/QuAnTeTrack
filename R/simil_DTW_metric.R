@@ -15,9 +15,9 @@
 #' Options are \code{"None"}, \code{"Centroid"}, or \code{"Origin"}. Default is \code{"None"}.
 #'
 #' @details
-#' The \code{simil_DTW_metric} function calculates the similarity between trajectories using
+#' The \code{simil_DTW_metric()} function calculates the similarity between trajectories using
 #' the Dynamic Time Warping (DTW) algorithm from the \pkg{dtw} package. The \code{dtw()} function
-#' is used with the \code{dist.method} argument set to "Euclidean" for computing the local distances
+#' is used with the \code{dist.method} argument set to \code{"Euclidean"} for computing the local distances
 #' between points in the trajectories.
 #'
 #' DTW aligns two time series by minimizing the cumulative distance between their points, creating an optimal alignment despite
@@ -51,9 +51,9 @@
 #' @return
 #' A 'track similarity' R object consisting ofa list containing the following elements:
 #' \item{DTW_distance_metric}{A matrix containing the pairwise DTW distances between trajectories.}
-#' \item{DTW_distance_metric_p_values}{(If `test` is TRUE) A matrix containing the p-values for the pairwise DTW distances.}
-#' \item{DTW_metric_p_values_combined}{(If `test` is TRUE) The overall p-value for the combined DTW distances.}
-#' \item{DTW_distance_metric_simulations}{(If `test` is TRUE) A list of DTW distance matrices from each simulated dataset.}
+#' \item{DTW_distance_metric_p_values}{(If \code{test} is \code{TRUE}) A matrix containing the p-values for the pairwise DTW distances.}
+#' \item{DTW_metric_p_values_combined}{(If \code{test} is \code{TRUE)} The overall p-value for the combined DTW distances.}
+#' \item{DTW_distance_metric_simulations}{(If \code{test} is \code{TRUE)} A list of DTW distance matrices from each simulated dataset.}
 #'
 #' @section Logo:
 #'\if{html}{\figure{Logo.png}{options: width=30\%}}
@@ -97,79 +97,79 @@
 #' @importFrom stats na.omit
 #' @importFrom schoolmath is.real.positive
 #'
-#' @seealso \code{\link[tps_to_track]{tps_to_track}}, \code{\link[simulate_track]{simulate_track}}, \code{\link[dtw]{dtw}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{simulate_track}}, \code{\link[dtw]{dtw}}
 #'
 #' @export
 
 
 simil_DTW_metric<-function(data,test=NULL,sim=NULL,superposition=NULL){
 
-    ## Set default values if arguments are NULL----
-    if (is.null(test)) test <- FALSE  # Set default if 'test' is NULL
-    if (is.null(superposition)) superposition <- "None"  # Set default superposition method if 'superposition' is NULL
+  ## Set default values if arguments are NULL----
+  if (is.null(test)) test <- FALSE  # Set default if 'test' is NULL
+  if (is.null(superposition)) superposition <- "None"  # Set default superposition method if 'superposition' is NULL
 
 
-    ## Errors and Warnings----
+  ## Errors and Warnings----
 
-    # Check if 'data' is a list with at least two elements
-    if (!is.list(data) || length(data) < 2) {
-      stop("The 'data' argument must be a 'track' R object, which is a list consisting of two elements.")
+  # Check if 'data' is a list with at least two elements
+  if (!is.list(data) || length(data) < 2) {
+    stop("The 'data' argument must be a 'track' R object, which is a list consisting of two elements.")
+  }
+
+  # Check if the two elements of 'data' are lists
+  if (!is.list(data[[1]]) || !is.list(data[[2]])) {
+    stop("The two elements of 'data' must be lists.")
+  }
+
+  # Warn if the 'test' argument is not a boolean
+  if (!is.logical(test)) {
+    stop("'test' argument should be TRUE or FALSE.")
+  }
+
+  # Check if 'sim' is provided when test is TRUE
+  if (test == TRUE && is.null(sim)) {
+    stop("A 'sim' argument must be provided when 'test' is TRUE.")
+  }
+
+  # Check if superposition method is valid
+  valid_superpositions <- c("None", "Centroid", "Origin")
+  if (!superposition %in% valid_superpositions) {
+    stop("Invalid 'superposition' argument. One of 'None', 'Centroid', or 'Origin' must be chosen.")
+  }
+
+  # If 'sim' is provided, ensure it is a list and has the same structure as 'data'
+  if (!is.null(sim)) {
+    if (!is.list(sim)) {
+      stop("The 'sim' argument must be a list.")
     }
 
-    # Check if the two elements of 'data' are lists
-    if (!is.list(data[[1]]) || !is.list(data[[2]])) {
-      stop("The two elements of 'data' must be lists.")
+    # Check that 'sim' contains the same number of tracks as 'data'
+    if (length(sim[[1]]) != length(data[[1]])) {
+      stop("The 'sim' list must have the same number of trajectories as 'data'.")
     }
+  }
 
-    # Warn if the 'test' argument is not a boolean
-    if (!is.logical(test)) {
-      stop("'test' argument should be TRUE or FALSE.")
-    }
 
-    # Check if 'sim' is provided when test is TRUE
-    if (test == TRUE && is.null(sim)) {
-      stop("A 'sim' argument must be provided when 'test' is TRUE.")
-    }
+  ## Code----
+  data<-data[[1]]
 
-    # Check if superposition method is valid
-    valid_superpositions <- c("None", "Centroid", "Origin")
-    if (!superposition %in% valid_superpositions) {
-      stop("Invalid 'superposition' argument. One of 'None', 'Centroid', or 'Origin' must be chosen.")
-    }
+  #Calculate actual metrics
+  Matrixsim<-data.frame(matrix(nrow=length(data),ncol = length(data)))
+  colnames(Matrixsim)<-names(data)
+  rownames(Matrixsim)<-names(data)
+  DTW<-Matrixsim
 
-    # If 'sim' is provided, ensure it is a list and has the same structure as 'data'
-    if (!is.null(sim)) {
-      if (!is.list(sim)) {
-        stop("The 'sim' argument must be a list.")
+  ##Superposition
+  if (test==TRUE){
+    if (superposition=="Centroid"){
+      for (i in 1: length(data)){
+        data[[i]][,1]<-data[[i]][,1]-mean(data[[i]][,1])
+        data[[i]][,2]<-data[[i]][,2]-mean(data[[i]][,2])
       }
-
-      # Check that 'sim' contains the same number of tracks as 'data'
-      if (length(sim[[1]]) != length(data[[1]])) {
-        stop("The 'sim' list must have the same number of trajectories as 'data'.")
-      }
     }
 
-
-    ## Code----
-    data<-data[[1]]
-
-    #Calculate actual metrics
-    Matrixsim<-data.frame(matrix(nrow=length(data),ncol = length(data)))
-    colnames(Matrixsim)<-names(data)
-    rownames(Matrixsim)<-names(data)
-    DTW<-Matrixsim
-
-    ##Superposition
-    if (test==TRUE){
-      if (superposition=="Centroid"){
-        for (i in 1: length(data)){
-          data[[i]][,1]<-data[[i]][,1]-mean(data[[i]][,1])
-          data[[i]][,2]<-data[[i]][,2]-mean(data[[i]][,2])
-        }
-      }
-
-      if (superposition=="Origin"){
-        for (i in 1: length(data)){
+    if (superposition=="Origin"){
+      for (i in 1: length(data)){
           data[[i]][,1]<-data[[i]][,1]-data[[i]][1,1]
           data[[i]][,2]<-data[[i]][,2]-data[[i]][1,2]
         }

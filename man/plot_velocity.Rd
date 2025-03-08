@@ -39,10 +39,10 @@ If \code{NULL}, the default value \code{"V"} will be used.
 A ggplot object showing the trajectories colored by the specified parameter.
 }
 \description{
-\code{plot_velocity()} creates a plot of trajectories, colored by either velocity or relative stride length from 'track' and 'track velocity' R objects. The function uses \code{ggplot2} for visualization and allows customization of line width and color gradients.
+\code{plot_velocity()} creates a plot of trajectories, colored by either velocity or relative stride length from 'track' and 'track velocity' R objects. The function uses \pkg{ggplot2} package for visualization and allows customization of line width and color gradients.
 }
 \details{
-The function creates a plot where each trajectory is colored based on the specified parameter (\code{"V"} for velocity or \code{"RSL"} for relative stride length). The \code{ggplot2} package is used for plotting.
+The function creates a plot where each trajectory is colored based on the specified parameter (\code{"V"} for velocity or \code{"RSL"} for relative stride length). The \pkg{ggplot2} package is used for plotting.
 
 The color gradient for the parameter is applied using \code{scale_color_gradientn()}. The color palette can be customized via the \code{colours} argument.
 }
@@ -102,7 +102,7 @@ print(plot4)
 
 }
 \seealso{
-\code{\link[tps.to.track]{tps.to.track}}, \code{\link[velocity_track]{velocity_track}}, \code{\link[ggplot2]{scale_color_gradientn}}
+\code{\link{tps.to.track}}, \code{\link{velocity_track}}, \code{\link[ggplot2]{scale_color_gradientn}}
 }
 \author{
 Humberto G. Ferrón

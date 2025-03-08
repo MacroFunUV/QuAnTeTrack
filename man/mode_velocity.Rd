@@ -18,10 +18,10 @@ A list where each element corresponds to a trajectory from the input \code{track
 }
 }
 \description{
-\code{mode_velocity} evaluates the trend in velocity along each trajectory by applying Spearman's rank correlation test. The function classifies the trend into "acceleration," "deceleration," or "steady" based on the correlation and the p-value.
+\code{mode_velocity()} evaluates the trend in velocity along each trajectory by applying Spearman's rank correlation test. The function classifies the trend into "acceleration," "deceleration," or "steady" based on the correlation and the p-value.
 }
 \details{
-The \code{mode_velocity} function performs the following operations:
+The \code{mode_velocity()} function performs the following operations:
 \itemize{
 \item \strong{Spearman's Rank Correlation Test:}
 \itemize{
@@ -73,7 +73,7 @@ The \code{mode_velocity} function performs the following operations:
 H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872, 1.648, 1.760, 1.612)
 
 # Calculate velocities using the default Method "A"
-V_mounttom <- velocity.track(MountTom, H = H_mounttom)
+V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 
 # Test for Steady, Acceleration, or Deceleration
 mode_velocity(V_mounttom)
@@ -87,14 +87,14 @@ H_paluxyriver <- c(3.472,2.200)
 Method_paluxyriver <- c("A", "B")
 
 # Calculate velocities using specified methods
-V_paluxyriver <- velocity.track(PaluxyRiver, H = H_paluxyriver, Method = Method_paluxyriver)
+V_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 
 # Test for Steady, Acceleration, or Deceleration
 mode_velocity(V_paluxyriver)
 
 }
 \seealso{
-\code{\link[tps.to.track]{tps.to.track}}, \code{\link[velocity.track]{velocity.track}}, \code{\link[plot.velocity]{plot.velocity}}
+\code{\link{tps_to_track}}, \code{\link{velocity_track}}, \code{\link{plot_velocity}}
 }
 \author{
 Humberto G. Ferrón

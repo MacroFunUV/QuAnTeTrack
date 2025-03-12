@@ -22,11 +22,11 @@ test_velocity(data, trackvel, plot = FALSE, analysis = NULL)
 \value{
 A list with the results of the statistical analysis and diagnostic tests:
 \itemize{
-\item \code{normality_results}: A named vector of p-values from the Shapiro-Wilk test for each track.
+\item \code{normality_results}: A matrix of test statistics and p-values from the Shapiro-Wilk test for each track, with rows for the test statistic and p-value, and columns for each track.
 \item \code{homogeneity_test}: The result of Levene's test, including the p-value for homogeneity of variances.
-\item \code{ANOVA} (If \code{analysis} is "ANOVA"): A list containing the ANOVA table and Tukey HSD post-hoc test results.
-\item \code{Kruskal_Wallis} (If \code{analysis} is "Kruskal-Wallis"): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.
-\item \code{GLM} (If \code{analysis} is "GLM"): A summary of the GLM fit.
+\item \code{ANOVA} (If \code{analysis} is \code{"ANOVA"}): A list containing the ANOVA table and Tukey HSD post-hoc test results.
+\item \code{Kruskal_Wallis} (If \code{analysis} is \code{"Kruskal-Wallis"}): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.
+\item \code{GLM} (If \code{analysis} is \code{"GLM"}): A summary of the GLM fit and pairwise comparisons.
 \item \code{plot} (If \code{plot} is \code{TRUE}): A boxplot of velocities by track is generated and displayed.
 }
 }
@@ -39,15 +39,13 @@ The \code{test_velocity} function performs the following operations:
 \item \strong{Condition Testing:}
 \itemize{
 \item \strong{Normality:} Shapiro-Wilk test for normality on velocity data within each track.
-The results of these tests are stored in \code{normality_results}, a named vector where each element corresponds to the p-value of the Shapiro-Wilk test for each track.
 \item \strong{Homogeneity of Variances:} Levene's test for equal variances across tracks.
-The results of this test are stored in \code{homogeneity_test}, with the p-value indicating whether variances are equal across tracks.
 }
 \item \strong{Statistical Analysis:}
 \itemize{
 \item \strong{ANOVA:} Compares mean velocities across tracks, assuming normality and homogeneity of variances. Includes Tukey's HSD post-hoc test for pairwise comparisons.
 \item \strong{Kruskal-Wallis Test:} Non-parametric alternative to ANOVA for comparing median velocities across tracks when assumptions are violated. Includes Dunn's test for pairwise comparisons.
-\item \strong{GLM:} Generalized Linear Model with a Gaussian family for comparing means if ANOVA assumptions are not met. Pairwise comparisons are done using \pkg{emmeans} package.
+\item \strong{GLM:} Generalized Linear Model with a Gaussian family for comparing means if ANOVA assumptions are not met. Pairwise comparisons in the GLM are conducted using estimated marginal means (least-squares means) with the \pkg{emmeans} package, which computes differences between group means while adjusting for multiple comparisons using Tukey’s method.
 }
 \item \strong{Plotting:}
 \itemize{
@@ -61,11 +59,13 @@ The results of this test are stored in \code{homogeneity_test}, with the p-value
 }
 
 \examples{
-
-# Example 1: Test for Differences in Velocity Means with Pairwise Comparisons in Trajectories in MountTom dataset.
+# Example 1: Test for Differences in Velocity Means with Pairwise Comparisons in Trajectories
+# in MountTom dataset.
 
 # Hip heights for each track in the MountTom dataset
-H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872, 1.648, 1.760, 1.612)
+H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
+                1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+                1.648, 1.760, 1.612)
 
 # Calculate velocities using the default Method "A"
 V_mounttom <- velocity_track(MountTom, H = H_mounttom)
@@ -73,10 +73,11 @@ V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 # Test for Differences in Velocity Means with Pairwise Comparisons
 test_velocity(MountTom, V_mounttom)
 
-# Example 2: Test for Differences in Velocity Means with Pairwise Comparisons in Trajectories in PaluxyRiver dataset.
+# Example 2: Test for Differences in Velocity Means with Pairwise Comparisons in Trajectories
+# in PaluxyRiver dataset.
 
 # Hip heights for each track in the PaluxyRiver dataset
-H_paluxyriver <- c(3.472,2.200)
+H_paluxyriver <- c(3.472, 2.200)
 
 # Specify different methods for different tracks
 Method_paluxyriver <- c("A", "B")

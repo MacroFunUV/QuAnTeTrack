@@ -32,6 +32,13 @@
 #'    * \code{"MaxVelocity"}: The maximum velocity achieved during the track, identifying the fastest point (in meters per second).
 #'    * \code{"MinVelocity"}: The minimum velocity during the track, identifying the slowest point (in meters per second).
 #'
+#' The \code{cluster_track()} function has biological relevance in identifying groups of tracks with similar movement parameters,
+#' providing insights into ecological and behavioral patterns. By clustering tracks based on characteristics such as sinuosity,
+#' velocity, and turning angles, it allows detecting movement patterns associated with specific behaviors. This can help identify tracks
+#' potentially made by individuals moving together, which is useful for investigating hypotheses on gregarious behavior, predation
+#' strategies, or coordinated movement. Additionally, clustering serves as a preliminary step before similarity tests and
+#' simulations, refining track selection and improving hypothesis testing in movement ecology studies.
+#'
 #' @return
 #' A 'track clustering' R object consisting of a list containing the following elements:
 #'   * matrix: A data frame containing the movement parameters calculated for each track.
@@ -80,15 +87,18 @@
 #'                 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784,
 #'                 1.676, 1.872, 1.648, 1.760, 1.612) # Hip heights for MountTom tracks
 #' veltrack_MountTom <- velocity_track(MountTom, H = H_mounttom)
-#' result1 <- cluster_track(MountTom, veltrack_MountTom, variables = c("TurnAng", "Velocity"))
+#' result1 <- cluster_track(MountTom, veltrack_MountTom,
+#'                          variables = c("TurnAng", "Velocity"))
 #' result1$clust$classification
 #'
 #' # Example 2: Cluster MountTom tracks using Sinuosity and Step Length
-#' result2 <- cluster_track(MountTom, veltrack_MountTom, variables = c("Sinuosity", "StLength"))
+#' result2 <- cluster_track(MountTom, veltrack_MountTom,
+#'                          variables = c("Sinuosity", "StLength"))
 #' plot(result2$clust)
 #'
 #' # Example 3: Cluster MountTom tracks using Maximum and Minimum Velocity
-#' result3 <- cluster_track(MountTom, veltrack_MountTom, variables = c("MaxVelocity", "MinVelocity"))
+#' result3 <- cluster_track(MountTom, veltrack_MountTom,
+#'                          variables = c("MaxVelocity", "MinVelocity"))
 #' result3$clust$classification
 #'
 #' # Example 4: Cluster MountTom tracks using Straightness
@@ -98,21 +108,26 @@
 #' # Example 5: Cluster PaluxyRiver tracks using Distance and Straightness
 #' H_paluxyriver <- c(3.472, 2.200) # Hip heights for PaluxyRiver tracks
 #' Method_paluxyriver <- c("A", "B") # Different methods for different tracks
-#' veltrack_PaluxyRiver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
-#' result5 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver, variables = c("Distance", "Straightness"))
+#' veltrack_PaluxyRiver <- velocity_track(PaluxyRiver, H = H_paluxyriver,
+#'                                        method = Method_paluxyriver)
+#' result5 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver,
+#'                          variables = c("Distance", "Straightness"))
 #' result5$matrix
 #' result5$clust$classification
 #'
 #' # Example 6: Cluster PaluxyRiver tracks using Length and SD of Velocity
-#' result6 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver, variables = c("Length", "sdVelocity"))
+#' result6 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver,
+#'                          variables = c("Length", "sdVelocity"))
 #' plot(result6$clust)
 #'
 #' # Example 7: Cluster PaluxyRiver tracks using TurnAng and SD of TurnAng
-#' result7 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver, variables = c("TurnAng", "sdTurnAng"))
+#' result7 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver,
+#'                          variables = c("TurnAng", "sdTurnAng"))
 #' result7$clust$classification
 #'
 #' # Example 8: Cluster PaluxyRiver tracks using Sinuosity
-#' result8 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver, variables = c("Sinuosity"))
+#' result8 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver,
+#'                          variables = c("Sinuosity"))
 #' result8$clust$classification
 #'
 #' @importFrom mclust Mclust

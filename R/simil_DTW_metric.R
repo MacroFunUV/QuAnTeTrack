@@ -70,24 +70,29 @@
 #' Cleasby, I. R., Wakefield, E. D., Morrissey, B. J., Bodey, T. W., Votier, S. C., Bearhop, S., & Hamer, K. C. (2019). Using time-series similarity measures to compare animal movement trajectories in ecology. Behavioral Ecology and Sociobiology, 73, 1-19.
 #'
 #' @examples
-#' # Example 1: Simulating tracks using the "Directed" model and comparing DTW distance in the PaluxyRiver dataset
+#' # Example 1: Simulating tracks using the "Directed" model and comparing DTW distance
+#' # in the PaluxyRiver dataset
 #' s1 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Directed")
 #' simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 #'
-#' # Example 2: Simulating tracks using the "Constrained" model and comparing DTW distance in the PaluxyRiver dataset
+#' # Example 2: Simulating tracks using the "Constrained" model and comparing DTW distance
+#' # in the PaluxyRiver dataset
 #' s2 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Constrained")
 #' simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
 #'
-#' # Example 3: Simulating tracks using the "Unconstrained" model and comparing DTW distance in the PaluxyRiver dataset
+#' # Example 3: Simulating tracks using the "Unconstrained" model and comparing DTW distance
+#' # in the PaluxyRiver dataset
 #' s3 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Unconstrained")
 #' simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None")
 #'
-#' # Example 4: Simulating and comparing DTW distance in the MountTom dataset using the "Centroid" superposition method
+#' # Example 4: Simulating and comparing DTW distance in the MountTom dataset using the
+#' # "Centroid" superposition method
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 #' s4 <- simulate_track(sbMountTom, nsim = 1000)
 #' simil_DTW_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid")
 #'
-#' # Example 5: Simulating and comparing DTW distance in the MountTom dataset using the "Origin" superposition method
+#' # Example 5: Simulating and comparing DTW distance in the MountTom dataset using the
+#' # "Origin" superposition method
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 #' s5 <- simulate_track(sbMountTom, nsim = 1000)
 #' simil_DTW_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
@@ -170,12 +175,12 @@ simil_DTW_metric<-function(data,test=NULL,sim=NULL,superposition=NULL){
 
     if (superposition=="Origin"){
       for (i in 1: length(data)){
-          data[[i]][,1]<-data[[i]][,1]-data[[i]][1,1]
-          data[[i]][,2]<-data[[i]][,2]-data[[i]][1,2]
-        }
+        data[[i]][,1]<-data[[i]][,1]-data[[i]][1,1]
+        data[[i]][,2]<-data[[i]][,2]-data[[i]][1,2]
       }
+    }
 
-      if (superposition=="None"){
+    if (superposition=="None"){
         data<-data}
     }
 

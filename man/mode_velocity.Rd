@@ -66,11 +66,12 @@ The \code{mode_velocity()} function performs the following operations:
 }
 
 \examples{
-
-# Example 1: Test for Steady, Acceleration, or Deceleration Along Trajectories in MountTom dataset.
+# Example 1: Test for Steady, Acceleration, or Deceleration in MountTom dataset.
 
 # Hip heights for each track in the MountTom dataset
-H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872, 1.648, 1.760, 1.612)
+H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
+                1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784,
+                1.676, 1.872, 1.648, 1.760, 1.612)
 
 # Calculate velocities using the default Method "A"
 V_mounttom <- velocity_track(MountTom, H = H_mounttom)
@@ -78,16 +79,17 @@ V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 # Test for Steady, Acceleration, or Deceleration
 mode_velocity(V_mounttom)
 
-# Example 2: Test for Steady, Acceleration, or Deceleration Along Trajectories in PaluxyRiver dataset.
+# Example 2: Test for Steady, Acceleration, or Deceleration in PaluxyRiver dataset.
 
 # Hip heights for each track in the PaluxyRiver dataset
-H_paluxyriver <- c(3.472,2.200)
+H_paluxyriver <- c(3.472, 2.200)
 
 # Specify different methods for different tracks
 Method_paluxyriver <- c("A", "B")
 
 # Calculate velocities using specified methods
-V_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
+V_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver,
+                                method = Method_paluxyriver)
 
 # Test for Steady, Acceleration, or Deceleration
 mode_velocity(V_paluxyriver)

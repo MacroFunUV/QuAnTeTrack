@@ -1,14 +1,50 @@
-test_that("tps_to_track works", {
-  tps.file <- tempfile(fileext = ".data")
+test_that("tps_to_track processes valid files correctly", {
+  # Load an example TPS file
+  tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
 
-  cat("LM=30", "211.00000 146.00000", "137.00000 327.00000", "246.00000 447.00000","201.00000 609.00000","291.00000 704.00000","246.00000 851.00000","361.00000 959.00000","327.00000 1129.00000","438.00000 1226.00000","402.00000 1383.00000","518.00000 1482.00000","440.00000 1584.00000","528.00000 1696.00000","469.00000 1852.00000","563.00000 1967.00000","497.00000 2112.00000","597.00000 2211.00000","550.00000 2365.00000","647.00000 2492.00000","576.00000 2643.00000","656.00000 2804.00000","560.00000 2922.00000","621.00000 3046.00000","530.00000 3135.00000","588.00000 3291.00000","496.00000 3430.00000","566.00000 3570.00000","470.00000 3704.00000","537.00000 3845.00000","436.00000 4014.00000","IMAGE=Sauropod.png","ID=0","LM=25","43.00000 317.00000","125.00000 463.00000","102.00000 587.00000","162.00000 745.00000","170.00000 897.00000","249.00000 1044.00000","253.00000 1206.00000","344.00000 1349.00000","331.00000 1494.00000","386.00000 1612.00000","358.00000 1753.00000","413.00000 1886.00000","391.00000 2027.00000","470.00000 2139.00000","486.00000 2341.00000","491.00000 2538.00000","550.00000 2657.00000","485.00000 2794.00000","516.00000 2921.00000","460.00000 3065.00000","506.00000 3231.00000","507.00000 3388.00000","566.00000 3574.00000","539.00000 3752.00000","495.00000 3945.00000","IMAGE=Theropod.png","ID=1 ",file = tps.file, sep = "\n")
+  # Run function with no missing footprints
+  result <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
 
-  tps_to_track(tps.file, scale=0.1, missing=FALSE, NAs=NULL, R.L.side=c("R","L"))
+  # Check if output is a list
+  expect_type(result, "list")
+  expect_named(result, c("Trajectories", "Footprints"))
 
-  expect_equal(length(tps_to_track(tps.file, scale=0.1, missing=FALSE, NAs=NULL, R.L.side=c("R","L"))), 2)
-  expect_equal(class(tps_to_track(tps.file, scale=0.1, missing=FALSE, NAs=NULL, R.L.side=c("R","L"))), "list")
-  expect_false(anyNA(tps_to_track(tps.file, scale=0.1, missing=FALSE, NAs=NULL, R.L.side=c("R","L")),recursive = TRUE))
+  # Check structure of Trajectories and Footprints
+  expect_true(all(sapply(result$Trajectories, is.matrix)))
+  expect_true(all(sapply(result$Footprints, is.data.frame)))
 })
 
 
+# Test for missing footprints handling
 
+test_that("tps_to_track interpolates missing footprints correctly", {
+  tpsMountTom <- system.file("extdata", "MountTom.tps", package = "QuAnTeTrack")
+  NAs <- matrix(c(7, 3), nrow = 1, ncol = 2)
+  R.L.side <- rep("L", 10) # Assume all tracks start with Left
+
+  result <- tps_to_track(tpsMountTom, scale = 0.004411765, missing = TRUE, NAs = NAs, R.L.side = R.L.side)
+
+  # Check structure
+  expect_type(result, "list")
+  expect_named(result, c("Trajectories", "Footprints"))
+
+  # Ensure missing footprints have been interpolated
+  expect_true(any(result$Footprints[[3]]$inferred))
+})
+
+
+# Error handling tests
+
+test_that("tps_to_track throws errors for incorrect inputs", {
+  # Missing scale
+  expect_error(tps_to_track("invalid.tps", scale = NULL, missing = FALSE),
+               "The 'scale' argument is missing")
+
+  # Invalid file
+  expect_error(tps_to_track("nonexistent.tps", scale = 0.01, missing = FALSE),
+               "File does not exist")
+
+  # Missing footprints but no NAs provided
+  expect_error(tps_to_track("valid.tps", scale = 0.01, missing = TRUE, NAs = NULL),
+               "NAs must be provided if missing = TRUE")
+})

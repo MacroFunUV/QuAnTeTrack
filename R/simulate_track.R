@@ -69,30 +69,35 @@
 #' # Default number of simulations (1000)
 #' simulated_tracks <- simulate_track(PaluxyRiver)
 #'
-#' # Example 2: Simulate 100 tracks using the "Directed" model, representing movement toward a resource (e.g., water source)
+#' # Example 2: Simulate 100 tracks using the "Directed" model, representing movement
+#' # toward a resource (e.g., water source)
 #' simulated_tracks_directed <- simulate_track(PaluxyRiver, nsim = 100, model = "Directed")
 #'
-#' # Example 3: Simulate 100 tracks using the "Constrained" model, representing movement along a geographic feature (e.g., coastline)
+#' # Example 3: Simulate 100 tracks using the "Constrained" model, representing movement
+#' # along a geographic feature (e.g., coastline)
 #' simulated_tracks_constrained <- simulate_track(PaluxyRiver, nsim = 100, model = "Constrained")
 #'
 #' # Example 4: Simulate 100 tracks using the "Unconstrained" model (random exploratory movement)
 #' simulated_tracks_unconstrained <- simulate_track(PaluxyRiver, nsim = 100, model = "Unconstrained")
 #'
-#' # Subseting trajectories with four or more steps in the MountTom dataset
-#' sbMountTom<-subset_track(MountTom, tracks=c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
+#' # Subsetting trajectories with four or more steps in the MountTom dataset
+#' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 #'
 #' # Example 5: Simulate tracks using data from Mount Tom
 #' # Default model (Unconstrained movement)
-#' #' # Default number of simulations (1000)
+#' # Default number of simulations (1000)
 #' simulated_tracks_mt <- simulate_track(sbMountTom)
 #'
-#' # Example 6: Simulate 100 tracks using the "Directed" model for Mount Tom, representing directed movement
+#' # Example 6: Simulate 100 tracks using the "Directed" model for Mount Tom, representing
+#' # directed movement
 #' simulated_tracks_mt_directed <- simulate_track(sbMountTom, nsim = 100, model = "Directed")
 #'
-#' # Example 7: Simulate 100 tracks using the "Constrained" model for Mount Tom, representing constrained movement
+#' # Example 7: Simulate 100 tracks using the "Constrained" model for Mount Tom, representing
+#' # constrained movement
 #' simulated_tracks_mt_constrained <- simulate_track(sbMountTom, nsim = 100, model = "Constrained")
 #'
-#' # Example 8: Simulate 100 tracks using the "Unconstrained" model for Mount Tom, representing random exploratory movement
+#' # Example 8: Simulate 100 tracks using the "Unconstrained" model for Mount Tom, representing
+#' # random exploratory movement
 #' simulated_tracks_mt_unconstrained <- simulate_track(sbMountTom, nsim = 100, model = "Unconstrained")
 #'
 #' @importFrom trajr TrajGenerate TrajStepLengths TrajAngles TrajRotate TrajTranslate
@@ -142,9 +147,9 @@ simulate_track <- function(data, nsim = NULL, model = NULL) {
   # Check if the dataset contains tracks with fewer than three steps
   check_rows <- sapply(data[[1]], function(df) nrow(df) < 4)
   if (any(check_rows)) {
-      indices <- which(check_rows)
-      stop(paste("The following tracks have fewer than four steps:", paste(indices, collapse = ", "),". Simulations cannot be applied to trajectories with fewer than four steps, as standard deviations of angles and step lengths cannot be computed. Consider using the function 'subset_track()' to filter only tracks with four or more steps."))
-    }
+    indices <- which(check_rows)
+    stop(paste("The following tracks have fewer than four steps:", paste(indices, collapse = ", "),". Simulations cannot be applied to trajectories with fewer than four steps, as standard deviations of angles and step lengths cannot be computed. Consider using the function 'subset_track()' to filter only tracks with four or more steps."))
+  }
 
 
   ##Code----

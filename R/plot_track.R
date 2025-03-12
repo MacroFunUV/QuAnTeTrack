@@ -32,63 +32,47 @@
 #' @author Phone: +34 (9635) 44477
 #'
 #' @examples
-#' # Example 1: Basic Plot with Default Settings - MountTom Dataset.
-#' # This will plot both tracks and footprints using default colors and sizes.
+#' # Example 1: Basic Plot with Default Settings - MountTom Dataset
 #' plot_track(MountTom)
 #'
-#' # Example 2: Basic Plot with Default Settings - PaluxyRiver Dataset.
-#' # This will plot both tracks and footprints using default colors and sizes.
+#' # Example 2: Basic Plot with Default Settings - PaluxyRiver Dataset
 #' plot_track(PaluxyRiver)
 #'
-#' # Example 3: Plot Tracks Only - MountTom Dataset.
-#' # This will omit footprints and display only the track lines.
+#' # Example 3: Plot Tracks Only - MountTom Dataset
 #' plot_track(MountTom, plot = "Tracks")
 #'
-#' # Example 4: Plot Footprints Only - PaluxyRiver Dataset.
-#' # This will omit the track lines and display only the footprints.
+#' # Example 4: Plot Footprints Only - PaluxyRiver Dataset
 #' plot_track(PaluxyRiver, plot = "Footprints")
 #'
-#' # Example 5: Custom Colors for Tracks - MountTom Dataset.
-#' # Assign specific colors to different tracks.
-#' custom_colors <- c("#008000", "#0000FF", "#FF0000", "#800080", "#FFA500",
-#'                    "#FFC0CB", "#FFFF00", "#00FFFF", "#A52A2A", "#FF00FF",
-#'                    "#808080", "#000000", "#006400", "#00008B", "#8B0000",
-#'                    "#FF8C00", "#008B8B", "#A9A9A9", "#000080", "#808000",
-#'                    "#800000", "#008080", "#FFD700")
+#' # Example 5: Custom Colors for Tracks - MountTom Dataset
+#' custom_colors <- c("#008000", "#0000FF", "#FF0000", "#800080", "#FFA500", "#FFC0CB", "#FFFF00",
+#'                    "#00FFFF", "#A52A2A", "#FF00FF", "#808080", "#000000", "#006400", "#00008B",
+#'                    "#8B0000", "#FF8C00", "#008B8B", "#A9A9A9", "#000080", "#808000", "#800000",
+#'                    "#008080", "#FFD700")
 #' plot_track(MountTom, colours = custom_colors)
 #'
-#' # Example 6: Larger Footprints and Track Lines - PaluxyRiver Dataset.
-#' # Increase the size of footprints and track lines for better visibility.
+#' # Example 6: Larger Footprints and Track Lines - PaluxyRiver Dataset
 #' plot_track(PaluxyRiver, cex.f = 5, cex.t = 2)
 #'
-#' # Example 7: Semi-Transparent Footprints and Tracks - MountTom Dataset.
-#' # Make the footprints and tracks semi-transparent for a layered effect.
+#' # Example 7: Semi-Transparent Footprints and Tracks - MountTom Dataset
 #' plot_track(MountTom, alpha.f = 0.5, alpha.t = 0.5)
 #'
-#' # Example 8: Different Shapes for Footprints - PaluxyRiver Dataset.
-#' # Use different shapes for footprints in each track.
+#' # Example 8: Different Shapes for Footprints - PaluxyRiver Dataset
 #' plot_track(PaluxyRiver, shape.f = c(16, 17))
 #'
-#' # Example 9: Plot with Labels for Tracks - MountTom Dataset.
-#' # Add labels to each track, using custom sizes, transparency, and padding for labels.
+#' # Example 9: Plot with Labels for Tracks - MountTom Dataset
 #' labels <- paste("Track", seq_along(MountTom[[1]]))
-#' plot_track(MountTom, plot.labels = TRUE, labels = labels,
-#'            cex.l = 4, box.p = 0.3, alpha.l = 0.7)
+#' plot_track(MountTom, plot.labels = TRUE, labels = labels, cex.l = 4, box.p = 0.3, alpha.l = 0.7)
 #'
-#' # Example 10: Custom Colors and Shapes for Footprints Only - PaluxyRiver Dataset.
-#' # Customize colors and shapes for footprints, without showing the tracks.
-#' plot_track(PaluxyRiver, plot = "Footprints",
-#'            colours = c("purple", "orange"), shape.f = c(15, 18))
+#' # Example 10: Custom Colors and Shapes for Footprints Only - PaluxyRiver Dataset
+#' plot_track(PaluxyRiver, plot = "Footprints", colours = c("purple", "orange"), shape.f = c(15, 18))
 #'
-#' # Example 11: Larger Line Size and Custom Colors for Tracks Only - MountTom Dataset.
-#' # Increase the line size and apply custom colors to the tracks without showing footprints.
+#' # Example 11: Larger Line Size & Custom Colors for Tracks Only - MountTom Dataset
 #' plot_track(MountTom, plot = "Tracks", cex.t = 1.5, colours = custom_colors)
 #'
-#' # Example 12: Black Footprints and Tracks with Labels - PaluxyRiver Dataset.
-#' # Use black for both footprints and tracks, with labels that have custom size and transparency.
-#' plot_track(PaluxyRiver, colours = NULL, shape.f = c(16, 16),
-#'            plot.labels = TRUE, labels = c("Saurpod", "Theropod"),
-#'            cex.l = 2, alpha.l = 0.5)
+#' # Example 12: Black Footprints and Tracks with Labels - PaluxyRiver Dataset
+#' plot_track(PaluxyRiver, colours = NULL, shape.f = c(16, 16), plot.labels = TRUE,
+#'            labels = c("Saurpod", "Theropod"), cex.l = 2, alpha.l = 0.5)
 #'
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 alpha

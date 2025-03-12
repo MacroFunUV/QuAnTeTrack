@@ -22,7 +22,7 @@ A list with the results of the statistical analysis and diagnostic tests:
 \item \code{homogeneity_test}: The result of Levene's test, including the p-value for homogeneity of variances.
 \item \code{ANOVA} (If \code{analysis} is \code{"ANOVA"}): A list containing the ANOVA table and Tukey HSD post-hoc test results.
 \item \code{Kruskal_Wallis} (If \code{analysis} is \code{"Kruskal-Wallis"}): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.
-\item \code{GLM} (If \code{analysis} is \code{"GLM"}): A summary of the GLM fit.
+\item \code{GLM} (If \code{analysis} is \code{"GLM"}): A summary of the GLM fit and pairwise comparisons.
 }
 }
 \description{
@@ -33,14 +33,14 @@ The \code{test_direction()} function performs the following operations:
 \itemize{
 \item \strong{Condition Testing:}
 \itemize{
-\item \strong{Normality:} Shapiro-Wilk test for normality on step direction data within each track. Returns the test statistic and p-value.
+\item \strong{Normality:} Shapiro-Wilk test for normality on step direction data within each track.
 \item \strong{Homogeneity of Variances:} Levene's test for equal variances across tracks.
 }
 \item \strong{Statistical Analysis:}
 \itemize{
 \item \strong{ANOVA:} Compares step mean directions across tracks, assuming normality and homogeneity of variances. Includes Tukey's HSD post-hoc test for pairwise comparisons.
 \item \strong{Kruskal-Wallis Test:} Non-parametric alternative to ANOVA for comparing step median directions across tracks when assumptions are violated. Includes Dunn's test for pairwise comparisons.
-\item \strong{GLM:} Generalized Linear Model with a Gaussian family for comparing step means if ANOVA assumptions are not met. Pairwise comparisons are done using \pkg{emmeans} package.
+\item \strong{GLM:} Generalized Linear Model with a Gaussian family for comparing step means if ANOVA assumptions are not met. Pairwise comparisons in the GLM are conducted using estimated marginal means (least-squares means) with the \pkg{emmeans} package, which computes differences between group means while adjusting for multiple comparisons using Tukey’s method.
 }
 \item \strong{Direction Measurement:}
 \itemize{
@@ -54,7 +54,6 @@ The \code{test_direction()} function performs the following operations:
 }
 
 \examples{
-
 # Example 1: Test for Differences in Direction Means with Pairwise Comparisons in MountTom dataset
 test_direction(MountTom, analysis = "ANOVA")
 
@@ -64,13 +63,16 @@ test_direction(MountTom, analysis = "Kruskal-Wallis")
 # Example 3: Test for Differences in Direction Means with Pairwise Comparisons in MountTom dataset
 test_direction(MountTom, analysis = "GLM")
 
-# Example 4: Test for Differences in Direction Means with Pairwise Comparisons in PaluxyRiver dataset
+# Example 4: Test for Differences in Direction Means with Pairwise Comparisons in PaluxyRiver
+# dataset
 test_direction(PaluxyRiver, analysis = "ANOVA")
 
-# Example 5: Test for Differences in Direction Means with Pairwise Comparisons in PaluxyRiver dataset
+# Example 5: Test for Differences in Direction Means with Pairwise Comparisons in PaluxyRiver
+# dataset
 test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
 
-# Example 6: Test for Differences in Direction Means with Pairwise Comparisons in PaluxyRiver dataset
+# Example 6: Test for Differences in Direction Means with Pairwise Comparisons in PaluxyRiver
+# dataset
 test_direction(PaluxyRiver, analysis = "GLM")
 
 }

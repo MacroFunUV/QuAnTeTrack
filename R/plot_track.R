@@ -147,7 +147,7 @@ plot_track<-function(data, plot="FootprintsTracks",colours=NULL,cex.f=NULL, shap
 
   # Warning if 'box.p' is not provided when 'plot.labels' is TRUE
   if (plot.labels && is.null(box.p)) {
-    warning("Warning: 'box.p' (padding around label boxes) is NULL. Default padding will be used.")
+    warning("Warning: 'box.p' padding around label boxes is NULL. Default padding will be used.")
   }
 
   # Check if the length of 'labels' matches the number of tracks if 'labels' is provided
@@ -157,24 +157,24 @@ plot_track<-function(data, plot="FootprintsTracks",colours=NULL,cex.f=NULL, shap
 
   # Check if 'cex.f', 'cex.t', 'cex.l' are positive numeric values
   if (!is.null(cex.f) && (!is.numeric(cex.f) || cex.f <= 0)) {
-    stop("Error: 'cex.f' (size of footprint points) must be a positive numeric value.")
+    stop("Error: 'cex.f' size of footprint points must be a positive numeric value.")
   }
   if (!is.null(cex.t) && (!is.numeric(cex.t) || cex.t <= 0)) {
-    stop("Error: 'cex.t' (size of track lines) must be a positive numeric value.")
+    stop("Error: 'cex.t' size of track lines must be a positive numeric value.")
   }
   if (!is.null(cex.l) && (!is.numeric(cex.l) || cex.l <= 0)) {
-    stop("Error: 'cex.l' (size of labels) must be a positive numeric value.")
+    stop("Error: 'cex.l' size of labels must be a positive numeric value.")
   }
 
   # Check if 'alpha.f', 'alpha.t', 'alpha.l' are between 0 and 1
   if (!is.null(alpha.f) && (!is.numeric(alpha.f) || alpha.f < 0 || alpha.f > 1)) {
-    stop("Error: 'alpha.f' (transparency of footprint points) must be a numeric value between 0 and 1.")
+    stop("Error: 'alpha.f' transparency of footprint points must be a numeric value between 0 and 1.")
   }
   if (!is.null(alpha.t) && (!is.numeric(alpha.t) || alpha.t < 0 || alpha.t > 1)) {
-    stop("Error: 'alpha.t' (transparency of track lines) must be a numeric value between 0 and 1.")
+    stop("Error: 'alpha.t' transparency of track lines must be a numeric value between 0 and 1.")
   }
   if (!is.null(alpha.l) && (!is.numeric(alpha.l) || alpha.l < 0 || alpha.l > 1)) {
-    stop("Error: 'alpha.l' (transparency of labels) must be a numeric value between 0 and 1.")
+    stop("Error: 'alpha.l' transparency of labels must be a numeric value between 0 and 1.")
   }
 
   # Warning if 'plot.labels' is TRUE but 'labels' is NULL
@@ -184,7 +184,7 @@ plot_track<-function(data, plot="FootprintsTracks",colours=NULL,cex.f=NULL, shap
 
   # Check if 'box.p' (padding around label boxes) is numeric and positive
   if (!is.null(box.p) && (!is.numeric(box.p) || box.p <= 0)) {
-    stop("Error: 'box.p' (padding around label boxes) must be a positive numeric value.")
+    stop("Error: 'box.p' padding around label boxes must be a positive numeric value.")
   }
 
   ##Code----
@@ -216,7 +216,7 @@ plot_track<-function(data, plot="FootprintsTracks",colours=NULL,cex.f=NULL, shap
   # Plot Footprints and Tracks together----
   if (plot == "FootprintsTracks") {
     plotfig <- ggplot() +
-      geom_path(data = tracks, cex = cex.t, aes(x = x, y = y, group = IMAGE, colour = IMAGE), alpha = alpha.t) +  # Plot track lines
+      geom_path(data = tracks, linewidth = cex.t, aes(x = x, y = y, group = IMAGE, colour = IMAGE), alpha = alpha.t) +  # Plot track lines
       geom_point(cex = cex.f, data = footprints, aes(x = X, y = Y, colour = IMAGE, shape = IMAGE), alpha = alpha.f) +  # Plot footprint points
       coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE) +  # Set equal scaling for X and Y axes
       theme_light() + labs(y= "m", x = "m") + theme(legend.position="none") +  # Light theme and remove legend
@@ -227,7 +227,7 @@ plot_track<-function(data, plot="FootprintsTracks",colours=NULL,cex.f=NULL, shap
   # Plot only Tracks----
   if (plot == "Tracks") {
     plotfig <- ggplot() +
-      geom_path(data = tracks, cex = cex.t, aes(x = x, y = y, group = IMAGE, colour = IMAGE), alpha = alpha.t) +  # Plot track lines
+      geom_path(data = tracks, linewidth = cex.t, aes(x = x, y = y, group = IMAGE, colour = IMAGE), alpha = alpha.t) +  # Plot track lines
       coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE) + theme_light() + labs(y = "m", x = "m") +  # Light theme
       theme(legend.position="none") + scale_colour_manual(values = colours)  # Remove legend and set custom colors
   }

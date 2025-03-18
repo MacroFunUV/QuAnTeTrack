@@ -102,7 +102,7 @@ combined_prob<-function(data,metrics=NULL){
   # Error: Ensure all elements in 'metrics' have the same number of simulations
   nsim_lengths <- sapply(metrics, function(x) length(x[[4]]))
   if (length(unique(nsim_lengths)) != 1) {
-    stop("All elements in 'metrics' must have the same number of simulations (same length of 'Intersection_metric_simulations').")
+    stop("All elements in 'metrics' must have the same number of simulations.")
   }
 
 

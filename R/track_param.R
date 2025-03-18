@@ -95,12 +95,12 @@ track_param <- function(data) {
 
   # Check if 'data' is a list with at least two elements
   if (!is.list(data) || length(data) < 2) {
-    stop("The 'data' argument must be a 'track' R object, which is a list consisting of two elements.")
+    stop("The 'data' argument must be a 'track' R object.")
   }
 
   # Check if the two elements of 'data' are lists
   if (!is.list(data[[1]]) || !is.list(data[[2]])) {
-    stop("The two elements of 'data' must be lists.")
+    stop("Both elements of 'data' must be lists. Ensure that 'Trajectories' and 'Footprints' are provided.")
   }
 
 

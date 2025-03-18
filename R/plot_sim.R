@@ -154,20 +154,20 @@ plot_sim <- function(data, sim, colours_sim = NULL, alpha_sim = NULL, lwd_sim = 
 
   # Check and correct alpha values for transparency
   if (alpha_sim < 0 || alpha_sim > 1) {
-    stop("Alpha value for simulated trajectories ('alpha_sim') should be between 0 and 1.")
+    stop("Alpha value for simulated trajectories 'alpha_sim' should be between 0 and 1.")
   }
 
   if (alpha_act < 0 || alpha_act > 1) {
-    stop("Alpha value for actual trajectories ('alpha_act') should be between 0 and 1.")
+    stop("Alpha value for actual trajectories 'alpha_act' should be between 0 and 1.")
   }
 
   # Check and correct line width values
   if (lwd_sim <= 0) {
-    stop("Line width value for simulated trajectories ('lwd_sim') should be a positive number")
+    stop("Line width value for simulated trajectories 'lwd_sim' should be a positive number.")
   }
 
   if (lwd_act <= 0) {
-    stop("Line width value for actual trajectories ('lwd_act') should be a positive number")
+    stop("Line width value for actual trajectories 'lwd_act' should be a positive number.")
   }
 
 
@@ -192,8 +192,8 @@ plot_sim <- function(data, sim, colours_sim = NULL, alpha_sim = NULL, lwd_sim = 
 
   # Create the plot
   plotsim <- ggplot() +
-    geom_path(data = matrixsim, aes(x = x, y = y, group = TrajSim, color = as.factor(Trajectory)), alpha = alpha_sim, size = lwd_sim) +
-    geom_path(data = matrixact, aes(x = x, y = y, group = ID, color = as.factor(IMAGE)), size = lwd_act, alpha = alpha_act) +
+    geom_path(data = matrixsim, aes(x = x, y = y, group = TrajSim, color = as.factor(Trajectory)), alpha = alpha_sim, linewidth = lwd_sim) +
+    geom_path(data = matrixact, aes(x = x, y = y, group = ID, color = as.factor(IMAGE)), linewidth = lwd_act, alpha = alpha_act) +
     coord_fixed() +
     theme_light() +
     theme(legend.position = "none") +

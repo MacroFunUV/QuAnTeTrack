@@ -93,7 +93,7 @@ test_velocity <- function(data, trackvel, plot = FALSE, analysis = NULL) {
 
   # Check if 'data' is a list with at least two elements
   if (!is.list(data) || length(data) < 2) {
-    stop("The 'data' argument must be a 'track' R object, which is a list consisting of two elements.")
+    stop("The 'data' argument must be a 'track' R object, which is a list consisting of two elements: 'Trajectories' and 'Footprints'.")
   }
 
   # Check if the two elements of 'data' are lists
@@ -114,16 +114,20 @@ test_velocity <- function(data, trackvel, plot = FALSE, analysis = NULL) {
 
   ##Code----
 
-  # Combine velocity data from all tracks into a single data frame
-  data <- data[[1]]
 
+  data <- data[[1]]  # Update 'data' to only contain the first element (typically 'Trajectories')
+
+  # Combine velocity data from all tracks into a single vector 'n'
   n <- c(trackvel[[1]][[1]], trackvel[[1]][[1]][[length(trackvel[[1]][[1]])]])
+
+  # If more than one track is present, concatenate their velocity data
   if (length(data) > 1) {
     for (i in 2:length(data)) {
       n <- c(n, c(trackvel[[i]][[1]], trackvel[[i]][[1]][[length(trackvel[[i]][[1]])]]))
     }
   }
 
+  # Create a data frame 'M' with velocity data and track names
   M <- data.frame(matrix(nrow = length(n), ncol = 2))
   colnames(M) <- c("vel", "track")
 
@@ -137,65 +141,69 @@ test_velocity <- function(data, trackvel, plot = FALSE, analysis = NULL) {
   }
   M[, 2] <- n
 
-  for (i in 1:length(M$track)) {
-    M$track[i] <- gsub("_", " ", M$track[i])
-  }
-
-  # Replace underscores with spaces in track names
+  # Replace underscores with spaces in track names to ensure readability
   M$track <- gsub("_", " ", M$track)
+  M_original <- M  # Keep a copy of the original data frame
 
-  # Filter out tracks with 3 or fewer steps
+  # Identify valid and invalid tracks based on the number of footprints (steps)
   track_counts <- table(M$track)
-  valid_tracks <- names(track_counts[track_counts > 3])
+  valid_tracks <- names(track_counts[track_counts > 3])  # Tracks with more than 3 footprints
+  invalid_tracks <- names(track_counts[track_counts <= 3])  # Tracks with 3 or fewer footprints
 
-  # Warn if any tracks are removed
-  if (length(valid_tracks) < length(unique(M$track))) {
-    removed_tracks <- setdiff(unique(M$track), valid_tracks)
-    warning("The following tracks were removed from the analysis due to having 3 or fewer footprints: ", paste(removed_tracks, collapse = ", "))
+  # Warning if any tracks are removed from the analysis
+  if (length(invalid_tracks) > 0) {
+    warning("The following tracks were removed from the analysis due to having 3 or fewer footprints: ", paste(invalid_tracks, collapse = ", "),".")
   }
 
+  # Error if less than two valid tracks are available for analysis
   if (length(valid_tracks) < 2) {
-    stop("Not enough tracks with more than 3 steps for meaningful analysis.")
+    stop("Not enough tracks with more than 3 footprints for meaningful analysis. Ensure at least two tracks have more than 3 footprints.")
   }
 
-  M <- subset(M, track %in% valid_tracks)
+  # Subset the data to include only valid tracks
+  M_analysis <- subset(M, track %in% valid_tracks)
 
-  # Check normality
-  normality_tests <- lapply(split(M$vel, M$track), shapiro.test)
-  normality_results <- sapply(normality_tests, function(x) x$p.value)
+  # Check normality of each track's velocity data using the Shapiro-Wilk test
+  normality_tests <- lapply(split(M_analysis$vel, M_analysis$track), shapiro.test)
+  normality_results <- sapply(normality_tests, function(x) c(statistic = x$statistic, p_value = x$p.value))
 
-  # Check homogeneity of variances
-  homogeneity_test <- car::leveneTest(vel ~ as.factor(track), data = M)
+  # Warning if any track does not follow a normal distribution
+  if (any(normality_results["p_value", ] <= 0.05)) {
+    warning("One or more tracks do not follow a normal distribution (p-value <= 0.05). Assumptions for ANOVA are not met. Consider using 'Kruskal-Wallis' or 'GLM'.")
+  }
 
-  # Initialize result list
-  results <- list()
+  # Check homogeneity of variances across tracks using Levene's test
+  homogeneity_test <- car::leveneTest(vel ~ as.factor(track), data = M_analysis)
 
+  # Warning if the homogeneity of variances assumption is violated
+  if (homogeneity_test$Pr[1] <= 0.05) {
+    warning("Homogeneity of variances assumption is violated (Levene's test p-value <= 0.05). Assumptions for ANOVA are not met. Consider using 'Kruskal-Wallis' or 'GLM'.")
+  }
+
+  # Initialize results list to store outputs of the analysis
+  results <- list(normality_results = normality_results, homogeneity_test = homogeneity_test)
+
+  # Perform the selected analysis based on the user's input
   if (analysis == "ANOVA") {
-    if (all(normality_results > 0.05) && homogeneity_test$Pr[1] > 0.05) {
-      # Perform ANOVA
-      anova_result <- summary(aov(vel ~ track, data = M))
-      tukey_result <- TukeyHSD(aov(vel ~ track, data = M))
-      results$ANOVA <- list(ANOVA = anova_result, Tukey = tukey_result)
-    } else {
-      warning("Assumptions for ANOVA are not met. Consider using Kruskal-Wallis test or GLM.")
-    }
+    anova_result <- summary(aov(vel ~ track, data = M_analysis))
+    tukey_result <- TukeyHSD(aov(vel ~ track, data = M_analysis))
+    results$ANOVA <- list(ANOVA = anova_result, Tukey = tukey_result)
+
   } else if (analysis == "Kruskal-Wallis") {
-    kruskal_result <- kruskal.test(vel ~ track, data = M)
-    dunn_result <- dunn.test::dunn.test(M$vel, M$track, kw = TRUE)
+    # Perform Kruskal-Wallis test if selected
+    kruskal_result <- kruskal.test(vel ~ track, data = M_analysis)
+    dunn_result <- dunn.test::dunn.test(M_analysis$vel, M_analysis$track, kw = TRUE)
     results$Kruskal_Wallis <- list(Kruskal_Wallis = kruskal_result, Dunn = dunn_result)
   } else if (analysis == "GLM") {
-    glm_result <- summary(glm(vel ~ track, data = M, family = gaussian()))
+    # Perform GLM if selected
+    glm_result <- summary(glm(vel ~ track, data = M_analysis, family = gaussian()))
     results$GLM$GLM <- glm_result
-    results$GLM$pairwise_results <- emmeans::emmeans(glm(dir ~ track, data = M_analysis, family = gaussian()), pairwise ~ track, adjust = "tukey")
+    results$GLM$pairwise_results <- emmeans::emmeans(glm(vel ~ track, data = M_analysis, family = gaussian()), pairwise ~ track, adjust = "tukey")
   }
-
-  # Add normality and homogeneity results to output
-  results$normality_results <- normality_results
-  results$homogeneity_test <- homogeneity_test
 
   # Generate boxplot if requested
   if (plot) {
-    p <- ggplot(M, aes(x = track, y = vel)) +
+    p <- ggplot(M_analysis, aes(x = track, y = vel)) +
       geom_boxplot() +
       geom_point(alpha = 0.2, position = position_jitter()) +
       theme_classic() +

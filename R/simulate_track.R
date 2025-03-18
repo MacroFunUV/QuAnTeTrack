@@ -111,11 +111,6 @@
 simulate_track <- function(data, nsim = NULL, model = NULL) {
 
 
-  ## Set default values if arguments are NULL----
-  if (is.null(nsim)) nsim <- 1000 # Default number of simulations set to 1000 if 'nsim' is NULL
-  if (is.null(model)) model <- "Unconstrained" # Default model type set to "Unconstrained" if 'model' is NULL
-
-
   ## Errors and Warnings----
 
   # Check if 'data' is a list with at least two elements
@@ -151,6 +146,9 @@ simulate_track <- function(data, nsim = NULL, model = NULL) {
     stop(paste("The following tracks have fewer than four steps:", paste(indices, collapse = ", "),". Simulations cannot be applied to trajectories with fewer than four steps, as standard deviations of angles and step lengths cannot be computed. Consider using the function 'subset_track()' to filter only tracks with four or more steps."))
   }
 
+  ## Set default values if arguments are NULL----
+  if (is.null(nsim)) nsim <- 1000 # Default number of simulations set to 1000 if 'nsim' is NULL
+  if (is.null(model)) model <- "Unconstrained" # Default model type set to "Unconstrained" if 'model' is NULL
 
   ##Code----
 

@@ -129,7 +129,7 @@ test_direction <- function(data, analysis = NULL) {
 
   # Warning if any tracks are removed from the analysis
   if (length(invalid_tracks) > 0) {
-    warning("The following tracks were removed from the analysis due to having 3 or fewer footprints: ", paste(invalid_tracks, collapse = ", "))
+    warning("The following tracks were removed from the analysis due to having 3 or fewer footprints: ", paste(invalid_tracks, collapse = ", "),".")
   }
 
   # Error if less than two valid tracks are available for analysis
@@ -146,7 +146,7 @@ test_direction <- function(data, analysis = NULL) {
 
   # Warning if any track does not follow a normal distribution
   if (any(normality_results["p_value", ] <= 0.05)) {
-    warning("One or more tracks do not follow a normal distribution (p-value <= 0.05). Consider using 'Kruskal-Wallis' instead of 'ANOVA'.")
+    warning("One or more tracks do not follow a normal distribution (p-value <= 0.05). Assumptions for ANOVA are not met. Consider using 'Kruskal-Wallis' or 'GLM'.")
   }
 
   # Check homogeneity of variances across tracks using Levene's test
@@ -154,7 +154,7 @@ test_direction <- function(data, analysis = NULL) {
 
   # Warning if the homogeneity of variances assumption is violated
   if (homogeneity_test$Pr[1] <= 0.05) {
-    warning("Homogeneity of variances assumption is violated (Levene's test p-value <= 0.05). Consider using 'Kruskal-Wallis' or 'GLM'.")
+    warning("Homogeneity of variances assumption is violated (Levene's test p-value <= 0.05). Assumptions for ANOVA are not met. Consider using 'Kruskal-Wallis' or 'GLM'.")
   }
 
   # Initialize results list to store outputs of the analysis
@@ -162,14 +162,10 @@ test_direction <- function(data, analysis = NULL) {
 
   # Perform the selected analysis based on the user's input
   if (analysis == "ANOVA") {
-    # Proceed with ANOVA if assumptions are met
-    if (all(normality_results["p_value", ] > 0.05) && homogeneity_test$Pr[1] > 0.05) {
       anova_result <- summary(aov(dir ~ track, data = M_analysis))
       tukey_result <- TukeyHSD(aov(dir ~ track, data = M_analysis))
       results$ANOVA <- list(ANOVA = anova_result, Tukey = tukey_result)
-    } else {
-      warning("Assumptions for ANOVA are not met. Consider using 'Kruskal-Wallis' or 'GLM'.")
-    }
+
   } else if (analysis == "Kruskal-Wallis") {
     # Perform Kruskal-Wallis test if selected
     kruskal_result <- kruskal.test(dir ~ track, data = M_analysis)

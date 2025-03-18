@@ -180,7 +180,7 @@ plot_velocity <- function(data, trackvel, param = NULL, lwd = NULL, colours = NU
 
   # Generate the plot using ggplot2
   plot <- ggplot(data = M, aes(x = x, y = y, group = track, color = col)) +
-    geom_path(size = lwd) +
+    geom_path(linewidth = lwd) +
     coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE) +
     theme_light()
 

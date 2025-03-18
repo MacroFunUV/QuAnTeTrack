@@ -355,10 +355,11 @@ tps_to_track <- function(file, scale=NULL, missing=FALSE, NAs=NULL, R.L.side=NUL
     data_frame[[i]]$Y <- data_frame[[i]]$Y * scale
   }
 
-  # Create a list to return the results
-  listdata <- list()
-  listdata[[1]] <- landmarks3
-  listdata[[2]] <- data_frame
+  # Create a named list to return the results
+  listdata <- list(
+    Trajectories = landmarks3,
+    Footprints = data_frame
+  )
 
   print(listdata)
 }

@@ -55,9 +55,6 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 
 ``` r
 # Load package QuAnTeTrack
-=======
-
-``` load
 library(QuAnTeTrack)
 ```
 

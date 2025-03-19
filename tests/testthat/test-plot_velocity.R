@@ -1,7 +1,9 @@
 test_that("plot_velocity returns a ggplot object for velocity parameter with MountTom dataset", {
-  H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
-                  1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
-                  1.648, 1.760, 1.612)
+  H_mounttom <- c(
+    1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
+    1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+    1.648, 1.760, 1.612
+  )
 
   V_mounttom <- velocity_track(MountTom, H = H_mounttom)
   plot_result <- plot_velocity(MountTom, V_mounttom, param = "V")
@@ -20,9 +22,11 @@ test_that("plot_velocity returns a ggplot object for relative stride length para
 })
 
 test_that("plot_velocity returns a ggplot object for velocity with custom line width and colors (MountTom dataset)", {
-  H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
-                  1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
-                  1.648, 1.760, 1.612)
+  H_mounttom <- c(
+    1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
+    1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+    1.648, 1.760, 1.612
+  )
 
   V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 
@@ -49,9 +53,11 @@ test_that("plot_velocity returns a ggplot object for relative stride length with
 })
 
 test_that("plot_velocity handles invalid inputs correctly", {
-  H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
-                  1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
-                  1.648, 1.760, 1.612)
+  H_mounttom <- c(
+    1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
+    1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+    1.648, 1.760, 1.612
+  )
   expect_error(plot_velocity(NULL, NULL), "The 'data' argument must be a 'track' R object, which is a list consisting of two elements.")
   expect_error(plot_velocity(MountTom, NULL), "'trackvel' must be a list.")
   expect_error(plot_velocity(MountTom, velocity_track(MountTom, H = H_mounttom), param = "Invalid value for 'param'. Choose 'V' for velocity, 'RSL' for relative stride length, or NULL."))

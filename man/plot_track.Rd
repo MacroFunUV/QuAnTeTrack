@@ -76,10 +76,12 @@ plot_track(MountTom, plot = "Tracks")
 plot_track(PaluxyRiver, plot = "Footprints")
 
 # Example 5: Custom Colors for Tracks - MountTom Dataset
-custom_colors <- c("#008000", "#0000FF", "#FF0000", "#800080", "#FFA500", "#FFC0CB", "#FFFF00",
-                   "#00FFFF", "#A52A2A", "#FF00FF", "#808080", "#000000", "#006400", "#00008B",
-                   "#8B0000", "#FF8C00", "#008B8B", "#A9A9A9", "#000080", "#808000", "#800000",
-                   "#008080", "#FFD700")
+custom_colors <- c(
+  "#008000", "#0000FF", "#FF0000", "#800080", "#FFA500", "#FFC0CB", "#FFFF00",
+  "#00FFFF", "#A52A2A", "#FF00FF", "#808080", "#000000", "#006400", "#00008B",
+  "#8B0000", "#FF8C00", "#008B8B", "#A9A9A9", "#000080", "#808000", "#800000",
+  "#008080", "#FFD700"
+)
 plot_track(MountTom, colours = custom_colors)
 
 # Example 6: Larger Footprints and Track Lines - PaluxyRiver Dataset
@@ -102,8 +104,10 @@ plot_track(PaluxyRiver, plot = "Footprints", colours = c("purple", "orange"), sh
 plot_track(MountTom, plot = "Tracks", cex.t = 1.5, colours = custom_colors)
 
 # Example 12: Black Footprints and Tracks with Labels - PaluxyRiver Dataset
-plot_track(PaluxyRiver, colours = NULL, shape.f = c(16, 16), plot.labels = TRUE,
-           labels = c("Saurpod", "Theropod"), cex.l = 2, alpha.l = 0.5)
+plot_track(PaluxyRiver,
+  colours = NULL, shape.f = c(16, 16), plot.labels = TRUE,
+  labels = c("Saurpod", "Theropod"), cex.l = 2, alpha.l = 0.5
+)
 
 }
 \seealso{

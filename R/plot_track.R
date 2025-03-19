@@ -21,7 +21,7 @@
 #' @return A \code{ggplot} object that displays the specified plot type, including tracks, footprints, or both, from 'track' R objects. The \pkg{ggplot2} package is used for plotting.
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -45,10 +45,12 @@
 #' plot_track(PaluxyRiver, plot = "Footprints")
 #'
 #' # Example 5: Custom Colors for Tracks - MountTom Dataset
-#' custom_colors <- c("#008000", "#0000FF", "#FF0000", "#800080", "#FFA500", "#FFC0CB", "#FFFF00",
-#'                    "#00FFFF", "#A52A2A", "#FF00FF", "#808080", "#000000", "#006400", "#00008B",
-#'                    "#8B0000", "#FF8C00", "#008B8B", "#A9A9A9", "#000080", "#808000", "#800000",
-#'                    "#008080", "#FFD700")
+#' custom_colors <- c(
+#'   "#008000", "#0000FF", "#FF0000", "#800080", "#FFA500", "#FFC0CB", "#FFFF00",
+#'   "#00FFFF", "#A52A2A", "#FF00FF", "#808080", "#000000", "#006400", "#00008B",
+#'   "#8B0000", "#FF8C00", "#008B8B", "#A9A9A9", "#000080", "#808000", "#800000",
+#'   "#008080", "#FFD700"
+#' )
 #' plot_track(MountTom, colours = custom_colors)
 #'
 #' # Example 6: Larger Footprints and Track Lines - PaluxyRiver Dataset
@@ -71,8 +73,10 @@
 #' plot_track(MountTom, plot = "Tracks", cex.t = 1.5, colours = custom_colors)
 #'
 #' # Example 12: Black Footprints and Tracks with Labels - PaluxyRiver Dataset
-#' plot_track(PaluxyRiver, colours = NULL, shape.f = c(16, 16), plot.labels = TRUE,
-#'            labels = c("Saurpod", "Theropod"), cex.l = 2, alpha.l = 0.5)
+#' plot_track(PaluxyRiver,
+#'   colours = NULL, shape.f = c(16, 16), plot.labels = TRUE,
+#'   labels = c("Saurpod", "Theropod"), cex.l = 2, alpha.l = 0.5
+#' )
 #'
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 alpha
@@ -92,25 +96,23 @@
 #' @export
 
 
-plot_track<-function(data, plot="FootprintsTracks",colours=NULL,cex.f=NULL, shape.f=NULL, alpha.f=NULL,cex.t=NULL, alpha.t=NULL, plot.labels=NULL,labels=NULL,box.p=NULL, cex.l=NULL,alpha.l=NULL) {
-
-
+plot_track <- function(data, plot = "FootprintsTracks", colours = NULL, cex.f = NULL, shape.f = NULL, alpha.f = NULL, cex.t = NULL, alpha.t = NULL, plot.labels = NULL, labels = NULL, box.p = NULL, cex.l = NULL, alpha.l = NULL) {
   ## Set default values if arguments are NULL----
-  if (is.null(cex.f)) cex.f <- 2.5  # Set default size for footprint points if 'cex.f' is NULL
-  if (is.null(cex.t)) cex.t <- 0.5  # Set default size for track lines if 'cex.t' is NULL
+  if (is.null(cex.f)) cex.f <- 2.5 # Set default size for footprint points if 'cex.f' is NULL
+  if (is.null(cex.t)) cex.t <- 0.5 # Set default size for track lines if 'cex.t' is NULL
   if (is.null(cex.l)) cex.l <- 3.88 # Set default size for labels if 'cex.l' is NULL
 
-  if (is.null(alpha.f)) alpha.f <- 0.5  # Set default transparency for footprint points if 'alpha.f' is NULL
-  if (is.null(alpha.t)) alpha.t <- 1    # Set default transparency for track lines if 'alpha.t' is NULL
-  if (is.null(alpha.l)) alpha.l <- 0.5  # Set default transparency for labels if 'alpha.l' is NULL
+  if (is.null(alpha.f)) alpha.f <- 0.5 # Set default transparency for footprint points if 'alpha.f' is NULL
+  if (is.null(alpha.t)) alpha.t <- 1 # Set default transparency for track lines if 'alpha.t' is NULL
+  if (is.null(alpha.l)) alpha.l <- 0.5 # Set default transparency for labels if 'alpha.l' is NULL
 
   if (is.null(colours)) colours <- c(rep("#000000", length(data[[1]]))) # Set default color (black) for all elements if 'colours' is NULL
 
-  if (is.null(shape.f)) shape.f <- c(rep(19, length(data[[1]])))  # Set default shape for footprint points if 'shape.f' is NULL
+  if (is.null(shape.f)) shape.f <- c(rep(19, length(data[[1]]))) # Set default shape for footprint points if 'shape.f' is NULL
 
-  if (is.null(plot.labels)) plot.labels <- FALSE  # Set default if 'plot.labels' is NULL
+  if (is.null(plot.labels)) plot.labels <- FALSE # Set default if 'plot.labels' is NULL
 
-  if (is.null(box.p)) box.p <- 0.25  # Set default padding for label boxes if 'box.p' is NULL
+  if (is.null(box.p)) box.p <- 0.25 # Set default padding for label boxes if 'box.p' is NULL
 
 
   ## Errors and Warnings----
@@ -187,68 +189,74 @@ plot_track<-function(data, plot="FootprintsTracks",colours=NULL,cex.f=NULL, shap
     stop("Error: 'box.p' padding around label boxes must be a positive numeric value.")
   }
 
-  ##Code----
+  ## Code----
 
   # Combine data from all tracks and footprints into single data frames----
-  footprints <- bind_rows(data[[2]])  # Combine all footprint data into one data frame
-  tracks <- bind_rows(data[[1]])      # Combine all track data into one data frame
+  footprints <- bind_rows(data[[2]]) # Combine all footprint data into one data frame
+  tracks <- bind_rows(data[[1]]) # Combine all track data into one data frame
 
   # Create a data frame for plotting labels----
-  mat <- data.frame(matrix(nrow = length(data[[1]]), ncol = 3))  # Initialize a data frame with three columns for X, Y coordinates, and Name
-  colnames(mat) <- c("X", "Y", "Name")  # Name the columns
+  mat <- data.frame(matrix(nrow = length(data[[1]]), ncol = 3)) # Initialize a data frame with three columns for X, Y coordinates, and Name
+  colnames(mat) <- c("X", "Y", "Name") # Name the columns
 
   # Populate 'mat' with the first X and Y coordinates from each track----
   for (i in 1:length(data[[1]])) {
-    mat[i, 1] <- data[[1]][[i]]$x[[1]]  # Set X coordinate for each track
-    mat[i, 2] <- data[[1]][[i]]$y[[1]]  # Set Y coordinate for each track
+    mat[i, 1] <- data[[1]][[i]]$x[[1]] # Set X coordinate for each track
+    mat[i, 2] <- data[[1]][[i]]$y[[1]] # Set Y coordinate for each track
   }
 
   # Assign labels if provided, otherwise use track names----
   if (is.null(labels) == FALSE) {
-    mat$Name <- labels  # Assign provided labels to 'Name' column
+    mat$Name <- labels # Assign provided labels to 'Name' column
   }
   if (is.null(labels) == TRUE) {
     for (i in 1:length(data[[1]])) {
-      mat$Name[i] <- gsub("_", " ", names(data[[1]][i]))  # Generate labels by removing underscores from track names
+      mat$Name[i] <- gsub("_", " ", names(data[[1]][i])) # Generate labels by removing underscores from track names
     }
   }
 
   # Plot Footprints and Tracks together----
   if (plot == "FootprintsTracks") {
     plotfig <- ggplot() +
-      geom_path(data = tracks, linewidth = cex.t, aes(x = x, y = y, group = IMAGE, colour = IMAGE), alpha = alpha.t) +  # Plot track lines
-      geom_point(cex = cex.f, data = footprints, aes(x = X, y = Y, colour = IMAGE, shape = IMAGE), alpha = alpha.f) +  # Plot footprint points
-      coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE) +  # Set equal scaling for X and Y axes
-      theme_light() + labs(y= "m", x = "m") + theme(legend.position="none") +  # Light theme and remove legend
-      scale_colour_manual(values = colours)  +  # Set custom colors
-      scale_shape_manual(values = shape.f)  # Assign specific shapes
+      geom_path(data = tracks, linewidth = cex.t, aes(x = x, y = y, group = IMAGE, colour = IMAGE), alpha = alpha.t) + # Plot track lines
+      geom_point(cex = cex.f, data = footprints, aes(x = X, y = Y, colour = IMAGE, shape = IMAGE), alpha = alpha.f) + # Plot footprint points
+      coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE) + # Set equal scaling for X and Y axes
+      theme_light() +
+      labs(y = "m", x = "m") +
+      theme(legend.position = "none") + # Light theme and remove legend
+      scale_colour_manual(values = colours) + # Set custom colors
+      scale_shape_manual(values = shape.f) # Assign specific shapes
   }
 
   # Plot only Tracks----
   if (plot == "Tracks") {
     plotfig <- ggplot() +
-      geom_path(data = tracks, linewidth = cex.t, aes(x = x, y = y, group = IMAGE, colour = IMAGE), alpha = alpha.t) +  # Plot track lines
-      coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE) + theme_light() + labs(y = "m", x = "m") +  # Light theme
-      theme(legend.position="none") + scale_colour_manual(values = colours)  # Remove legend and set custom colors
+      geom_path(data = tracks, linewidth = cex.t, aes(x = x, y = y, group = IMAGE, colour = IMAGE), alpha = alpha.t) + # Plot track lines
+      coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE) +
+      theme_light() +
+      labs(y = "m", x = "m") + # Light theme
+      theme(legend.position = "none") +
+      scale_colour_manual(values = colours) # Remove legend and set custom colors
   }
 
   # Plot only Footprints----
   if (plot == "Footprints") {
     plotfig <- ggplot() +
-      geom_point(data = footprints, cex = cex.f, aes(x = X, y = Y, colour = IMAGE, shape = IMAGE), alpha = alpha.f) +  # Plot footprint points
+      geom_point(data = footprints, cex = cex.f, aes(x = X, y = Y, colour = IMAGE, shape = IMAGE), alpha = alpha.f) + # Plot footprint points
       coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE) +
-      theme_light() + labs(y = "m", x = "m") + theme(legend.position="none") +  # Light theme and remove legend
-      scale_colour_manual(values = colours)  +  # Set custom colors
+      theme_light() +
+      labs(y = "m", x = "m") +
+      theme(legend.position = "none") + # Light theme and remove legend
+      scale_colour_manual(values = colours) + # Set custom colors
       scale_shape_manual(values = shape.f)
   }
 
   # Add labels to the plot if 'plot.labels' is TRUE----
   if (plot.labels == TRUE) {
-    options(ggrepel.max.overlaps = Inf)  # Allow infinite overlaps for label placement
-    plotfig <- plotfig + geom_label_repel(data = mat, aes(x = X, y = Y, label = Name),box.padding = box.p, point.padding = 0, segment.color = 'grey50', fill = alpha(c("white"), alpha.l), cex = cex.l)  # Add labels with custom settings
+    options(ggrepel.max.overlaps = Inf) # Allow infinite overlaps for label placement
+    plotfig <- plotfig + geom_label_repel(data = mat, aes(x = X, y = Y, label = Name), box.padding = box.p, point.padding = 0, segment.color = "grey50", fill = alpha(c("white"), alpha.l), cex = cex.l) # Add labels with custom settings
   }
 
   # Return the final plot----
   plotfig
 }
-

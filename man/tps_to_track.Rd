@@ -68,7 +68,7 @@ tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
 
 
 # Example 2: Tracks with missing footprints. Based on dinosaur tracks from
- # the Mount Tom (Ostrom, 1972).
+# the Mount Tom (Ostrom, 1972).
 
 # Load the example TPS file provided in the QuAnTeTrack package.
 # This TPS data includes footprint coordinates for different tracks,
@@ -84,10 +84,14 @@ NAs <- matrix(c(7, 3), nrow = 1, ncol = 2)
 # 'missing' specifies whether missing footprints should be handled, 'NAs' provides
 # the missing footprints matrix, and 'R.L.side' specifies which side (Right or Left)
 # is the first footprint of each track.
-tps_to_track(tpsMountTom, scale = 0.004411765, missing = TRUE, NAs = NAs,
-             R.L.side = c("R", "L", "L", "L", "R", "L", "R", "R", "L", "L", "L",
-                          "L", "L", "R", "R", "L", "R", "R", "L", "R", "R",
-                          "R", "R"))
+tps_to_track(tpsMountTom,
+  scale = 0.004411765, missing = TRUE, NAs = NAs,
+  R.L.side = c(
+    "R", "L", "L", "L", "R", "L", "R", "R", "L", "L", "L",
+    "L", "L", "R", "R", "L", "R", "R", "L", "R", "R",
+    "R", "R"
+  )
+)
 
 }
 \references{

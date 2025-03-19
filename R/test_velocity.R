@@ -33,7 +33,7 @@
 #'   - \code{plot} (If \code{plot} is \code{TRUE}): A boxplot of velocities by track is generated and displayed.
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -48,9 +48,11 @@
 #' # in MountTom dataset.
 #'
 #' # Hip heights for each track in the MountTom dataset
-#' H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
-#'                 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
-#'                 1.648, 1.760, 1.612)
+#' H_mounttom <- c(
+#'   1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
+#'   1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+#'   1.648, 1.760, 1.612
+#' )
 #'
 #' # Calculate velocities using the default Method "A"
 #' V_mounttom <- velocity_track(MountTom, H = H_mounttom)
@@ -85,9 +87,8 @@
 #' @export
 
 test_velocity <- function(data, trackvel, plot = FALSE, analysis = NULL) {
-
   ## Set default values if arguments are NULL----
-  if (is.null(analysis)) analysis = "ANOVA" # Default to "ANOVA" if 'analysis' is NULL
+  if (is.null(analysis)) analysis <- "ANOVA" # Default to "ANOVA" if 'analysis' is NULL
 
   ## Errors and Warnings----
 
@@ -112,10 +113,10 @@ test_velocity <- function(data, trackvel, plot = FALSE, analysis = NULL) {
   }
 
 
-  ##Code----
+  ## Code----
 
 
-  data <- data[[1]]  # Update 'data' to only contain the first element (typically 'Trajectories')
+  data <- data[[1]] # Update 'data' to only contain the first element (typically 'Trajectories')
 
   # Combine velocity data from all tracks into a single vector 'n'
   n <- c(trackvel[[1]][[1]], trackvel[[1]][[1]][[length(trackvel[[1]][[1]])]])
@@ -143,16 +144,16 @@ test_velocity <- function(data, trackvel, plot = FALSE, analysis = NULL) {
 
   # Replace underscores with spaces in track names to ensure readability
   M$track <- gsub("_", " ", M$track)
-  M_original <- M  # Keep a copy of the original data frame
+  M_original <- M # Keep a copy of the original data frame
 
   # Identify valid and invalid tracks based on the number of footprints (steps)
   track_counts <- table(M$track)
-  valid_tracks <- names(track_counts[track_counts > 3])  # Tracks with more than 3 footprints
-  invalid_tracks <- names(track_counts[track_counts <= 3])  # Tracks with 3 or fewer footprints
+  valid_tracks <- names(track_counts[track_counts > 3]) # Tracks with more than 3 footprints
+  invalid_tracks <- names(track_counts[track_counts <= 3]) # Tracks with 3 or fewer footprints
 
   # Warning if any tracks are removed from the analysis
   if (length(invalid_tracks) > 0) {
-    warning("The following tracks were removed from the analysis due to having 3 or fewer footprints: ", paste(invalid_tracks, collapse = ", "),".")
+    warning("The following tracks were removed from the analysis due to having 3 or fewer footprints: ", paste(invalid_tracks, collapse = ", "), ".")
   }
 
   # Error if less than two valid tracks are available for analysis
@@ -188,7 +189,6 @@ test_velocity <- function(data, trackvel, plot = FALSE, analysis = NULL) {
     anova_result <- summary(aov(vel ~ track, data = M_analysis))
     tukey_result <- TukeyHSD(aov(vel ~ track, data = M_analysis))
     results$ANOVA <- list(ANOVA = anova_result, Tukey = tukey_result)
-
   } else if (analysis == "Kruskal-Wallis") {
     # Perform Kruskal-Wallis test if selected
     kruskal_result <- kruskal.test(vel ~ track, data = M_analysis)

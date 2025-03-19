@@ -72,15 +72,21 @@ test_that("test_direction correctly performs GLM on PaluxyRiver dataset", {
 })
 
 test_that("test_direction gives an error for invalid analysis type", {
-  expect_error(test_direction(MountTom, analysis = "InvalidMethod"),
-               "Invalid 'analysis' argument. Choose from 'ANOVA', 'Kruskal-Wallis', or 'GLM'.")
+  expect_error(
+    test_direction(MountTom, analysis = "InvalidMethod"),
+    "Invalid 'analysis' argument. Choose from 'ANOVA', 'Kruskal-Wallis', or 'GLM'."
+  )
 })
 
 test_that("test_direction gives an error when data is not a valid track object", {
-  expect_error(test_direction(NULL, analysis = "ANOVA"),
-               "The 'data' argument must be a 'track' R object, which is a list consisting of two elements: 'Trajectories' and 'Footprints'.")
-  expect_error(test_direction(list(1, 2, 3), analysis = "ANOVA"),
-               "Both elements of 'data' must be lists. Ensure that 'Trajectories' and 'Footprints' are provided.")
+  expect_error(
+    test_direction(NULL, analysis = "ANOVA"),
+    "The 'data' argument must be a 'track' R object, which is a list consisting of two elements: 'Trajectories' and 'Footprints'."
+  )
+  expect_error(
+    test_direction(list(1, 2, 3), analysis = "ANOVA"),
+    "Both elements of 'data' must be lists. Ensure that 'Trajectories' and 'Footprints' are provided."
+  )
 })
 
 test_that("test_direction emits both expected warnings", {
@@ -92,7 +98,9 @@ test_that("test_direction emits both expected warnings", {
 })
 
 test_that("test_direction gives an error when there are not enough valid tracks", {
-  small_track_data <- subset_track(MountTom, tracks = c(1))  # Only one track
-  expect_error(test_direction(small_track_data, analysis = "ANOVA"),
-               "Not enough tracks with more than 3 footprints for meaningful analysis.")
+  small_track_data <- subset_track(MountTom, tracks = c(1)) # Only one track
+  expect_error(
+    test_direction(small_track_data, analysis = "ANOVA"),
+    "Not enough tracks with more than 3 footprints for meaningful analysis."
+  )
 })

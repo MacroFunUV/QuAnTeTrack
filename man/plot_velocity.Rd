@@ -55,9 +55,11 @@ The color gradient for the parameter is applied using \code{scale_color_gradient
 # Example 1: Plot Trajectories Colored by Velocity with Default Settings (MountTom dataset)
 
 # Hip heights for each track in the MountTom dataset
-H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
-                1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
-                1.648, 1.760, 1.612)
+H_mounttom <- c(
+  1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
+  1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+  1.648, 1.760, 1.612
+)
 
 # Calculate velocities using the default Method "A"
 V_mounttom <- velocity_track(MountTom, H = H_mounttom)
@@ -90,8 +92,10 @@ custom_colours <- c("blue", "green", "yellow", "red")
 custom_lwd <- 2
 
 # Plot trajectories with custom colors and line width
-plot3 <- plot_velocity(MountTom, V_mounttom, param = "V", lwd = custom_lwd,
-                       colours = custom_colours)
+plot3 <- plot_velocity(MountTom, V_mounttom,
+  param = "V", lwd = custom_lwd,
+  colours = custom_colours
+)
 print(plot3)
 
 # Example 4: Plot Trajectories Colored by Relative Stride Length with Custom Line Width
@@ -102,8 +106,10 @@ custom_colours_rsl <- c("purple", "orange", "pink", "gray")
 custom_lwd_rsl <- 1.5
 
 # Plot trajectories with custom colors, line width, and no legend
-plot4 <- plot_velocity(PaluxyRiver, V_paluxyriver, param = "RSL", lwd = custom_lwd_rsl,
-                       colours = custom_colours_rsl, legend = FALSE)
+plot4 <- plot_velocity(PaluxyRiver, V_paluxyriver,
+  param = "RSL", lwd = custom_lwd_rsl,
+  colours = custom_colours_rsl, legend = FALSE
+)
 print(plot4)
 
 }

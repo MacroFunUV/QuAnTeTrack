@@ -70,8 +70,8 @@
 #' intersection counts for each simulation iteration, allowing for further inspection of the
 #' distribution of intersections across multiple randomized scenarios.}
 #'
-#'@section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' @section Logo:
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -84,40 +84,46 @@
 #' @examples
 #' # Example 1: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
 #' # No origin permutation is applied ("None").
-#' s1 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Directed")
+#' s1 <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
 #' int1 <- track_intersection(PaluxyRiver, test = TRUE, sim = s1, origin.permutation = "None")
 #' print(int1)
 #'
 #' # Example 2: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
 #' # The origin permutation is applied using the minimum bounding box ("Min.Box").
-#' s2 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Constrained")
+#' s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
 #' int2 <- track_intersection(PaluxyRiver, test = TRUE, sim = s2, origin.permutation = "Min.Box")
 #' print(int2)
 #'
 #' # Example 3: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
 #' # The origin permutation is applied using the convex hull ("Conv.Hull").
-#' s3 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Unconstrained")
+#' s3 <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
 #' int3 <- track_intersection(PaluxyRiver, test = TRUE, sim = s3, origin.permutation = "Conv.Hull")
 #' print(int3)
 #'
 #' # Example 4: Simulating tracks and comparing intersection metrics in a subsample of the
 #' # MoutTom dataset. The "Min.Box" origin permutation is applied.
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
-#' s4 <- simulate_track(sbMountTom, nsim = 1000)
+#' s4 <- simulate_track(sbMountTom, nsim = 10)
 #' int4 <- track_intersection(sbMountTom, test = TRUE, sim = s4, origin.permutation = "Min.Box")
 #' print(int4)
 #'
 #' # Example 5: Simulating tracks and comparing intersection metrics in a subsample of the
 #' # MoutTom dataset. The origin permutation is customized ("Custom") using predefined coordinates.
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
-#' s5 <- simulate_track(sbMountTom, nsim = 1000)
-#' area_origin <- matrix(c(50, 5,
-#'                         10, 5,
-#'                         10, 20,
-#'                         50, 20),
-#'                       ncol = 2, byrow = TRUE)
-#' int5 <- track_intersection(sbMountTom, test = TRUE, sim = s5, origin.permutation = "Custom",
-#'                            custom.coord = area_origin)
+#' s5 <- simulate_track(sbMountTom, nsim = 10)
+#' area_origin <- matrix(
+#'   c(
+#'     50, 5,
+#'     10, 5,
+#'     10, 20,
+#'     50, 20
+#'   ),
+#'   ncol = 2, byrow = TRUE
+#' )
+#' int5 <- track_intersection(sbMountTom,
+#'   test = TRUE, sim = s5, origin.permutation = "Custom",
+#'   custom.coord = area_origin
+#' )
 #' print(int5)
 #'
 #' @importFrom grDevices chull
@@ -131,10 +137,9 @@
 
 
 track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation = NULL, custom.coord = NULL) {
-
   ## Set default values if arguments are NULL----
-  if (is.null(test)) test <- FALSE  # Set default if 'test' is NULL
-  if (is.null(origin.permutation)) origin.permutation <- "None"  # Set default if 'origin.permutation' is NULL
+  if (is.null(test)) test <- FALSE # Set default if 'test' is NULL
+  if (is.null(origin.permutation)) origin.permutation <- "None" # Set default if 'origin.permutation' is NULL
 
   ## Errors and Warnings----
 
@@ -196,17 +201,21 @@ track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation
 
   # Function to determine if two line segments intersect
   find_intersection <- function(p1, p2, p3, p4) {
-    x1 <- p1[1]; y1 <- p1[2]
-    x2 <- p2[1]; y2 <- p2[2]
-    x3 <- p3[1]; y3 <- p3[2]
-    x4 <- p4[1]; y4 <- p4[2]
+    x1 <- p1[1]
+    y1 <- p1[2]
+    x2 <- p2[1]
+    y2 <- p2[2]
+    x3 <- p3[1]
+    y3 <- p3[2]
+    x4 <- p4[1]
+    y4 <- p4[2]
 
     # Compute determinants
     denom <- (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
 
     # Check if the lines are parallel
     if (denom == 0) {
-      return(c(NA, NA))  # Lines are parallel or coincident
+      return(c(NA, NA)) # Lines are parallel or coincident
     }
 
     # Compute intersection point
@@ -215,9 +224,9 @@ track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation
 
     # Check if the intersection point is within both line segments
     if (min(x1, x2) <= intersect_x && intersect_x <= max(x1, x2) &&
-        min(y1, y2) <= intersect_y && intersect_y <= max(y1, y2) &&
-        min(x3, x4) <= intersect_x && intersect_x <= max(x3, x4) &&
-        min(y3, y4) <= intersect_y && intersect_y <= max(y3, y4)) {
+      min(y1, y2) <= intersect_y && intersect_y <= max(y1, y2) &&
+      min(x3, x4) <= intersect_x && intersect_x <= max(x3, x4) &&
+      min(y3, y4) <= intersect_y && intersect_y <= max(y3, y4)) {
       return(c(intersect_x, intersect_y))
     } else {
       return(c(NA, NA))
@@ -231,8 +240,8 @@ track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation
     for (i in 1:(length(traj1$x) - 1)) {
       for (j in 1:(length(traj2$x) - 1)) {
         int <- find_intersection(
-          c(traj1$x[i], traj1$y[i]), c(traj1$x[i+1], traj1$y[i+1]),
-          c(traj2$x[j], traj2$y[j]), c(traj2$x[j+1], traj2$y[j+1])
+          c(traj1$x[i], traj1$y[i]), c(traj1$x[i + 1], traj1$y[i + 1]),
+          c(traj2$x[j], traj2$y[j]), c(traj2$x[j + 1], traj2$y[j + 1])
         )
 
         if (!is.na(int[1])) {
@@ -245,22 +254,24 @@ track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation
     unique_intersections <- unique(do.call(rbind, intersections))
 
     # Return the number of unique intersections
-    if (is.null(unique_intersections)){
-      return(0)} else {
-        return(nrow(unique_intersections))}
+    if (is.null(unique_intersections)) {
+      return(0)
+    } else {
+      return(nrow(unique_intersections))
+    }
   }
 
 
   # Calculate actual intersection metrics
-  Matrixsim<-data.frame(matrix(nrow=length(data),ncol = length(data)))
-  colnames(Matrixsim)<-names(data)
-  rownames(Matrixsim)<-names(data)
+  Matrixsim <- data.frame(matrix(nrow = length(data), ncol = length(data)))
+  colnames(Matrixsim) <- names(data)
+  rownames(Matrixsim) <- names(data)
 
-  Intersect<-Matrixsim
-  for (i in 1:length(data)){
-    for (j in 1:length(data)){
-      if(i<=j) next
-      Intersect[j,i]<-intersect(data[[i]],data[[j]])
+  Intersect <- Matrixsim
+  for (i in 1:length(data)) {
+    for (j in 1:length(data)) {
+      if (i <= j) next
+      Intersect[j, i] <- intersect(data[[i]], data[[j]])
     }
   }
 
@@ -268,11 +279,9 @@ track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation
   # Calculate simulation intersection metrics
   # Permutation of coordinates at origin
   if (test == TRUE) {
-
     nsim <- length(sim)
 
     if (origin.permutation != "None") {
-
       mat <- matrix(ncol = 2, nrow = length(data))
 
       for (i in 1:length(data)) {

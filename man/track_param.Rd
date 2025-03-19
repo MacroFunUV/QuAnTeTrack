@@ -78,7 +78,6 @@ track_param(PaluxyRiver)
 # Example 2:
 track_param(MountTom)
 
-
 }
 \references{
 Batschelet, E. (1981). Circular statistics in biology. Academic press, 111 Fifth Ave., New York, NY 10003, 1981, 388.

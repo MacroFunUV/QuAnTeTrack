@@ -82,14 +82,14 @@ simulated_tracks <- simulate_track(PaluxyRiver)
 
 # Example 2: Simulate 100 tracks using the "Directed" model, representing movement
 # toward a resource (e.g., water source)
-simulated_tracks_directed <- simulate_track(PaluxyRiver, nsim = 100, model = "Directed")
+simulated_tracks_directed <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
 
 # Example 3: Simulate 100 tracks using the "Constrained" model, representing movement
 # along a geographic feature (e.g., coastline)
-simulated_tracks_constrained <- simulate_track(PaluxyRiver, nsim = 100, model = "Constrained")
+simulated_tracks_constrained <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
 
 # Example 4: Simulate 100 tracks using the "Unconstrained" model (random exploratory movement)
-simulated_tracks_unconstrained <- simulate_track(PaluxyRiver, nsim = 100, model = "Unconstrained")
+simulated_tracks_unconstrained <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
 
 # Subsetting trajectories with four or more steps in the MountTom dataset
 sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
@@ -101,15 +101,15 @@ simulated_tracks_mt <- simulate_track(sbMountTom)
 
 # Example 6: Simulate 100 tracks using the "Directed" model for Mount Tom, representing
 # directed movement
-simulated_tracks_mt_directed <- simulate_track(sbMountTom, nsim = 100, model = "Directed")
+simulated_tracks_mt_directed <- simulate_track(sbMountTom, nsim = 10, model = "Directed")
 
 # Example 7: Simulate 100 tracks using the "Constrained" model for Mount Tom, representing
 # constrained movement
-simulated_tracks_mt_constrained <- simulate_track(sbMountTom, nsim = 100, model = "Constrained")
+simulated_tracks_mt_constrained <- simulate_track(sbMountTom, nsim = 10, model = "Constrained")
 
 # Example 8: Simulate 100 tracks using the "Unconstrained" model for Mount Tom, representing
 # random exploratory movement
-simulated_tracks_mt_unconstrained <- simulate_track(sbMountTom, nsim = 100, model = "Unconstrained")
+simulated_tracks_mt_unconstrained <- simulate_track(sbMountTom, nsim = 10, model = "Unconstrained")
 
 }
 \references{

@@ -37,7 +37,7 @@
 #' @return A \code{ggplot} object that displays the specified plot type. The \pkg{ggplot2} package is used for plotting.
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -64,8 +64,10 @@
 #' plot_direction(MountTom, plot_type = "polar_steps", angle_range = 90)
 #'
 #' # Example 6: Polar Plot with Custom Y-Axis Labels and Breaks in MountTom Dataset
-#' plot_direction(MountTom, plot_type = "polar_steps", y_labels_position = 0,
-#'                y_breaks_manual = c(0, 15, 30, 45, 60))
+#' plot_direction(MountTom,
+#'   plot_type = "polar_steps", y_labels_position = 0,
+#'   y_breaks_manual = c(0, 15, 30, 45, 60)
+#' )
 #'
 #' # Example 7: Boxplot of Direction Data in PaluxyRiver Dataset
 #' plot_direction(PaluxyRiver, plot_type = "boxplot")
@@ -74,19 +76,25 @@
 #' plot_direction(PaluxyRiver, plot_type = "polar_steps")
 #'
 #' # Example 9: Polar Plot of Average Directions Per Track with Custom Breaks in PaluxyRiver Dataset
-#' plot_direction(PaluxyRiver, plot_type = "polar_average",
-#'                y_breaks_manual = c(1, 2))
+#' plot_direction(PaluxyRiver,
+#'   plot_type = "polar_average",
+#'   y_breaks_manual = c(1, 2)
+#' )
 #'
 #' # Example 10: Faceted Polar Plot of Step Directions in PaluxyRiver Dataset
 #' plot_direction(PaluxyRiver, plot_type = "faceted")
 #'
 #' # Example 11: Polar Plot of Average Directions Per Track with Custom Breaks in PaluxyRiver Dataset
-#' plot_direction(PaluxyRiver, plot_type = "polar_average",
-#'                y_breaks_manual = c(1, 2))
+#' plot_direction(PaluxyRiver,
+#'   plot_type = "polar_average",
+#'   y_breaks_manual = c(1, 2)
+#' )
 #'
 #' # Example 12: Polar Plot with Custom Y-Axis Labels in PaluxyRiver Dataset
-#' plot_direction(PaluxyRiver, plot_type = "polar_steps",
-#'                y_labels_position = -90)
+#' plot_direction(PaluxyRiver,
+#'   plot_type = "polar_steps",
+#'   y_labels_position = -90
+#' )
 #'
 #' @importFrom ggplot2 ggplot aes element_blank geom_boxplot geom_point geom_text theme_classic labs scale_y_continuous theme element_text geom_bar coord_polar scale_x_continuous scale_y_continuous theme_minimal facet_wrap annotate
 #' @importFrom dplyr group_by summarise ungroup n
@@ -97,7 +105,6 @@
 #' @export
 
 plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labels_position = 90, y_breaks_manual = NULL) {
-
   ## Errors and Warnings ----
   if (!is.list(data) || length(data) < 2) {
     stop("The 'data' argument must be a 'track' R object, which is a list consisting of two elements: 'Trajectories' and 'Footprints'.")
@@ -179,8 +186,10 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
     bin_intervals <- levels(M$bin)
 
     # Calculate midpoints for each bin
-    bin_midpoints <- sapply(strsplit(gsub("\\[|\\)|\\]", "", bin_intervals), ","),
-                            function(x) mean(as.numeric(x)))
+    bin_midpoints <- sapply(
+      strsplit(gsub("\\[|\\)|\\]", "", bin_intervals), ","),
+      function(x) mean(as.numeric(x))
+    )
 
     # Map each bin to its midpoint
     M$bin_avg <- bin_midpoints[as.numeric(M$bin)]
@@ -203,7 +212,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
     # Create the polar plot
     p_polar_steps <- ggplot(M_summary, aes(x = bin_avg, y = count)) +
       geom_bar(stat = "identity", fill = "grey", color = "black", width = angle_range) +
-      coord_polar(theta = "x", start = pi/2, direction = -1) +
+      coord_polar(theta = "x", start = pi / 2, direction = -1) +
       scale_x_continuous(
         breaks = seq(-180, 180, by = angle_range),
         labels = seq(-180, 180, by = angle_range),
@@ -211,7 +220,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
       ) +
       scale_y_continuous(
         breaks = y_breaks, # Use the generated breaks for y-axis
-        limits = y_limits   # Ensure limits accommodate breaks
+        limits = y_limits # Ensure limits accommodate breaks
       ) +
       theme_minimal() +
       theme(
@@ -220,7 +229,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
         axis.text.y = element_blank()
       ) +
       labs(x = "Direction (degrees) vs Steps count") +
-      annotate('text', x = rep(y_labels_position, length(y_breaks)), y = y_breaks, label = as.character(y_breaks), size = 3)
+      annotate("text", x = rep(y_labels_position, length(y_breaks)), y = y_breaks, label = as.character(y_breaks), size = 3)
 
     print(p_polar_steps)
   }
@@ -239,8 +248,10 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
     bin_intervals <- levels(M_avg$bin)
 
     # Calculate midpoints for each bin
-    bin_midpoints <- sapply(strsplit(gsub("\\[|\\)|\\]", "", bin_intervals), ","),
-                            function(x) mean(as.numeric(x)))
+    bin_midpoints <- sapply(
+      strsplit(gsub("\\[|\\)|\\]", "", bin_intervals), ","),
+      function(x) mean(as.numeric(x))
+    )
 
     # Map each bin to its midpoint
     M_avg$bin_avg <- bin_midpoints[as.numeric(M_avg$bin)]
@@ -263,7 +274,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
     # Create the polar plot
     p_polar_average <- ggplot(M_avg_summary, aes(x = bin_avg, y = count)) +
       geom_bar(stat = "identity", fill = "grey", color = "black", width = angle_range) +
-      coord_polar(theta = "x", start = pi/2, direction = -1) +
+      coord_polar(theta = "x", start = pi / 2, direction = -1) +
       scale_x_continuous(
         breaks = seq(-180, 180, by = angle_range),
         labels = seq(-180, 180, by = angle_range),
@@ -271,7 +282,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
       ) +
       scale_y_continuous(
         breaks = y_breaks, # Use the generated breaks for y-axis
-        limits = y_limits   # Ensure limits accommodate breaks
+        limits = y_limits # Ensure limits accommodate breaks
       ) +
       theme_minimal() +
       theme(
@@ -280,7 +291,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
         axis.text.y = element_blank()
       ) +
       labs(x = "Direction (degrees) vs Trackways count") +
-      annotate('text', x = rep(y_labels_position, length(y_breaks)), y = y_breaks, label = as.character(y_breaks), size = 3)
+      annotate("text", x = rep(y_labels_position, length(y_breaks)), y = y_breaks, label = as.character(y_breaks), size = 3)
 
     print(p_polar_average)
   }
@@ -293,8 +304,10 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
     bin_intervals <- levels(M$bin)
 
     # Calculate midpoints for each bin, handling non-numeric cases
-    bin_midpoints <- sapply(strsplit(gsub("\\[|\\)|\\]", "", bin_intervals), ","),
-                            function(x) mean(as.numeric(x), na.rm = TRUE))
+    bin_midpoints <- sapply(
+      strsplit(gsub("\\[|\\)|\\]", "", bin_intervals), ","),
+      function(x) mean(as.numeric(x), na.rm = TRUE)
+    )
 
     # Map each bin to its midpoint
     M$bin_avg <- bin_midpoints[as.numeric(M$bin)]
@@ -317,7 +330,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
     # Create the faceted polar plot
     p_faceted <- ggplot(M_summary, aes(x = bin_avg, y = count)) +
       geom_bar(stat = "identity", fill = "grey", color = "black", width = angle_range) +
-      coord_polar(theta = "x", start = pi/2, direction = -1) +
+      coord_polar(theta = "x", start = pi / 2, direction = -1) +
       scale_x_continuous(
         breaks = seq(-180, 180, by = angle_range),
         labels = seq(-180, 180, by = angle_range),
@@ -325,7 +338,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
       ) +
       scale_y_continuous(
         breaks = y_breaks, # Use the generated breaks for y-axis
-        limits = y_limits   # Ensure limits accommodate breaks
+        limits = y_limits # Ensure limits accommodate breaks
       ) +
       facet_wrap(~track) +
       theme_minimal() +
@@ -339,10 +352,12 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
     # Annotate the y-axis labels, this time handling multiple facets
     p_faceted <- p_faceted +
       geom_text(
-        data = data.frame(y = rep(y_breaks, length(unique(M_summary$track))),
-                          x = rep(y_labels_position, length(y_breaks) * length(unique(M_summary$track))),
-                          label = rep(y_breaks, length(unique(M_summary$track))),
-                          track = rep(unique(M_summary$track), each = length(y_breaks))),
+        data = data.frame(
+          y = rep(y_breaks, length(unique(M_summary$track))),
+          x = rep(y_labels_position, length(y_breaks) * length(unique(M_summary$track))),
+          label = rep(y_breaks, length(unique(M_summary$track))),
+          track = rep(unique(M_summary$track), each = length(y_breaks))
+        ),
         aes(x = x, y = y, label = label),
         size = 3,
         inherit.aes = FALSE

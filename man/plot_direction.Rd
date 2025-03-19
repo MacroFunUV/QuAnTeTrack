@@ -79,8 +79,10 @@ plot_direction(MountTom, plot_type = "faceted")
 plot_direction(MountTom, plot_type = "polar_steps", angle_range = 90)
 
 # Example 6: Polar Plot with Custom Y-Axis Labels and Breaks in MountTom Dataset
-plot_direction(MountTom, plot_type = "polar_steps", y_labels_position = 0,
-               y_breaks_manual = c(0, 15, 30, 45, 60))
+plot_direction(MountTom,
+  plot_type = "polar_steps", y_labels_position = 0,
+  y_breaks_manual = c(0, 15, 30, 45, 60)
+)
 
 # Example 7: Boxplot of Direction Data in PaluxyRiver Dataset
 plot_direction(PaluxyRiver, plot_type = "boxplot")
@@ -89,19 +91,25 @@ plot_direction(PaluxyRiver, plot_type = "boxplot")
 plot_direction(PaluxyRiver, plot_type = "polar_steps")
 
 # Example 9: Polar Plot of Average Directions Per Track with Custom Breaks in PaluxyRiver Dataset
-plot_direction(PaluxyRiver, plot_type = "polar_average",
-               y_breaks_manual = c(1, 2))
+plot_direction(PaluxyRiver,
+  plot_type = "polar_average",
+  y_breaks_manual = c(1, 2)
+)
 
 # Example 10: Faceted Polar Plot of Step Directions in PaluxyRiver Dataset
 plot_direction(PaluxyRiver, plot_type = "faceted")
 
 # Example 11: Polar Plot of Average Directions Per Track with Custom Breaks in PaluxyRiver Dataset
-plot_direction(PaluxyRiver, plot_type = "polar_average",
-               y_breaks_manual = c(1, 2))
+plot_direction(PaluxyRiver,
+  plot_type = "polar_average",
+  y_breaks_manual = c(1, 2)
+)
 
 # Example 12: Polar Plot with Custom Y-Axis Labels in PaluxyRiver Dataset
-plot_direction(PaluxyRiver, plot_type = "polar_steps",
-               y_labels_position = -90)
+plot_direction(PaluxyRiver,
+  plot_type = "polar_steps",
+  y_labels_position = -90
+)
 
 }
 \seealso{

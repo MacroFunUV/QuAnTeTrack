@@ -22,7 +22,7 @@
 #' @return A ggplot object showing the trajectories colored by the specified parameter.
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -36,9 +36,11 @@
 #' # Example 1: Plot Trajectories Colored by Velocity with Default Settings (MountTom dataset)
 #'
 #' # Hip heights for each track in the MountTom dataset
-#' H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
-#'                 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
-#'                 1.648, 1.760, 1.612)
+#' H_mounttom <- c(
+#'   1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
+#'   1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+#'   1.648, 1.760, 1.612
+#' )
 #'
 #' # Calculate velocities using the default Method "A"
 #' V_mounttom <- velocity_track(MountTom, H = H_mounttom)
@@ -71,8 +73,10 @@
 #' custom_lwd <- 2
 #'
 #' # Plot trajectories with custom colors and line width
-#' plot3 <- plot_velocity(MountTom, V_mounttom, param = "V", lwd = custom_lwd,
-#'                        colours = custom_colours)
+#' plot3 <- plot_velocity(MountTom, V_mounttom,
+#'   param = "V", lwd = custom_lwd,
+#'   colours = custom_colours
+#' )
 #' print(plot3)
 #'
 #' # Example 4: Plot Trajectories Colored by Relative Stride Length with Custom Line Width
@@ -83,8 +87,10 @@
 #' custom_lwd_rsl <- 1.5
 #'
 #' # Plot trajectories with custom colors, line width, and no legend
-#' plot4 <- plot_velocity(PaluxyRiver, V_paluxyriver, param = "RSL", lwd = custom_lwd_rsl,
-#'                        colours = custom_colours_rsl, legend = FALSE)
+#' plot4 <- plot_velocity(PaluxyRiver, V_paluxyriver,
+#'   param = "RSL", lwd = custom_lwd_rsl,
+#'   colours = custom_colours_rsl, legend = FALSE
+#' )
 #' print(plot4)
 #'
 #' @importFrom ggplot2 scale_color_gradientn
@@ -99,14 +105,12 @@
 #' @export
 
 plot_velocity <- function(data, trackvel, param = NULL, lwd = NULL, colours = NULL, legend = NULL) {
-
-
   ## Set default values if arguments are NULL ----
 
-  if (is.null(param)) param <- "V"  # Default to "V" if 'param' is NULL
-  if (is.null(lwd)) lwd <- 1  # Default line width for tracks
-  if (is.null(colours)) colours <- c("#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#fffdbf", "#fee090", "#fdae61", "#f46d43", "#d73027")  # Default colors
-  if (is.null(legend)) legend <- TRUE  # Default to "TRUE" if 'legend' is NULL
+  if (is.null(param)) param <- "V" # Default to "V" if 'param' is NULL
+  if (is.null(lwd)) lwd <- 1 # Default line width for tracks
+  if (is.null(colours)) colours <- c("#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#fffdbf", "#fee090", "#fdae61", "#f46d43", "#d73027") # Default colors
+  if (is.null(legend)) legend <- TRUE # Default to "TRUE" if 'legend' is NULL
 
 
   ## Errors and Warnings----
@@ -137,7 +141,7 @@ plot_velocity <- function(data, trackvel, param = NULL, lwd = NULL, colours = NU
   }
 
 
-  ##Code----
+  ## Code----
 
   # Extract and prepare data for plotting
   data <- data[[1]]

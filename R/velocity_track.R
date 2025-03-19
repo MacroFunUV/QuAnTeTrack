@@ -49,7 +49,7 @@
 #'   * Minimum_relative_stride: The minimum relative stride length among all steps in the track (dimensionless).
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -71,16 +71,18 @@
 #' # H_mounttom contains hip heights for each track in the MountTom dataset.
 #' # The function will use the default method "A" for all tracks.
 #' # Hip heights are inferred as four times the footprint length, following Alexander's approach.
-#' H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
-#' 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
-#' 1.648, 1.760, 1.612)
+#' H_mounttom <- c(
+#'   1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
+#'   1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+#'   1.648, 1.760, 1.612
+#' )
 #' velocity_track(MountTom, H = H_mounttom)
 #'
 #' # Example 2: Calculate velocities for the PaluxyRiver dataset using default settings.
 #' # H_paluxyriver contains hip heights for each track in the PaluxyRiver dataset.
 #' # The function will use the default method "A" for all tracks.
 #' # Hip heights are inferred as four times the footprint length, following Alexander's approach.
-#' H_paluxyriver <- c(3.472,2.200)
+#' H_paluxyriver <- c(3.472, 2.200)
 #' velocity_track(PaluxyRiver, H = H_paluxyriver)
 #'
 #' # Example 3: Calculate velocities for the PaluxyRiver dataset using different methods
@@ -88,7 +90,7 @@
 #' # appropriate for quadrupedal dinosaurs. Method "B" is used for theropods, which
 #' # is more appropriate for bipedal dinosaurs. Hip heights are inferred as four times
 #' # the footprint length, following Alexander's approach.
-#' H_paluxyriver <- c(3.472,2.200)
+#' H_paluxyriver <- c(3.472, 2.200)
 #' Method_paluxyriver <- c("A", "B")
 #' velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 #'
@@ -103,11 +105,9 @@ velocity_track <- function(data,
                            G = NULL, # gravity acceleration (m/s^2)
                            method = NULL # formula to calculate speed for each track
 ) {
-
-
   ## Set default values if arguments are NULL----
-  if (is.null(G)) G <- 9.8  # Set default Gravity acceleration if 'G' is NULL
-  if (is.null(method)) method <- c(rep("A", length(data[[1]])))  # Set default method to calculate speed if 'method' is NULL
+  if (is.null(G)) G <- 9.8 # Set default Gravity acceleration if 'G' is NULL
+  if (is.null(method)) method <- c(rep("A", length(data[[1]]))) # Set default method to calculate speed if 'method' is NULL
 
   ## Errors and Warnings----
 
@@ -146,13 +146,13 @@ velocity_track <- function(data,
     }
   }
 
-  ##Code----
+  ## Code----
 
   # Extract the track data (assuming the first element of 'data' is the list of tracks)
   data <- data[[1]]
 
   # Function to calculate Euclidean distance between two points
-  euc.dist <- function(x1, x2) sqrt(sum((x1 - x2) ^ 2))
+  euc.dist <- function(x1, x2) sqrt(sum((x1 - x2)^2))
 
   # Initialize a list to store results for each track
   list <- list()
@@ -160,26 +160,26 @@ velocity_track <- function(data,
   # Loop through each track
   for (j in 1:length(data)) {
     veltrack <- c()
-    relstride<- c()
+    relstride <- c()
 
     # Loop through each step in the track
     if (method[j] == "A") {
       for (i in 1:(length(data[[j]][, 1]) - 1)) {
         S <- euc.dist(data[[j]][i, 1:2], data[[j]][i + 1, 1:2]) * 2
-        veltrack[i] <- 0.25 * (G^0.5) * (S^1.67) * (H[j]^-1.17)  # Update veltrack[i]
+        veltrack[i] <- 0.25 * (G^0.5) * (S^1.67) * (H[j]^-1.17) # Update veltrack[i]
       }
     }
 
     if (method[j] == "B") {
       for (i in 1:(length(data[[j]][, 1]) - 1)) {
         S <- euc.dist(data[[j]][i, 1:2], data[[j]][i + 1, 1:2]) * 2
-        veltrack[i] <- 0.226 * (G^0.5) * (S^1.67) * (H[j]^-1.17)  # Update veltrack[i]
+        veltrack[i] <- 0.226 * (G^0.5) * (S^1.67) * (H[j]^-1.17) # Update veltrack[i]
       }
     }
 
     for (i in 1:(length(data[[j]][, 1]) - 1)) {
       S <- euc.dist(data[[j]][i, 1:2], data[[j]][i + 1, 1:2]) * 2
-      relstride[i] <- S/H[j]  # Update relstride[i]
+      relstride[i] <- S / H[j] # Update relstride[i]
     }
 
     # Store calculated velocities and summary statistics in a sublist
@@ -194,7 +194,7 @@ velocity_track <- function(data,
     sublist[[8]] <- sd(relstride)
     sublist[[9]] <- max(relstride)
     sublist[[10]] <- min(relstride)
-    names(sublist) <- c("Step_velocities", "Mean_velocity", "Standard_deviation_velocity", "Maximum_velocity", "Minimum_velocity","Step_relative_stride", "Mean_relative_stride", "Standard_deviation_relative_stride", "Maximum_relative_stride", "Minimum_relative_stride")
+    names(sublist) <- c("Step_velocities", "Mean_velocity", "Standard_deviation_velocity", "Maximum_velocity", "Minimum_velocity", "Step_relative_stride", "Mean_relative_stride", "Standard_deviation_relative_stride", "Maximum_relative_stride", "Minimum_relative_stride")
 
     # Add the sublist to the main list
     list[[j]] <- sublist

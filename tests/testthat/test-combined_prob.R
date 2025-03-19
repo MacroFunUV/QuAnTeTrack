@@ -25,11 +25,13 @@ test_that("combined_prob() correctly computes combined probabilities", {
   result1 <- combined_prob(PaluxyRiver, metrics = list(DTW1, Frechet1, int1))
 
   expect_true(is.list(result1))
-  expect_named(result1, c("P_values (DTW_distance_metric, Frechet_distance_metric, Intersection_metric)",
-                          "P_values_combined (DTW_distance_metric, Frechet_distance_metric, Intersection_metric)"))
+  expect_named(result1, c(
+    "P_values (DTW_distance_metric, Frechet_distance_metric, Intersection_metric)",
+    "P_values_combined (DTW_distance_metric, Frechet_distance_metric, Intersection_metric)"
+  ))
   expect_true(all(result1[[1]] >= 0 & result1[[1]] <= 1, na.rm = TRUE))
   expect_true(result1[[2]] >= 0 & result1[[2]] <= 1)
-names(result1)
+  names(result1)
   # Example 2: Simulating with the "Constrained" model
   s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
   DTW2 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
@@ -70,8 +72,10 @@ names(result1)
   DTW5 <- simil_DTW_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
   Frechet5 <- suppressWarnings(simil_Frechet_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin"))
   area_origin <- matrix(c(50, 5, 10, 5, 10, 20, 50, 20), ncol = 2, byrow = TRUE)
-  int5 <- track_intersection(sbMountTom, test = TRUE, sim = s5,
-                             origin.permutation = "Custom", custom.coord = area_origin)
+  int5 <- track_intersection(sbMountTom,
+    test = TRUE, sim = s5,
+    origin.permutation = "Custom", custom.coord = area_origin
+  )
   result5 <- combined_prob(sbMountTom, metrics = list(DTW5, Frechet5, int5))
 
   expect_true(is.list(result5))

@@ -29,7 +29,7 @@
 #'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -67,7 +67,7 @@
 #'
 #'
 #' # Example 2: Tracks with missing footprints. Based on dinosaur tracks from
-#'  # the Mount Tom (Ostrom, 1972).
+#' # the Mount Tom (Ostrom, 1972).
 #'
 #' # Load the example TPS file provided in the QuAnTeTrack package.
 #' # This TPS data includes footprint coordinates for different tracks,
@@ -83,10 +83,14 @@
 #' # 'missing' specifies whether missing footprints should be handled, 'NAs' provides
 #' # the missing footprints matrix, and 'R.L.side' specifies which side (Right or Left)
 #' # is the first footprint of each track.
-#' tps_to_track(tpsMountTom, scale = 0.004411765, missing = TRUE, NAs = NAs,
-#'              R.L.side = c("R", "L", "L", "L", "R", "L", "R", "R", "L", "L", "L",
-#'                           "L", "L", "R", "R", "L", "R", "R", "L", "R", "R",
-#'                           "R", "R"))
+#' tps_to_track(tpsMountTom,
+#'   scale = 0.004411765, missing = TRUE, NAs = NAs,
+#'   R.L.side = c(
+#'     "R", "L", "L", "L", "R", "L", "R", "R", "L", "L", "L",
+#'     "L", "L", "R", "R", "L", "R", "R", "L", "R", "R",
+#'     "R", "R"
+#'   )
+#' )
 #'
 #' @importFrom berryFunctions insertRows
 #' @importFrom dplyr bind_rows
@@ -113,116 +117,119 @@
 #' @export
 
 
-tps_to_track <- function(file, scale=NULL, missing=FALSE, NAs=NULL, R.L.side=NULL) {
-
+tps_to_track <- function(file, scale = NULL, missing = FALSE, NAs = NULL, R.L.side = NULL) {
   ## Errors and Warnings----
 
   # Check if the 'scale' argument is provided
-  if(is.null(scale)) {
+  if (is.null(scale)) {
     stop("The 'scale' argument is missing. Please provide the scale in pixels per meter.")
   }
 
   # Validate 'scale': must be a positive numeric value
-  if(!is.numeric(scale) || length(scale) != 1 || scale <= 0) {
+  if (!is.numeric(scale) || length(scale) != 1 || scale <= 0) {
     stop("The 'scale' argument must be a single positive numeric value.")
   }
 
   # Warn if 'NAs' is provided but 'missing' is set to FALSE
-  if(!missing && !is.null(NAs)) {
+  if (!missing && !is.null(NAs)) {
     warning("The 'NAs' argument will be ignored because 'missing' is set to FALSE.")
   }
 
   # Validate 'NAs': must be provided if 'missing' is TRUE
-  if(missing && is.null(NAs)) {
+  if (missing && is.null(NAs)) {
     stop("The 'NAs' argument must be provided if 'missing' is set to TRUE.")
   }
 
   # Validate 'R.L.side': must be provided if 'missing' is TRUE
-  if(missing && is.null(R.L.side)) {
+  if (missing && is.null(R.L.side)) {
     stop("The 'R.L.side' argument must be provided if 'missing' is set to TRUE.")
   }
 
   # Validate 'missing': must be a single logical value
-  if(!is.logical(missing) || length(missing) != 1) {
+  if (!is.logical(missing) || length(missing) != 1) {
     stop("The 'missing' argument must be a single logical value: TRUE or FALSE.")
   }
 
   # Validate 'NAs': must be a matrix with two columns containing positive integers
-  if(!is.null(NAs)) {
-    if(!is.matrix(NAs) || ncol(NAs) != 2) {
+  if (!is.null(NAs)) {
+    if (!is.matrix(NAs) || ncol(NAs) != 2) {
       stop("The 'NAs' argument must be a matrix with two columns.")
     }
-    if(any(NAs <= 0)) {
+    if (any(NAs <= 0)) {
       stop("The 'NAs' matrix must contain positive integers.")
     }
   }
 
   # Validate 'R.L.side': must contain only 'R' or 'L' values
-  if(!is.null(R.L.side)) {
-    if(!all(R.L.side %in% c("R", "L"))) {
+  if (!is.null(R.L.side)) {
+    if (!all(R.L.side %in% c("R", "L"))) {
       stop("The 'R.L.side' vector must contain only 'R' or 'L' values.")
     }
   }
 
-  ##Code----
+  ## Code----
 
   # Read the lines from the file
-  a = readLines(file)
+  a <- readLines(file)
 
   # Identify lines containing landmarks (LM) and IDs
-  LM = grep("LM", a)
-  ID.ind = grep("ID", a)
+  LM <- grep("LM", a)
+  ID.ind <- grep("ID", a)
 
   # Extract image names from the lines preceding the ID lines
-  images = basename(gsub("(IMAGE=)(.*)", "\\2", a[ID.ind - 1]))
+  images <- basename(gsub("(IMAGE=)(.*)", "\\2", a[ID.ind - 1]))
 
   # Extract the number of rows for each landmark set
-  skip = LM
-  nrows = as.numeric(gsub("(LM=)([0-9])", "\\2", grep("LM", a, value=T)))
-  l = length(LM)
+  skip <- LM
+  nrows <- as.numeric(gsub("(LM=)([0-9])", "\\2", grep("LM", a, value = T)))
+  l <- length(LM)
 
   # Initialize a list to store landmark data frames
-  landmarks = vector("list", l)
+  landmarks <- vector("list", l)
 
   for (i in 1:l) {
     # Read the landmark data into a data frame
-    landmarks[i] = list(data.frame(
-      read.table(file=file, header=F, skip=LM[i],
-                 nrows=nrows[i], col.names=c("X", "Y")),
+    landmarks[i] <- list(data.frame(
+      read.table(
+        file = file, header = F, skip = LM[i],
+        nrows = nrows[i], col.names = c("X", "Y")
+      ),
       IMAGE = images[i],
-      ID = read.table(file=file, header=F, skip=ID.ind[i]-1,
-                      nrows=1, sep="=", col.names="ID")[2,]
+      ID = read.table(
+        file = file, header = F, skip = ID.ind[i] - 1,
+        nrows = 1, sep = "=", col.names = "ID"
+      )[2, ]
     ))
   }
 
   # Create a data frame from the landmarks list
   data_frame <- landmarks
 
-  if(missing == TRUE){
-    ##Inferring missing footprints
+  if (missing == TRUE) {
+    ## Inferring missing footprints
 
-    ###Including NAs
+    ### Including NAs
     # Levels and corresponding numbers from the NAs matrix
-    levels <- levels(as.factor(NAs[,1]))
+    levels <- levels(as.factor(NAs[, 1]))
     levelsnum <- as.numeric(levels)
 
     # Include missing footprints in the data frame
     data_frame <- landmarks
 
     for (i in levelsnum) {
-      data_frame[[i]] <- berryFunctions::insertRows(landmarks[[i]], c(NAs[which(NAs[,1]==i),2]), new = NA)
+      data_frame[[i]] <- berryFunctions::insertRows(landmarks[[i]], c(NAs[which(NAs[, 1] == i), 2]), new = NA)
     }
 
     # Assign the correct IMAGE and ID to missing footprints
     for (i in levelsnum) {
-      data_frame[[i]][c(NAs[which(NAs[,1]==i),2]),]$IMAGE <- levels(as.factor(data_frame[[i]]$IMAGE))
+      data_frame[[i]][c(NAs[which(NAs[, 1] == i), 2]), ]$IMAGE <- levels(as.factor(data_frame[[i]]$IMAGE))
     }
 
     for (i in levelsnum) {
-      data_frame[[i]][c(NAs[which(NAs[,1]==i),2]),]$ID <- levels(as.factor(data_frame[[i]]$ID))
+      data_frame[[i]][c(NAs[which(NAs[, 1] == i), 2]), ]$ID <- levels(as.factor(data_frame[[i]]$ID))
     }
 
-    ###Calculating track width
+    ### Calculating track width
     vectorwidth <- c()
     meanwidth <- c()
 
@@ -230,19 +237,19 @@ tps_to_track <- function(file, scale=NULL, missing=FALSE, NAs=NULL, R.L.side=NUL
       vectorwidth <- c()
 
       # Calculate the width of the track using the area of triangles
-      for (i in 1:(length(data_frame[[j]][,1])-2)) {
-        df <- data_frame[[j]][i:(i+2),1:2]
+      for (i in 1:(length(data_frame[[j]][, 1]) - 2)) {
+        df <- data_frame[[j]][i:(i + 2), 1:2]
 
-        x1 <- df[1,1]
-        x2 <- df[2,1]
-        x3 <- df[3,1]
-        y1 <- df[1,2]
-        y2 <- df[2,2]
-        y3 <- df[3,2]
+        x1 <- df[1, 1]
+        x2 <- df[2, 1]
+        x3 <- df[3, 1]
+        y1 <- df[1, 2]
+        y2 <- df[2, 2]
+        y3 <- df[3, 2]
 
-        Area = 0.5 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2))
-        Base = dist(df[c(1,3), c(1,2)], method = "euclidean")
-        Height = abs((Area * 2) / Base)
+        Area <- 0.5 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2))
+        Base <- dist(df[c(1, 3), c(1, 2)], method = "euclidean")
+        Height <- abs((Area * 2) / Base)
 
         vectorwidth[i] <- Height
       }
@@ -251,10 +258,10 @@ tps_to_track <- function(file, scale=NULL, missing=FALSE, NAs=NULL, R.L.side=NUL
       meanwidth[j] <- mean(vectorwidth[which(!is.na(vectorwidth))])
     }
 
-    ###Extrapolating missing footprints
+    ### Extrapolating missing footprints
     for (i in 1:length(data_frame)) {
-      vec <- c(1:length(data_frame[[i]][,1]))
-      vec2 <- c(1:length(data_frame[[i]][,1]))
+      vec <- c(1:length(data_frame[[i]][, 1]))
+      vec2 <- c(1:length(data_frame[[i]][, 1]))
 
       # Assign "R" or "L" based on the R.L.side vector
       if (R.L.side[i] == "L") {
@@ -272,80 +279,80 @@ tps_to_track <- function(file, scale=NULL, missing=FALSE, NAs=NULL, R.L.side=NUL
 
     # Extrapolate missing footprints based on calculated track width
     for (j in 1:length(data_frame)) {
-      for (i in 1:length(NAs[,1])) {
-        x1 <- data_frame[[NAs[i,1]]][NAs[i,2]-1,1]
-        y1 <- data_frame[[NAs[i,1]]][NAs[i,2]-1,2]
-        x2 <- data_frame[[NAs[i,1]]][NAs[i,2]+1,1]
-        y2 <- data_frame[[NAs[i,1]]][NAs[i,2]+1,2]
+      for (i in 1:length(NAs[, 1])) {
+        x1 <- data_frame[[NAs[i, 1]]][NAs[i, 2] - 1, 1]
+        y1 <- data_frame[[NAs[i, 1]]][NAs[i, 2] - 1, 2]
+        x2 <- data_frame[[NAs[i, 1]]][NAs[i, 2] + 1, 1]
+        y2 <- data_frame[[NAs[i, 1]]][NAs[i, 2] + 1, 2]
 
         # Calculate distance based on side (R or L)
-        if(data_frame[[NAs[i,1]]][NAs[i,2],5] == "R") {
+        if (data_frame[[NAs[i, 1]]][NAs[i, 2], 5] == "R") {
           dist <- -1 * meanwidth[j]
         }
-        if(data_frame[[NAs[i,1]]][NAs[i,2],5] == "L") {
+        if (data_frame[[NAs[i, 1]]][NAs[i, 2], 5] == "L") {
           dist <- meanwidth[j]
         }
 
-        x3 = (x1 + x2) / 2
-        y3 = (y1 + y2) / 2
+        x3 <- (x1 + x2) / 2
+        y3 <- (y1 + y2) / 2
 
-        b = x2 - x1
-        a = y1 - y2
+        b <- x2 - x1
+        a <- y1 - y2
 
-        norm = sqrt(a * a + b * b)
-        a = a / norm
-        b = b / norm
+        norm <- sqrt(a * a + b * b)
+        a <- a / norm
+        b <- b / norm
 
-        x4 = x3 + a * dist
-        y4 = y3 + b * dist
+        x4 <- x3 + a * dist
+        y4 <- y3 + b * dist
 
-        data_frame[[NAs[i,1]]][NAs[i,2],1] <- x4
-        data_frame[[NAs[i,1]]][NAs[i,2],2] <- y4
+        data_frame[[NAs[i, 1]]][NAs[i, 2], 1] <- x4
+        data_frame[[NAs[i, 1]]][NAs[i, 2], 2] <- y4
       }
     }
   }
 
-  ###Tracing medial tracks
+  ### Tracing medial tracks
 
   # Create medial tracks by averaging consecutive landmarks
   landmarks2 <- data_frame
 
   landmarks3 <- list()
   for (i in 1:length(landmarks2)) {
-    landmarks3[[i]] <- as.data.frame(matrix(ncol=ncol(landmarks2[[i]]), nrow=(nrow(landmarks2[[i]])-1)))
+    landmarks3[[i]] <- as.data.frame(matrix(ncol = ncol(landmarks2[[i]]), nrow = (nrow(landmarks2[[i]]) - 1)))
     colnames(landmarks3[[i]]) <- colnames(landmarks2[[i]])
 
-    landmarks3[[i]][,3] <- rep(landmarks2[[i]][1,3], length(landmarks3[[i]][,3]))
-    landmarks3[[i]][,4] <- rep(landmarks2[[i]][1,4], length(landmarks3[[i]][,4]))
-    landmarks3[[i]] <- landmarks3[[i]][,1:4]
+    landmarks3[[i]][, 3] <- rep(landmarks2[[i]][1, 3], length(landmarks3[[i]][, 3]))
+    landmarks3[[i]][, 4] <- rep(landmarks2[[i]][1, 4], length(landmarks3[[i]][, 4]))
+    landmarks3[[i]] <- landmarks3[[i]][, 1:4]
 
     # Compute the average position for each consecutive pair of landmarks
-    for (j in 1:length(landmarks3[[i]][,1])) {
-      landmarks3[[i]][j,1] <- (landmarks2[[i]][j,1] + landmarks2[[i]][j+1,1]) / 2
+    for (j in 1:length(landmarks3[[i]][, 1])) {
+      landmarks3[[i]][j, 1] <- (landmarks2[[i]][j, 1] + landmarks2[[i]][j + 1, 1]) / 2
     }
 
-    for (j in 1:length(landmarks3[[i]][,2])) {
-      landmarks3[[i]][j,2] <- (landmarks2[[i]][j,2] + landmarks2[[i]][j+1,2]) / 2
+    for (j in 1:length(landmarks3[[i]][, 2])) {
+      landmarks3[[i]][j, 2] <- (landmarks2[[i]][j, 2] + landmarks2[[i]][j + 1, 2]) / 2
     }
   }
 
   # Scale the coordinates and create trajectories from the coordinates
   for (i in 1:length(landmarks3)) {
-    landmarks3[[i]][,1:2] <- landmarks3[[i]][,1:2] * scale
+    landmarks3[[i]][, 1:2] <- landmarks3[[i]][, 1:2] * scale
     landmarks3[[i]] <- TrajFromCoords(landmarks3[[i]])
   }
   names(landmarks3) <- paste0("Track_", str_pad(1:length(LM), nchar(length(LM)), pad = "0"), sep = "")
 
   # Mark missing footprints
   for (i in 1:length(data_frame)) {
-    data_frame[[i]]$missing <- rep("Actual", length(data_frame[[i]][,1]))
+    data_frame[[i]]$missing <- rep("Actual", length(data_frame[[i]][, 1]))
   }
 
-  if(missing == TRUE) {
-    levels <- levels(as.factor(NAs[,1]))
+  if (missing == TRUE) {
+    levels <- levels(as.factor(NAs[, 1]))
     levelsnum <- as.numeric(levels)
     for (i in levelsnum) {
-      data_frame[[i]][c(NAs[which(NAs[,1]==i),2]),]$missing <- rep("Inferred", length(which(NAs[,1]==i)))
+      data_frame[[i]][c(NAs[which(NAs[, 1] == i), 2]), ]$missing <- rep("Inferred", length(which(NAs[, 1] == i)))
     }
   }
 

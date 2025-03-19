@@ -30,7 +30,7 @@
 #'   - \code{GLM} (If \code{analysis} is \code{"GLM"}): A summary of the GLM fit and pairwise comparisons.
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -72,9 +72,8 @@
 #' @export
 
 test_direction <- function(data, analysis = NULL) {
-
   ## Set default values if arguments are NULL----
-  if (is.null(analysis)) analysis = "ANOVA" # Default to "ANOVA" if 'analysis' is NULL
+  if (is.null(analysis)) analysis <- "ANOVA" # Default to "ANOVA" if 'analysis' is NULL
 
 
   ## Errors and Warnings----
@@ -103,7 +102,7 @@ test_direction <- function(data, analysis = NULL) {
 
   # Extract trajectory parameters from the 'track_param' function
   track_param <- track_param(data)
-  data <- data[[1]]  # Update 'data' to only contain the first element (typically 'Trajectories')
+  data <- data[[1]] # Update 'data' to only contain the first element (typically 'Trajectories')
 
   # Combine direction data from all tracks into a single vector 'n'
   n <- c(track_param[[1]][[1]], track_param[[1]][[1]][[length(track_param[[1]][[1]])]])
@@ -120,16 +119,16 @@ test_direction <- function(data, analysis = NULL) {
 
   # Replace underscores with spaces in track names to ensure readability
   M$track <- gsub("_", " ", M$track)
-  M_original <- M  # Keep a copy of the original data frame
+  M_original <- M # Keep a copy of the original data frame
 
   # Identify valid and invalid tracks based on the number of footprints (steps)
   track_counts <- table(M$track)
-  valid_tracks <- names(track_counts[track_counts > 3])  # Tracks with more than 3 footprints
-  invalid_tracks <- names(track_counts[track_counts <= 3])  # Tracks with 3 or fewer footprints
+  valid_tracks <- names(track_counts[track_counts > 3]) # Tracks with more than 3 footprints
+  invalid_tracks <- names(track_counts[track_counts <= 3]) # Tracks with 3 or fewer footprints
 
   # Warning if any tracks are removed from the analysis
   if (length(invalid_tracks) > 0) {
-    warning("The following tracks were removed from the analysis due to having 3 or fewer footprints: ", paste(invalid_tracks, collapse = ", "),".")
+    warning("The following tracks were removed from the analysis due to having 3 or fewer footprints: ", paste(invalid_tracks, collapse = ", "), ".")
   }
 
   # Error if less than two valid tracks are available for analysis
@@ -162,10 +161,9 @@ test_direction <- function(data, analysis = NULL) {
 
   # Perform the selected analysis based on the user's input
   if (analysis == "ANOVA") {
-      anova_result <- summary(aov(dir ~ track, data = M_analysis))
-      tukey_result <- TukeyHSD(aov(dir ~ track, data = M_analysis))
-      results$ANOVA <- list(ANOVA = anova_result, Tukey = tukey_result)
-
+    anova_result <- summary(aov(dir ~ track, data = M_analysis))
+    tukey_result <- TukeyHSD(aov(dir ~ track, data = M_analysis))
+    results$ANOVA <- list(ANOVA = anova_result, Tukey = tukey_result)
   } else if (analysis == "Kruskal-Wallis") {
     # Perform Kruskal-Wallis test if selected
     kruskal_result <- kruskal.test(dir ~ track, data = M_analysis)
@@ -178,5 +176,5 @@ test_direction <- function(data, analysis = NULL) {
     results$GLM$pairwise_results <- emmeans::emmeans(glm(dir ~ track, data = M_analysis, family = gaussian()), pairwise ~ track, adjust = "tukey")
   }
 
-  return(results)  # Return the results list containing the analysis outcomes
+  return(results) # Return the results list containing the analysis outcomes
 }

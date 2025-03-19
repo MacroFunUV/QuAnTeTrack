@@ -56,7 +56,7 @@
 #' \item{DTW_distance_metric_simulations}{(If \code{test} is \code{TRUE)} A list of DTW distance matrices from each simulated dataset.}
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -72,29 +72,29 @@
 #' @examples
 #' # Example 1: Simulating tracks using the "Directed" model and comparing DTW distance
 #' # in the PaluxyRiver dataset
-#' s1 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Directed")
+#' s1 <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
 #' simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 #'
 #' # Example 2: Simulating tracks using the "Constrained" model and comparing DTW distance
 #' # in the PaluxyRiver dataset
-#' s2 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Constrained")
+#' s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
 #' simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
 #'
 #' # Example 3: Simulating tracks using the "Unconstrained" model and comparing DTW distance
 #' # in the PaluxyRiver dataset
-#' s3 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Unconstrained")
+#' s3 <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
 #' simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None")
 #'
 #' # Example 4: Simulating and comparing DTW distance in the MountTom dataset using the
 #' # "Centroid" superposition method
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
-#' s4 <- simulate_track(sbMountTom, nsim = 1000)
+#' s4 <- simulate_track(sbMountTom, nsim = 10)
 #' simil_DTW_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid")
 #'
 #' # Example 5: Simulating and comparing DTW distance in the MountTom dataset using the
 #' # "Origin" superposition method
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
-#' s5 <- simulate_track(sbMountTom, nsim = 1000)
+#' s5 <- simulate_track(sbMountTom, nsim = 10)
 #' simil_DTW_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
 #'
 #' @importFrom dtw dtw
@@ -107,11 +107,10 @@
 #' @export
 
 
-simil_DTW_metric<-function(data,test=NULL,sim=NULL,superposition=NULL){
-
+simil_DTW_metric <- function(data, test = NULL, sim = NULL, superposition = NULL) {
   ## Set default values if arguments are NULL----
-  if (is.null(test)) test <- FALSE  # Set default if 'test' is NULL
-  if (is.null(superposition)) superposition <- "None"  # Set default superposition method if 'superposition' is NULL
+  if (is.null(test)) test <- FALSE # Set default if 'test' is NULL
+  if (is.null(superposition)) superposition <- "None" # Set default superposition method if 'superposition' is NULL
 
 
   ## Errors and Warnings----
@@ -156,148 +155,149 @@ simil_DTW_metric<-function(data,test=NULL,sim=NULL,superposition=NULL){
 
 
   ## Code----
-  data<-data[[1]]
+  data <- data[[1]]
 
-  #Calculate actual metrics
-  Matrixsim<-data.frame(matrix(nrow=length(data),ncol = length(data)))
-  colnames(Matrixsim)<-names(data)
-  rownames(Matrixsim)<-names(data)
-  DTW<-Matrixsim
+  # Calculate actual metrics
+  Matrixsim <- data.frame(matrix(nrow = length(data), ncol = length(data)))
+  colnames(Matrixsim) <- names(data)
+  rownames(Matrixsim) <- names(data)
+  DTW <- Matrixsim
 
-  ##Superposition
-  if (test==TRUE){
-    if (superposition=="Centroid"){
-      for (i in 1: length(data)){
-        data[[i]][,1]<-data[[i]][,1]-mean(data[[i]][,1])
-        data[[i]][,2]<-data[[i]][,2]-mean(data[[i]][,2])
+  ## Superposition
+  if (test == TRUE) {
+    if (superposition == "Centroid") {
+      for (i in 1:length(data)) {
+        data[[i]][, 1] <- data[[i]][, 1] - mean(data[[i]][, 1])
+        data[[i]][, 2] <- data[[i]][, 2] - mean(data[[i]][, 2])
       }
     }
 
-    if (superposition=="Origin"){
-      for (i in 1: length(data)){
-        data[[i]][,1]<-data[[i]][,1]-data[[i]][1,1]
-        data[[i]][,2]<-data[[i]][,2]-data[[i]][1,2]
+    if (superposition == "Origin") {
+      for (i in 1:length(data)) {
+        data[[i]][, 1] <- data[[i]][, 1] - data[[i]][1, 1]
+        data[[i]][, 2] <- data[[i]][, 2] - data[[i]][1, 2]
       }
     }
 
-    if (superposition=="None"){
-        data<-data}
-    }
-
-
-    for (c in 1:length(data)){
-      for (r in 1:length(data)){
-        if(c<=r) next
-        DTW[r,c]<-dtw(as.matrix(data[[r]][,1:2]), as.matrix(data[[c]][,1:2]),distance.only=TRUE)$distance
-      }
-    }
-
-
-    if (test==TRUE){
-
-      #Tests
-      ##Superposition
-      if (superposition=="Centroid"){
-        for (i in 1: length(sim)){
-          for (j in 1:length(sim[[1]])){
-            sim[[i]][[j]][,1]<-sim[[i]][[j]][,1]-mean(sim[[i]][[j]][,1])
-            sim[[i]][[j]][,2]<-sim[[i]][[j]][,2]-mean(sim[[i]][[j]][,2])
-          }
-        }
-      }
-
-      if (superposition=="Origin"){
-        for (i in 1: length(sim)){
-          for (j in 1:length(sim[[1]])){
-            sim[[i]][[j]][,1]<-sim[[i]][[j]][,1]-sim[[i]][[j]][1,1]
-            sim[[i]][[j]][,2]<-sim[[i]][[j]][,2]-sim[[i]][[j]][1,2]
-          }
-        }
-      }
-
-      if (superposition=="None"){
-        sim<-sim}
-
-      listSIM<-list()
-      for (i in 1:length(sim)){
-        listSIM[[i]]<-bind_rows(sim[[i]])
-      }
-      sim<-listSIM
-
-      ##Calculate simulated metrics
-      nsim<-length(sim)
-      DTWsim<-Matrixsim
-
-      listDTW<-list()
-      listnegDTW<-c()
-
-      for (i in 1:nsim){
-        sim[[i]]$Trajectory<-as.factor(sim[[1]]$Trajectory)
-        levels<-levels(sim[[i]]$Trajectory)
-
-        for (c in 1:length(data)){
-          for (r in 1:length(data)){
-            if(c<=r) next
-            DTWsim[r,c]<-dtw(as.matrix(sim[[i]][which(sim[[i]]$Trajectory==levels[r]),1:2]), as.matrix(sim[[i]][which(sim[[i]]$Trajectory==levels[c]),1:2]),distance.only=TRUE)$distance
-          }
-        }
-        listDTW[[i]]<-DTWsim
-
-        positive<-c(as.matrix(DTW-listDTW[[i]]))
-        positive<-positive[!is.na(positive)]
-        listnegDTW[i]<-all(is.real.positive(positive))
-
-        writeLines(paste(Sys.time(),paste("Iteration",i)))
-        writeLines(" ")
-        writeLines("DTW metric")
-        print(DTWsim)
-        writeLines("------------------------------------")
-        if (i==nsim){
-          writeLines("ANALYSIS COMPLETED")
-          writeLines("------------------------------------")
-          writeLines(" ")
-        }
-      }
-
-
-      ##Calculate p-values
-      DTWsim_pval<-Matrixsim
-
-
-      vector<-c()
-      for (c in 1:length(data)){
-        for (r in 1:length(data)){
-          if(c<=r) next
-          for (i in 1:nsim){
-            vector[i]<-listDTW[[i]][r,c]
-            DTWsim_pval[r,c]<-length(which(vector<=DTW[r,c]))/nsim
-          }
-        }
-      }
-
-
-      DTW_together_pval<-length(which(listnegDTW==TRUE))/nsim
-    }
-
-    #Value
-    if (test==TRUE){
-      list<-list()
-      list[[1]]<-DTW
-      list[[2]]<-DTWsim_pval
-      list[[3]]<-DTW_together_pval
-      list[[4]]<-listDTW
-
-      names(list)<-c("DTW_distance_metric", "DTW_distance_metric_p_values", "DTW_metric_p_values_combined", "DTW_distance_metric_simulations")
-      print(list[1:3])
-      return(invisible(list))
-    }
-
-    if (test==FALSE){
-      list<-list()
-      list[[1]]<-DTW
-      list[[2]]<-DTW
-
-      names(list)<-c("DTW_distance_metric")
-      return(invisible(list))
+    if (superposition == "None") {
+      data <- data
     }
   }
+
+
+  for (c in 1:length(data)) {
+    for (r in 1:length(data)) {
+      if (c <= r) next
+      DTW[r, c] <- dtw(as.matrix(data[[r]][, 1:2]), as.matrix(data[[c]][, 1:2]), distance.only = TRUE)$distance
+    }
+  }
+
+
+  if (test == TRUE) {
+    # Tests
+    ## Superposition
+    if (superposition == "Centroid") {
+      for (i in 1:length(sim)) {
+        for (j in 1:length(sim[[1]])) {
+          sim[[i]][[j]][, 1] <- sim[[i]][[j]][, 1] - mean(sim[[i]][[j]][, 1])
+          sim[[i]][[j]][, 2] <- sim[[i]][[j]][, 2] - mean(sim[[i]][[j]][, 2])
+        }
+      }
+    }
+
+    if (superposition == "Origin") {
+      for (i in 1:length(sim)) {
+        for (j in 1:length(sim[[1]])) {
+          sim[[i]][[j]][, 1] <- sim[[i]][[j]][, 1] - sim[[i]][[j]][1, 1]
+          sim[[i]][[j]][, 2] <- sim[[i]][[j]][, 2] - sim[[i]][[j]][1, 2]
+        }
+      }
+    }
+
+    if (superposition == "None") {
+      sim <- sim
+    }
+
+    listSIM <- list()
+    for (i in 1:length(sim)) {
+      listSIM[[i]] <- bind_rows(sim[[i]])
+    }
+    sim <- listSIM
+
+    ## Calculate simulated metrics
+    nsim <- length(sim)
+    DTWsim <- Matrixsim
+
+    listDTW <- list()
+    listnegDTW <- c()
+
+    for (i in 1:nsim) {
+      sim[[i]]$Trajectory <- as.factor(sim[[1]]$Trajectory)
+      levels <- levels(sim[[i]]$Trajectory)
+
+      for (c in 1:length(data)) {
+        for (r in 1:length(data)) {
+          if (c <= r) next
+          DTWsim[r, c] <- dtw(as.matrix(sim[[i]][which(sim[[i]]$Trajectory == levels[r]), 1:2]), as.matrix(sim[[i]][which(sim[[i]]$Trajectory == levels[c]), 1:2]), distance.only = TRUE)$distance
+        }
+      }
+      listDTW[[i]] <- DTWsim
+
+      positive <- c(as.matrix(DTW - listDTW[[i]]))
+      positive <- positive[!is.na(positive)]
+      listnegDTW[i] <- all(is.real.positive(positive))
+
+      writeLines(paste(Sys.time(), paste("Iteration", i)))
+      writeLines(" ")
+      writeLines("DTW metric")
+      print(DTWsim)
+      writeLines("------------------------------------")
+      if (i == nsim) {
+        writeLines("ANALYSIS COMPLETED")
+        writeLines("------------------------------------")
+        writeLines(" ")
+      }
+    }
+
+
+    ## Calculate p-values
+    DTWsim_pval <- Matrixsim
+
+
+    vector <- c()
+    for (c in 1:length(data)) {
+      for (r in 1:length(data)) {
+        if (c <= r) next
+        for (i in 1:nsim) {
+          vector[i] <- listDTW[[i]][r, c]
+          DTWsim_pval[r, c] <- length(which(vector <= DTW[r, c])) / nsim
+        }
+      }
+    }
+
+
+    DTW_together_pval <- length(which(listnegDTW == TRUE)) / nsim
+  }
+
+  # Value
+  if (test == TRUE) {
+    list <- list()
+    list[[1]] <- DTW
+    list[[2]] <- DTWsim_pval
+    list[[3]] <- DTW_together_pval
+    list[[4]] <- listDTW
+
+    names(list) <- c("DTW_distance_metric", "DTW_distance_metric_p_values", "DTW_metric_p_values_combined", "DTW_distance_metric_simulations")
+    print(list[1:3])
+    return(invisible(list))
+  }
+
+  if (test == FALSE) {
+    list <- list()
+    list[[1]] <- DTW
+    list[[2]] <- DTW
+
+    names(list) <- c("DTW_distance_metric")
+    return(invisible(list))
+  }
+}

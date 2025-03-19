@@ -51,7 +51,7 @@
 #' to use this measure to compare the tortuosity of random walks only if they consist of a similar number of steps.
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -63,7 +63,7 @@
 #'
 #' @references
 #'
-#'Batschelet, E. (1981). Circular statistics in biology. Academic press, 111 Fifth Ave., New York, NY 10003, 1981, 388.
+#' Batschelet, E. (1981). Circular statistics in biology. Academic press, 111 Fifth Ave., New York, NY 10003, 1981, 388.
 #'
 #' Benhamou, S. (2004). How to reliably estimate the tortuosity of an animal's path:: straightness, sinuosity, or fractal dimension?. Journal of theoretical biology, 229(2), 209-220.
 #'
@@ -75,7 +75,6 @@
 #'
 #' # Example 2:
 #' track_param(MountTom)
-#'
 #'
 #' @importFrom trajr TrajAngles
 #' @importFrom trajr TrajDistance
@@ -90,7 +89,6 @@
 
 
 track_param <- function(data) {
-
   ## Errors and Warnings----
 
   # Check if 'data' is a list with at least two elements
@@ -104,7 +102,7 @@ track_param <- function(data) {
   }
 
 
-  ##Code----
+  ## Code----
 
   # Extract the first element of the input 'data' list, which is expected to contain the 'Trajectories' list.
   data <- data[[1]]
@@ -114,7 +112,6 @@ track_param <- function(data) {
 
   # Loop through each trajectory in the 'data' list.
   for (i in 1:length(data)) {
-
     # Initialize an empty sublist to store the calculated parameters for the current trajectory.
     sublist <- list()
 
@@ -149,16 +146,18 @@ track_param <- function(data) {
     sublist[[10]] <- TrajStraightness(data[[i]])
 
     # Assign descriptive names to the elements of the sublist for clarity.
-    names(sublist) <- c("Turning_angles",
-                        "Mean_turning_angle",
-                        "Standard_deviation_turning_angle",
-                        "Distance",
-                        "Length",
-                        "Step_lengths",
-                        "Mean_step_length",
-                        "Standard_deviation_step_length",
-                        "Sinuosity",
-                        "Straightness")
+    names(sublist) <- c(
+      "Turning_angles",
+      "Mean_turning_angle",
+      "Standard_deviation_turning_angle",
+      "Distance",
+      "Length",
+      "Step_lengths",
+      "Mean_step_length",
+      "Standard_deviation_step_length",
+      "Sinuosity",
+      "Straightness"
+    )
 
     # Store the sublist of parameters for the current trajectory in the main list.
     list[[i]] <- sublist

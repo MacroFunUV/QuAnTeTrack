@@ -53,7 +53,7 @@
 #' \item{Frechet_distance_metric_simulations}{(If \code{test} is \code{TRUE)} A list of Frechet distance matrices from each simulated dataset.}
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -69,29 +69,29 @@
 #' @examples
 #' # Example 1: Simulating tracks using the "Directed" model and comparing Frechet distance
 #' # in the PaluxyRiver dataset
-#' s1 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Directed")
+#' s1 <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
 #' simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 #'
 #' # Example 2: Simulating tracks using the "Constrained" model and comparing Frechet distance
 #' # in the PaluxyRiver dataset
-#' s2 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Constrained")
+#' s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
 #' simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
 #'
 #' # Example 3: Simulating tracks using the "Unconstrained" model and comparing Frechet distance
 #' # in the PaluxyRiver dataset
-#' s3 <- simulate_track(PaluxyRiver, nsim = 1000, model = "Unconstrained")
+#' s3 <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
 #' simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None")
 #'
 #' # Example 4: Simulating and comparing Frechet distance in the MountTom dataset using the
 #' # "Centroid" superposition method
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
-#' s4 <- simulate_track(sbMountTom, nsim = 1000)
+#' s4 <- simulate_track(sbMountTom, nsim = 10)
 #' simil_Frechet_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid")
 #'
 #' # Example 5: Simulating and comparing Frechet distance in the MountTom dataset using the
 #' # "Origin" superposition method
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
-#' s5 <- simulate_track(sbMountTom, nsim = 1000)
+#' s5 <- simulate_track(sbMountTom, nsim = 10)
 #' simil_Frechet_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
 #'
 #' @importFrom SimilarityMeasures Frechet
@@ -108,11 +108,9 @@
 
 # Function to calculate track similarity Frechet metric----
 simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition = "None") {
-
-
   ## Set default values if arguments are NULL----
-  if (is.null(test)) test <- FALSE  # Set default if 'test' is NULL
-  if (is.null(superposition)) superposition <- "None"  # Set default superposition method if 'superposition' is NULL
+  if (is.null(test)) test <- FALSE # Set default if 'test' is NULL
+  if (is.null(superposition)) superposition <- "None" # Set default superposition method if 'superposition' is NULL
 
   ## Errors and Warnings ----
 
@@ -158,13 +156,13 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
   ## Code----
   data <- data[[1]]
 
-  #Calculate actual metrics
+  # Calculate actual metrics
   Matrixsim <- data.frame(matrix(nrow = length(data), ncol = length(data)))
   colnames(Matrixsim) <- names(data)
   rownames(Matrixsim) <- names(data)
   Frechet <- Matrixsim
 
-  ##Superposition
+  ## Superposition
   if (test == TRUE) {
     if (superposition == "Centroid") {
       for (i in 1:length(data)) {
@@ -191,7 +189,6 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
   }
 
   if (test == TRUE) {
-
     # Tests----
     ## Superposition
     if (superposition == "Centroid") {
@@ -255,7 +252,7 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
       }
     }
 
-    ##Calculate p-values
+    ## Calculate p-values
     Frechetsim_pval <- Matrixsim
 
     vector <- c()
@@ -293,4 +290,3 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
     return(invisible(list))
   }
 }
-

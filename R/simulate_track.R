@@ -48,7 +48,7 @@
 #'
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -71,14 +71,14 @@
 #'
 #' # Example 2: Simulate 100 tracks using the "Directed" model, representing movement
 #' # toward a resource (e.g., water source)
-#' simulated_tracks_directed <- simulate_track(PaluxyRiver, nsim = 100, model = "Directed")
+#' simulated_tracks_directed <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
 #'
 #' # Example 3: Simulate 100 tracks using the "Constrained" model, representing movement
 #' # along a geographic feature (e.g., coastline)
-#' simulated_tracks_constrained <- simulate_track(PaluxyRiver, nsim = 100, model = "Constrained")
+#' simulated_tracks_constrained <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
 #'
 #' # Example 4: Simulate 100 tracks using the "Unconstrained" model (random exploratory movement)
-#' simulated_tracks_unconstrained <- simulate_track(PaluxyRiver, nsim = 100, model = "Unconstrained")
+#' simulated_tracks_unconstrained <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
 #'
 #' # Subsetting trajectories with four or more steps in the MountTom dataset
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
@@ -90,15 +90,15 @@
 #'
 #' # Example 6: Simulate 100 tracks using the "Directed" model for Mount Tom, representing
 #' # directed movement
-#' simulated_tracks_mt_directed <- simulate_track(sbMountTom, nsim = 100, model = "Directed")
+#' simulated_tracks_mt_directed <- simulate_track(sbMountTom, nsim = 10, model = "Directed")
 #'
 #' # Example 7: Simulate 100 tracks using the "Constrained" model for Mount Tom, representing
 #' # constrained movement
-#' simulated_tracks_mt_constrained <- simulate_track(sbMountTom, nsim = 100, model = "Constrained")
+#' simulated_tracks_mt_constrained <- simulate_track(sbMountTom, nsim = 10, model = "Constrained")
 #'
 #' # Example 8: Simulate 100 tracks using the "Unconstrained" model for Mount Tom, representing
 #' # random exploratory movement
-#' simulated_tracks_mt_unconstrained <- simulate_track(sbMountTom, nsim = 100, model = "Unconstrained")
+#' simulated_tracks_mt_unconstrained <- simulate_track(sbMountTom, nsim = 10, model = "Unconstrained")
 #'
 #' @importFrom trajr TrajGenerate TrajStepLengths TrajAngles TrajRotate TrajTranslate
 #' @importFrom stats runif sd
@@ -109,8 +109,6 @@
 #' @export
 
 simulate_track <- function(data, nsim = NULL, model = NULL) {
-
-
   ## Errors and Warnings----
 
   # Check if 'data' is a list with at least two elements
@@ -143,14 +141,14 @@ simulate_track <- function(data, nsim = NULL, model = NULL) {
   check_rows <- sapply(data[[1]], function(df) nrow(df) < 4)
   if (any(check_rows)) {
     indices <- which(check_rows)
-    stop(paste("The following tracks have fewer than four steps:", paste(indices, collapse = ", "),". Simulations cannot be applied to trajectories with fewer than four steps, as standard deviations of angles and step lengths cannot be computed. Consider using the function 'subset_track()' to filter only tracks with four or more steps."))
+    stop(paste("The following tracks have fewer than four steps:", paste(indices, collapse = ", "), ". Simulations cannot be applied to trajectories with fewer than four steps, as standard deviations of angles and step lengths cannot be computed. Consider using the function 'subset_track()' to filter only tracks with four or more steps."))
   }
 
   ## Set default values if arguments are NULL----
   if (is.null(nsim)) nsim <- 1000 # Default number of simulations set to 1000 if 'nsim' is NULL
   if (is.null(model)) model <- "Unconstrained" # Default model type set to "Unconstrained" if 'model' is NULL
 
-  ##Code----
+  ## Code----
 
   # Extract the trajectory data from the input list
   data <- data[[1]]
@@ -160,13 +158,11 @@ simulate_track <- function(data, nsim = NULL, model = NULL) {
 
   # Loop through the number of simulations
   for (u in 1:nsim) {
-
     # Initialize a list to store each simulation's individual trajectories
     list <- list()
 
     # Loop through each trajectory in the original dataset
     for (i in 1:length(data)) {
-
       # Calculate the overall direction (angle) of the trajectory using the atan2 function
       # This computes the angle of the line between the first and last point of the trajectory
       double <- atan2(

@@ -19,10 +19,12 @@ test_that("plot_track returns a ggplot object for Footprints-only plot with Palu
 })
 
 test_that("plot_track returns a ggplot object for custom colors with MountTom dataset", {
-  custom_colors <- c("#008000", "#0000FF", "#FF0000", "#800080", "#FFA500", "#FFC0CB", "#FFFF00",
-                     "#00FFFF", "#A52A2A", "#FF00FF", "#808080", "#000000", "#006400", "#00008B",
-                     "#8B0000", "#FF8C00", "#008B8B", "#A9A9A9", "#000080", "#808000", "#800000",
-                     "#008080", "#FFD700")
+  custom_colors <- c(
+    "#008000", "#0000FF", "#FF0000", "#800080", "#FFA500", "#FFC0CB", "#FFFF00",
+    "#00FFFF", "#A52A2A", "#FF00FF", "#808080", "#000000", "#006400", "#00008B",
+    "#8B0000", "#FF8C00", "#008B8B", "#A9A9A9", "#000080", "#808000", "#800000",
+    "#008080", "#FFD700"
+  )
   plot_result <- plot_track(MountTom, colours = custom_colors)
   expect_s3_class(plot_result, "ggplot")
 })
@@ -54,17 +56,21 @@ test_that("plot_track returns a ggplot object for footprints-only with custom co
 })
 
 test_that("plot_track returns a ggplot object for tracks-only with larger line size and custom colors in MountTom dataset", {
-  custom_colors <- c("#008000", "#0000FF", "#FF0000", "#800080", "#FFA500", "#FFC0CB", "#FFFF00",
-                     "#00FFFF", "#A52A2A", "#FF00FF", "#808080", "#000000", "#006400", "#00008B",
-                     "#8B0000", "#FF8C00", "#008B8B", "#A9A9A9", "#000080", "#808000", "#800000",
-                     "#008080", "#FFD700")
+  custom_colors <- c(
+    "#008000", "#0000FF", "#FF0000", "#800080", "#FFA500", "#FFC0CB", "#FFFF00",
+    "#00FFFF", "#A52A2A", "#FF00FF", "#808080", "#000000", "#006400", "#00008B",
+    "#8B0000", "#FF8C00", "#008B8B", "#A9A9A9", "#000080", "#808000", "#800000",
+    "#008080", "#FFD700"
+  )
   plot_result <- plot_track(MountTom, plot = "Tracks", cex.t = 1.5, colours = custom_colors)
   expect_s3_class(plot_result, "ggplot")
 })
 
 test_that("plot_track returns a ggplot object for black footprints and tracks with labels in PaluxyRiver dataset", {
-  plot_result <- plot_track(PaluxyRiver, colours = NULL, shape.f = c(16, 16), plot.labels = TRUE,
-                            labels = c("Sauropod", "Theropod"), cex.l = 2, alpha.l = 0.5)
+  plot_result <- plot_track(PaluxyRiver,
+    colours = NULL, shape.f = c(16, 16), plot.labels = TRUE,
+    labels = c("Sauropod", "Theropod"), cex.l = 2, alpha.l = 0.5
+  )
   expect_s3_class(plot_result, "ggplot")
 })
 
@@ -96,5 +102,4 @@ test_that("plot_track handles invalid inputs correctly", {
   expect_error(plot_track(MountTom, shape.f = rep(17, 100)), "Error: The length of 'shape.f' must match the number of tracks in the data.")
   expect_error(plot_track(MountTom, plot.labels = TRUE, labels = c(1, 2, 3)), "Error: The length of 'labels' must match the number of tracks in the data.")
   expect_error(plot_track(PaluxyRiver, plot = "Pathways"), "The 'plot' argument must be one of 'FootprintsTracks', 'Tracks', or 'Footprints'.")
-
 })

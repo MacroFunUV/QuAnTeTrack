@@ -41,21 +41,27 @@ test_that("track_intersection correctly calculates intersection metrics with tes
 test_that("track_intersection correctly calculates intersection metrics with custom coordinate permutation", {
   sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
   suppressWarnings(s5 <- simulate_track(sbMountTom, nsim = 10))
-  area_origin <- matrix(c(50, 5,
-                          10, 5,
-                          10, 20,
-                          50, 20),
-                        ncol = 2, byrow = TRUE)
+  area_origin <- matrix(
+    c(
+      50, 5,
+      10, 5,
+      10, 20,
+      50, 20
+    ),
+    ncol = 2, byrow = TRUE
+  )
 
-  result <- track_intersection(sbMountTom, test = TRUE, sim = s5, origin.permutation = "Custom",
-                               custom.coord = area_origin)
+  result <- track_intersection(sbMountTom,
+    test = TRUE, sim = s5, origin.permutation = "Custom",
+    custom.coord = area_origin
+  )
 
   expect_true(is.list(result))
   expect_true("Intersection_metric" %in% names(result))
 })
 
 test_that("track_intersection gives an error for invalid data input", {
-  expect_error(track_intersection(NULL, test = FALSE),"The 'data' argument must be a 'track' R object, which is a list consisting of two elements.")
+  expect_error(track_intersection(NULL, test = FALSE), "The 'data' argument must be a 'track' R object, which is a list consisting of two elements.")
 })
 
 test_that("track_intersection gives an error for invalid origin permutation method", {

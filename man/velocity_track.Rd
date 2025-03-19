@@ -80,16 +80,18 @@ Based on Thulborn & Wade (1984), it is possible to identify the gaits of track-m
 # H_mounttom contains hip heights for each track in the MountTom dataset.
 # The function will use the default method "A" for all tracks.
 # Hip heights are inferred as four times the footprint length, following Alexander's approach.
-H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
-1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
-1.648, 1.760, 1.612)
+H_mounttom <- c(
+  1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
+  1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+  1.648, 1.760, 1.612
+)
 velocity_track(MountTom, H = H_mounttom)
 
 # Example 2: Calculate velocities for the PaluxyRiver dataset using default settings.
 # H_paluxyriver contains hip heights for each track in the PaluxyRiver dataset.
 # The function will use the default method "A" for all tracks.
 # Hip heights are inferred as four times the footprint length, following Alexander's approach.
-H_paluxyriver <- c(3.472,2.200)
+H_paluxyriver <- c(3.472, 2.200)
 velocity_track(PaluxyRiver, H = H_paluxyriver)
 
 # Example 3: Calculate velocities for the PaluxyRiver dataset using different methods
@@ -97,7 +99,7 @@ velocity_track(PaluxyRiver, H = H_paluxyriver)
 # appropriate for quadrupedal dinosaurs. Method "B" is used for theropods, which
 # is more appropriate for bipedal dinosaurs. Hip heights are inferred as four times
 # the footprint length, following Alexander's approach.
-H_paluxyriver <- c(3.472,2.200)
+H_paluxyriver <- c(3.472, 2.200)
 Method_paluxyriver <- c("A", "B")
 velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 

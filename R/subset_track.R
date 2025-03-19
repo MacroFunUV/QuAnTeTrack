@@ -13,7 +13,7 @@
 #' @return A 'track' R object that contains only the specified subset of tracks. The structure of the returned object mirrors the input structure but includes only the selected tracks.
 #'
 #' @section Logo:
-#'\if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=30\%}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es
@@ -35,7 +35,6 @@
 #' @export
 
 subset_track <- function(data, tracks = NULL) {
-
   ## Errors and Warnings----
 
   # Check if 'data' is a list with at least two elements
@@ -59,7 +58,7 @@ subset_track <- function(data, tracks = NULL) {
     tracks <- tracks[tracks <= length(data[[1]])]
   }
 
-  ##Code----
+  ## Code----
 
   # Set default values if arguments are NULL
   if (is.null(tracks)) {

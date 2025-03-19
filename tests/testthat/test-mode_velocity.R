@@ -1,8 +1,10 @@
 test_that("mode_velocity classifies MountTom dataset correctly", {
   # Hip heights for each track in the MountTom dataset
-  H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
-                  1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784,
-                  1.676, 1.872, 1.648, 1.760, 1.612)
+  H_mounttom <- c(
+    1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
+    1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784,
+    1.676, 1.872, 1.648, 1.760, 1.612
+  )
 
   # Simulate velocity data
   V_mounttom <- velocity_track(MountTom, H = H_mounttom)

@@ -54,9 +54,11 @@
 #' # Example 1: Test for Steady, Acceleration, or Deceleration in MountTom dataset.
 #'
 #' # Hip heights for each track in the MountTom dataset
-#' H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
-#'                 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784,
-#'                 1.676, 1.872, 1.648, 1.760, 1.612)
+#' H_mounttom <- c(
+#'   1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
+#'   1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784,
+#'   1.676, 1.872, 1.648, 1.760, 1.612
+#' )
 #'
 #' # Calculate velocities using the default Method "A"
 #' V_mounttom <- velocity_track(MountTom, H = H_mounttom)
@@ -73,8 +75,10 @@
 #' Method_paluxyriver <- c("A", "B")
 #'
 #' # Calculate velocities using specified methods
-#' V_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver,
-#'                                 method = Method_paluxyriver)
+#' V_paluxyriver <- velocity_track(PaluxyRiver,
+#'   H = H_paluxyriver,
+#'   method = Method_paluxyriver
+#' )
 #'
 #' # Test for Steady, Acceleration, or Deceleration
 #' mode_velocity(V_paluxyriver)
@@ -96,7 +100,7 @@ mode_velocity <- function(trackvel) {
     stop("The 'trackvel' argument must be a list.")
   }
 
-  ##Code----
+  ## Code----
 
   # Iterate over each trajectory in the input list
   for (i in seq_along(trackvel)) {
@@ -107,7 +111,7 @@ mode_velocity <- function(trackvel) {
     # Check if the trajectory has more than 2 steps
     if (length(velocity) > 2) {
       # Perform Spearman's rank correlation test
-      corr <- cor.test(x = velocity, y = steps, method = 'spearman', exact = FALSE)
+      corr <- cor.test(x = velocity, y = steps, method = "spearman", exact = FALSE)
       corr_value <- corr$estimate
       p_value <- corr$p.value
 
@@ -127,7 +131,6 @@ mode_velocity <- function(trackvel) {
         correlation = corr,
         trend = trend
       )
-
     } else {
       # If the trajectory has fewer than 3 steps, indicate insufficient data
       result <- "Less than three steps"

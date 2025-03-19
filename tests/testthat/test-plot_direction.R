@@ -7,8 +7,10 @@ test_that("plot_direction runs without errors for all plot types with MountTom d
 
 test_that("plot_direction handles custom parameters correctly with MountTom dataset", {
   expect_no_error(plot_direction(MountTom, plot_type = "polar_steps", angle_range = 90))
-  expect_no_error(plot_direction(MountTom, plot_type = "polar_steps", y_labels_position = 0,
-                               y_breaks_manual = c(0, 15, 30, 45, 60)))
+  expect_no_error(plot_direction(MountTom,
+    plot_type = "polar_steps", y_labels_position = 0,
+    y_breaks_manual = c(0, 15, 30, 45, 60)
+  ))
 })
 
 test_that("plot_direction runs without errors for all plot types with PaluxyRiver dataset", {

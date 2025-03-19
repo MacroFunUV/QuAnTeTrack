@@ -1,8 +1,10 @@
 ### **Prepare Data for Testing**
 # Hip heights for each track in the MountTom dataset
-H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
-                1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
-                1.648, 1.760, 1.612)
+H_mounttom <- c(
+  1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848,
+  1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+  1.648, 1.760, 1.612
+)
 
 # Calculate velocities using the default Method "A"
 V_mounttom <- velocity_track(MountTom, H = H_mounttom)
@@ -96,15 +98,21 @@ test_that("test_velocity correctly performs GLM on PaluxyRiver dataset", {
 })
 
 test_that("test_velocity gives an error for invalid analysis type", {
-  expect_error(test_velocity(MountTom, trackvel = V_mounttom, analysis = "InvalidMethod"),
-               "Invalid 'analysis' type. Choose from 'ANOVA', 'Kruskal-Wallis', or 'GLM'.")
+  expect_error(
+    test_velocity(MountTom, trackvel = V_mounttom, analysis = "InvalidMethod"),
+    "Invalid 'analysis' type. Choose from 'ANOVA', 'Kruskal-Wallis', or 'GLM'."
+  )
 })
 
 test_that("test_velocity gives an error when data is not a valid track object", {
-  expect_error(test_velocity(NULL, trackvel = V_mounttom, analysis = "ANOVA"),
-               "The 'data' argument must be a 'track' R object, which is a list consisting of two elements: 'Trajectories' and 'Footprints'.")
-  expect_error(test_velocity(list(1, 2, 3), trackvel = V_mounttom, analysis = "ANOVA"),
-               "The two elements of 'data' must be lists.")
+  expect_error(
+    test_velocity(NULL, trackvel = V_mounttom, analysis = "ANOVA"),
+    "The 'data' argument must be a 'track' R object, which is a list consisting of two elements: 'Trajectories' and 'Footprints'."
+  )
+  expect_error(
+    test_velocity(list(1, 2, 3), trackvel = V_mounttom, analysis = "ANOVA"),
+    "The two elements of 'data' must be lists."
+  )
 })
 
 ### **Tests for Warnings**
@@ -117,9 +125,11 @@ test_that("test_velocity emits both expected warnings", {
 })
 
 test_that("test_velocity gives an error when there are not enough valid tracks", {
-  small_track_data <- subset_track(MountTom, tracks = c(1))  # Only one track
-  expect_error(test_velocity(small_track_data, trackvel = V_mounttom, analysis = "ANOVA"),
-               "Not enough tracks with more than 3 footprints for meaningful analysis.")
+  small_track_data <- subset_track(MountTom, tracks = c(1)) # Only one track
+  expect_error(
+    test_velocity(small_track_data, trackvel = V_mounttom, analysis = "ANOVA"),
+    "Not enough tracks with more than 3 footprints for meaningful analysis."
+  )
 })
 
 ### **Extra Tests for Plotting**

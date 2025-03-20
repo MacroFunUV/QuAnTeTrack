@@ -71,132 +71,175 @@
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
-<p>``` r # Example 1: Tracks without missing footprints. Based on the Paluxy River # dinosaur chase sequence (Farlow et al., 2011).</p>
-</div>
-</div>
-<div class="section level1">
-<h1 id="load-the-example-tps-file-provided-in-the-quantetrack-package">Load the example TPS file provided in the QuAnTeTrack package.<a class="anchor" aria-label="anchor" href="#load-the-example-tps-file-provided-in-the-quantetrack-package"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="this-tps-data-includes-footprint-coordinates-for-different-tracks">This TPS data includes footprint coordinates for different tracks,<a class="anchor" aria-label="anchor" href="#this-tps-data-includes-footprint-coordinates-for-different-tracks"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="along-with-associated-metadata">along with associated metadata.<a class="anchor" aria-label="anchor" href="#along-with-associated-metadata"></a>
-</h1>
-<p>tpsPaluxyRiver &lt;- system.file(“extdata”, “PaluxyRiver.tps”, package = “QuAnTeTrack”)</p>
-</div>
-<div class="section level1">
-<h1 id="call-the-tps_to_track-function-to-convert-the-tps-data-in-the-file">Call the tps_to_track function to convert the TPS data in the file<a class="anchor" aria-label="anchor" href="#call-the-tps_to_track-function-to-convert-the-tps-data-in-the-file"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="into-a-track-object-the-scale-argument-sets-the-scaling-factor">into a track object. The ‘scale’ argument sets the scaling factor<a class="anchor" aria-label="anchor" href="#into-a-track-object-the-scale-argument-sets-the-scaling-factor"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="for-the-coordinates-and-missingfalse-indicates-that-no-landmarks">for the coordinates, and ‘missing=FALSE’ indicates that no landmarks<a class="anchor" aria-label="anchor" href="#for-the-coordinates-and-missingfalse-indicates-that-no-landmarks"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="are-missing-in-the-dataset">are missing in the dataset.<a class="anchor" aria-label="anchor" href="#are-missing-in-the-dataset"></a>
-</h1>
-<p>PaluxyRiver &lt;-tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)</p>
-</div>
-<div class="section level1">
-<h1 id="basic-plot-with-default-settings---paluxyriver-dataset">Basic Plot with Default Settings - PaluxyRiver Dataset<a class="anchor" aria-label="anchor" href="#basic-plot-with-default-settings---paluxyriver-dataset"></a>
-</h1>
-<p>plot_track(PaluxyRiver)</p>
-<p>track_param(PaluxyRiver)</p>
-</div>
-<div class="section level1">
-<h1 id="polar-plot-of-step-directions-in-paluxyriver-dataset">Polar Plot of Step Directions in PaluxyRiver Dataset<a class="anchor" aria-label="anchor" href="#polar-plot-of-step-directions-in-paluxyriver-dataset"></a>
-</h1>
-<p>plot_direction(PaluxyRiver, plot_type = “polar_steps”)</p>
-</div>
-<div class="section level1">
-<h1 id="calculate-velocities-for-the-paluxyriver-dataset-using-different-methods">Calculate velocities for the PaluxyRiver dataset using different methods<a class="anchor" aria-label="anchor" href="#calculate-velocities-for-the-paluxyriver-dataset-using-different-methods"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="for-velocity-calculation-method-a-is-used-for-sauropods-which-is-more">for velocity calculation. Method “A” is used for sauropods, which is more<a class="anchor" aria-label="anchor" href="#for-velocity-calculation-method-a-is-used-for-sauropods-which-is-more"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="appropriate-for-quadrupedal-dinosaurs-method-b-is-used-for-theropods-which">appropriate for quadrupedal dinosaurs. Method “B” is used for theropods, which<a class="anchor" aria-label="anchor" href="#appropriate-for-quadrupedal-dinosaurs-method-b-is-used-for-theropods-which"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="is-more-appropriate-for-bipedal-dinosaurs-hip-heights-are-inferred-as-four-times">is more appropriate for bipedal dinosaurs. Hip heights are inferred as four times<a class="anchor" aria-label="anchor" href="#is-more-appropriate-for-bipedal-dinosaurs-hip-heights-are-inferred-as-four-times"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="the-footprint-length-following-alexanders-approach">the footprint length, following Alexander’s approach.<a class="anchor" aria-label="anchor" href="#the-footprint-length-following-alexanders-approach"></a>
-</h1>
-<p>H_paluxyriver &lt;- c(3.472, 2.200) Method_paluxyriver &lt;- c(“A”, “B”) velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)</p>
-</div>
-<div class="section level1">
-<h1 id="example-2-tracks-with-missing-footprints-based-on-dinosaur-tracks-from">Example 2: Tracks with missing footprints. Based on dinosaur tracks from<a class="anchor" aria-label="anchor" href="#example-2-tracks-with-missing-footprints-based-on-dinosaur-tracks-from"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="the-mount-tom-ostrom-1972">the Mount Tom (Ostrom, 1972).<a class="anchor" aria-label="anchor" href="#the-mount-tom-ostrom-1972"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="load-the-example-tps-file-provided-in-the-quantetrack-package-1">Load the example TPS file provided in the QuAnTeTrack package.<a class="anchor" aria-label="anchor" href="#load-the-example-tps-file-provided-in-the-quantetrack-package-1"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="this-tps-data-includes-footprint-coordinates-for-different-tracks-1">This TPS data includes footprint coordinates for different tracks,<a class="anchor" aria-label="anchor" href="#this-tps-data-includes-footprint-coordinates-for-different-tracks-1"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="along-with-associated-metadata-1">along with associated metadata.<a class="anchor" aria-label="anchor" href="#along-with-associated-metadata-1"></a>
-</h1>
-<p>tpsMountTom &lt;- system.file(“extdata”, “MountTom.tps”, package = “QuAnTeTrack”)</p>
-</div>
-<div class="section level1">
-<h1 id="define-a-matrix-representing-the-footprints-that-are-missing-from-the-dataset">Define a matrix representing the footprints that are missing from the dataset.<a class="anchor" aria-label="anchor" href="#define-a-matrix-representing-the-footprints-that-are-missing-from-the-dataset"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="in-this-example-the-matrix-nas-specifies-that-footprint-7-is-missing-in-track-3">In this example, the matrix ‘NAs’ specifies that footprint 7 is missing in track 3.<a class="anchor" aria-label="anchor" href="#in-this-example-the-matrix-nas-specifies-that-footprint-7-is-missing-in-track-3"></a>
-</h1>
-<p>NAs &lt;- matrix(c(7, 3), nrow = 1, ncol = 2)</p>
-</div>
-<div class="section level1">
-<h1 id="call-the-tps_to_track-function-which-will-convert-the-tps-data-in-the-file">Call the tps_to_track function, which will convert the TPS data in the file<a class="anchor" aria-label="anchor" href="#call-the-tps_to_track-function-which-will-convert-the-tps-data-in-the-file"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="to-a-track-object-the-scale-argument-sets-the-scaling-factor-for-the-coordinates">to a track object. The ‘scale’ argument sets the scaling factor for the coordinates,<a class="anchor" aria-label="anchor" href="#to-a-track-object-the-scale-argument-sets-the-scaling-factor-for-the-coordinates"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="missing-specifies-whether-missing-footprints-should-be-handled-nas-provides">‘missing’ specifies whether missing footprints should be handled, ‘NAs’ provides<a class="anchor" aria-label="anchor" href="#missing-specifies-whether-missing-footprints-should-be-handled-nas-provides"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="the-missing-footprints-matrix-and-rlside-specifies-which-side-right-or-left">the missing footprints matrix, and ‘R.L.side’ specifies which side (Right or Left)<a class="anchor" aria-label="anchor" href="#the-missing-footprints-matrix-and-rlside-specifies-which-side-right-or-left"></a>
-</h1>
-</div>
-<div class="section level1">
-<h1 id="is-the-first-footprint-of-each-track">is the first footprint of each track.<a class="anchor" aria-label="anchor" href="#is-the-first-footprint-of-each-track"></a>
-</h1>
-<p>MountTom &lt;- tps_to_track(tpsMountTom, scale = 0.004411765, missing = TRUE, NAs = NAs, R.L.side = c( “R”, “L”, “L”, “L”, “R”, “L”, “R”, “R”, “L”, “L”, “L”, “L”, “L”, “R”, “R”, “L”, “R”, “R”, “L”, “R”, “R”, “R”, “R” ) )</p>
-</div>
-<div class="section level1">
-<h1 id="basic-plot-with-default-settings---mounttom-dataset">Basic Plot with Default Settings - MountTom Dataset<a class="anchor" aria-label="anchor" href="#basic-plot-with-default-settings---mounttom-dataset"></a>
-</h1>
-<p>plot_track(MountTom)</p>
-<p>track_param(MountTom)</p>
-</div>
-<div class="section level1">
-<h1 id="polar-plot-of-step-directions-in-mounttom-dataset">Polar Plot of Step Directions in MountTom Dataset<a class="anchor" aria-label="anchor" href="#polar-plot-of-step-directions-in-mounttom-dataset"></a>
-</h1>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Example 1: Tracks without missing footprints. Based on the Paluxy River</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># dinosaur chase sequence (Farlow et al., 2011).</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># Load the example TPS file provided in the QuAnTeTrack package.</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># This TPS data includes footprint coordinates for different tracks,</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co"># along with associated metadata.</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>tpsPaluxyRiver <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"PaluxyRiver.tps"</span>, <span class="at">package =</span> <span class="st">"QuAnTeTrack"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co"># Call the tps_to_track function to convert the TPS data in the file</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co"># into a track object. The 'scale' argument sets the scaling factor</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co"># for the coordinates, and 'missing=FALSE' indicates that no landmarks</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co"># are missing in the dataset.</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>PaluxyRiver <span class="ot">&lt;-</span><span class="fu">tps_to_track</span>(tpsPaluxyRiver, <span class="at">scale =</span> <span class="fl">0.004341493</span>, <span class="at">missing =</span> <span class="cn">FALSE</span>, <span class="at">NAs =</span> <span class="cn">NULL</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co"># Basic Plot with Default Settings - PaluxyRiver Dataset</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="sc">==</span><span class="er">=====</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>\<span class="st">`</span><span class="at">\</span><span class="st">`</span>\<span class="st">`</span><span class="at"> r \# Example 1: Tracks without missing footprints. Based on the</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="at">Paluxy River \# dinosaur chase sequence (Farlow et al., 2011).</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="at"># Load the example TPS file provided in the QuAnTeTrack package.</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="at"># This TPS data includes footprint coordinates for different tracks,</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="at"># along with associated metadata.</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="at">tpsPaluxyRiver \&lt;- system.file(“extdata”, “PaluxyRiver.tps”, package =</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="at">“QuAnTeTrack”)</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="at"># Call the tps_to_track function to convert the TPS data in the file</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="at"># into a track object. The ‘scale’ argument sets the scaling factor</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="at"># for the coordinates, and ‘missing=FALSE’ indicates that no landmarks</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="at"># are missing in the dataset.</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="at">PaluxyRiver \&lt;-tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="at">= FALSE, NAs = NULL)</span></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="at"># Basic Plot with Default Settings - PaluxyRiver Dataset</span></span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="at">&gt;&gt;&gt;&gt;&gt;&gt;&gt; aa1b5abf1e3656e2040d57fd6b483dab02b6ab01</span></span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="at">plot_track(PaluxyRiver)</span></span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="at">track_param(PaluxyRiver)</span></span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="at"># Polar Plot of Step Directions in PaluxyRiver Dataset</span></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="at">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span></span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="at">plot_direction(PaluxyRiver, plot_type = "polar_steps")</span></span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="at"># Calculate velocities for the PaluxyRiver dataset using different methods</span></span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="at"># for velocity calculation. Method "A" is used for sauropods, which is more</span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="at"># appropriate for quadrupedal dinosaurs. Method "B" is used for theropods, which</span></span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a><span class="at"># is more appropriate for bipedal dinosaurs. Hip heights are inferred as four times</span></span>
+<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a><span class="at"># the footprint length, following Alexander's approach.</span></span>
+<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a><span class="at">H_paluxyriver &lt;- c(3.472, 2.200)</span></span>
+<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a><span class="at">Method_paluxyriver &lt;- c("A", "B")</span></span>
+<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a><span class="at">velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)</span></span>
+<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a></span>
+<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a></span>
+<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a></span>
+<span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a><span class="at"># Example 2: Tracks with missing footprints. Based on dinosaur tracks from</span></span>
+<span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a><span class="at"># the Mount Tom (Ostrom, 1972).</span></span>
+<span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a><span class="at"># Load the example TPS file provided in the QuAnTeTrack package.</span></span>
+<span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a><span class="at"># This TPS data includes footprint coordinates for different tracks,</span></span>
+<span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a><span class="at"># along with associated metadata.</span></span>
+<span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a><span class="at"> tpsMountTom &lt;- system.file("extdata", "MountTom.tps", package = "QuAnTeTrack")</span></span>
+<span id="cb2-73"><a href="#cb2-73" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" tabindex="-1"></a><span class="at"># Define a matrix representing the footprints that are missing from the dataset.</span></span>
+<span id="cb2-75"><a href="#cb2-75" tabindex="-1"></a><span class="at"># In this example, the matrix 'NAs' specifies that footprint 7 is missing in track 3.</span></span>
+<span id="cb2-76"><a href="#cb2-76" tabindex="-1"></a><span class="at">NAs &lt;- matrix(c(7, 3), nrow = 1, ncol = 2)</span></span>
+<span id="cb2-77"><a href="#cb2-77" tabindex="-1"></a></span>
+<span id="cb2-78"><a href="#cb2-78" tabindex="-1"></a><span class="at"># Call the tps_to_track function, which will convert the TPS data in the file</span></span>
+<span id="cb2-79"><a href="#cb2-79" tabindex="-1"></a><span class="at"># to a track object. The 'scale' argument sets the scaling factor for the coordinates,</span></span>
+<span id="cb2-80"><a href="#cb2-80" tabindex="-1"></a><span class="at"># 'missing' specifies whether missing footprints should be handled, 'NAs' provides</span></span>
+<span id="cb2-81"><a href="#cb2-81" tabindex="-1"></a><span class="at"># the missing footprints matrix, and 'R.L.side' specifies which side (Right or Left)</span></span>
+<span id="cb2-82"><a href="#cb2-82" tabindex="-1"></a><span class="at"># is the first footprint of each track.</span></span>
+<span id="cb2-83"><a href="#cb2-83" tabindex="-1"></a><span class="at">MountTom &lt;- tps_to_track(tpsMountTom,</span></span>
+<span id="cb2-84"><a href="#cb2-84" tabindex="-1"></a><span class="at">  scale = 0.004411765, missing = TRUE, NAs = NAs,</span></span>
+<span id="cb2-85"><a href="#cb2-85" tabindex="-1"></a><span class="at">   R.L.side = c(</span></span>
+<span id="cb2-86"><a href="#cb2-86" tabindex="-1"></a><span class="at">     "R", "L", "L", "L", "R", "L", "R", "R", "L", "L", "L",</span></span>
+<span id="cb2-87"><a href="#cb2-87" tabindex="-1"></a><span class="at">     "L", "L", "R", "R", "L", "R", "R", "L", "R", "R",</span></span>
+<span id="cb2-88"><a href="#cb2-88" tabindex="-1"></a><span class="at">     "R", "R"</span></span>
+<span id="cb2-89"><a href="#cb2-89" tabindex="-1"></a><span class="at">   )</span></span>
+<span id="cb2-90"><a href="#cb2-90" tabindex="-1"></a><span class="at"> )</span></span>
+<span id="cb2-91"><a href="#cb2-91" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" tabindex="-1"></a><span class="at"># Basic Plot with Default Settings - MountTom Dataset</span></span>
+<span id="cb2-93"><a href="#cb2-93" tabindex="-1"></a><span class="at">=======</span></span>
+<span id="cb2-94"><a href="#cb2-94" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" tabindex="-1"></a><span class="at">plot_direction(PaluxyRiver, plot_type = “polar_steps”)</span></span>
+<span id="cb2-96"><a href="#cb2-96" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" tabindex="-1"></a><span class="at"># Calculate velocities for the PaluxyRiver dataset using different methods</span></span>
+<span id="cb2-98"><a href="#cb2-98" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" tabindex="-1"></a><span class="at"># for velocity calculation. Method “A” is used for sauropods, which is more</span></span>
+<span id="cb2-100"><a href="#cb2-100" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" tabindex="-1"></a><span class="at"># appropriate for quadrupedal dinosaurs. Method “B” is used for theropods, which</span></span>
+<span id="cb2-102"><a href="#cb2-102" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" tabindex="-1"></a><span class="at"># is more appropriate for bipedal dinosaurs. Hip heights are inferred as four times</span></span>
+<span id="cb2-104"><a href="#cb2-104" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" tabindex="-1"></a><span class="at"># the footprint length, following Alexander’s approach.</span></span>
+<span id="cb2-106"><a href="#cb2-106" tabindex="-1"></a></span>
+<span id="cb2-107"><a href="#cb2-107" tabindex="-1"></a><span class="at">H_paluxyriver \&lt;- c(3.472, 2.200) Method_paluxyriver \&lt;- c(“A”, “B”)</span></span>
+<span id="cb2-108"><a href="#cb2-108" tabindex="-1"></a><span class="at">velocity_track(PaluxyRiver, H = H_paluxyriver, method =</span></span>
+<span id="cb2-109"><a href="#cb2-109" tabindex="-1"></a><span class="at">Method_paluxyriver)</span></span>
+<span id="cb2-110"><a href="#cb2-110" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" tabindex="-1"></a><span class="at"># Example 2: Tracks with missing footprints. Based on dinosaur tracks from</span></span>
+<span id="cb2-112"><a href="#cb2-112" tabindex="-1"></a></span>
+<span id="cb2-113"><a href="#cb2-113" tabindex="-1"></a><span class="at"># the Mount Tom (Ostrom, 1972).</span></span>
+<span id="cb2-114"><a href="#cb2-114" tabindex="-1"></a></span>
+<span id="cb2-115"><a href="#cb2-115" tabindex="-1"></a><span class="at"># Load the example TPS file provided in the QuAnTeTrack package.</span></span>
+<span id="cb2-116"><a href="#cb2-116" tabindex="-1"></a></span>
+<span id="cb2-117"><a href="#cb2-117" tabindex="-1"></a><span class="at"># This TPS data includes footprint coordinates for different tracks,</span></span>
+<span id="cb2-118"><a href="#cb2-118" tabindex="-1"></a></span>
+<span id="cb2-119"><a href="#cb2-119" tabindex="-1"></a><span class="at"># along with associated metadata.</span></span>
+<span id="cb2-120"><a href="#cb2-120" tabindex="-1"></a></span>
+<span id="cb2-121"><a href="#cb2-121" tabindex="-1"></a><span class="at">tpsMountTom \&lt;- system.file(“extdata”, “MountTom.tps”, package =</span></span>
+<span id="cb2-122"><a href="#cb2-122" tabindex="-1"></a><span class="at">“QuAnTeTrack”)</span></span>
+<span id="cb2-123"><a href="#cb2-123" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" tabindex="-1"></a><span class="at"># Define a matrix representing the footprints that are missing from the dataset.</span></span>
+<span id="cb2-125"><a href="#cb2-125" tabindex="-1"></a></span>
+<span id="cb2-126"><a href="#cb2-126" tabindex="-1"></a><span class="at"># In this example, the matrix ‘NAs’ specifies that footprint 7 is missing in track 3.</span></span>
+<span id="cb2-127"><a href="#cb2-127" tabindex="-1"></a></span>
+<span id="cb2-128"><a href="#cb2-128" tabindex="-1"></a><span class="at">NAs \&lt;- matrix(c(7, 3), nrow = 1, ncol = 2)</span></span>
+<span id="cb2-129"><a href="#cb2-129" tabindex="-1"></a></span>
+<span id="cb2-130"><a href="#cb2-130" tabindex="-1"></a><span class="at"># Call the tps_to_track function, which will convert the TPS data in the file</span></span>
+<span id="cb2-131"><a href="#cb2-131" tabindex="-1"></a></span>
+<span id="cb2-132"><a href="#cb2-132" tabindex="-1"></a><span class="at"># to a track object. The ‘scale’ argument sets the scaling factor for the coordinates,</span></span>
+<span id="cb2-133"><a href="#cb2-133" tabindex="-1"></a></span>
+<span id="cb2-134"><a href="#cb2-134" tabindex="-1"></a><span class="at"># ‘missing’ specifies whether missing footprints should be handled, ‘NAs’ provides</span></span>
+<span id="cb2-135"><a href="#cb2-135" tabindex="-1"></a></span>
+<span id="cb2-136"><a href="#cb2-136" tabindex="-1"></a><span class="at"># the missing footprints matrix, and ‘R.L.side’ specifies which side (Right or Left)</span></span>
+<span id="cb2-137"><a href="#cb2-137" tabindex="-1"></a></span>
+<span id="cb2-138"><a href="#cb2-138" tabindex="-1"></a><span class="at"># is the first footprint of each track.</span></span>
+<span id="cb2-139"><a href="#cb2-139" tabindex="-1"></a></span>
+<span id="cb2-140"><a href="#cb2-140" tabindex="-1"></a><span class="at">MountTom \&lt;- tps_to_track(tpsMountTom, scale = 0.004411765, missing =</span></span>
+<span id="cb2-141"><a href="#cb2-141" tabindex="-1"></a><span class="at">TRUE, NAs = NAs, R.L.side = c( “R”, “L”, “L”, “L”, “R”, “L”, “R”, “R”,</span></span>
+<span id="cb2-142"><a href="#cb2-142" tabindex="-1"></a><span class="at">“L”, “L”, “L”, “L”, “L”, “R”, “R”, “L”, “R”, “R”, “L”, “R”, “R”, “R”,</span></span>
+<span id="cb2-143"><a href="#cb2-143" tabindex="-1"></a><span class="at">“R” ) )</span></span>
+<span id="cb2-144"><a href="#cb2-144" tabindex="-1"></a></span>
+<span id="cb2-145"><a href="#cb2-145" tabindex="-1"></a><span class="at"># Basic Plot with Default Settings - MountTom Dataset</span></span>
+<span id="cb2-146"><a href="#cb2-146" tabindex="-1"></a></span>
+<span id="cb2-147"><a href="#cb2-147" tabindex="-1"></a><span class="at">&gt;&gt;&gt;&gt;&gt;&gt;&gt; aa1b5abf1e3656e2040d57fd6b483dab02b6ab01</span></span>
+<span id="cb2-148"><a href="#cb2-148" tabindex="-1"></a><span class="at">plot_track(MountTom)</span></span>
+<span id="cb2-149"><a href="#cb2-149" tabindex="-1"></a></span>
+<span id="cb2-150"><a href="#cb2-150" tabindex="-1"></a><span class="at">track_param(MountTom)</span></span>
+<span id="cb2-151"><a href="#cb2-151" tabindex="-1"></a></span>
+<span id="cb2-152"><a href="#cb2-152" tabindex="-1"></a><span class="at"># Polar Plot of Step Directions in MountTom Dataset</span></span>
+<span id="cb2-153"><a href="#cb2-153" tabindex="-1"></a><span class="at">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span></span>
+<span id="cb2-154"><a href="#cb2-154" tabindex="-1"></a><span class="at">plot_direction(MountTom, plot_type = "polar_steps")</span></span>
+<span id="cb2-155"><a href="#cb2-155" tabindex="-1"></a></span>
+<span id="cb2-156"><a href="#cb2-156" tabindex="-1"></a><span class="at"># Calculate velocities for the MountTom dataset using default settings.</span></span>
+<span id="cb2-157"><a href="#cb2-157" tabindex="-1"></a><span class="at"># H_mounttom contains hip heights for each track in the MountTom dataset.</span></span>
+<span id="cb2-158"><a href="#cb2-158" tabindex="-1"></a><span class="at"># The function will use the default method "A" for all tracks.</span></span>
+<span id="cb2-159"><a href="#cb2-159" tabindex="-1"></a><span class="at"># Hip heights are inferred as four times the footprint length, following Alexander's approach.</span></span>
+<span id="cb2-160"><a href="#cb2-160" tabindex="-1"></a><span class="at">H_mounttom &lt;- c(</span></span>
+<span id="cb2-161"><a href="#cb2-161" tabindex="-1"></a><span class="at">  1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,</span></span>
+<span id="cb2-162"><a href="#cb2-162" tabindex="-1"></a><span class="at">  1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,</span></span>
+<span id="cb2-163"><a href="#cb2-163" tabindex="-1"></a><span class="at">  1.648, 1.760, 1.612</span></span>
+<span id="cb2-164"><a href="#cb2-164" tabindex="-1"></a><span class="at">)</span></span>
+<span id="cb2-165"><a href="#cb2-165" tabindex="-1"></a><span class="at">velocity_track(MountTom, H = H_mounttom)</span></span></code></pre></div>
+<p>=======</p>
 <p>plot_direction(MountTom, plot_type = “polar_steps”)</p>
+</div>
 </div>
 <div class="section level1">
 <h1 id="calculate-velocities-for-the-mounttom-dataset-using-default-settings">Calculate velocities for the MountTom dataset using default settings.<a class="anchor" aria-label="anchor" href="#calculate-velocities-for-the-mounttom-dataset-using-default-settings"></a>
@@ -213,7 +256,7 @@
 <div class="section level1">
 <h1 id="hip-heights-are-inferred-as-four-times-the-footprint-length-following-alexanders-approach">Hip heights are inferred as four times the footprint length, following Alexander’s approach.<a class="anchor" aria-label="anchor" href="#hip-heights-are-inferred-as-four-times-the-footprint-length-following-alexanders-approach"></a>
 </h1>
-<p>H_mounttom &lt;- c( 1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872, 1.648, 1.760, 1.612 ) velocity_track(MountTom, H = H_mounttom)</p>
+<p>H_mounttom &lt;- c( 1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872, 1.648, 1.760, 1.612 ) velocity_track(MountTom, H = H_mounttom) &gt;&gt;&gt;&gt;&gt;&gt;&gt; aa1b5abf1e3656e2040d57fd6b483dab02b6ab01</p>
 </div>
 
   </main><aside class="col-md-3"><div class="links">

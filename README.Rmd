@@ -38,7 +38,7 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 
 ## Example
 
-```{r, echo=TRUE, message=FALSE, max.height='100px'}
+```{r, echo=TRUE, message=FALSE}
 library(QuAnTeTrack)
 ```
 
@@ -49,27 +49,23 @@ tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTra
 PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
 ```
 
-```{r, echo=TRUE, message=FALSE}
+```{r echo=TRUE, message=FALSE}
 plot_track(PaluxyRiver)
 ```
 
-
-```{r, echo=TRUE, message=FALSE}
+```{r echo=TRUE, message=FALSE}
 params_paluxy <- track_param(PaluxyRiver)
 print(params_paluxy)
 ```
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, message=FALSE}
 plot_direction(PaluxyRiver, plot_type = "polar_steps")
 ```
 
-```{r, echo=TRUE, message=FALSE, max.height='100px'}
+```{r, echo=TRUE, message=FALSE}
 H_paluxyriver <- c(3.472, 2.200)
 Method_paluxyriver <- c("A", "B")
 velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
-```
-
-```{r, max.height='100px'}
 print(velocity_paluxyriver)
 ```
 

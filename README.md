@@ -558,9 +558,6 @@ velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = 
 #> 
 #> $Track_2$Minimum_relative_stride
 #> [1] 0.5053306
-```
-
-``` r
 print(velocity_paluxyriver)
 #> $Track_1
 #> $Track_1$Step_velocities

@@ -39,7 +39,7 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 ## Example
 <div style="max-height: 500px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
 
-```{r, echo=TRUE, message=FALSE}
+```{r, echo=TRUE, message=FALSE, max.height='100px'}
 library(QuAnTeTrack)
 
 # Example 1: Paluxy River Dataset
@@ -50,18 +50,15 @@ plot_track(PaluxyRiver)
 
 # Display track parameters within a scrollable box
 params_paluxy <- track_param(PaluxyRiver)
-cat("<div style='max-height: 300px; overflow-y: auto;'>")
 print(params_paluxy)
-cat("</div>")
 
 plot_direction(PaluxyRiver, plot_type = "polar_steps")
 
 H_paluxyriver <- c(3.472, 2.200)
 Method_paluxyriver <- c("A", "B")
 velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
-cat("<div style='max-height: 300px; overflow-y: auto;'>")
 print(velocity_paluxyriver)
-cat("</div>")
+
 
 
 
@@ -83,9 +80,7 @@ plot_track(MountTom)
 
 # Display track parameters within a scrollable box
 params_mounttom <- track_param(MountTom)
-cat("<div style='max-height: 300px; overflow-y: auto;'>")
 print(params_mounttom)
-cat("</div>")
 
 plot_direction(MountTom, plot_type = "polar_steps")
 
@@ -93,9 +88,7 @@ H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1
                 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872, 
                 1.648, 1.760, 1.612)
 velocity_mounttom <- velocity_track(MountTom, H = H_mounttom)
-cat("<div style='max-height: 300px; overflow-y: auto;'>")
 print(velocity_mounttom)
-cat("</div>")
 
 ```
 </div>

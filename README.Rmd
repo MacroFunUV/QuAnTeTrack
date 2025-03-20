@@ -39,6 +39,25 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 ## Example
 
 ```{r, include=FALSE}
+ options(width = 60)
+ local({
+   hook_output <- knitr::knit_hooks$get('output')
+   knitr::knit_hooks$set(output = function(x, options) {
+     options$attr.output <- c(
+       options$attr.output,
+       sprintf('style="max-height: %s;"', options$max.height)
+     )
+     hook_output(x, options)
+   })
+ })
+```
+
+```{r, max.height='100px'}
+ 1:100
+```
+ 
+
+```{r, include=FALSE}
 options(width = 60)
 local({
   hook_output <- knitr::knit_hooks$get('output')
@@ -69,7 +88,8 @@ plot_track(PaluxyRiver)
 
 
 Display track parameters within a scrollable box
-```{r, echo=TRUE, message=FALSE, max.height='100px'}params_paluxy <- track_param(PaluxyRiver)
+```{r, echo=TRUE, message=FALSE, max.height='10px'}
+params_paluxy <- track_param(PaluxyRiver)
 print(params_paluxy)
 ```
 

@@ -54,7 +54,7 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 ## Example
 
 ``` r
- 1:100
+1:100
 ```
 
 ```
@@ -318,7 +318,7 @@ PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE
 plot_track(PaluxyRiver)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 Display track parameters within a scrollable box
 
@@ -574,7 +574,7 @@ plot_direction(PaluxyRiver, plot_type = "polar_steps")
 #> [1] 0.9906128
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 ``` r
 H_paluxyriver <- c(3.472, 2.200)

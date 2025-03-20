@@ -61,15 +61,19 @@ Example 1: Paluxy River Dataset
 ```{r, echo=TRUE, message=FALSE, max.height='100px'}
 tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
 PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
+```
+
+```{r, echo=TRUE, message=FALSE, max.height='100px'}
 plot_track(PaluxyRiver)
 ```
+
 
 Display track parameters within a scrollable box
 ```{r, echo=TRUE, message=FALSE, max.height='100px'}params_paluxy <- track_param(PaluxyRiver)
 print(params_paluxy)
 ```
 
-```{r, echo=TRUE, message=FALSE, max.height='100px'}
+```{r, echo=TRUE}
 plot_direction(PaluxyRiver, plot_type = "polar_steps")
 ```
 
@@ -79,7 +83,7 @@ Method_paluxyriver <- c("A", "B")
 velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 ```
 
-```{r, echo=TRUE, message=FALSE, max.height='100px'}
+```{r, max.height='100px'}
 print(velocity_paluxyriver)
 ```
 

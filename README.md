@@ -297,19 +297,19 @@ PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE
 #> 23 2.4572850 15.516496 Theropod.png  1  Actual
 #> 24 2.3400647 16.289282 Theropod.png  1  Actual
 #> 25 2.1490390 17.127190 Theropod.png  1  Actual
+```
+
+``` r
 plot_track(PaluxyRiver)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 Display track parameters within a scrollable box
 `{r, echo=TRUE, message=FALSE, max.height='100px'}params_paluxy <- track_param(PaluxyRiver) print(params_paluxy)`
 
 ``` r
 plot_direction(PaluxyRiver, plot_type = "polar_steps")
-```
-
-```
 #> $Track_1
 #> $Track_1$Turning_angles
 #>  [1] 83.36749 77.21330 80.06835 79.46614 74.64986 73.75563
@@ -391,7 +391,7 @@ plot_direction(PaluxyRiver, plot_type = "polar_steps")
 #> [1] 0.9906128
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 ``` r
 H_paluxyriver <- c(3.472, 2.200)

@@ -75,12 +75,9 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MacroFunUV/QuAnTeTrack" class="external-link">QuAnTeTrack</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Example 1: Paluxy River Dataset - Tracks without missing footprints (Farlow et al., 2011)</span></span>
+<span><span class="co"># Example 1: Paluxy River Dataset</span></span>
 <span></span>
-<span><span class="co"># Load the TPS file</span></span>
 <span><span class="va">tpsPaluxyRiver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"PaluxyRiver.tps"</span>, package <span class="op">=</span> <span class="st">"QuAnTeTrack"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Convert to a track object</span></span>
 <span><span class="va">PaluxyRiver</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tps_to_track.html">tps_to_track</a></span><span class="op">(</span><span class="va">tpsPaluxyRiver</span>, scale <span class="op">=</span> <span class="fl">0.004341493</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, NAs <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Trajectories</span></span>
 <span><span class="co">#&gt; $Trajectories$Track_1</span></span>
@@ -259,13 +256,11 @@
 <span><span class="co">#&gt; 23 2.4572850 15.516496 Theropod.png  1  Actual</span></span>
 <span><span class="co">#&gt; 24 2.3400647 16.289282 Theropod.png  1  Actual</span></span>
 <span><span class="co">#&gt; 25 2.1490390 17.127190 Theropod.png  1  Actual</span></span>
-<span></span>
-<span><span class="co"># Plot the track</span></span>
 <span><span class="fu"><a href="reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="co"># Display track parameters</span></span>
+<span><span class="co"># Display track parameters within a scrollable box</span></span>
 <span><span class="va">params_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/track_param.html">track_param</a></span><span class="op">(</span><span class="va">PaluxyRiver</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Track_1</span></span>
 <span><span class="co">#&gt; $Track_1$Turning_angles</span></span>
@@ -341,6 +336,8 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_2$Straightness</span></span>
 <span><span class="co">#&gt; [1] 0.9906128</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&lt;div style='max-height: 300px; overflow-y: auto;'&gt;"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;div style='max-height: 300px; overflow-y: auto;'&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">params_paluxy</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Track_1</span></span>
 <span><span class="co">#&gt; $Track_1$Turning_angles</span></span>
@@ -416,8 +413,9 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_2$Straightness</span></span>
 <span><span class="co">#&gt; [1] 0.9906128</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&lt;/div&gt;"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;/div&gt;</span></span>
 <span></span>
-<span><span class="co"># Plot Step Directions</span></span>
 <span><span class="fu"><a href="reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Track_1</span></span>
 <span><span class="co">#&gt; $Track_1$Turning_angles</span></span>
@@ -496,7 +494,6 @@
 <p><img src="reference/figures/README-unnamed-chunk-2-2.png" width="100%"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="co"># Calculate Velocities</span></span>
 <span><span class="va">H_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.472</span>, <span class="fl">2.200</span><span class="op">)</span></span>
 <span><span class="va">Method_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span></span>
 <span><span class="va">velocity_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, H <span class="op">=</span> <span class="va">H_paluxyriver</span>, method <span class="op">=</span> <span class="va">Method_paluxyriver</span><span class="op">)</span></span>
@@ -574,6 +571,8 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_2$Minimum_relative_stride</span></span>
 <span><span class="co">#&gt; [1] 0.5053306</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&lt;div style='max-height: 300px; overflow-y: auto;'&gt;"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;div style='max-height: 300px; overflow-y: auto;'&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">velocity_paluxyriver</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Track_1</span></span>
 <span><span class="co">#&gt; $Track_1$Step_velocities</span></span>
@@ -649,27 +648,25 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_2$Minimum_relative_stride</span></span>
 <span><span class="co">#&gt; [1] 0.5053306</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&lt;/div&gt;"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;/div&gt;</span></span>
 <span></span>
 <span></span>
 <span></span>
 <span></span>
-<span><span class="co"># Example 2: Mount Tom Dataset - Tracks with missing footprints (Ostrom, 1972)</span></span>
 <span></span>
-<span><span class="co"># Load the TPS file</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Example 2: Mount Tom Dataset</span></span>
+<span></span>
 <span><span class="va">tpsMountTom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"MountTom.tps"</span>, package <span class="op">=</span> <span class="st">"QuAnTeTrack"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Define missing footprints</span></span>
 <span><span class="va">NAs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">3</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Convert to a track object with missing footprints specified</span></span>
-<span><span class="va">MountTom</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tps_to_track.html">tps_to_track</a></span><span class="op">(</span><span class="va">tpsMountTom</span>,</span>
-<span>  scale <span class="op">=</span> <span class="fl">0.004411765</span>, missing <span class="op">=</span> <span class="cn">TRUE</span>, NAs <span class="op">=</span> <span class="va">NAs</span>,</span>
-<span>  R.L.side <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>     <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>,</span>
-<span>     <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>,</span>
-<span>     <span class="st">"R"</span>, <span class="st">"R"</span></span>
-<span>   <span class="op">)</span></span>
-<span><span class="op">)</span></span>
+<span><span class="va">MountTom</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tps_to_track.html">tps_to_track</a></span><span class="op">(</span><span class="va">tpsMountTom</span>, scale <span class="op">=</span> <span class="fl">0.004411765</span>, missing <span class="op">=</span> <span class="cn">TRUE</span>, NAs <span class="op">=</span> <span class="va">NAs</span>,</span>
+<span>                         R.L.side <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, </span>
+<span>                                      <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, </span>
+<span>                                      <span class="st">"R"</span>, <span class="st">"R"</span>, <span class="st">"R"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Trajectories</span></span>
 <span><span class="co">#&gt; $Trajectories$Track_01</span></span>
 <span><span class="co">#&gt;          x        y       IMAGE ID time displacementTime              polar</span></span>
@@ -1150,13 +1147,11 @@
 <span><span class="co">#&gt; 1  8.505883 12.67941 Track 23.png 22    R  Actual</span></span>
 <span><span class="co">#&gt; 2 10.552942 12.51618 Track 23.png 22    L  Actual</span></span>
 <span><span class="co">#&gt; 3 12.026471 12.07059 Track 23.png 22    R  Actual</span></span>
-<span></span>
-<span><span class="co"># Plot the track</span></span>
 <span><span class="fu"><a href="reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">MountTom</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-3.png" width="100%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="co"># Display track parameters</span></span>
+<span><span class="co"># Display track parameters within a scrollable box</span></span>
 <span><span class="va">params_mounttom</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/track_param.html">track_param</a></span><span class="op">(</span><span class="va">MountTom</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Track_01</span></span>
 <span><span class="co">#&gt; $Track_01$Turning_angles</span></span>
@@ -1894,6 +1889,8 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_23$Straightness</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&lt;div style='max-height: 300px; overflow-y: auto;'&gt;"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;div style='max-height: 300px; overflow-y: auto;'&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">params_mounttom</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Track_01</span></span>
 <span><span class="co">#&gt; $Track_01$Turning_angles</span></span>
@@ -2631,8 +2628,9 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_23$Straightness</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&lt;/div&gt;"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;/div&gt;</span></span>
 <span></span>
-<span><span class="co"># Plot Step Directions</span></span>
 <span><span class="fu"><a href="reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Track_01</span></span>
 <span><span class="co">#&gt; $Track_01$Turning_angles</span></span>
@@ -3373,12 +3371,9 @@
 <p><img src="reference/figures/README-unnamed-chunk-2-4.png" width="100%"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="co"># Calculate Velocities</span></span>
-<span><span class="va">H_mounttom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="fl">1.380</span>, <span class="fl">1.404</span>, <span class="fl">1.320</span>, <span class="fl">1.736</span>, <span class="fl">1.364</span>, <span class="fl">1.432</span>, <span class="fl">1.508</span>, <span class="fl">1.768</span>, <span class="fl">1.600</span>,</span>
-<span>  <span class="fl">1.848</span>, <span class="fl">1.532</span>, <span class="fl">1.532</span>, <span class="fl">0.760</span>, <span class="fl">1.532</span>, <span class="fl">1.688</span>, <span class="fl">1.620</span>, <span class="fl">0.636</span>, <span class="fl">1.784</span>, <span class="fl">1.676</span>, <span class="fl">1.872</span>,</span>
-<span>  <span class="fl">1.648</span>, <span class="fl">1.760</span>, <span class="fl">1.612</span></span>
-<span><span class="op">)</span></span>
+<span><span class="va">H_mounttom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.380</span>, <span class="fl">1.404</span>, <span class="fl">1.320</span>, <span class="fl">1.736</span>, <span class="fl">1.364</span>, <span class="fl">1.432</span>, <span class="fl">1.508</span>, <span class="fl">1.768</span>, <span class="fl">1.600</span>, <span class="fl">1.848</span>, </span>
+<span>                <span class="fl">1.532</span>, <span class="fl">1.532</span>, <span class="fl">0.760</span>, <span class="fl">1.532</span>, <span class="fl">1.688</span>, <span class="fl">1.620</span>, <span class="fl">0.636</span>, <span class="fl">1.784</span>, <span class="fl">1.676</span>, <span class="fl">1.872</span>, </span>
+<span>                <span class="fl">1.648</span>, <span class="fl">1.760</span>, <span class="fl">1.612</span><span class="op">)</span></span>
 <span><span class="va">velocity_mounttom</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">MountTom</span>, H <span class="op">=</span> <span class="va">H_mounttom</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Track_01</span></span>
 <span><span class="co">#&gt; $Track_01$Step_velocities</span></span>
@@ -4114,6 +4109,8 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_23$Minimum_relative_stride</span></span>
 <span><span class="co">#&gt; [1] 2.216404</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&lt;div style='max-height: 300px; overflow-y: auto;'&gt;"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;div style='max-height: 300px; overflow-y: auto;'&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">velocity_mounttom</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Track_01</span></span>
 <span><span class="co">#&gt; $Track_01$Step_velocities</span></span>
@@ -4848,7 +4845,9 @@
 <span><span class="co">#&gt; [1] 2.216404</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_23$Minimum_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 2.216404</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 2.216404</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&lt;/div&gt;"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;/div&gt;</span></span></code></pre></div>
 </div>
 </div>
 </div>

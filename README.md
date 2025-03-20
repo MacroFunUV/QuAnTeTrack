@@ -52,3 +52,107 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 ```
 
 ## Example
+
+\`\`\` r \# Example 1: Tracks without missing footprints. Based on the
+Paluxy River \# dinosaur chase sequence (Farlow et al., 2011).
+
+# Load the example TPS file provided in the QuAnTeTrack package.
+
+# This TPS data includes footprint coordinates for different tracks,
+
+# along with associated metadata.
+
+tpsPaluxyRiver \<- system.file(“extdata”, “PaluxyRiver.tps”, package =
+“QuAnTeTrack”)
+
+# Call the tps_to_track function to convert the TPS data in the file
+
+# into a track object. The ‘scale’ argument sets the scaling factor
+
+# for the coordinates, and ‘missing=FALSE’ indicates that no landmarks
+
+# are missing in the dataset.
+
+PaluxyRiver \<-tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing
+= FALSE, NAs = NULL)
+
+# Basic Plot with Default Settings - PaluxyRiver Dataset
+
+plot_track(PaluxyRiver)
+
+track_param(PaluxyRiver)
+
+# Polar Plot of Step Directions in PaluxyRiver Dataset
+
+plot_direction(PaluxyRiver, plot_type = “polar_steps”)
+
+# Calculate velocities for the PaluxyRiver dataset using different methods
+
+# for velocity calculation. Method “A” is used for sauropods, which is more
+
+# appropriate for quadrupedal dinosaurs. Method “B” is used for theropods, which
+
+# is more appropriate for bipedal dinosaurs. Hip heights are inferred as four times
+
+# the footprint length, following Alexander’s approach.
+
+H_paluxyriver \<- c(3.472, 2.200) Method_paluxyriver \<- c(“A”, “B”)
+velocity_track(PaluxyRiver, H = H_paluxyriver, method =
+Method_paluxyriver)
+
+# Example 2: Tracks with missing footprints. Based on dinosaur tracks from
+
+# the Mount Tom (Ostrom, 1972).
+
+# Load the example TPS file provided in the QuAnTeTrack package.
+
+# This TPS data includes footprint coordinates for different tracks,
+
+# along with associated metadata.
+
+tpsMountTom \<- system.file(“extdata”, “MountTom.tps”, package =
+“QuAnTeTrack”)
+
+# Define a matrix representing the footprints that are missing from the dataset.
+
+# In this example, the matrix ‘NAs’ specifies that footprint 7 is missing in track 3.
+
+NAs \<- matrix(c(7, 3), nrow = 1, ncol = 2)
+
+# Call the tps_to_track function, which will convert the TPS data in the file
+
+# to a track object. The ‘scale’ argument sets the scaling factor for the coordinates,
+
+# ‘missing’ specifies whether missing footprints should be handled, ‘NAs’ provides
+
+# the missing footprints matrix, and ‘R.L.side’ specifies which side (Right or Left)
+
+# is the first footprint of each track.
+
+MountTom \<- tps_to_track(tpsMountTom, scale = 0.004411765, missing =
+TRUE, NAs = NAs, R.L.side = c( “R”, “L”, “L”, “L”, “R”, “L”, “R”, “R”,
+“L”, “L”, “L”, “L”, “L”, “R”, “R”, “L”, “R”, “R”, “L”, “R”, “R”, “R”,
+“R” ) )
+
+# Basic Plot with Default Settings - MountTom Dataset
+
+plot_track(MountTom)
+
+track_param(MountTom)
+
+# Polar Plot of Step Directions in MountTom Dataset
+
+plot_direction(MountTom, plot_type = “polar_steps”)
+
+# Calculate velocities for the MountTom dataset using default settings.
+
+# H_mounttom contains hip heights for each track in the MountTom dataset.
+
+# The function will use the default method “A” for all tracks.
+
+# Hip heights are inferred as four times the footprint length, following Alexander’s approach.
+
+H_mounttom \<- c( 1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508,
+1.768, 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636,
+1.784, 1.676, 1.872, 1.648, 1.760, 1.612 ) velocity_track(MountTom, H =
+H_mounttom)

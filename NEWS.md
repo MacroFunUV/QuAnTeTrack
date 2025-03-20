@@ -1,3 +1,3 @@
-1# QuAnTeTrack (development version)
+# QuAnTeTrack (development version)
 
 * Initial CRAN submission.

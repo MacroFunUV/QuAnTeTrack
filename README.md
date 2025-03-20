@@ -55,9 +55,11 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 
 ``` r
 library(QuAnTeTrack)
+```
 
-# Example 1: Paluxy River Dataset
+Example 1: Paluxy River Dataset
 
+``` r
 tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
 PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
 #> $Trajectories
@@ -240,162 +242,12 @@ PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE
 plot_track(PaluxyRiver)
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+Display track parameters within a scrollable box
+`{r, echo=TRUE, message=FALSE, max.height='100px'}params_paluxy <- track_param(PaluxyRiver) print(params_paluxy)`
 
 ``` r
-
-# Display track parameters within a scrollable box
-params_paluxy <- track_param(PaluxyRiver)
-#> $Track_1
-#> $Track_1$Turning_angles
-#>  [1] 83.36749 77.21330 80.06835 79.46614 74.64986 73.75563 73.91299 73.54942
-#>  [9] 72.64598 79.29432 87.32457 83.82411 82.64091 83.85337 82.06724 78.16842
-#> [17] 79.91062 84.65694 88.34770 93.28218 98.22952 98.01709 97.67122 96.57457
-#> [25] 94.50862 95.42060 96.01985 96.25904
-#> 
-#> $Track_1$Mean_turning_angle
-#> [1] 85.16786
-#> 
-#> $Track_1$Standard_deviation_turning_angle
-#> [1] 8.716076
-#> 
-#> $Track_1$Distance
-#> [1] 16.09043
-#> 
-#> $Track_1$Length
-#> [1] 16.2711
-#> 
-#> $Track_1$Step_lengths
-#>  [1] 0.6577971 0.6277174 0.5663694 0.5343256 0.5740178 0.6285614 0.6032098
-#>  [8] 0.5749037 0.5822135 0.4440490 0.4650467 0.5851561 0.5931582 0.5676575
-#> [15] 0.5347796 0.5611201 0.6195609 0.6061010 0.6775546 0.6066334 0.5307864
-#> [22] 0.4669326 0.5366356 0.6446094 0.6075182 0.5974563 0.6002654 0.6769667
-#> 
-#> $Track_1$Mean_step_length
-#> [1] 0.5811108
-#> 
-#> $Track_1$Standard_deviation_step_length
-#> [1] 0.05855971
-#> 
-#> $Track_1$Sinuosity
-#> [1] 0.07738533
-#> 
-#> $Track_1$Straightness
-#> [1] 0.9888963
-#> 
-#> 
-#> $Track_2
-#> $Track_2$Turning_angles
-#>  [1]  77.67357  82.52517  77.62784  73.77659  74.96477  72.69947  74.84593
-#>  [8]  80.92672  84.04858  84.37223  83.13249  77.30345  73.16693  86.98721
-#> [15]  78.55066  91.34262  97.33861  95.27067  91.84761  81.72095  80.07781
-#> [22]  84.97592 100.83397
-#> 
-#> $Track_2$Mean_turning_angle
-#> [1] 82.86999
-#> 
-#> $Track_2$Standard_deviation_turning_angle
-#> [1] 7.941837
-#> 
-#> $Track_2$Distance
-#> [1] 15.13227
-#> 
-#> $Track_2$Length
-#> [1] 15.27567
-#> 
-#> $Track_2$Step_lengths
-#>  [1] 0.5999317 0.6173971 0.6889308 0.6759706 0.6945371 0.6934507 0.6476978
-#>  [8] 0.5781403 0.5652701 0.5976653 0.5990828 0.5629646 0.7121273 0.8673266
-#> [15] 0.6998831 0.5558637 0.5778101 0.5907702 0.6732814 0.7085351 0.7558719
-#> [22] 0.7931992 0.8199620
-#> 
-#> $Track_2$Mean_step_length
-#> [1] 0.6641595
-#> 
-#> $Track_2$Standard_deviation_step_length
-#> [1] 0.08686601
-#> 
-#> $Track_2$Sinuosity
-#> [1] 0.1466281
-#> 
-#> $Track_2$Straightness
-#> [1] 0.9906128
-print(params_paluxy)
-#> $Track_1
-#> $Track_1$Turning_angles
-#>  [1] 83.36749 77.21330 80.06835 79.46614 74.64986 73.75563 73.91299 73.54942
-#>  [9] 72.64598 79.29432 87.32457 83.82411 82.64091 83.85337 82.06724 78.16842
-#> [17] 79.91062 84.65694 88.34770 93.28218 98.22952 98.01709 97.67122 96.57457
-#> [25] 94.50862 95.42060 96.01985 96.25904
-#> 
-#> $Track_1$Mean_turning_angle
-#> [1] 85.16786
-#> 
-#> $Track_1$Standard_deviation_turning_angle
-#> [1] 8.716076
-#> 
-#> $Track_1$Distance
-#> [1] 16.09043
-#> 
-#> $Track_1$Length
-#> [1] 16.2711
-#> 
-#> $Track_1$Step_lengths
-#>  [1] 0.6577971 0.6277174 0.5663694 0.5343256 0.5740178 0.6285614 0.6032098
-#>  [8] 0.5749037 0.5822135 0.4440490 0.4650467 0.5851561 0.5931582 0.5676575
-#> [15] 0.5347796 0.5611201 0.6195609 0.6061010 0.6775546 0.6066334 0.5307864
-#> [22] 0.4669326 0.5366356 0.6446094 0.6075182 0.5974563 0.6002654 0.6769667
-#> 
-#> $Track_1$Mean_step_length
-#> [1] 0.5811108
-#> 
-#> $Track_1$Standard_deviation_step_length
-#> [1] 0.05855971
-#> 
-#> $Track_1$Sinuosity
-#> [1] 0.07738533
-#> 
-#> $Track_1$Straightness
-#> [1] 0.9888963
-#> 
-#> 
-#> $Track_2
-#> $Track_2$Turning_angles
-#>  [1]  77.67357  82.52517  77.62784  73.77659  74.96477  72.69947  74.84593
-#>  [8]  80.92672  84.04858  84.37223  83.13249  77.30345  73.16693  86.98721
-#> [15]  78.55066  91.34262  97.33861  95.27067  91.84761  81.72095  80.07781
-#> [22]  84.97592 100.83397
-#> 
-#> $Track_2$Mean_turning_angle
-#> [1] 82.86999
-#> 
-#> $Track_2$Standard_deviation_turning_angle
-#> [1] 7.941837
-#> 
-#> $Track_2$Distance
-#> [1] 15.13227
-#> 
-#> $Track_2$Length
-#> [1] 15.27567
-#> 
-#> $Track_2$Step_lengths
-#>  [1] 0.5999317 0.6173971 0.6889308 0.6759706 0.6945371 0.6934507 0.6476978
-#>  [8] 0.5781403 0.5652701 0.5976653 0.5990828 0.5629646 0.7121273 0.8673266
-#> [15] 0.6998831 0.5558637 0.5778101 0.5907702 0.6732814 0.7085351 0.7558719
-#> [22] 0.7931992 0.8199620
-#> 
-#> $Track_2$Mean_step_length
-#> [1] 0.6641595
-#> 
-#> $Track_2$Standard_deviation_step_length
-#> [1] 0.08686601
-#> 
-#> $Track_2$Sinuosity
-#> [1] 0.1466281
-#> 
-#> $Track_2$Straightness
-#> [1] 0.9906128
-
 plot_direction(PaluxyRiver, plot_type = "polar_steps")
 #> $Track_1
 #> $Track_1$Turning_angles
@@ -473,10 +325,9 @@ plot_direction(PaluxyRiver, plot_type = "polar_steps")
 #> [1] 0.9906128
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-2.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ``` r
-
 H_paluxyriver <- c(3.472, 2.200)
 Method_paluxyriver <- c("A", "B")
 velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
@@ -1130,7 +981,7 @@ MountTom <- tps_to_track(tpsMountTom, scale = 0.004411765, missing = TRUE, NAs =
 plot_track(MountTom)
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-3.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 ``` r
 
@@ -3349,7 +3200,7 @@ plot_direction(MountTom, plot_type = "polar_steps")
 #> [1] 1
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-4.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-2.png" width="100%" />
 
 ``` r
 

@@ -37,21 +37,29 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 ```
 
 ## Example
+
 ```{r, echo=TRUE, message=FALSE, max.height='100px'}
 library(QuAnTeTrack)
+```
 
-# Example 1: Paluxy River Dataset
+Example 1: Paluxy River Dataset
 
+```{r, echo=TRUE, message=FALSE, max.height='100px'}
 tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
 PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
 plot_track(PaluxyRiver)
+```
 
-# Display track parameters within a scrollable box
-params_paluxy <- track_param(PaluxyRiver)
+Display track parameters within a scrollable box
+```{r, echo=TRUE, message=FALSE, max.height='100px'}params_paluxy <- track_param(PaluxyRiver)
 print(params_paluxy)
+```
 
+```{r, echo=TRUE, message=FALSE, max.height='100px'}
 plot_direction(PaluxyRiver, plot_type = "polar_steps")
+```
 
+```{r, echo=TRUE, message=FALSE, max.height='100px'}
 H_paluxyriver <- c(3.472, 2.200)
 Method_paluxyriver <- c("A", "B")
 velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)

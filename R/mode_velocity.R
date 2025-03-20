@@ -90,6 +90,7 @@
 #' @export
 
 mode_velocity <- function(trackvel) {
+
   # Initialize an empty list to store results
   results <- list()
 

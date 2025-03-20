@@ -150,6 +150,7 @@
 #' @export
 
 cluster_track <- function(data, veltrack, variables) {
+
   ## Set default values if arguments are NULL----
 
   ## Errors and Warnings----

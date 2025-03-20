@@ -97,6 +97,7 @@
 
 
 plot_track <- function(data, plot = "FootprintsTracks", colours = NULL, cex.f = NULL, shape.f = NULL, alpha.f = NULL, cex.t = NULL, alpha.t = NULL, plot.labels = NULL, labels = NULL, box.p = NULL, cex.l = NULL, alpha.l = NULL) {
+
   ## Set default values if arguments are NULL----
   if (is.null(cex.f)) cex.f <- 2.5 # Set default size for footprint points if 'cex.f' is NULL
   if (is.null(cex.t)) cex.t <- 0.5 # Set default size for track lines if 'cex.t' is NULL

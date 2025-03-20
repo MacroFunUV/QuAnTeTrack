@@ -105,6 +105,7 @@ velocity_track <- function(data,
                            G = NULL, # gravity acceleration (m/s^2)
                            method = NULL # formula to calculate speed for each track
 ) {
+
   ## Set default values if arguments are NULL----
   if (is.null(G)) G <- 9.8 # Set default Gravity acceleration if 'G' is NULL
   if (is.null(method)) method <- c(rep("A", length(data[[1]]))) # Set default method to calculate speed if 'method' is NULL

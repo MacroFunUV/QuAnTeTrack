@@ -89,6 +89,7 @@
 
 
 combined_prob <- function(data, metrics = NULL) {
+
   ## Errors and Warnings----
 
   # Check if 'data' is a list with at least two elements

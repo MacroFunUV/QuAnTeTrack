@@ -108,6 +108,7 @@
 
 # Function to calculate track similarity Frechet metric----
 simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition = "None") {
+
   ## Set default values if arguments are NULL----
   if (is.null(test)) test <- FALSE # Set default if 'test' is NULL
   if (is.null(superposition)) superposition <- "None" # Set default superposition method if 'superposition' is NULL

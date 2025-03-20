@@ -105,6 +105,7 @@
 #' @export
 
 plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labels_position = 90, y_breaks_manual = NULL) {
+
   ## Errors and Warnings ----
   if (!is.list(data) || length(data) < 2) {
     stop("The 'data' argument must be a 'track' R object, which is a list consisting of two elements: 'Trajectories' and 'Footprints'.")

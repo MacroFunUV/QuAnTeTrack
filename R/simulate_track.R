@@ -109,6 +109,7 @@
 #' @export
 
 simulate_track <- function(data, nsim = NULL, model = NULL) {
+
   ## Errors and Warnings----
 
   # Check if 'data' is a list with at least two elements

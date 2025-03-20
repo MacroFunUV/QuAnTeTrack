@@ -125,6 +125,7 @@
 #' @export
 
 plot_sim <- function(data, sim, colours_sim = NULL, alpha_sim = NULL, lwd_sim = NULL, colours_act = NULL, alpha_act = NULL, lwd_act = NULL) {
+
   ## Set default values if arguments are NULL----
   if (is.null(colours_sim)) colours_sim <- rep("#000000", length(sim[[1]])) # Default to black for all simulated trajectories if no colors are provided
   if (is.null(alpha_sim)) alpha_sim <- 0.1 # Default transparency level for simulated trajectories

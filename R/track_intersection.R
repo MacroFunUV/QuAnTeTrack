@@ -137,6 +137,7 @@
 
 
 track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation = NULL, custom.coord = NULL) {
+
   ## Set default values if arguments are NULL----
   if (is.null(test)) test <- FALSE # Set default if 'test' is NULL
   if (is.null(origin.permutation)) origin.permutation <- "None" # Set default if 'origin.permutation' is NULL

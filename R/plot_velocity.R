@@ -105,8 +105,8 @@
 #' @export
 
 plot_velocity <- function(data, trackvel, param = NULL, lwd = NULL, colours = NULL, legend = NULL) {
-  ## Set default values if arguments are NULL ----
 
+  ## Set default values if arguments are NULL ----
   if (is.null(param)) param <- "V" # Default to "V" if 'param' is NULL
   if (is.null(lwd)) lwd <- 1 # Default line width for tracks
   if (is.null(colours)) colours <- c("#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#fffdbf", "#fee090", "#fdae61", "#f46d43", "#d73027") # Default colors

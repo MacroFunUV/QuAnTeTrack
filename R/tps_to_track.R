@@ -118,6 +118,7 @@
 
 
 tps_to_track <- function(file, scale = NULL, missing = FALSE, NAs = NULL, R.L.side = NULL) {
+
   ## Errors and Warnings----
 
   # Check if the 'scale' argument is provided

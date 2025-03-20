@@ -107,70 +107,70 @@ This function is particularly useful for comparing multiple models and evaluatin
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1: Simulating tracks using the "Directed" model and comparing similarity metrics.</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">10</span>, model <span class="op">=</span> <span class="st">"Directed"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">DTW1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s1</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.14263 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:24.96726 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 32.99155</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.144321 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:24.968948 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 25.31786</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.145963 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:24.970532 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 19.69963</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.147562 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:24.972074 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 21.08054</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.149114 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:24.973614 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 18.59471</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.150713 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:24.975141 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 15.31543</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.152321 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:24.97678 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 25.80199</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.15387 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:24.978348 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 15.89334</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.155454 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:24.979944 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 18.18086</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.157026 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:24.981495 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
@@ -194,70 +194,70 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">Frechet1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s1</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.506647 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:25.326253 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.8675854</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.677457 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:25.494927 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.8080506</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:26.839613 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:25.659379 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7740225</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:27.001078 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:25.824075 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7738793</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:27.167158 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:25.985081 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7731691</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:27.3404 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.157321 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.8211556</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:27.502355 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.321554 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.9410678</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:27.6644 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.481935 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7772298</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:27.829216 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.641851 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7821592</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:27.995054 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.806141 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
@@ -281,70 +281,70 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">int1</span> <span class="op">&lt;-</span> <span class="fu"><a href="track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s1</span>, origin.permutation <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.016856 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.828388 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.02718 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.838823 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.037589 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.849324 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.047876 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.863922 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.05835 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.874227 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.068707 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.884407 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.079073 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.894664 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.089671 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.904886 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.100316 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.915077 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.110838 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.925319 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
@@ -372,70 +372,70 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-in"><span><span class="co"># Example 2: Simulating tracks using the "Constrained" model and comparing similarity metrics.</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">10</span>, model <span class="op">=</span> <span class="st">"Constrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">DTW2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s2</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.148444 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.957541 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 150.7881</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.150042 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.959141 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 149.7137</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.151643 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.960713 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 27.53148</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.153208 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.96225 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 69.17355</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.154797 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.963839 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 190.9703</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.156355 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.965389 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 64.56412</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.157898 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.966963 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 108.2882</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.159471 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.968509 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 90.9885</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.161017 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.970049 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 39.00249</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.16262 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:26.971633 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
@@ -459,70 +459,70 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">Frechet2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s2</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.466431 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:27.273433 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 7.213888</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.602214 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:27.407983 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 8.390197</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.778606 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:27.585628 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 1.242323</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:28.952617 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:27.754529 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 3.659994</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:29.069713 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:27.876908 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 11.22782</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:29.246219 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:28.049236 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 2.725772</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:29.39751 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:28.200332 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 6.028844</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:29.552957 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:28.357891 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 4.558586</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:29.725473 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:28.529167 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 2.132696</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:29.868922 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:28.666985 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
@@ -549,113 +549,113 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-in"><span>  test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s2</span>,</span></span>
 <span class="r-in"><span>  origin.permutation <span class="op">=</span> <span class="st">"Min.Box"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:30.45305 Permutation 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:29.060759 Permutation 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:30.809192 Permutation 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:29.407063 Permutation 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:30.926657 Permutation 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:29.52614 Permutation 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:31.379415 Permutation 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:29.970779 Permutation 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:31.538022 Permutation 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:30.12448 Permutation 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:31.83814 Permutation 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:30.230605 Permutation 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:31.988873 Permutation 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:30.382764 Permutation 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.079995 Permutation 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:30.656518 Permutation 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.263409 Permutation 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:30.827935 Permutation 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.449442 Permutation 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.206191 Permutation 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.45975 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.2165 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.470292 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.227005 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.480844 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.237447 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.491345 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.247802 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.501831 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.258306 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.512408 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.268722 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.522867 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.279072 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.53348 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.28952 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.543961 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.299842 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.554626 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.310383 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
@@ -683,70 +683,70 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-in"><span><span class="co"># Example 3: Simulating tracks using the "Unconstrained" model and comparing similarity metrics.</span></span></span>
 <span class="r-in"><span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">10</span>, model <span class="op">=</span> <span class="st">"Unconstrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">DTW3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s3</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.588403 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.343567 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 590.3857</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.590033 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.345211 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 481.8072</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.591672 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.346847 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 798.1471</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.59331 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.348431 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 401.0092</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.594923 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.349992 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 58.7754</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.596534 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.351578 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 624.5319</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.598136 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.353152 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 741.7511</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.59976 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.354758 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 775.137</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.601376 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.356332 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 428.8708</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.602963 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.357953 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
@@ -770,7 +770,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">Frechet3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s3</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.808122 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.563777 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
@@ -778,7 +778,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.837975 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.593781 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
@@ -786,7 +786,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.865645 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.621761 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
@@ -794,14 +794,14 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:32.901893 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:31.658444 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA      -1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:33.061165 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:32.024795 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
@@ -809,7 +809,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:33.089611 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:32.053412 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
@@ -817,7 +817,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:33.117587 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:32.081946 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
@@ -825,21 +825,21 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:33.145421 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:32.110484 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA      -1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:33.216507 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:32.182056 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 16.14453</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:33.383018 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:32.348985 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
@@ -866,113 +866,113 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-in"><span>  test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s3</span>,</span></span>
 <span class="r-in"><span>  origin.permutation <span class="op">=</span> <span class="st">"Conv.Hull"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:33.729742 Permutation 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:32.506284 Permutation 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:33.885442 Permutation 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:32.656281 Permutation 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:34.065145 Permutation 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:32.835011 Permutation 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:34.224826 Permutation 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:32.989585 Permutation 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:34.382419 Permutation 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:33.334397 Permutation 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:34.770268 Permutation 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:33.539838 Permutation 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.081215 Permutation 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:33.866089 Permutation 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.227959 Permutation 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:33.993596 Permutation 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.358588 Permutation 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.120425 Permutation 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.690787 Permutation 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.445445 Permutation 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.700827 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.455631 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.711277 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.466161 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.721546 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.476445 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.731899 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.486868 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.742177 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.497211 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.752595 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.507637 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.762864 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.518106 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.773112 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.528457 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.78347 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.53887 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:35.793815 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.549282 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
@@ -1002,7 +1002,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-in"><span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">sbMountTom</span>, nsim <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`model` is NULL. Defaulting to 'Unconstrained'.</span>
 <span class="r-in"><span><span class="va">DTW4</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s4</span>, superposition <span class="op">=</span> <span class="st">"Centroid"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.020318 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.772489 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07 Track_08  Track_09</span>
@@ -1030,7 +1030,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA  4.834728</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.065745 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.821967 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08 Track_09</span>
@@ -1058,7 +1058,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA       NA        NA 10.351085</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA       NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.115415 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.871183 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07  Track_08  Track_09</span>
@@ -1086,7 +1086,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA  5.5172040</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA         NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.160244 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.915118 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07 Track_08 Track_09</span>
@@ -1114,7 +1114,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA  8.424662</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.205234 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:34.959654 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07  Track_08  Track_09</span>
@@ -1142,7 +1142,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA       NA        NA  8.532527</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA       NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.250534 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:35.004457 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07 Track_08  Track_09</span>
@@ -1170,7 +1170,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 12.67971</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.30078 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:35.054769 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03 Track_04  Track_07 Track_08 Track_09</span>
@@ -1198,7 +1198,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA       NA 10.489917</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA       NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.345923 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:35.099084 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04   Track_07  Track_08  Track_09</span>
@@ -1226,7 +1226,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA        NA  6.937791</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.392297 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:35.143279 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07  Track_08  Track_09</span>
@@ -1254,7 +1254,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 12.827765</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.437047 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:35.188003 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07 Track_08  Track_09</span>
@@ -1356,7 +1356,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:36.900368 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:35.65177 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07  Track_08   Track_09</span>
@@ -1390,7 +1390,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:37.087687 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:35.839837 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07   Track_08  Track_09</span>
@@ -1425,7 +1425,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:37.2741 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:36.023212 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03  Track_04 Track_07  Track_08  Track_09</span>
@@ -1458,7 +1458,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:37.459195 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:36.20805 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07 Track_08  Track_09</span>
@@ -1496,7 +1496,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:37.630761 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:36.383402 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03 Track_04  Track_07  Track_08  Track_09</span>
@@ -1534,7 +1534,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:37.81262 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:36.56453 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01  Track_02 Track_03  Track_04  Track_07  Track_08 Track_09</span>
@@ -1566,7 +1566,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.00304 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:36.753932 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07  Track_08 Track_09</span>
@@ -1602,7 +1602,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.195606 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:36.945718 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07 Track_08 Track_09</span>
@@ -1637,7 +1637,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.370943 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.120364 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03   Track_04 Track_07  Track_08  Track_09</span>
@@ -1676,7 +1676,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.560796 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.303909 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09</span>
@@ -1766,50 +1766,50 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-in"><span>  test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s4</span>,</span></span>
 <span class="r-in"><span>  origin.permutation <span class="op">=</span> <span class="st">"Min.Box"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.61384 Permutation 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.357102 Permutation 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.617575 Permutation 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.360895 Permutation 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.620738 Permutation 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.364024 Permutation 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.623747 Permutation 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.367025 Permutation 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.626945 Permutation 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.370141 Permutation 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.630134 Permutation 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.373291 Permutation 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.633412 Permutation 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.376565 Permutation 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.637086 Permutation 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.380123 Permutation 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.64099 Permutation 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.383893 Permutation 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.64422 Permutation 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.387073 Permutation 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.669942 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.413393 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -1837,7 +1837,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.70138 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.445454 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -1865,7 +1865,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.72795 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.472399 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -1893,7 +1893,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.754224 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.499237 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -1921,7 +1921,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.78062 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.526215 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -1949,7 +1949,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.807411 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.553257 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -1977,7 +1977,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.834476 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.580646 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -2005,7 +2005,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.86169 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.608228 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -2033,7 +2033,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.892582 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.639666 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -2061,7 +2061,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:38.919091 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.666662 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -2154,7 +2154,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-in"><span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">sbMountTom</span>, nsim <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`model` is NULL. Defaulting to 'Unconstrained'.</span>
 <span class="r-in"><span><span class="va">DTW5</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s5</span>, superposition <span class="op">=</span> <span class="st">"Origin"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:39.225798 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:37.975981 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07  Track_08 Track_09</span>
@@ -2182,7 +2182,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA  9.621165</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:39.275415 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.025561 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07  Track_08 Track_09</span>
@@ -2210,7 +2210,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA       NA 16.613889</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA       NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:39.319847 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.069537 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07  Track_08 Track_09</span>
@@ -2238,7 +2238,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA       NA  6.495072</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA       NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:39.364802 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.11391 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08 Track_09</span>
@@ -2266,7 +2266,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA 23.09358</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:39.41029 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.158473 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -2294,7 +2294,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA        NA  8.039921</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:39.460337 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.208337 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07 Track_08 Track_09</span>
@@ -2322,7 +2322,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA  9.292033</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:39.504741 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.25231 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07 Track_08 Track_09</span>
@@ -2350,7 +2350,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA 19.90046</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:39.549285 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.296383 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -2378,7 +2378,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 16.123095</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:39.594282 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.341039 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07 Track_08  Track_09</span>
@@ -2406,7 +2406,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA        NA 13.32699</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA        NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:39.639036 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.385512 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07 Track_08 Track_09</span>
@@ -2516,7 +2516,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:40.055525 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.798328 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07  Track_08  Track_09</span>
@@ -2555,7 +2555,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:40.210114 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:38.946913 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07   Track_08  Track_09</span>
@@ -2596,7 +2596,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:40.334752 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:39.072142 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03  Track_04  Track_07  Track_08  Track_09</span>
@@ -2636,7 +2636,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:40.49078 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:39.223652 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03  Track_04  Track_07  Track_08  Track_09</span>
@@ -2680,7 +2680,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:40.630228 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:39.363176 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03  Track_04  Track_07  Track_08  Track_09</span>
@@ -2727,7 +2727,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:40.768678 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:39.500556 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07  Track_08  Track_09</span>
@@ -2768,7 +2768,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:40.903631 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:39.635102 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07  Track_08  Track_09</span>
@@ -2804,7 +2804,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.08311 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:39.813952 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07  Track_08 Track_09</span>
@@ -2844,7 +2844,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.21886 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:39.9539 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07  Track_08  Track_09</span>
@@ -2886,7 +2886,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.347709 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.081755 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03  Track_04  Track_07  Track_08  Track_09</span>
@@ -2977,50 +2977,50 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-in"><span>  test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s5</span>,</span></span>
 <span class="r-in"><span>  origin.permutation <span class="op">=</span> <span class="st">"Custom"</span>, custom.coord <span class="op">=</span> <span class="va">area_origin</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.399971 Permutation 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.134239 Permutation 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.402354 Permutation 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.136625 Permutation 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.404651 Permutation 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.138965 Permutation 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.407027 Permutation 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.141349 Permutation 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.409436 Permutation 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.143744 Permutation 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.411804 Permutation 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.146117 Permutation 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.414121 Permutation 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.148438 Permutation 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.416439 Permutation 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.150892 Permutation 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.419092 Permutation 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.153227 Permutation 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.421536 Permutation 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.155578 Permutation 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.450327 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.181758 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -3048,7 +3048,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.481328 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.212595 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -3076,7 +3076,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.507854 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.239174 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -3104,7 +3104,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.534577 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.265877 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -3132,7 +3132,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.561246 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.292497 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -3160,7 +3160,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.588452 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.319741 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -3188,7 +3188,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.615173 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.346866 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -3216,7 +3216,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.642545 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.374289 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -3244,7 +3244,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.674541 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.406187 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
@@ -3272,7 +3272,7 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:37:41.701045 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-20 23:40:40.432832 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>

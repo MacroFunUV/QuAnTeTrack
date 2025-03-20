@@ -53,8 +53,6 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 
 ## Example
 
-<div style="max-height: 500px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
-
 ``` r
 library(QuAnTeTrack)
 
@@ -322,8 +320,6 @@ params_paluxy <- track_param(PaluxyRiver)
 #> 
 #> $Track_2$Straightness
 #> [1] 0.9906128
-cat("<div style='max-height: 300px; overflow-y: auto;'>")
-#> <div style='max-height: 300px; overflow-y: auto;'>
 print(params_paluxy)
 #> $Track_1
 #> $Track_1$Turning_angles
@@ -399,8 +395,6 @@ print(params_paluxy)
 #> 
 #> $Track_2$Straightness
 #> [1] 0.9906128
-cat("</div>")
-#> </div>
 
 plot_direction(PaluxyRiver, plot_type = "polar_steps")
 #> $Track_1
@@ -560,8 +554,6 @@ velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = 
 #> 
 #> $Track_2$Minimum_relative_stride
 #> [1] 0.5053306
-cat("<div style='max-height: 300px; overflow-y: auto;'>")
-#> <div style='max-height: 300px; overflow-y: auto;'>
 print(velocity_paluxyriver)
 #> $Track_1
 #> $Track_1$Step_velocities
@@ -637,8 +629,7 @@ print(velocity_paluxyriver)
 #> 
 #> $Track_2$Minimum_relative_stride
 #> [1] 0.5053306
-cat("</div>")
-#> </div>
+
 
 
 
@@ -1881,8 +1872,6 @@ params_mounttom <- track_param(MountTom)
 #> 
 #> $Track_23$Straightness
 #> [1] 1
-cat("<div style='max-height: 300px; overflow-y: auto;'>")
-#> <div style='max-height: 300px; overflow-y: auto;'>
 print(params_mounttom)
 #> $Track_01
 #> $Track_01$Turning_angles
@@ -2620,8 +2609,6 @@ print(params_mounttom)
 #> 
 #> $Track_23$Straightness
 #> [1] 1
-cat("</div>")
-#> </div>
 
 plot_direction(MountTom, plot_type = "polar_steps")
 #> $Track_01
@@ -4104,8 +4091,6 @@ velocity_mounttom <- velocity_track(MountTom, H = H_mounttom)
 #> 
 #> $Track_23$Minimum_relative_stride
 #> [1] 2.216404
-cat("<div style='max-height: 300px; overflow-y: auto;'>")
-#> <div style='max-height: 300px; overflow-y: auto;'>
 print(velocity_mounttom)
 #> $Track_01
 #> $Track_01$Step_velocities
@@ -4841,8 +4826,4 @@ print(velocity_mounttom)
 #> 
 #> $Track_23$Minimum_relative_stride
 #> [1] 2.216404
-cat("</div>")
-#> </div>
 ```
-
-</div>

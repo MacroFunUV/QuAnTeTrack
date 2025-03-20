@@ -44,18 +44,17 @@ library(QuAnTeTrack)
 
 Example 1: Paluxy River Dataset
 
-```{r echo=TRUE, message=FALSE, max.height='1px', paged.print=TRUE}
+```{r echo=TRUE, message=FALSE}
 tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
 PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
 ```
 
-```{r, echo=TRUE, message=FALSE, max.height='100px'}
+```{r, echo=TRUE, message=FALSE}
 plot_track(PaluxyRiver)
 ```
 
 
-Display track parameters within a scrollable box
-```{r, echo=TRUE, message=FALSE, max.height='10px'}
+```{r, echo=TRUE, message=FALSE}
 params_paluxy <- track_param(PaluxyRiver)
 print(params_paluxy)
 ```

@@ -247,8 +247,6 @@ plot_track(PaluxyRiver)
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
-Display track parameters within a scrollable box
-
 ``` r
 params_paluxy <- track_param(PaluxyRiver)
 #> $Track_1

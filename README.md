@@ -54,3 +54,6 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 ```
 
 ## Vignettes
+
+A detailed vignette is available
+[online](https://macrofunuv.github.io/QuAnTeTrack/articles/QuAnTeTrack.html).

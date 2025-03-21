@@ -1,0 +1,75 @@
+---
+title: "QuAnTeTrack"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{QuAnTeTrack}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(QuAnTeTrack)
+```
+
+**Example 1: Paluxy River Dataset**
+
+This example demonstrates how to load, process, and analyze trackway data from the Paluxy River Dataset, which includes tracks without missing footprints.
+
+Step 1: Loading and Converting Data
+The TPS file (PaluxyRiver.tps) is loaded using the `system.file()` function to ensure compatibility across systems. It is then converted to a track object using the tps_to_track() function. The scale argument is used to set the coordinate scaling factor. Since no footprints are missing, the missing argument is set to FALSE and NAs = NULL.
+
+```{r echo=TRUE, message=FALSE}
+tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
+PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
+```
+
+```{r echo=FALSE, message=FALSE}
+plot_track(PaluxyRiver)
+```
+
+```{r echo=TRUE, message=FALSE}
+params_paluxy <- track_param(PaluxyRiver)
+print(params_paluxy)
+```
+
+```{r, echo=TRUE, message=FALSE}
+plot_direction(PaluxyRiver, plot_type = "polar_steps")
+```
+
+```{r, echo=TRUE, message=FALSE}
+H_paluxyriver <- c(3.472, 2.200)
+Method_paluxyriver <- c("A", "B")
+velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
+```
+
+
+**Example 2: Mount Tom Dataset**
+
+tpsMountTom <- system.file("extdata", "MountTom.tps", package = "QuAnTeTrack")
+NAs <- matrix(c(7, 3), nrow = 1, ncol = 2)
+MountTom <- tps_to_track(tpsMountTom, scale = 0.004411765, missing = TRUE, NAs = NAs,
+                         R.L.side = c("R", "L", "L", "L", "R", "L", "R", "R", "L", "L", 
+                                      "L", "L", "L", "R", "R", "L", "R", "R", "L", "R", 
+                                      "R", "R", "R"))
+plot_track(MountTom)
+
+Display track parameters within a scrollable box
+params_mounttom <- track_param(MountTom)
+print(params_mounttom)
+
+plot_direction(MountTom, plot_type = "polar_steps")
+
+H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1.848, 
+                1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872, 
+                1.648, 1.760, 1.612)
+velocity_mounttom <- velocity_track(MountTom, H = H_mounttom)
+print(velocity_mounttom)
+
+

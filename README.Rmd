@@ -38,13 +38,18 @@ devtools::install_github("MacroFunUV/QuAnTeTrack")
 
 ## Usage
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=TRUE, message=FALSE}
 library(QuAnTeTrack)
 ```
 
-Example 1: Paluxy River Dataset
+**Example 1: Paluxy River Dataset**
 
-```{r echo=FALSE, message=FALSE}
+This example demonstrates how to load, process, and analyze trackway data from the Paluxy River Dataset, which includes tracks without missing footprints.
+
+Step 1: Loading and Converting Data
+The TPS file (PaluxyRiver.tps) is loaded using the `system.file()` function to ensure compatibility across systems. It is then converted to a track object using the tps_to_track() function. The scale argument is used to set the coordinate scaling factor. Since no footprints are missing, the missing argument is set to FALSE and NAs = NULL.
+
+```{r echo=TRUE, message=FALSE}
 tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
 PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
 ```

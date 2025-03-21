@@ -8,6 +8,8 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/QuAnTeTrack)](https://CRAN.R-project.org/package=QuAnTeTrack)
 [![R-CMD-check](https://github.com/MacroFunUV/QuAnTeTrack/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MacroFunUV/QuAnTeTrack/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/MacroFunUV/QuAnTeTrack/graph/badge.svg)](https://app.codecov.io/gh/MacroFunUV/QuAnTeTrack)
 <!-- badges: end -->
 
 Studying fossil vertebrate trackways is crucial as they provide valuable

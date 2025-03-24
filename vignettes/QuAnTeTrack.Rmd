@@ -14,19 +14,47 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, include = FALSE}
+if (Sys.getenv("RGL_USE_NULL") == "" && !interactive()) {
+  Sys.setenv(RGL_USE_NULL = "TRUE")
+}
+```
+
 ```{r setup}
 library(QuAnTeTrack)
 ```
 
+## **Introduction**  
 This vignette demonstrates how to **load, process, and analyze trackway data** using the **QuAnTeTrack** package. We will walk through two datasets:
 
-- **Paluxy River Dataset:** Tracks without missing footprints. This dataset represents dinosaur tracks from the Paluxy River site, described by Farlow et al. (2012). The dataset includes interpolated trajectories and footprint coordinates with metadata indicating whether each footprint is actual or inferred.  
-  **Source:** *Farlow, J. O., O’Brien, M., Kuban, G. J., Dattilo, B. F., Bates, K. T., Falkingham, P. L., & Piñuela, L. (2012). Dinosaur Tracksites of the Paluxy River Valley (Glen Rose Formation, Lower Cretaceous), Dinosaur Valley State Park, Somervell County, Texas. In Proceedings of the V International Symposium about Dinosaur Palaeontology and their Environment (pp. 41-69). Burgos: Salas de los Infantes.*
+### **Paluxy River Dataset**  
+Tracks **without missing footprints**. This dataset represents dinosaur tracks from the Paluxy River site, described by **Farlow et al. (2012)**.  
+**Source:** *Farlow, J. O., O’Brien, M., Kuban, G. J., Dattilo, B. F., Bates, K. T., Falkingham, P. L., & Piñuela, L. (2012). Dinosaur Tracksites of the Paluxy River Valley (Glen Rose Formation, Lower Cretaceous), Dinosaur Valley State Park, Somervell County, Texas. In Proceedings of the V International Symposium about Dinosaur Palaeontology and their Environment (pp. 41-69). Burgos: Salas de los Infantes.*
 
-- **Mount Tom Dataset:** Tracks with missing footprints. This dataset is based on dinosaur tracks from the Mount Tom site, originally described by Ostrom (1972). It includes interpolated trajectories and footprint coordinates, with markers indicating actual and inferred footprints.  
-  **Source:** *Ostrom, J. H. (1972). Were some dinosaurs gregarious? Palaeogeography, Palaeoclimatology, Palaeoecology, 11(4), 287-301.*
+### **Mount Tom Dataset**  
+Tracks **with missing footprints**. This dataset is based on dinosaur tracks from the Mount Tom site, originally described by **Ostrom (1972)**.  
+**Source:** *Ostrom, J. H. (1972). Were some dinosaurs gregarious? Palaeogeography, Palaeoclimatology, Palaeoecology, 11(4), 287-301.*
 
-We will use the **QuAnTeTrack** functions to load the data, process the track objects, visualize the tracks, and analyze movement parameters such as velocities and step directions.  
+---
+
+## **Raw Data Format**  
+**QuAnTeTrack** accepts raw data in the form of **.TPS files** containing footprint coordinates. Each track should be recorded as a different image within the **.TPS file**.  
+
+### **Requirements**  
+- **Footprint coordinates** should be digitized in **equivalent positions** for each track.  
+- **Tracks with missing footprints** are acceptable and will be **interpolated** as needed by the package functions.  
+- It is **recommended** to digitize the coordinates using the **TPS software suite**, particularly:  
+  - **TPSUTIL** (*Rohlf, 2008*) - for file manipulation and data conversion.  
+  - **tpsDig** (*Rohlf, 2009*) - for digitizing landmarks and outlines.  
+
+---
+
+## **TPS Software Citation**  
+- **Rohlf, F. J.** 2008. **TPSUTIL. Version 1.40.** Department of Ecology and Evolution, State University of New York.  
+  Available at: [https://sbmorphometrics.org/](https://sbmorphometrics.org/)  
+
+- **Rohlf, F. J.** 2009. **tpsDig. Version 2.14.** Department of Ecology and Evolution, State University of New York.  
+  Available at: [https://sbmorphometrics.org/](https://sbmorphometrics.org/)
 
 ---
 
@@ -60,7 +88,7 @@ params_paluxy <- track_param(PaluxyRiver)
 ```
 
 Boxplot of Direction Data
-```{r echo=TRUE, include=FALSE}
+```{r echo=TRUE, results='hide'}
 plot_direction(PaluxyRiver, plot_type = "boxplot")
 ```
 

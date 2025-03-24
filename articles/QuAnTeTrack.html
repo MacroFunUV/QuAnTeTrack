@@ -159,31 +159,127 @@ Available at: <a href="https://sbmorphometrics.org/" class="external-link">https
 <h2 id="example-1-paluxy-river-dataset">
 <strong>Example 1: Paluxy River Dataset</strong><a class="anchor" aria-label="anchor" href="#example-1-paluxy-river-dataset"></a>
 </h2>
-<p><strong>Step 1:</strong> <strong>Loading and Converting
-Data</strong></p>
-<p>This example demonstrates how to load, process, and analyze trackway
-data from the Paluxy River Dataset, which includes tracks without
-missing footprints.</p>
-<p>Step 1: Loading and Converting Data The TPS file (PaluxyRiver.tps) is
-loaded using the <code><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file()</a></code> function to ensure
-compatibility across systems. It is then converted to a track object
-using the <code><a href="../reference/tps_to_track.html">tps_to_track()</a></code> function. The scale argument is
+<div class="section level3">
+<h3 id="step-1-loading-and-converting-data">
+<strong>Step 1: Loading and Converting Data</strong><a class="anchor" aria-label="anchor" href="#step-1-loading-and-converting-data"></a>
+</h3>
+<p>The <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong> function is a
+fundamental tool for converting raw <code>.TPS</code> files containing
+digitized trackway data into usable track objects within the
+<strong>QuAnTeTrack</strong> package.</p>
+<div class="section level4">
+<h4 id="what-this-function-does">
+<strong>What this function does:</strong><a class="anchor" aria-label="anchor" href="#what-this-function-does"></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Reads .TPS files:</strong> It processes digitized data files
+where each track is represented as a series of coordinates (landmarks)
+saved as different images. These files are typically generated using
+software like <strong>TPSUTIL</strong> or <strong>tpsDig</strong>.<br>
+</li>
+<li>
+<strong>Converts data to a track object:</strong> The output is a
+structured object in R that contains two main components:
+<ul>
+<li>
+<strong>Footprints:</strong> The original footprint data, stored as
+data frames with coordinates and metadata.<br>
+</li>
+<li>
+<strong>Trajectories:</strong> Interpolated trajectories calculated
+between consecutive footprints to estimate the paths taken by the
+trackmaker.<br>
+</li>
+</ul>
+</li>
+<li>
+<strong>Handles missing footprints (if applicable):</strong> When
+dealing with incomplete tracks (e.g., footprints lost due to erosion or
+gaps in the trackway), the function can interpolate these gaps if the
+argument <code>missing = TRUE</code> is used.</li>
+</ol>
+</div>
+<div class="section level4">
+<h4 id="explanation-of-arguments">
+<strong>Explanation of Arguments:</strong><a class="anchor" aria-label="anchor" href="#explanation-of-arguments"></a>
+</h4>
+<ul>
+<li>
+<strong><code>scale</code>:</strong> This argument is a scaling
+factor that converts digitized coordinates to real-world measurements
+(e.g., meters).<br>
+</li>
+<li>
+<strong><code>missing</code>:</strong> A logical value indicating
+whether some footprints are missing (<code>TRUE</code>) or not
+(<code>FALSE</code>).<br>
+</li>
+<li>
+<strong><code>NAs</code>:</strong> A matrix specifying which
+footprints are missing, if applicable. This is set to <code>NULL</code>
+if no footprints are missing.</li>
+</ul>
+<p>Here, the TPS file (<strong>PaluxyRiver.tps</strong>) is loaded using
+the <code><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file()</a></code> function to ensure compatibility across
+systems. It is then converted to a track object using the
+<code><a href="../reference/tps_to_track.html">tps_to_track()</a></code> function. The <code>scale</code> argument is
 used to set the coordinate scaling factor. Since no footprints are
-missing, the missing argument is set to <code>FALSE</code> and
-<code>NAs = NULL</code>.</p>
+missing, the <code>missing</code> argument is set to <code>FALSE</code>
+and <code>NAs = NULL</code>.</p>
+<p>For users working with their own data, <strong>replace</strong>
+<code>system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")</code>
+with the <strong>file path to your .TPS file</strong> (e.g.,
+<code>"C:/path/to/your/PaluxyRiver.tps"</code>).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tpsPaluxyRiver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"PaluxyRiver.tps"</span>, package <span class="op">=</span> <span class="st">"QuAnTeTrack"</span><span class="op">)</span></span>
-<span><span class="va">PaluxyRiver</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tps_to_track.html">tps_to_track</a></span><span class="op">(</span><span class="va">tpsPaluxyRiver</span>, scale <span class="op">=</span> <span class="fl">0.004341493</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, NAs <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p>Plot with defauts</p>
+<code class="sourceCode R"><span><span class="va">PaluxyRiver</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tps_to_track.html">tps_to_track</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"PaluxyRiver.tps"</span>, package <span class="op">=</span> <span class="st">"QuAnTeTrack"</span><span class="op">)</span>, scale <span class="op">=</span> <span class="fl">0.004341493</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, NAs <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="step-2-plotting-tracks">
+<strong>Step 2: Plotting Tracks</strong><a class="anchor" aria-label="anchor" href="#step-2-plotting-tracks"></a>
+</h2>
+<p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function provides
+flexible plotting options to visualize the loaded track data. You can
+generate plots with default settings or focus on specific aspects of the
+track data, such as footprints or trackways.</p>
+<div class="section level3">
+<h3 id="plotting-with-default-settings">
+<strong>Plotting with Default Settings</strong><a class="anchor" aria-label="anchor" href="#plotting-with-default-settings"></a>
+</h3>
+<p>By default, <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> displays the
+complete track, including both footprints and interpolated trajectories.
+This is useful for getting a general overview of the track and its
+corresponding interpolated pathways.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>Plot Footprints Only</p>
+</div>
+<div class="section level3">
+<h3 id="plotting-footprints-only">
+<strong>Plotting Footprints Only</strong><a class="anchor" aria-label="anchor" href="#plotting-footprints-only"></a>
+</h3>
+<p>To visualize only the footprint data without the interpolated
+trajectories, use the <code>plot = "Footprints"</code> argument. This is
+particularly useful when you want to inspect the original footprint
+positions without the influence of interpolated tracks.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot <span class="op">=</span> <span class="st">"Footprints"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<p>Extract extract parameters</p>
+</div>
+<div class="section level3">
+<h3 id="plotting-trackways-only">
+<strong>Plotting Trackways Only</strong><a class="anchor" aria-label="anchor" href="#plotting-trackways-only"></a>
+</h3>
+<p>If you want to focus on the interpolated trackways without displaying
+the footprints, use the <code>plot = "Tracks"</code> argument. This
+visualization helps analyze the continuity and pattern of movement.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot <span class="op">=</span> <span class="st">"Tracks"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p>Extract extract parameters</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_param.html">track_param</a></span><span class="op">(</span><span class="va">PaluxyRiver</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $Track_1</span></span>
 <span><span class="co">#&gt; $Track_1$Turning_angles</span></span>
@@ -260,39 +356,39 @@ missing, the missing argument is set to <code>FALSE</code> and
 <span><span class="co">#&gt; $Track_2$Straightness</span></span>
 <span><span class="co">#&gt; [1] 0.9906128</span></span></code></pre></div>
 <p>Boxplot of Direction Data</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<p>Polar Plot of Step Directions</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<p>Polar Plot of Average Directions Per Track with Custom Breaks</p>
+<p>Polar Plot of Step Directions</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>,</span>
-<span>plot_type <span class="op">=</span> <span class="st">"polar_average"</span>,</span>
-<span>y_breaks_manual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<p>Faceted Polar Plot of Step Directions</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"faceted"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>Polar Plot of Average Directions Per Track with Custom Breaks</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>,</span>
 <span>plot_type <span class="op">=</span> <span class="st">"polar_average"</span>,</span>
 <span>y_breaks_manual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p>Faceted Polar Plot of Step Directions</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"faceted"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<p>Polar Plot with Custom Y-Axis Labels</p>
+<p>Polar Plot of Average Directions Per Track with Custom Breaks</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>,</span>
+<span>plot_type <span class="op">=</span> <span class="st">"polar_average"</span>,</span>
+<span>y_breaks_manual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p>Polar Plot with Custom Y-Axis Labels</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>,</span>
 <span>plot_type <span class="op">=</span> <span class="st">"polar_steps"</span>,</span>
 <span>y_labels_position <span class="op">=</span> <span class="op">-</span><span class="fl">90</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.472</span>, <span class="fl">2.200</span><span class="op">)</span></span>
 <span><span class="va">Method_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span></span>
 <span><span class="va">velocity_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, H <span class="op">=</span> <span class="va">H_paluxyriver</span>, method <span class="op">=</span> <span class="va">Method_paluxyriver</span><span class="op">)</span></span>
@@ -384,6 +480,7 @@ plot_track(MountTom)</p>
 1.768, 1.600, 1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636,
 1.784, 1.676, 1.872, 1.648, 1.760, 1.612) velocity_mounttom &lt;-
 velocity_track(MountTom, H = H_mounttom) print(velocity_mounttom)</p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

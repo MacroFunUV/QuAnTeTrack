@@ -66,6 +66,16 @@
 
     
     
+<style type="text/css">
+pre {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 150px;
+}
+</style>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MacroFunUV/QuAnTeTrack" class="external-link">QuAnTeTrack</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
@@ -276,10 +286,10 @@ This is useful for getting a general overview of the track and its
 corresponding interpolated pathways.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-6-1.png" width="100%"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">MountTom</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="plotting-footprints-only">
@@ -291,10 +301,10 @@ particularly useful when you want to inspect the original footprint
 positions without the influence of interpolated tracks.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot <span class="op">=</span> <span class="st">"Footprints"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">MountTom</span>, plot <span class="op">=</span> <span class="st">"Footprints"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="plotting-trackways-only">
@@ -305,10 +315,10 @@ the footprints, use the <code>plot = "Tracks"</code> argument. This
 visualization helps analyze the continuity and pattern of movement.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot <span class="op">=</span> <span class="st">"Tracks"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-10-1.png" width="100%"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">MountTom</span>, plot <span class="op">=</span> <span class="st">"Tracks"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-11-1.png" width="100%"></p>
 <p>The <code><a href="../reference/plot_track.html">plot_track()</a></code> function also allows for various
 customizations to enhance visualization. Parameters that can be
 customized include:</p>
@@ -342,14 +352,24 @@ footprints.</li>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Track"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">MountTom</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">MountTom</span>, plot.labels <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="va">labels</span>, cex.l <span class="op">=</span> <span class="fl">4</span>, box.p <span class="op">=</span> <span class="fl">0.3</span>, alpha.l <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-12-1.png" width="100%"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot <span class="op">=</span> <span class="st">"Footprints"</span>, colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"orange"</span><span class="op">)</span>, shape.f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">18</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<p>Extract extract parameters</p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
+<hr>
+</div>
+</div>
+<div class="section level2">
+<h2 id="step-3-extracting-track-parameters">
+<strong>Step 3: Extracting Track Parameters</strong><a class="anchor" aria-label="anchor" href="#step-3-extracting-track-parameters"></a>
+</h2>
+<p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function is used to
+<strong>extract various parameters</strong> from the loaded track
+objects. This includes information about individual footprints and their
+spatial relationships, which can be useful for further analysis.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">params_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_param.html">track_param</a></span><span class="op">(</span><span class="va">PaluxyRiver</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $Track_1</span></span>
+<code class="sourceCode R"><span><span class="va">params_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_param.html">track_param</a></span><span class="op">(</span><span class="va">PaluxyRiver</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; $Track_1</span></span>
 <span><span class="co">#&gt; $Track_1$Turning_angles</span></span>
 <span><span class="co">#&gt;  [1] 83.36749 77.21330 80.06835 79.46614 74.64986 73.75563 73.91299 73.54942</span></span>
 <span><span class="co">#&gt;  [9] 72.64598 79.29432 87.32457 83.82411 82.64091 83.85337 82.06724 78.16842</span></span>
@@ -422,41 +442,877 @@ footprints.</li>
 <span><span class="co">#&gt; [1] 0.1466281</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_2$Straightness</span></span>
-<span><span class="co">#&gt; [1] 0.9906128</span></span></code></pre></div>
-<p>Boxplot of Direction Data</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<p>Polar Plot of Step Directions</p>
+<span><span class="co">#&gt; [1] 0.9906128</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
-<p>Polar Plot of Average Directions Per Track with Custom Breaks</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>,</span>
-<span>plot_type <span class="op">=</span> <span class="st">"polar_average"</span>,</span>
-<span>y_breaks_manual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
-<p>Faceted Polar Plot of Step Directions</p>
+<code class="sourceCode R"><span><span class="va">params_mount</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_param.html">track_param</a></span><span class="op">(</span><span class="va">MountTom</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; $Track_01</span></span>
+<span><span class="co">#&gt; $Track_01$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 135.4170 134.9103 139.1806 134.1905 128.4984 139.7955 143.4536 137.0192</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_01$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 136.5581</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_01$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 4.46736</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_01$Distance</span></span>
+<span><span class="co">#&gt; [1] 7.792014</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_01$Length</span></span>
+<span><span class="co">#&gt; [1] 7.811916</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_01$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.0716072 0.9967099 1.0056236 0.9936882 0.9780421 0.9329032 0.8594255</span></span>
+<span><span class="co">#&gt; [8] 0.9739165</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_01$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.9764895</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_01$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.06119478</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_01$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.1073126</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_01$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9974524</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_02</span></span>
+<span><span class="co">#&gt; $Track_02$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 132.9511 134.6430 134.4076 127.5257 121.4985 123.2012 131.3173 125.6057</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_02$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 128.8938</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_02$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 5.148772</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_02$Distance</span></span>
+<span><span class="co">#&gt; [1] 8.389291</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_02$Length</span></span>
+<span><span class="co">#&gt; [1] 8.419799</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_02$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 0.9161851 1.0014075 1.0560373 1.0791884 1.2159276 1.0755866 0.9956450</span></span>
+<span><span class="co">#&gt; [8] 1.0798217</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_02$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.052475</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_02$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.08712676</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_02$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.08820136</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_02$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9963766</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_03</span></span>
+<span><span class="co">#&gt; $Track_03$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 133.8065 133.7811 130.2205 132.0604</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_03$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 132.4671</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_03$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 1.706197</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_03$Distance</span></span>
+<span><span class="co">#&gt; [1] 5.076073</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_03$Length</span></span>
+<span><span class="co">#&gt; [1] 5.077853</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_03$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.198182 1.319885 1.404018 1.155769</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_03$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.269463</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_03$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.1135117</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_03$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.03584756</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_03$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9996494</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_04</span></span>
+<span><span class="co">#&gt; $Track_04$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 125.9818 121.1350 125.1305 133.1314</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_04$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 126.3447</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_04$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 4.993546</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_04$Distance</span></span>
+<span><span class="co">#&gt; [1] 4.497133</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_04$Length</span></span>
+<span><span class="co">#&gt; [1] 4.509806</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_04$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.223971 1.139084 1.046512 1.100240</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_04$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.127452</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_04$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.07470601</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_04$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.09660109</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_04$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9971898</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_05</span></span>
+<span><span class="co">#&gt; $Track_05$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 126.6273</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_05$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 126.6273</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_05$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_05$Distance</span></span>
+<span><span class="co">#&gt; [1] 1.146187</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_05$Length</span></span>
+<span><span class="co">#&gt; [1] 1.146187</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_05$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.146187</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_05$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.146187</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_05$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_05$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] NaN</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_05$Straightness</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_06</span></span>
+<span><span class="co">#&gt; $Track_06$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 133.6793 134.0478</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_06$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 133.8635</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_06$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 0.2605755</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_06$Distance</span></span>
+<span><span class="co">#&gt; [1] 2.209101</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_06$Length</span></span>
+<span><span class="co">#&gt; [1] 2.209112</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_06$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.082785 1.126327</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_06$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.104556</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_06$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.03078894</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_06$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.006119749</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_06$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9999948</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_07</span></span>
+<span><span class="co">#&gt; $Track_07$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 104.5351 109.8321 126.4855 123.7244 127.0905 126.5167</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_07$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 119.6974</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_07$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 9.906308</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_07$Distance</span></span>
+<span><span class="co">#&gt; [1] 5.320692</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_07$Length</span></span>
+<span><span class="co">#&gt; [1] 5.38372</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_07$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 0.8430613 0.7152130 0.8424108 1.0210973 1.0314783 0.9304589</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_07$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.8972866</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_07$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.1212761</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_07$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.1483819</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_07$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9882929</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_08</span></span>
+<span><span class="co">#&gt; $Track_08$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 126.1992 120.6832 117.1547 122.0179 123.9117</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_08$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 121.9934</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_08$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 3.409506</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_08$Distance</span></span>
+<span><span class="co">#&gt; [1] 5.956414</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_08$Length</span></span>
+<span><span class="co">#&gt; [1] 5.964889</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_08$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.243762 1.236318 1.150321 1.069273 1.265215</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_08$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.192978</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_08$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.08185074</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_08$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.06692552</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_08$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9985792</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_09</span></span>
+<span><span class="co">#&gt; $Track_09$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] -26.79077 -20.88580 -20.77225 -18.85063</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_09$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] -21.82486</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_09$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 3.439774</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_09$Distance</span></span>
+<span><span class="co">#&gt; [1] 5.452531</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_09$Length</span></span>
+<span><span class="co">#&gt; [1] 5.460107</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_09$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.502452 1.435499 1.368359 1.153797</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_09$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.365027</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_09$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.1510864</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_09$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.0535709</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_09$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9986127</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_10</span></span>
+<span><span class="co">#&gt; $Track_10$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] -59.30028</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_10$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] -59.30028</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_10$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_10$Distance</span></span>
+<span><span class="co">#&gt; [1] 1.149305</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_10$Length</span></span>
+<span><span class="co">#&gt; [1] 1.149305</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_10$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.149305</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_10$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.149305</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_10$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_10$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] NaN</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_10$Straightness</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_11</span></span>
+<span><span class="co">#&gt; $Track_11$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] -65.30517</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_11$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] -65.30517</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_11$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_11$Distance</span></span>
+<span><span class="co">#&gt; [1] 1.209107</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_11$Length</span></span>
+<span><span class="co">#&gt; [1] 1.209107</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_11$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.209107</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_11$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.209107</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_11$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_11$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] NaN</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_11$Straightness</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_12</span></span>
+<span><span class="co">#&gt; $Track_12$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 111.1961</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_12$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 111.1961</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_12$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_12$Distance</span></span>
+<span><span class="co">#&gt; [1] 1.201898</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_12$Length</span></span>
+<span><span class="co">#&gt; [1] 1.201898</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_12$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.201898</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_12$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.201898</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_12$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_12$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] NaN</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_12$Straightness</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_13</span></span>
+<span><span class="co">#&gt; $Track_13$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] -134.4543 -139.9441 -128.1402 -116.2039</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_13$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] -129.6857</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_13$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 10.2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_13$Distance</span></span>
+<span><span class="co">#&gt; [1] 1.809277</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_13$Length</span></span>
+<span><span class="co">#&gt; [1] 1.831302</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_13$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 0.4913575 0.4524641 0.4178969 0.4695836</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_13$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.4578255</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_13$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.03101447</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_13$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.2636325</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_13$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9879729</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_14</span></span>
+<span><span class="co">#&gt; $Track_14$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 104.5905 101.1270</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_14$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 102.8588</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_14$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 2.449041</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_14$Distance</span></span>
+<span><span class="co">#&gt; [1] 1.998605</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_14$Length</span></span>
+<span><span class="co">#&gt; [1] 1.999516</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_14$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.0507992 0.9487167</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_14$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.9997579</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_14$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.0721832</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_14$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.06047449</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_14$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9995445</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_15</span></span>
+<span><span class="co">#&gt; $Track_15$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 114.2659 111.3107 118.9163 120.6646</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_15$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 116.2894</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_15$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 4.278817</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_15$Distance</span></span>
+<span><span class="co">#&gt; [1] 4.556698</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_15$Length</span></span>
+<span><span class="co">#&gt; [1] 4.56646</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_15$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.057393 1.195731 1.154191 1.159145</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_15$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.141615</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_15$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.05912482</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_15$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.07871941</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_15$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9978623</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_16</span></span>
+<span><span class="co">#&gt; $Track_16$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 116.5651 122.1172 120.0741 121.6150 129.5226 129.5917 135.7970</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_16$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 125.0404</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_16$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 6.748851</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_16$Distance</span></span>
+<span><span class="co">#&gt; [1] 7.068614</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_16$Length</span></span>
+<span><span class="co">#&gt; [1] 7.109877</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_16$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 0.9075806 0.9584426 1.0476549 1.0982925 1.0294856 1.0591361 1.0092847</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_16$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.015697</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_16$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.06445766</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_16$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.08320294</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_16$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9941965</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_17</span></span>
+<span><span class="co">#&gt; $Track_17$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] -131.2245</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_17$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] -131.2245</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_17$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_17$Distance</span></span>
+<span><span class="co">#&gt; [1] 0.3079478</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_17$Length</span></span>
+<span><span class="co">#&gt; [1] 0.3079478</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_17$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 0.3079478</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_17$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.3079478</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_17$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_17$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] NaN</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_17$Straightness</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_18</span></span>
+<span><span class="co">#&gt; $Track_18$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 107.7676 110.0561 113.7495 110.8756</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_18$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 110.6122</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_18$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 2.470679</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_18$Distance</span></span>
+<span><span class="co">#&gt; [1] 4.767794</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_18$Length</span></span>
+<span><span class="co">#&gt; [1] 4.771307</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_18$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.257788 1.183538 1.265235 1.064747</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_18$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.192827</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_18$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.09301194</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_18$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.04807342</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_18$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9992637</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_19</span></span>
+<span><span class="co">#&gt; $Track_19$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 111.8959</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_19$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 111.8959</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_19$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_19$Distance</span></span>
+<span><span class="co">#&gt; [1] 1.490617</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_19$Length</span></span>
+<span><span class="co">#&gt; [1] 1.490617</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_19$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.490617</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_19$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.490617</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_19$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_19$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] NaN</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_19$Straightness</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_20</span></span>
+<span><span class="co">#&gt; $Track_20$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 104.3162 108.0343</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_20$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 106.1753</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_20$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 2.629063</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_20$Distance</span></span>
+<span><span class="co">#&gt; [1] 2.300393</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_20$Length</span></span>
+<span><span class="co">#&gt; [1] 2.301602</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_20$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.204311 1.097291</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_20$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.150801</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_20$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.07567463</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_20$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.06051244</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_20$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9994748</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_21</span></span>
+<span><span class="co">#&gt; $Track_21$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 140.7497 134.7000</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_21$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 137.7249</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_21$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 4.277776</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_21$Distance</span></span>
+<span><span class="co">#&gt; [1] 2.325026</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_21$Length</span></span>
+<span><span class="co">#&gt; [1] 2.328268</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_21$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.136569 1.191699</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_21$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.164134</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_21$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.03898298</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_21$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.09795169</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_21$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9986075</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_22</span></span>
+<span><span class="co">#&gt; $Track_22$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] 118.3636 109.6538</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_22$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 114.0087</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_22$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] 6.158744</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_22$Distance</span></span>
+<span><span class="co">#&gt; [1] 1.795854</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_22$Length</span></span>
+<span><span class="co">#&gt; [1] 1.801009</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_22$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 0.8172251 0.9837840</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_22$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.9005046</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_22$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] 0.1177749</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_22$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] 0.1604935</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_22$Straightness</span></span>
+<span><span class="co">#&gt; [1] 0.9971376</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_23</span></span>
+<span><span class="co">#&gt; $Track_23$Turning_angles</span></span>
+<span><span class="co">#&gt; [1] -9.811257</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_23$Mean_turning_angle</span></span>
+<span><span class="co">#&gt; [1] -9.811257</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_23$Standard_deviation_turning_angle</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_23$Distance</span></span>
+<span><span class="co">#&gt; [1] 1.786422</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_23$Length</span></span>
+<span><span class="co">#&gt; [1] 1.786422</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_23$Step_lengths</span></span>
+<span><span class="co">#&gt; [1] 1.786422</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_23$Mean_step_length</span></span>
+<span><span class="co">#&gt; [1] 1.786422</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_23$Standard_deviation_step_length</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_23$Sinuosity</span></span>
+<span><span class="co">#&gt; [1] NaN</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_23$Straightness</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code></pre>
+<p>The output of <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> is a list
+containing <strong>detailed information</strong> about each track,
+including <strong>step lengths, stride lengths, turning angles, and
+other relevant metrics</strong>. This information can be <strong>printed
+or saved</strong> for further analysis.</p>
+</div>
+<div class="section level2">
+<h2 id="step-4-plotting-direction-data">
+<strong>Step 4: Plotting Direction Data</strong><a class="anchor" aria-label="anchor" href="#step-4-plotting-direction-data"></a>
+</h2>
+<p>The <strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function provides
+several ways to visualize directional data. This can be particularly
+useful for understanding the overall movement patterns and orientation
+of the tracks. Below are various plotting options with descriptions of
+what each plot represents.</p>
+<div class="section level3">
+<h3 id="boxplot-of-direction-data">
+<strong>Boxplot of Direction Data</strong><a class="anchor" aria-label="anchor" href="#boxplot-of-direction-data"></a>
+</h3>
+<p>Boxplots provide a summary of the distribution of directions,
+including median, quartiles, and outliers. This visualization is useful
+for comparing general directionality across tracks.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"faceted"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
-<p>Polar Plot of Average Directions Per Track with Custom Breaks</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-18-1.png" width="100%"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>,</span>
-<span>plot_type <span class="op">=</span> <span class="st">"polar_average"</span>,</span>
-<span>y_breaks_manual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
-<p>Polar Plot with Custom Y-Axis Labels</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-19-1.png" width="100%"></p>
+</div>
+<div class="section level3">
+<h3 id="polar-plot-of-step-directions">
+<strong>Polar Plot of Step Directions</strong><a class="anchor" aria-label="anchor" href="#polar-plot-of-step-directions"></a>
+</h3>
+<p>Polar plots show the individual step directions radiating from a
+central point, providing a detailed visualization of the movement
+patterns of the tracks.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>,</span>
-<span>plot_type <span class="op">=</span> <span class="st">"polar_steps"</span>,</span>
-<span>y_labels_position <span class="op">=</span> <span class="op">-</span><span class="fl">90</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-20-1.png" width="100%"></p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-21-1.png" width="100%"></p>
+</div>
+<div class="section level3">
+<h3 id="polar-plot-of-average-directions-per-track">
+<strong>Polar Plot of Average Directions Per Track</strong><a class="anchor" aria-label="anchor" href="#polar-plot-of-average-directions-per-track"></a>
+</h3>
+<p>This plot type averages the directional data for each track,
+providing a simplified overview of general movement trends.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_average"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-22-1.png" width="100%"></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"polar_average"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-23-1.png" width="100%"></p>
+</div>
+<div class="section level3">
+<h3 id="faceted-polar-plot-of-step-directions">
+<strong>Faceted Polar Plot of Step Directions</strong><a class="anchor" aria-label="anchor" href="#faceted-polar-plot-of-step-directions"></a>
+</h3>
+<p>Faceted plots display individual step directions for each track in
+separate panels, allowing for a clearer comparison of movement patterns
+across multiple tracks.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"faceted"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-24-1.png" width="100%"></p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"faceted"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-25-1.png" width="100%"></p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="further-customizations">
+<strong>Further Customizations</strong><a class="anchor" aria-label="anchor" href="#further-customizations"></a>
+</h3>
+<p>The <strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function offers
+several customization options to enhance the visualization of your
+data:</p>
+<ul>
+<li>
+<p><strong><code>y_breaks_manual</code></strong>: Define custom
+breaks on the radial axis for <code>polar_average</code> plots.
+Example:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_average"</span>, y_breaks_manual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-26-1.png" width="100%"></p>
+</li>
+<li>
+<p><strong><code>y_labels_position</code></strong>: Adjust the
+position of y-axis labels. This can be helpful when fine-tuning polar
+plots for presentation. Example:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span>, y_labels_position <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-27-1.png" width="100%"></p>
+</li>
+<li><p><strong><code>facet_labels</code></strong>: Provide custom labels
+for faceted plots to improve clarity when comparing multiple
+tracks.</p></li>
+</ul>
+<p>These customization options allow you to tailor your plots to best
+fit your analytical needs and presentation preferences.</p>
+<p>Boxplot of Direction Data</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-28-1.png" width="100%"></p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-29-1.png" width="100%"></p>
+<p>Polar Plot of Step Directions</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-30-1.png" width="100%"></p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-31-1.png" width="100%"></p>
+<p>Polar Plot of Average Directions Per Track</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>,</span>
+<span>plot_type <span class="op">=</span> <span class="st">"polar_average"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-32-1.png" width="100%"></p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>,</span>
+<span>plot_type <span class="op">=</span> <span class="st">"polar_average"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-33-1.png" width="100%"></p>
+<p>Faceted Polar Plot of Step Directions</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"faceted"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-34-1.png" width="100%"></p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"faceted"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-35-1.png" width="100%"></p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.472</span>, <span class="fl">2.200</span><span class="op">)</span></span>
 <span><span class="va">Method_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span></span>
 <span><span class="va">velocity_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, H <span class="op">=</span> <span class="va">H_paluxyriver</span>, method <span class="op">=</span> <span class="va">Method_paluxyriver</span><span class="op">)</span></span>

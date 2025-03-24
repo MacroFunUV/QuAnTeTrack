@@ -60,27 +60,56 @@ Tracks **with missing footprints**. This dataset is based on dinosaur tracks fro
 
 ## **Example 1: Paluxy River Dataset**
 
-**Step 1:** **Loading and Converting Data**
+### **Step 1: Loading and Converting Data**  
+The **`tps_to_track()`** function is a fundamental tool for converting raw `.TPS` files containing digitized trackway data into usable track objects within the **QuAnTeTrack** package.  
 
-This example demonstrates how to load, process, and analyze trackway data from the Paluxy River Dataset, which includes tracks without missing footprints.
+#### **What this function does:**  
+1. **Reads .TPS files:** It processes digitized data files where each track is represented as a series of coordinates (landmarks) saved as different images. These files are typically generated using software like **TPSUTIL** or **tpsDig**.  
+2. **Converts data to a track object:** The output is a structured object in R that contains two main components:  
+   - **Footprints:** The original footprint data, stored as data frames with coordinates and metadata.  
+   - **Trajectories:** Interpolated trajectories calculated between consecutive footprints to estimate the paths taken by the trackmaker.  
+3. **Handles missing footprints (if applicable):** When dealing with incomplete tracks (e.g., footprints lost due to erosion or gaps in the trackway), the function can interpolate these gaps if the argument `missing = TRUE` is used.  
 
-Step 1: Loading and Converting Data
-The TPS file (PaluxyRiver.tps) is loaded using the `system.file()` function to ensure compatibility across systems. It is then converted to a track object using the `tps_to_track()` function. The scale argument is used to set the coordinate scaling factor. Since no footprints are missing, the missing argument is set to `FALSE` and `NAs = NULL`.
+#### **Explanation of Arguments:**  
+- **`scale`:** This argument is a scaling factor that converts digitized coordinates to real-world measurements (e.g., meters).  
+- **`missing`:** A logical value indicating whether some footprints are missing (`TRUE`) or not (`FALSE`).  
+- **`NAs`:** A matrix specifying which footprints are missing, if applicable. This is set to `NULL` if no footprints are missing.  
+
+Here, the TPS file (**PaluxyRiver.tps**) is loaded using the `system.file()` function to ensure compatibility across systems. It is then converted to a track object using the `tps_to_track()` function. The `scale` argument is used to set the coordinate scaling factor. Since no footprints are missing, the `missing` argument is set to `FALSE` and `NAs = NULL`.
+
+For users working with their own data, **replace** `system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")` with the **file path to your .TPS file** (e.g., `"C:/path/to/your/PaluxyRiver.tps"`).  
 
 ```{r, eval=FALSE}
-tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
-PaluxyRiver <- tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
+PaluxyRiver <- tps_to_track(system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack"), scale = 0.004341493, missing = FALSE, NAs = NULL)
 ```
 
-Plot with defauts
+## **Step 2: Plotting Tracks**  
+
+The **`plot_track()`** function provides flexible plotting options to visualize the loaded track data. You can generate plots with default settings or focus on specific aspects of the track data, such as footprints or trackways.  
+
+### **Plotting with Default Settings**  
+By default, **`plot_track()`** displays the complete track, including both footprints and interpolated trajectories. This is useful for getting a general overview of the track and its corresponding interpolated pathways.  
+
 ```{r echo=TRUE}
 plot_track(PaluxyRiver)
 ```
 
-Plot Footprints Only
+### **Plotting Footprints Only**
+To visualize only the footprint data without the interpolated trajectories, use the `plot = "Footprints"` argument. This is particularly useful when you want to inspect the original footprint positions without the influence of interpolated tracks.
+
 ```{r echo=TRUE}
 plot_track(PaluxyRiver, plot = "Footprints")
 ```
+
+### **Plotting Trackways Only**
+If you want to focus on the interpolated trackways without displaying the footprints, use the `plot = "Tracks"` argument. This visualization helps analyze the continuity and pattern of movement.
+
+```{r echo=TRUE}
+plot_track(PaluxyRiver, plot = "Tracks")
+```
+
+
+
 
 Extract extract parameters
 ```{r echo=TRUE}

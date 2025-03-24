@@ -10,8 +10,23 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 16,
+  fig.height = 8,
+  fig.retina = NULL,
+  out.width = "100%"
 )
+```
+
+```{css, echo=FALSE}
+pre {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 150px;
+}
 ```
 
 ```{r, include = FALSE}
@@ -158,16 +173,111 @@ plot_track(MountTom, plot.labels = TRUE, labels = labels, cex.l = 4, box.p = 0.3
 plot_track(PaluxyRiver, plot = "Footprints", colours = c("purple", "orange"), shape.f = c(15, 18))
 ```
 
+---
+
+## **Step 3: Extracting Track Parameters**  
+
+The **`track_param()`** function is used to **extract various parameters** from the loaded track objects. This includes information about individual footprints and their spatial relationships, which can be useful for further analysis.
 
 
-Extract extract parameters
-```{r echo=TRUE}
+```{r, eval=FALSE}
 params_paluxy <- track_param(PaluxyRiver)
 ```
+
+```{r echo=FALSE}
+params_paluxy <- track_param(PaluxyRiver)
+```
+
+```{r, eval=FALSE}
+params_mount <- track_param(MountTom)
+```
+
+```{r echo=FALSE}
+params_mount <- track_param(MountTom)
+```
+
+The output of **`track_param()`** is a list containing **detailed information** about each track, including **step lengths, stride lengths, turning angles, and other relevant metrics**. This information can be **printed or saved** for further analysis.
+
+
+## **Step 4: Plotting Direction Data**  
+
+The **`plot_direction()`** function provides several ways to visualize directional data. This can be particularly useful for understanding the overall movement patterns and orientation of the tracks. Below are various plotting options with descriptions of what each plot represents.  
+
+### **Boxplot of Direction Data**  
+Boxplots provide a summary of the distribution of directions, including median, quartiles, and outliers. This visualization is useful for comparing general directionality across tracks.  
+
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver, plot_type = "boxplot")
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(MountTom, plot_type = "boxplot")
+```
+
+### **Polar Plot of Step Directions**  
+Polar plots show the individual step directions radiating from a central point, providing a detailed visualization of the movement patterns of the tracks.  
+
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver, plot_type = "polar_steps")
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(MountTom, plot_type = "polar_steps")
+```
+
+### **Polar Plot of Average Directions Per Track**  
+This plot type averages the directional data for each track, providing a simplified overview of general movement trends.  
+
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver, plot_type = "polar_average")
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(MountTom, plot_type = "polar_average")
+```
+
+### **Faceted Polar Plot of Step Directions**  
+Faceted plots display individual step directions for each track in separate panels, allowing for a clearer comparison of movement patterns across multiple tracks.  
+
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver, plot_type = "faceted")
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(MountTom, plot_type = "faceted")
+```
+
+---
+
+### **Further Customizations**  
+The **`plot_direction()`** function offers several customization options to enhance the visualization of your data:  
+
+- **`y_breaks_manual`**: Define custom breaks on the radial axis for `polar_average` plots. Example:  
+  ```{r echo=TRUE, results='hide'}
+  plot_direction(PaluxyRiver, plot_type = "polar_average", y_breaks_manual = c(1, 2))
+  ```
+
+- **`y_labels_position`**: Adjust the position of y-axis labels. This can be helpful when fine-tuning polar plots for presentation. Example:  
+  ```{r echo=TRUE, results='hide'}
+  plot_direction(PaluxyRiver, plot_type = "polar_steps", y_labels_position = -90)
+  ```
+
+- **`facet_labels`**: Provide custom labels for faceted plots to improve clarity when comparing multiple tracks.  
+
+These customization options allow you to tailor your plots to best fit your analytical needs and presentation preferences.  
+
+
+
+
+
 
 Boxplot of Direction Data
 ```{r echo=TRUE, results='hide'}
 plot_direction(PaluxyRiver, plot_type = "boxplot")
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(MountTom, plot_type = "boxplot")
 ```
 
 Polar Plot of Step Directions
@@ -175,38 +285,33 @@ Polar Plot of Step Directions
 plot_direction(PaluxyRiver, plot_type = "polar_steps")
 ```
 
-
-Polar Plot of Average Directions Per Track with Custom Breaks
 ```{r echo=TRUE, results='hide'}
-plot_direction(PaluxyRiver,
-plot_type = "polar_average",
-y_breaks_manual = c(1, 2)
-)
+plot_direction(MountTom, plot_type = "polar_steps")
 ```
 
+Polar Plot of Average Directions Per Track
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver,
+plot_type = "polar_average")
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(MountTom,
+plot_type = "polar_average")
+```
 
 Faceted Polar Plot of Step Directions
 ```{r echo=TRUE, results='hide'}
 plot_direction(PaluxyRiver, plot_type = "faceted")
 ```
 
-
-Polar Plot of Average Directions Per Track with Custom Breaks
 ```{r echo=TRUE, results='hide'}
-plot_direction(PaluxyRiver,
-plot_type = "polar_average",
-y_breaks_manual = c(1, 2)
-)
+plot_direction(MountTom, plot_type = "faceted")
 ```
 
 
-Polar Plot with Custom Y-Axis Labels
-```{r echo=TRUE, results='hide'}
-plot_direction(PaluxyRiver,
-plot_type = "polar_steps",
-y_labels_position = -90
-)
-```
+
+
 
 
 
@@ -238,5 +343,4 @@ H_mounttom <- c(1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600, 1
                 1.648, 1.760, 1.612)
 velocity_mounttom <- velocity_track(MountTom, H = H_mounttom)
 print(velocity_mounttom)
-
 

@@ -3,6 +3,12 @@
 
 # QuAnTeTrack
 
+<div style="text-align: center;">
+
+<img src="../man/figures/Logo.png" alt="QuAnTeTrack Logo" width="50%" style="border: none; box-shadow: none;" />
+
+</div>
+
 <!-- badges: start -->
 
 [![CRAN

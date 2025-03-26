@@ -114,8 +114,6 @@ pre[class] {
 <h2 id="getting-started-with-quantetrack">
 <strong>Getting Started with QuAnTeTrack</strong><a class="anchor" aria-label="anchor" href="#getting-started-with-quantetrack"></a>
 </h2>
-<p>This section will guide you through installing and loading the
-package.</p>
 <div class="section level3">
 <h3 id="installation">
 <strong>Installation</strong><a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -152,14 +150,17 @@ begin your trackway analysis!</p>
 <strong>Overview of the Analytical Workflow in
 QuAnTeTrack</strong><a class="anchor" aria-label="anchor" href="#overview-of-the-analytical-workflow-in-quantetrack"></a>
 </h2>
-<p>The <strong>QuAnTeTrack</strong> package provides a structured and
-comprehensive workflow for analyzing trackway data, facilitating the
-assessment of paleoecological and paleoethological hypotheses. The
-workflow integrates various functions for data digitization, loading,
-exploratory analysis, statistical testing, simulation, similarity
-assessment, intersection detection, and clustering. This pipeline aims
-to help researchers reconstruct, compare, and interpret movement
-patterns and behavioral dynamics of trackmakers.</p>
+<p>The <strong>QuAnTeTrack</strong> package
+(<strong>Qu</strong>antitative <strong>An</strong>alysis of
+<strong>Te</strong>trapod <strong>Track</strong>ways) provides a
+structured and comprehensive workflow for analyzing trackway data,
+facilitating the assessment of paleoecological and paleoethological
+hypotheses. The workflow integrates various functions for data
+digitization, loading, exploratory analysis, statistical testing,
+simulation, similarity assessment, intersection detection, and
+clustering. This pipeline aims to help researchers reconstruct, compare,
+and interpret movement patterns and behavioral dynamics of
+trackmakers.</p>
 <div class="section level3">
 <h3 id="data-digitization-and-preprocessing">
 <strong>1. Data Digitization and Preprocessing</strong><a class="anchor" aria-label="anchor" href="#data-digitization-and-preprocessing"></a>
@@ -168,17 +169,16 @@ patterns and behavioral dynamics of trackmakers.</p>
 using the <strong>TPS software suite</strong>, particularly:</p>
 <ul>
 <li>
-<strong>tpsUtil</strong>: For compiling and converting
-<code>.TPS</code> files.<br>
+<strong>tpsUtil</strong> (<em>Rohlf, 2008</em>): For compiling and
+converting <code>.TPS</code> files.<br>
 </li>
 <li>
-<strong>tpsDig</strong>: For digitizing footprint coordinates from
-trackways.</li>
+<strong>tpsDig</strong> (<em>Rohlf, 2009</em>): For digitizing
+footprint coordinates from trackways.</li>
 </ul>
 <p>The digitization process should ensure that the footprints are
-consistently recorded across all samples, with attention to proper
-scaling. This process is essential for converting raw images into
-structured data for further analysis.</p>
+consistently recorded across all tracks. This process is essential for
+converting raw images into structured data for further analysis.</p>
 </div>
 <div class="section level3">
 <h3 id="loading-data-with-tps_to_track">
@@ -188,18 +188,25 @@ structured data for further analysis.</p>
 <p>Once digitized, the data is loaded into <strong>QuAnTeTrack</strong>
 using the <code><a href="../reference/tps_to_track.html">tps_to_track()</a></code> function. This function:</p>
 <ul>
-<li>Reads <code>.TPS</code> files containing digitized footprints.</li>
+<li>Reads <code>.TPS</code> files containing digitized footprints within
+tracks.</li>
 <li>Extracts and organizes data into structured <code>track</code> R
 objects.</li>
 <li>Handles missing footprints through interpolation if required.</li>
 <li>Converts raw data into real-world measurements using user-specified
 scales.</li>
 </ul>
-<p>The resulting <strong><code>track</code> R objects</strong> contain:
-- <strong>Trajectories:</strong> Interpolated pathways derived from
+<p>The resulting <strong><code>track</code> R objects</strong>
+contain:</p>
+<ul>
+<li>
+<strong>Trajectories:</strong> Interpolated pathways derived from
 midpoints between footprints.<br>
-- <strong>Footprints:</strong> Original digitized points and metadata
-for each track.</p>
+</li>
+<li>
+<strong>Footprints:</strong> Original digitized points and metadata
+for each track.</li>
+</ul>
 <p>Additionally, if the dataset is extensive, users can utilize the
 <strong><code><a href="../reference/subset_track.html">subset_track()</a></code></strong> function to isolate
 specific tracks for focused analysis. This step helps avoid
@@ -214,25 +221,6 @@ trajectories.</p>
 exploration of the data. This includes:</p>
 <ul>
 <li>
-<p><strong>Parameter Calculation
-(<code><a href="../reference/track_param.html">track_param()</a></code>)</strong>:<br>
-Calculates essential movement parameters, including:</p>
-<ul>
-<li>Step lengths</li>
-<li>Turning angles</li>
-<li>Total distance and track length</li>
-<li>Sinuosity</li>
-<li>Straightness</li>
-<li>Velocity</li>
-</ul>
-</li>
-<li><p><strong>Velocity Calculation
-(<code><a href="../reference/velocity_track.html">velocity_track()</a></code>)</strong>:<br>
-Estimates velocities and relative stride lengths for each track,
-applying formulas based on empirical studies. This step is crucial for
-understanding speed dynamics and comparing them across different
-trackmakers or scenarios.</p></li>
-<li>
 <p><strong>Visual Inspection of Tracks
 (<code><a href="../reference/plot_track.html">plot_track()</a></code>)</strong>:<br>
 Generates visualizations of trackways and footprints to inspect their
@@ -243,6 +231,24 @@ overall structure. The function offers various modes:</p>
 <li>Plotting both footprints and tracks</li>
 </ul>
 </li>
+<li>
+<p><strong>Parameter Calculation
+(<code><a href="../reference/track_param.html">track_param()</a></code>)</strong>:<br>
+Calculates essential movement parameters, including:</p>
+<ul>
+<li>Step lengths</li>
+<li>Turning angles</li>
+<li>Total distance and track length</li>
+<li>Sinuosity</li>
+<li>Straightness</li>
+</ul>
+</li>
+<li><p><strong>Velocity Calculation
+(<code><a href="../reference/velocity_track.html">velocity_track()</a></code>)</strong>:<br>
+Estimates velocities and relative stride lengths for each track,
+applying formulas based on empirical studies. This step is crucial for
+understanding speed dynamics and comparing them across different
+trackmakers or scenarios.</p></li>
 <li><p><strong>Visualization of Velocity Patterns
 (<code><a href="../reference/plot_velocity.html">plot_velocity()</a></code>)</strong>:<br>
 Provides a detailed view of how velocity or relative stride length
@@ -269,24 +275,14 @@ the data before proceeding with formal statistical testing.</p>
 <strong>4. Testing Directional and Velocity Patterns</strong><a class="anchor" aria-label="anchor" href="#testing-directional-and-velocity-patterns"></a>
 </h3>
 <p>To assess whether tracks exhibit distinct movement patterns, the
-following statistical tests are applied:</p>
+following statistical tests can be applied:</p>
 <ul>
-<li>
-<strong>Testing Direction (<code><a href="../reference/test_direction.html">test_direction()</a></code>)</strong>:
-<ul>
-<li>Uses <strong>ANOVA</strong>, <strong>Kruskal-Wallis</strong>, or
-<strong>Generalized Linear Models (GLM)</strong> to compare mean
-directions across tracks.<br>
-</li>
-<li>Performs pairwise comparisons if necessary and generates statistical
-measures of similarity or divergence.</li>
-</ul>
-</li>
 <li>
 <strong>Testing Velocity (<code><a href="../reference/test_velocity.html">test_velocity()</a></code>)</strong>:
 <ul>
 <li>Compares mean velocities across tracks using ANOVA, Kruskal-Wallis,
 or GLM.</li>
+<li>Performs pairwise comparisons if necessary.</li>
 <li>Provides visualizations of velocity distributions across different
 tracks.</li>
 </ul>
@@ -298,6 +294,16 @@ tracks.</li>
 <li>Applies Spearman’s rank correlation to detect trends of
 <strong>acceleration</strong>, <strong>deceleration</strong>, or
 <strong>steady movement</strong> along each track.</li>
+</ul>
+</li>
+<li>
+<strong>Testing Direction (<code><a href="../reference/test_direction.html">test_direction()</a></code>)</strong>:
+<ul>
+<li>Uses <strong>ANOVA</strong>, <strong>Kruskal-Wallis</strong>, or
+<strong>Generalized Linear Models (GLM)</strong> to compare mean
+directions across tracks.<br>
+</li>
+<li>Performs pairwise comparisons if necessary.</li>
 </ul>
 </li>
 </ul>
@@ -327,13 +333,11 @@ walks, suitable for partially directed movement.<br>
 exploratory movement.</li>
 </ul>
 <p>These models can be <strong>informed by geological data</strong>
-(e.g., sedimentology, topography) to test the influence of environmental
-constraints on movement. For example, natural barriers or features
-inferred from geological evidence may restrict the range of simulated
-paths.</p>
-<p><strong>Visualization of Simulations
-(<code><a href="../reference/plot_sim.html">plot_sim()</a></code>)</strong>:<br>
-The <code><a href="../reference/plot_sim.html">plot_sim()</a></code> function overlays simulated tracks on the
+(e.g., sedimentology, paleogeomorphology, etc.) to test the influence of
+environmental constraints on movement. For example, natural barriers or
+features inferred from geological evidence may restrict the range of
+simulated paths.</p>
+<p>The <code><a href="../reference/plot_sim.html">plot_sim()</a></code> function overlays simulated tracks on the
 actual trajectories, allowing users to visually assess how well
 different models replicate observed track patterns. This visual
 comparison is essential for evaluating the realism of simulated
@@ -343,8 +347,12 @@ tracks.</p>
 <h3 id="comparing-simulated-and-empirical-tracks">
 <strong>6. Comparing Simulated and Empirical Tracks</strong><a class="anchor" aria-label="anchor" href="#comparing-simulated-and-empirical-tracks"></a>
 </h3>
-<p>To compare simulated tracks against real data, various similarity
-metrics and intersection tests are applied:</p>
+<p>The <strong>QuAnTeTrack</strong> package offers several functions
+aimed at comparing similarity and intersection metrics between two or
+more actual tracks. These metrics are then evaluated against simulated
+datasets to determine the probability of observing such similarity or
+intersection counts under scenarios of independent (non-coordinated)
+movement.</p>
 <ul>
 <li><p><strong>Dynamic Time Warping
 (<code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code>)</strong>:<br>
@@ -359,20 +367,18 @@ focusing on global rather than local alignment.</p></li>
 Identifies and counts unique intersections between tracks, which can
 indicate interaction or coordinated movement.</p></li>
 </ul>
-<p>The functions allow users to generate simulated datasets to compare
-against real tracks and assess statistical significance through
-permutation tests.</p>
 </div>
 <div class="section level3">
 <h3 id="combining-probability-metrics-combined_prob">
 <strong>7. Combining Probability Metrics
 (<code>combined_prob()</code>)</strong><a class="anchor" aria-label="anchor" href="#combining-probability-metrics-combined_prob"></a>
 </h3>
-<p>The <code><a href="../reference/combined_prob.html">combined_prob()</a></code> function integrates p-values from
-multiple similarity metrics and intersection tests to provide a more
-robust assessment of observed patterns. This approach offers an overall
-measure of significance, enhancing the reliability of the results by
-accounting for different aspects of similarity and interaction.</p>
+<p>The <code><a href="../reference/combined_prob.html">combined_prob()</a></code> function integrates
+<em>p</em>-values from multiple similarity metrics and intersection
+tests to provide a more robust assessment of observed patterns. This
+approach offers an overall measure of significance, enhancing the
+reliability of the results by accounting for different aspects of
+similarity and interaction.</p>
 </div>
 <div class="section level3">
 <h3 id="clustering-analysis-cluster_track">
@@ -434,7 +440,12 @@ trackway data</strong> using the <strong>QuAnTeTrack</strong> package.
 We will walk through the <strong>Paluxy River</strong> and the
 <strong>Mount Tom</strong> datasets, representing dinosaur tracks from
 the Paluxy River site (<strong>Farlow et al. (2012)</strong>) and the
-Mount Tom site (<strong>Ostrom (1972)</strong>), respectively.</p>
+Mount Tom site (<strong>Ostrom (1972)</strong>), respectively. Examples
+of <code>.tps</code> files of these datasets can be downloaded here:</p>
+<ul>
+<li><a href="../inst/extdata/PaluxyRiver.tps">Paluxy River</a></li>
+<li><a href="../inst/extdata/MountTom.tps">Mount Tom</a></li>
+</ul>
 </div>
 </div>
 <div class="section level2">
@@ -443,8 +454,8 @@ Mount Tom site (<strong>Ostrom (1972)</strong>), respectively.</p>
 </h2>
 <p>The <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong> function is a
 critical tool for converting raw <code>.TPS</code> files containing
-digitized trackway data into usable track objects within the
-<strong>QuAnTeTrack</strong> package. It is particularly useful for
+digitized trackway data into usable <code>track</code> objects within
+the <strong>QuAnTeTrack</strong> package. It is particularly useful for
 reconstructing trackways from footprints digitized using the <strong>TPS
 software suite</strong>, such as <strong>tpsUtil</strong> or
 <strong>tpsDig</strong>. This function reads the raw <code>.TPS</code>
@@ -504,17 +515,23 @@ package.</p>
 <p>Here, the TPS files (<strong>PaluxyRiver.tps</strong> and
 <strong>MountTom.tps</strong>) are loaded using the
 <code><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file()</a></code> function to ensure compatibility across
-systems. They are then converted to track objects using the
-<code><a href="../reference/tps_to_track.html">tps_to_track()</a></code> function. The <code>scale</code> argument is
-used to set the coordinate scaling factor. For the
-<strong>PaluxyRiver</strong> dataset, no footprints are missing, so the
-<code>missing</code> argument is set to <code>FALSE</code> and
-<code>NAs = NULL</code>. For the <strong>MountTom</strong> dataset, some
-footprints are missing, so the <code>missing</code> argument is set to
-<code>TRUE</code>, and the missing footprints are specified using the
-<code>NAs</code> matrix. Additionally, the <code>R.L.side</code>
-argument is provided to specify the side of the first footprint of each
-track (either “R” for right or “L” for left).</p>
+systems. This approach is necessary because these files are stored as
+<strong>internal data within the package</strong> (specifically, in the
+<code>inst/extdata/</code> folder). Using <code><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file()</a></code>
+ensures that the files can be accessed regardless of the user’s
+operating system or working directory, making the vignette fully
+portable and reproducible. They are then converted to <code>track</code>
+objects using the <code><a href="../reference/tps_to_track.html">tps_to_track()</a></code> function. The
+<code>scale</code> argument is used to set the coordinate scaling
+factor. For the <strong>PaluxyRiver</strong> dataset, no footprints are
+missing, so the <code>missing</code> argument is set to
+<code>FALSE</code> and <code>NAs = NULL</code>. For the
+<strong>MountTom</strong> dataset, some footprints are missing, so the
+<code>missing</code> argument is set to <code>TRUE</code>, and the
+missing footprints are specified using the <code>NAs</code> matrix.
+Additionally, the <code>R.L.side</code> argument is provided to specify
+the side of the first footprint of each track (either “R” for right or
+“L” for left).</p>
 <p>For users working with their own data, <strong>replace</strong>
 <code>system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")</code>
 and
@@ -581,37 +598,6 @@ by the <code>labels</code> argument. If labels are not provided, the
 function automatically generates labels based on track names. Users can
 adjust the label size using the <code>cex.l</code> argument and control
 the padding around the labels with the <code>box.p</code> argument.</p>
-<p>The <strong>function’s arguments</strong> are as follows:<br>
-- <strong><code>data</code></strong>: A ‘track’ R object containing two
-elements: <code>Trajectories</code> (interpolated tracks) and
-<code>Footprints</code> (original footprint data).<br>
-- <strong><code>plot</code></strong>: Specifies the type of plot to
-generate. Options are <code>"FootprintsTracks"</code> (default),
-<code>"Tracks"</code>, or <code>"Footprints"</code>.<br>
-- <strong><code>colours</code></strong>: A vector of colors for
-different tracks. If <code>NULL</code>, defaults to black.<br>
-- <strong><code>cex.f</code></strong>: Controls the size of footprint
-points. Default is <code>2.5</code>.<br>
-- <strong><code>shape.f</code></strong>: A vector specifying shapes for
-footprints in different tracks. Default is solid circle
-(<code>19</code>).<br>
-- <strong><code>alpha.f</code></strong>: Sets the transparency of
-footprint points. Default is <code>0.5</code>.<br>
-- <strong><code>cex.t</code></strong>: Controls the size of track lines.
-Default is <code>0.5</code>.<br>
-- <strong><code>alpha.t</code></strong>: Sets the transparency of track
-lines. Default is <code>1</code>.<br>
-- <strong><code>plot.labels</code></strong>: Logical argument indicating
-whether to display labels for each track. Default is
-<code>FALSE</code>.<br>
-- <strong><code>labels</code></strong>: A vector of labels for each
-track. If <code>NULL</code>, labels are automatically generated.<br>
-- <strong><code>box.p</code></strong>: Controls the padding around label
-boxes if <code>plot.labels = TRUE</code>.<br>
-- <strong><code>cex.l</code></strong>: Controls the size of labels.
-Default is <code>3.88</code>.<br>
-- <strong><code>alpha.l</code></strong>: Sets the transparency of the
-labels. Default is <code>0.5</code>.</p>
 <p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function returns a
 <code>ggplot</code> object, which can be further customized using
 additional <code>ggplot2</code> functions. This allows users to enhance
@@ -625,10 +611,10 @@ suitable for presentation or publication.</p>
 <h3 id="examples-of-usage-1">
 <strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-1"></a>
 </h3>
-<p>By default, <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> displays the
-complete track, including both footprints and interpolated trajectories.
-This is useful for getting a general overview of the track and its
-corresponding interpolated pathways.</p>
+<p>By default, <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> displays both
+footprints and interpolated trajectories. This is useful for getting a
+general overview of the track and its corresponding interpolated
+pathways.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
@@ -660,41 +646,14 @@ visualization helps analyze the continuity and pattern of movement.</p>
 <strong>Further Customizations</strong><a class="anchor" aria-label="anchor" href="#further-customizations"></a>
 </h3>
 <p>The <code><a href="../reference/plot_track.html">plot_track()</a></code> function also allows for various
-customizations to enhance visualization. Parameters that can be
-customized include:</p>
-<ul>
-<li>
-<code>plot.labels</code>: Logical value indicating whether to plot
-labels for each track.<br>
-</li>
-<li>
-<code>labels</code>: Custom labels to be displayed for the
-tracks.<br>
-</li>
-<li>
-<code>cex.l</code>: Size of the labels.<br>
-</li>
-<li>
-<code>box.p</code>: Size of the boxes around the labels.<br>
-</li>
-<li>
-<code>alpha.l</code>: Transparency level of the labels.<br>
-</li>
-<li>
-<code>colours</code>: Vector of colors to customize the footprints
-of different tracks.<br>
-</li>
-<li>
-<code>shape.f</code>: Vector specifying the shapes used for
-footprints.</li>
-</ul>
-<p>Below are some examples illustrating these customizations:</p>
+customizations to enhance visualization. Below are some examples
+illustrating these customizations:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Track"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">MountTom</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">MountTom</span>, plot.labels <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="va">labels</span>, cex.l <span class="op">=</span> <span class="fl">4</span>, box.p <span class="op">=</span> <span class="fl">0.3</span>, alpha.l <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot <span class="op">=</span> <span class="st">"Footprints"</span>, colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"orange"</span><span class="op">)</span>, shape.f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">18</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot <span class="op">=</span> <span class="st">"Footprints"</span>, colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"orange"</span><span class="op">)</span>, shape.f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">18</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-14-1.png" width="100%"></p>
 </div>
 </div>
@@ -704,57 +663,44 @@ footprints.</li>
 </h2>
 <p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function is designed
 to compute and print various parameters related to the movement patterns
-of tracks from a track object, which is a structured list generated by
-the <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong> function. This function
-is essential for extracting detailed information about the structure of
-individual tracks and their spatial relationships, providing key metrics
-that can be used for further analysis, comparison, and visualization.
-The <code><a href="../reference/track_param.html">track_param()</a></code> function uses several helper functions
-from the <code>trajr</code> package, which is commonly applied in animal
-movement analysis.</p>
+of tracks from a <code>track</code> object, which is a structured list
+generated by the <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong> function.
+This function is essential for extracting detailed information about the
+structure of individual tracks and their spatial relationships,
+providing key metrics that can be used for further analysis, comparison,
+and visualization. The <code><a href="../reference/track_param.html">track_param()</a></code> function uses several
+helper functions from the <code>trajr</code> package, which is commonly
+applied in animal movement analysis.</p>
 <p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function works by
 iterating over each trajectory within the provided track data and
 computing a set of movement-related parameters. The function calculates
 turning angles, step lengths, total distances covered, track lengths,
 and measures of sinuosity and straightness. These parameters are
-essential for understanding the locomotor patterns of the trackmakers
-and their efficiency of movement.</p>
-<p>The <strong>turning angles</strong> are calculated using the
-<code>TrajAngles()</code> function, providing a measure of directional
-changes at each step. The mean turning angle and standard deviation are
-also calculated to summarize overall turning behavior. The
-<strong>distance</strong> covered by the track is obtained using the
-<code>TrajDistance()</code> function, which measures the total
-straight-line distance between the start and end points of the track.
-The <strong>track length</strong> is calculated using the
+essential for understanding the locomotor patterns of the
+trackmakers.</p>
+<p>The turning angles are calculated using the <code>TrajAngles()</code>
+function, providing a measure of directional changes at each step. The
+mean turning angle and standard deviation are also calculated to
+summarize overall turning behavior. The distance covered by the track is
+obtained using the <code>TrajDistance()</code> function, which measures
+the total straight-line distance between the start and end points of the
+track. The track length is calculated using the
 <code>TrajLength()</code> function, which sums the distances between all
-consecutive points in the track.</p>
-<p>The <strong>step lengths</strong>, or the distances between
-consecutive points, are calculated with <code>TrajStepLengths()</code>.
-The function also computes the mean and standard deviation of these step
-lengths. The <strong>sinuosity</strong> of the track is calculated using
-the <code>TrajSinuosity2()</code> function, which quantifies how much a
-path deviates from a straight line. The measure of sinuosity is based on
-the method described by Benhamou (2004), which refines previous methods
-to provide more accurate estimates of tortuosity for paths with varying
-turning angles and step lengths. The <strong>straightness index</strong>
-is calculated with <code>TrajStraightness()</code>, defined as the ratio
-between the beeline distance (start to end) and the total path length.
-This measure is based on the work of Batschelet (1981) and provides
-insight into how direct or meandering the movement of the trackmaker
-was.</p>
-<p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function returns a
-list of lists, where each sublist contains the computed parameters for a
-corresponding track. The parameters include turning angles, mean turning
-angle, standard deviation of turning angles, distance, length, step
-lengths, mean step length, standard deviation of step length, sinuosity,
-and straightness. The reference direction for calculating angles is
-considered to be along the positive x-axis, with angles measured
-counterclockwise. The computed parameters are returned in a structured
-format, allowing users to further process or visualize the data as
-needed.</p>
-<p>Additionally, the sinuosity calculation is based on the following
-formula:
+consecutive points in the track. The step lengths, or the distances
+between consecutive points, are calculated with
+<code>TrajStepLengths()</code>. The function also computes the mean and
+standard deviation of these step lengths. The sinuosity of the track is
+calculated using the <code>TrajSinuosity2()</code> function, which
+quantifies how much a path deviates from a straight line. The measure of
+sinuosity is based on the method described by Benhamou (2004), which
+refines previous methods to provide more accurate estimates of
+tortuosity for paths with varying turning angles and step lengths. The
+straightness index is calculated with <code>TrajStraightness()</code>,
+defined as the ratio between the beeline distance (start to end) and the
+total path length. This measure is based on the work of Batschelet
+(1981) and provides insight into how direct or meandering the movement
+of the trackmaker was.</p>
+<p>The sinuosity calculation is based on the following formula:
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">[</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>c</mi></mrow><mrow><mn>1</mn><mo>−</mo><mi>c</mi></mrow></mfrac><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo>−</mo><mn>0.5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">
 S = 2 \left[ p \left( \frac{1 + c}{1 - c} + b^2 \right) \right]^{-0.5}
 </annotation></semantics></math> where: -
@@ -764,7 +710,7 @@ is the mean step length (in meters), -
 is the mean cosine of turning angles (in radians), and -
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
 is the coefficient of variation of the step length (in meters).</p>
-<p>The <strong>straightness index</strong> is calculated as the ratio
+<p>The straightness index is calculated as the ratio
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mi>L</mi></mrow><annotation encoding="application/x-tex">D/L</annotation></semantics></math>,
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
@@ -775,9 +721,23 @@ is the total path length. This index is useful for comparing the
 efficiency of directed walks but is not suitable for random
 trajectories, where the index tends towards zero with increasing
 steps.</p>
+<p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function returns a
+list of lists, where each sublist contains the computed parameters for a
+corresponding track. The parameters include turning angles, mean turning
+angle, standard deviation of turning angles, distance, length, step
+lengths, mean step length, standard deviation of step length, sinuosity,
+and straightness. The reference direction for calculating angles is
+considered to be along the positive x-axis, with angles measured
+counterclockwise. The computed parameters are returned in a structured
+format, allowing users to further process or visualize the data as
+needed.</p>
 <p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function provides
 valuable insights into the structure and efficiency of trackmaker
 movements, making it a crucial tool for analyzing fossil trackways.</p>
+<div class="section level3">
+<h3 id="examples-of-usage-2">
+<strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-2"></a>
+</h3>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_param.html">track_param</a></span><span class="op">(</span><span class="va">PaluxyRiver</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; $Track_1</span></span>
@@ -1593,6 +1553,7 @@ movements, making it a crucial tool for analyzing fossil trackways.</p>
 <span><span class="co">#&gt; $Track_23$Straightness</span></span>
 <span><span class="co">#&gt; [1] 1</span></span></code></pre>
 </div>
+</div>
 <div class="section level2">
 <h2 id="plotting-direction-data">
 <strong>Plotting Direction Data</strong><a class="anchor" aria-label="anchor" href="#plotting-direction-data"></a>
@@ -1633,8 +1594,8 @@ high-quality visualizations with extensive customization options, making
 this function a versatile tool for analyzing trackway direction
 data.</p>
 <div class="section level3">
-<h3 id="examples-of-usage-2">
-<strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-2"></a>
+<h3 id="examples-of-usage-3">
+<strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-3"></a>
 </h3>
 <p>Boxplots provide a summary of the distribution of directions,
 including median, quartiles, and outliers. This visualization is useful
@@ -1771,8 +1732,8 @@ generalized linear model analyses makes it versatile for a wide range of
 datasets, even when assumptions of normality or homogeneity of variances
 are violated.</p>
 <div class="section level3">
-<h3 id="examples-of-usage-3">
-<strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-3"></a>
+<h3 id="examples-of-usage-4">
+<strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-4"></a>
 </h3>
 <p>Testing with ANOVA.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
@@ -4817,8 +4778,8 @@ relative stride length.</p>
 ancient track-makers from their footprints and evaluating their
 locomotion style (walking, trotting, or running).</p>
 <div class="section level3">
-<h3 id="examples-of-usage-4">
-<strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-4"></a>
+<h3 id="examples-of-usage-5">
+<strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-5"></a>
 </h3>
 <p>Calculate velocities for the MountTom dataset (Method A).</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
@@ -6291,12 +6252,22 @@ testing.</p>
 </div>
 <div class="section level2">
 <h2 id="references">
-<strong>References:</strong><a class="anchor" aria-label="anchor" href="#references"></a>
+<strong>References</strong><a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <ul>
 <li>
 <strong>Alexander, R. M. (1976).</strong> Estimates of speeds of
 dinosaurs. <em>Nature</em>, 261(5556), 129-130.<br>
+</li>
+<li>
+<strong>Batschelet, E. (1981).</strong> Circular statistics in
+biology. <em>Academic Press</em>, 388 pp.<br>
+</li>
+<li>
+<strong>Benhamou, S. (2004).</strong> How to reliably estimate the
+tortuosity of an animal’s path: straightness, sinuosity, or fractal
+dimension?. <em>Journal of Theoretical Biology</em>, 229(2),
+209-220.<br>
 </li>
 <li>
 <strong>Farlow, J. O., O’Brien, M., Kuban, G. J., Dattilo, B. F.,

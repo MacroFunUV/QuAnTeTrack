@@ -251,19 +251,15 @@ This vignette demonstrates how to **load, process, and analyze trackway data** u
 
 ## **Loading and Converting Data**  
 
-The **`tps_to_track()`** function is a critical tool for converting raw `.TPS` files containing digitized trackway data into usable `track` objects within the **QuAnTeTrack** package. It is particularly useful for reconstructing trackways from footprints digitized using the **TPS software suite**, such as **tpsUtil** or **tpsDig**. This function reads the raw `.TPS` files, extracts coordinates, and transforms them into structured `track` R objects for further analysis.
+The **`tps_to_track()`** function is an essential component of the **QuAnTeTrack** package, designed to transform raw **`.TPS` files** containing digitized trackway data into structured **`track` objects**. This tool is particularly useful for reconstructing trackways from footprints digitized using the **TPS software suite**, such as **tpsUtil** and **tpsDig**. The function reads the raw **`.TPS` files**, extracts the coordinate data, and processes it to generate **`track` objects** that are compatible with the analytical tools provided by **QuAnTeTrack**.
 
-The **`tps_to_track()`** function reads `.TPS` files where each track is represented by a series of (x, y) coordinates saved as different images. It then processes these data to create a set of trajectory coordinates by calculating the midpoints between consecutive footprints. These trajectories represent the reconstructed pathways of the trackmaker, allowing users to analyze the overall movement patterns. If some footprints are missing, the function can interpolate them based on the position of adjacent footprints and the specified side (left or right) of the first footprint. 
+The **`tps_to_track()`** function reads **`.TPS` files** where each track is represented by a series of **(x, y) coordinates** stored as separate images. These data points are then processed to generate **trajectory coordinates** by calculating the **midpoints between consecutive footprints**. These trajectories serve as reconstructed pathways, allowing users to analyze overall movement patterns. When missing footprints are encountered, the function can interpolate their positions based on the locations of adjacent footprints and the specified side (left or right) of the initial footprint.
 
-The function accepts several arguments to handle different aspects of the data. The **`file`** argument specifies the path to the `.TPS` file containing the digitized footprints. The **`scale`** argument is a numeric value that defines the scale factor (meters per pixel) to convert coordinates to real-world measurements. The **`missing`** argument indicates whether the dataset contains missing footprints that need interpolation (`TRUE` or `FALSE`). The **`NAs`** argument is a matrix that specifies the missing footprints to be interpolated, where each row indicates the track number and the position of the missing footprint. The **`R.L.side`** argument is a character vector that indicates whether the first footprint of each track is from the left or right side. This information is essential when handling tracks with missing footprints.
+Several arguments are provided to customize data handling. The **`file`** argument specifies the path to the `.TPS` file, while the **`scale`** argument allows users to define a scale factor (in **meters per pixel**) to convert coordinates to real-world measurements. To account for missing footprints, the **`missing`** argument specifies whether interpolation is required, while the **`NAs`** argument provides a matrix detailing which footprints need interpolation. Additionally, the **`R.L.side`** argument identifies whether the first footprint of each track belongs to the **left or right side**, which is essential when dealing with incomplete trackways.
 
-The **`tps_to_track()`** function generates a structured `track` R object consisting of two elements: **Trajectories** and **Footprints**. The **`Trajectories`** element is a list of interpolated trajectories representing the reconstructed pathways of the trackmaker. Each trajectory is calculated as the midpoint between consecutive footprints. The **`Footprints`** element is a list of data frames containing the original footprint coordinates, associated metadata (such as image reference and ID), and a marker indicating whether each footprint is actual or inferred.
+The function generates a **`track` object** consisting of two main components: **`Trajectories`** and **`Footprints`**. The **`Trajectories`** element contains a list of interpolated trajectories, where each trajectory represents a series of midpoints calculated between consecutive footprints. The **`Footprints`** element comprises a list of data frames with the original footprint coordinates, associated metadata (such as image reference and ID), and an indicator specifying whether each footprint is actual or inferred.
 
-The **returned `track` R object** includes:  
-- **Trajectories:** A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.  
-- **Footprints:** A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.  
-
-This function provides a comprehensive approach to converting raw `.TPS` files into structured data objects, making it possible to apply further analyses using the **QuAnTeTrack** package.
+The resulting **`track` object** provides a comprehensive framework for organizing digitized trackway data, making it compatible with the various analytical functions within the **QuAnTeTrack** package. This structured data format enables users to perform advanced analyses such as calculating movement parameters, testing hypotheses about trackmaker behavior, and comparing tracks using similarity metrics. By transforming raw data into structured objects, the **`tps_to_track()`** function serves as a foundational step in the broader analytical pipeline provided by **QuAnTeTrack**.
 
 ### **Examples of Usage:**  
 Here, the TPS files (**PaluxyRiver.tps** and **MountTom.tps**) are loaded using the `system.file()` function to ensure compatibility across systems. This approach is necessary because these files are stored as **internal data within the package** (specifically, in the `inst/extdata/` folder). Using `system.file()` ensures that the files can be accessed regardless of the user's operating system or working directory, making the vignette fully portable and reproducible. They are then converted to `track` objects using the `tps_to_track()` function. The `scale` argument is used to set the coordinate scaling factor. For the **PaluxyRiver** dataset, no footprints are missing, so the `missing` argument is set to `FALSE` and `NAs = NULL`. For the **MountTom** dataset, some footprints are missing, so the `missing` argument is set to `TRUE`, and the missing footprints are specified using the `NAs` matrix. Additionally, the `R.L.side` argument is provided to specify the side of the first footprint of each track (either "R" for right or "L" for left).
@@ -294,17 +290,17 @@ MountTom <- tps_to_track(
 
 ## **Plotting Tracks**  
 
-The **`plot_track()`** function is a versatile tool designed to visualize track and footprint data in various ways, providing a flexible approach to examining and presenting trackway datasets. This function generates customizable plots using the `ggplot2` package, allowing users to inspect individual tracks, footprints, or a combination of both. By adjusting various plotting parameters, users can tailor their visualizations to highlight specific aspects of the dataset, such as individual track paths, footprint shapes, and colors.
+The **`plot_track()`** function is a versatile tool designed to visualize **track and footprint data** in various ways, providing a flexible approach to examining and presenting trackway datasets. This function generates customizable plots using the **`ggplot2`** package, allowing users to inspect individual tracks, footprints, or a combination of both. By adjusting various plotting parameters, users can tailor their visualizations to highlight specific aspects of the dataset, such as **individual track paths**, **footprint shapes**, and **colors**.
 
-The **`plot_track()`** function allows users to choose between three plotting modes: plotting only the footprints, only the interpolated trackways, or a combination of both. This is controlled by the `plot` argument, which can be set to `"Footprints"`, `"Tracks"`, or `"FootprintsTracks"` (default). The footprints and tracks are plotted using different layers, with footprints represented by points and tracks represented by lines.
+The **`plot_track()`** function allows users to choose between three plotting modes: plotting only the **footprints**, only the **interpolated trackways**, or a **combination of both**. This is controlled by the **`plot`** argument, which can be set to **`"Footprints"`**, **`"Tracks"`**, or **`"FootprintsTracks"`** (default). The footprints and tracks are plotted using different layers, with footprints represented by **points** and tracks represented by **lines**.
 
-Additional customization options include changing colors, sizes, shapes, and transparency of the plotted elements. Users can provide a vector of colors via the `colours` argument, which allows different tracks to be plotted in different colors. The `cex.f` and `cex.t` arguments control the sizes of footprint points and track lines, respectively. The `shape.f` argument allows users to specify the shapes of footprint points, while the `alpha.f`, `alpha.t`, and `alpha.l` arguments control the transparency of footprints, track lines, and labels, respectively.
+Additional customization options include changing **colors**, **sizes**, **shapes**, and **transparency** of the plotted elements. Users can provide a vector of colors via the **`colours`** argument, which allows different tracks to be plotted in different colors. The **`cex.f`** and **`cex.t`** arguments control the sizes of footprint points and track lines, respectively. The **`shape.f`** argument allows users to specify the shapes of footprint points, while the **`alpha.f`**, **`alpha.t`**, and **`alpha.l`** arguments control the transparency of footprints, track lines, and labels, respectively.
 
-The **`plot_track()`** function also supports the addition of labels to individual tracks. If the `plot.labels` argument is set to `TRUE`, labels are displayed at the start of each track, with the label text determined by the `labels` argument. If labels are not provided, the function automatically generates labels based on track names. Users can adjust the label size using the `cex.l` argument and control the padding around the labels with the `box.p` argument. 
+The **`plot_track()`** function also supports the addition of **labels** to individual tracks. If the **`plot.labels`** argument is set to **`TRUE`**, labels are displayed at the start of each track, with the label text determined by the **`labels`** argument. If labels are not provided, the function automatically generates labels based on track names. Users can adjust the label size using the **`cex.l`** argument and control the padding around the labels with the **`box.p`** argument. 
 
-The **`plot_track()`** function returns a `ggplot` object, which can be further customized using additional `ggplot2` functions. This allows users to enhance their plots with additional layers, themes, and annotations as needed.
+The **`plot_track()`** function returns a **`ggplot`** object, which can be further customized using additional **`ggplot2`** functions. This allows users to enhance their plots with additional layers, themes, and annotations as needed.
 
-The function is especially useful for comparing multiple trackways at once, providing a comprehensive view of track distribution, direction, and spacing. It also allows users to produce clean visualizations suitable for presentation or publication.
+The function is especially useful for comparing **multiple trackways at once**, providing a comprehensive view of **track distribution**, **direction**, and **spacing**. It also allows users to produce **clean visualizations** suitable for **presentation or publication**.
 
 ### **Examples of Usage:**  
  
@@ -342,7 +338,7 @@ plot_track(MountTom, plot = "Tracks")
 
 ### **Further Customizations**  
 
-The `plot_track()` function also allows for various customizations to enhance visualization. Below are some examples illustrating these customizations:  
+The **`plot_track()`** function also allows for **various customizations** to enhance visualization. Below are some examples illustrating these customizations:  
 
 ```{r echo=TRUE}
 labels <- paste("Track", seq_along(MountTom[[1]]))
@@ -356,26 +352,32 @@ plot_track(PaluxyRiver, plot = "Footprints", colours = c("red", "orange"), shape
 
 ## **Extracting Track Parameters**  
 
-The **`track_param()`** function is designed to compute and print various parameters related to the movement patterns of tracks from a `track` object, which is a structured list generated by the **`tps_to_track()`** function. This function is essential for extracting detailed information about the structure of individual tracks and their spatial relationships, providing key metrics that can be used for further analysis, comparison, and visualization. The `track_param()` function uses several helper functions from the `trajr` package, which is commonly applied in animal movement analysis.
+The **`track_param()`** function is designed to compute and display various parameters related to the **movement patterns of tracks** from a **`track` object**, which is a structured list generated by the **`tps_to_track()`** function. This function is essential for extracting detailed information about the **structure of individual tracks** and their **spatial relationships**, providing key metrics that can be used for further analysis, comparison, and visualization. The **`track_param()`** function utilizes several helper functions from the **`trajr`** package, which is commonly applied in **animal movement analysis**.
 
-The **`track_param()`** function works by iterating over each trajectory within the provided track data and computing a set of movement-related parameters. The function calculates turning angles, step lengths, total distances covered, track lengths, and measures of sinuosity and straightness. These parameters are essential for understanding the locomotor patterns of the trackmakers.
+The **`track_param()`** function works by iterating over each trajectory within the provided track data and computing a set of **movement-related parameters**. These include **turning angles**, **step lengths**, **total distances covered**, **track lengths**, and measures of **sinuosity and straightness**. Such parameters are crucial for understanding the **locomotor patterns of trackmakers** and assessing their **movement efficiency**.
 
-The turning angles are calculated using the `TrajAngles()` function, providing a measure of directional changes at each step. The mean turning angle and standard deviation are also calculated to summarize overall turning behavior. The distance covered by the track is obtained using the `TrajDistance()` function, which measures the total straight-line distance between the start and end points of the track. The track length is calculated using the `TrajLength()` function, which sums the distances between all consecutive points in the track. The step lengths, or the distances between consecutive points, are calculated with `TrajStepLengths()`. The function also computes the mean and standard deviation of these step lengths. The sinuosity of the track is calculated using the `TrajSinuosity2()` function, which quantifies how much a path deviates from a straight line. The measure of sinuosity is based on the method described by Benhamou (2004), which refines previous methods to provide more accurate estimates of tortuosity for paths with varying turning angles and step lengths. The straightness index is calculated with `TrajStraightness()`, defined as the ratio between the beeline distance (start to end) and the total path length. This measure is based on the work of Batschelet (1981) and provides insight into how direct or meandering the movement of the trackmaker was.
+The **turning angles** are calculated using the **`TrajAngles()`** function, providing a measure of **directional changes** at each step. The **mean turning angle** and **standard deviation** are also calculated to summarize overall turning behavior. The **distance covered by the track** is obtained using the **`TrajDistance()`** function, which measures the total **straight-line distance** between the start and end points of the track. The **track length** is calculated using the **`TrajLength()`** function, which sums the distances between all consecutive points in the track. The **step lengths**, representing the distances between consecutive points, are calculated with **`TrajStepLengths()`**. The function also computes the **mean and standard deviation of these step lengths**. 
 
-The sinuosity calculation is based on the following formula:
+The **sinuosity** of the track is calculated using the **`TrajSinuosity2()`** function, which quantifies how much a path deviates from a straight line. This measure of sinuosity is based on the method described by **Benhamou (2004)**, which refines previous methods to provide more accurate estimates of tortuosity for paths with varying turning angles and step lengths. The **straightness index** is calculated with **`TrajStraightness()`**, defined as the ratio between the beeline distance (start to end) and the total path length. This measure is based on the work of **Batschelet (1981)** and provides insight into how direct or meandering the movement of the trackmaker was.
+
+The calculation of **sinuosity** is based on the formula:  
 \[
 S = 2 \left[ p \left( \frac{1 + c}{1 - c} + b^2 \right) \right]^{-0.5}
 \]
+
 where:
-- \( p \) is the mean step length (in meters),
-- \( c \) is the mean cosine of turning angles (in radians), and
-- \( b \) is the coefficient of variation of the step length (in meters).  
 
-The straightness index is calculated as the ratio \( D/L \), where \( D \) is the beeline distance between the first and last points of the trajectory, and \( L \) is the total path length. This index is useful for comparing the efficiency of directed walks but is not suitable for random trajectories, where the index tends towards zero with increasing steps.
+- **\( p \)** is the mean step length (in meters),
+- **\( c \)** is the mean cosine of turning angles (in radians), and
+- **\( b \)** is the coefficient of variation of the step length (in meters).  
 
-The **`track_param()`** function returns a list of lists, where each sublist contains the computed parameters for a corresponding track. The parameters include turning angles, mean turning angle, standard deviation of turning angles, distance, length, step lengths, mean step length, standard deviation of step length, sinuosity, and straightness. The reference direction for calculating angles is considered to be along the positive x-axis, with angles measured counterclockwise. The computed parameters are returned in a structured format, allowing users to further process or visualize the data as needed.
+The **straightness index** is calculated as the ratio **\( D/L \)**, where **\( D \)** is the beeline distance between the first and last points of the trajectory, and **\( L \)** is the total path length. This index is particularly useful for comparing the efficiency of directed walks, but it is not suitable for random trajectories, where the index tends towards zero with increasing steps.
 
-The **`track_param()`** function provides valuable insights into the structure and efficiency of trackmaker movements, making it a crucial tool for analyzing fossil trackways.
+The **`track_param()`** function returns a **list of lists**, where each sublist contains the **computed parameters** for a corresponding track. The parameters include: **turning angles**, **mean turning angle**, **standard deviation of turning angles**, **distance**, **length**, **step lengths**, **mean step length**, **standard deviation of step length**, **sinuosity** and **straightness**.  
+
+The **reference direction for calculating angles** is considered to be along the positive x-axis, with angles measured counterclockwise. The computed parameters are returned in a structured format, allowing users to further process or visualize the data as needed.
+
+The **`track_param()`** function provides valuable insights into the **structure and efficiency of trackmaker movements**, making it a crucial tool for analyzing **fossil trackways**.
 
 ### **Examples of Usage:**
 ```{r, eval=FALSE}
@@ -397,16 +399,15 @@ params_mount <- track_param(MountTom)
 
 ## **Plotting Direction Data**  
 
-The **`plot_direction()`** function generates various types of plots to visualize direction data from `track` R objects. It provides users with the ability to create boxplots, polar histograms of step directions, polar histograms of average directions per track, and faceted polar histograms. The plots can be customized by adjusting parameters such as angle range for binning, positioning of y-axis labels, and specifying manual breaks for the y-axis.
+The **`plot_direction()`** function provides a comprehensive approach to visualizing **direction data** from **`track` R objects**. It allows users to generate various types of plots to effectively compare and examine directionality within their datasets. The available plotting styles are highly customizable, making this function versatile for different types of directional analysis. 
 
-This function supports multiple plotting styles through the `plot_type` argument, allowing users to compare and visualize direction data effectively. The **`plot_type`** argument accepts four options:  
+This function supports four primary **plotting styles**, specified by the **`plot_type`** argument. The **`"boxplot"`** option displays the distribution of step directions across tracks as boxplots, providing an overview of directionality variations by showing medians, quartiles, and potential outliers. The **`"polar_steps"`** option generates **polar histograms** that visualize the frequency of steps within various directional bins, making it particularly useful for examining the spread and density of step directions around a central point and highlighting dominant movement trends. The **`"polar_average"`** style also produces **polar histograms**, but it focuses on average directions per track rather than individual steps. This summarization approach offers a simplified comparison of overall trends across multiple tracks. Finally, the **`"faceted"`** option creates **faceted polar histograms** where each track is displayed separately within a grid of plots, providing a clear visual comparison of step directions across tracks and making it especially effective for analyzing individual trackmaker behaviors. 
 
-1. **"boxplot"** - Displays the distribution of step directions across tracks as boxplots.  
-2. **"polar_steps"** - Generates polar histograms showing the frequency of steps in various directional bins.  
-3. **"polar_average"** - Creates polar histograms showing the frequency of average directions per track.  
-4. **"faceted"** - Produces faceted polar histograms of step directions for each track individually.  
+The **`plot_direction()`** function allows users to customize the visualizations by adjusting parameters such as the **angle range for binning**, **positioning of y-axis labels**, and specifying **manual breaks for the y-axis**. This flexibility ensures that the user can tailor the output to suit specific analytical needs. 
 
-The **`plot_direction()`** function returns a `ggplot` object displaying the specified plot type. The use of the **`ggplot2`** package provides high-quality visualizations with extensive customization options, making this function a versatile tool for analyzing trackway direction data.
+By generating high-quality visualizations as **`ggplot` objects**, the **`plot_direction()`** function allows for further customization using additional functions from the **`ggplot2`** package. This integration makes it easy to enhance plots with annotations, themes, and other graphical elements. 
+
+The function is particularly useful for analyzing **trackway direction data**, providing valuable insights into **movement patterns**, **orientation preferences**, and **potential group behavior**.
 
 ### **Examples of Usage:**
 Boxplots provide a summary of the distribution of directions, including median, quartiles, and outliers. This visualization is useful for comparing general directionality across tracks.  
@@ -453,14 +454,14 @@ plot_direction(MountTom, plot_type = "faceted")
 ```
 
 ### **Further Customizations**  
-The **`plot_direction()`** function offers several customization options to enhance the visualization of your data:  
+The **`plot_direction()`** function offers several *customization options* to enhance the visualization of your data:  
 
-- **`y_breaks_manual`**: Define custom breaks on the radial axis for `polar_average` plots. Example:  
+- **`y_breaks_manual`**: Define custom breaks on the radial axis for `polar_average` plots.  
 ```{r echo=TRUE, results='hide'}
 plot_direction(PaluxyRiver, plot_type = "polar_average", y_breaks_manual = c(1, 2))
 ```
 
-- **`y_labels_position`**: Adjust the position of y-axis labels. This can be helpful when fine-tuning polar plots for presentation. Example:  
+- **`y_labels_position`**: Adjust the position of y-axis labels. This can be helpful when fine-tuning polar plots for presentation.  
 ```{r echo=TRUE, results='hide'}
 plot_direction(PaluxyRiver, plot_type = "polar_steps", y_labels_position = -90)
 ```
@@ -469,29 +470,18 @@ plot_direction(PaluxyRiver, plot_type = "polar_steps", y_labels_position = -90)
 
 These customization options allow you to tailor your plots to best fit your analytical needs and presentation preferences.  
 
-
 ## **Testing for Differences in Direction Means**  
 
-The **`test_direction()`** function evaluates differences in mean direction across different tracks within a `track` R object. It provides three statistical methods: **ANOVA**, **Kruskal-Wallis test**, and **Generalized Linear Models (GLM)**, allowing users to compare directional data and identify significant differences between tracks. The function also includes diagnostic tests to check assumptions of normality and homogeneity of variances before proceeding with the analysis. When more than two tracks are present, it performs pairwise comparisons to identify specific differences between tracks. 
+The **`test_direction()`** function provides a powerful statistical framework for comparing **mean directions** across different tracks within a **`track` R object**. It offers three distinct methods for this purpose: **ANOVA**, **Kruskal-Wallis test**, and **Generalized Linear Models (GLM)**, ensuring robust analysis even when assumptions about data distribution and variance homogeneity are violated. The function requires that each track contains more than **three footprints** to be included in the analysis, as statistical tests for comparing mean directions require a sufficient sample size to generate meaningful results. This threshold ensures that the comparisons are statistically reliable and robust. 
 
-The **`test_direction()`** function requires that each track contains more than three footprints to be included in the analysis. Tracks with three or fewer footprints are removed because statistical tests for comparing mean directions rely on having a sufficient number of data points to provide meaningful results. With only three or fewer footprints, the sample size is too small to accurately estimate mean direction and variability, making statistical comparisons unreliable. This threshold ensures that the results are statistically robust and meaningful.
+When using the **ANOVA** method, the function first checks the **normality of the data** through the **Shapiro-Wilk test** and assesses **homogeneity of variances** using **Levene’s test**. If these assumptions are violated, the user is advised to consider the **Kruskal-Wallis** or **GLM** methods instead. The **ANOVA** method compares **mean directions across tracks**, and if significant differences are detected, **Tukey’s HSD test** is applied to perform **post-hoc pairwise comparisons**. The **Kruskal-Wallis** test, in contrast, offers a non-parametric approach that compares **median directions** across tracks and applies **Dunn's test** for pairwise comparisons if significant differences are found. This method is particularly suitable when data do not meet the assumptions required for parametric tests. Alternatively, if the **GLM** method is selected, the function applies a **Generalized Linear Model (GLM)** with a **Gaussian family** to compare **mean directions**. The **`emmeans` package** is then used to compute **pairwise comparisons**, with adjustments for multiple comparisons following **Tukey’s method**, offering a flexible approach when dealing with complex data distributions or deviations from normality.
 
-If `"ANOVA"` is selected, the function checks for normality (using the **Shapiro-Wilk test**) and homogeneity of variances (using **Levene’s test**). If assumptions are violated, it issues warnings suggesting the use of `"Kruskal-Wallis"` or `"GLM"` instead. `"ANOVA"` compares mean directions across tracks, and if significant differences are detected, **Tukey’s HSD** is used for post-hoc pairwise comparisons. 
+The **`test_direction()`** function returns a detailed set of results. It provides a **normality results matrix** containing the **Shapiro-Wilk test statistic and p-value** for each track, allowing the user to evaluate whether the data follows a normal distribution. The function also outputs the result of **Levene’s test**, including the **p-value** used to assess whether variances across tracks are homogeneous. When the **ANOVA** method is selected, the function delivers the **ANOVA table** along with **Tukey HSD post-hoc results**, enabling a thorough examination of differences between groups. For the **Kruskal-Wallis** test, the function returns the overall test result alongside **Dunn’s test post-hoc comparisons**, providing a non-parametric alternative for analyzing differences in central tendency. In the case of **GLM**, the output includes a summary of the model fit along with the **pairwise comparisons** calculated via the **`emmeans` package**, providing an efficient method to detect significant differences while accommodating more complex statistical models. 
 
-When `"Kruskal-Wallis"` is chosen, the function performs a **non-parametric test** that compares median directions across tracks. If significant differences are detected, **Dunn's test** is used for post-hoc pairwise comparisons. 
-If `"GLM"` is specified, the function uses a **Generalized Linear Model (GLM)** with a Gaussian family to compare mean directions across tracks. Pairwise comparisons are conducted using the `emmeans` package, which computes differences between group means and adjusts for multiple comparisons using **Tukey’s method**. This approach is useful when the data does not meet the assumptions of ANOVA but still requires a parametric approach. 
-
-The function returns a list of results that includes:  
-- **`normality_results`**: A matrix containing the test statistic and p-value for the Shapiro-Wilk normality test for each track.  
-- **`homogeneity_test`**: The result of Levene's test, including the p-value for testing homogeneity of variances across tracks.  
-- **`ANOVA`** (if selected): A list containing the ANOVA table and **Tukey HSD** post-hoc results.  
-- **`Kruskal_Wallis`** (if selected): A list containing the Kruskal-Wallis test result and **Dunn's test** post-hoc results.  
-- **`GLM`** (if selected): A summary of the **GLM fit** and pairwise comparisons from the `emmeans` package.  
-
-The **`test_direction()`** function provides a comprehensive statistical framework to compare directional data from different tracks. Its ability to perform parametric, non-parametric, and generalized linear model analyses makes it versatile for a wide range of datasets, even when assumptions of normality or homogeneity of variances are violated.
+The flexibility and comprehensiveness of the **`test_direction()`** function make it a versatile tool for comparing **directional data** across multiple tracks. Its ability to perform **parametric, non-parametric, and generalized linear model analyses** ensures that researchers can robustly test hypotheses related to **movement patterns, group behavior, and ecological interactions**, regardless of the underlying data structure.
 
 ### **Examples of Usage:**
-Testing with ANOVA. 
+Testing for differences in direction with ANOVA. 
 ```{r, eval=FALSE}
 test_direction(PaluxyRiver, analysis = "ANOVA")
 ```
@@ -508,7 +498,7 @@ test_direction(MountTom, analysis = "ANOVA")
 test_direction(MountTom, analysis = "ANOVA")
 ```
 
-Testing with Kruskal-Wallis. 
+Testing for differences in direction with Kruskal-Wallis. 
 ```{r, eval=FALSE}
 test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
 ```
@@ -525,7 +515,7 @@ test_direction(MountTom, analysis = "Kruskal-Wallis")
 test_direction(MountTom, analysis = "Kruskal-Wallis")
 ```
 
-Testing with Generalized Linear Model. 
+Testing for differences in direction with Generalized Linear Model. 
 ```{r, eval=FALSE}
 test_direction(PaluxyRiver, analysis = "GLM")
 ```
@@ -545,48 +535,51 @@ test_direction(MountTom, analysis = "GLM")
 
 ## **Calculating Velocities and Relative Stride Lengths**  
 
-The **`velocity_track()`** function calculates the velocities and relative stride lengths for each step within a series of tracks. It requires a 'track' R object as input, which contains both trajectories and footprints, and uses the height at the hip for each track maker to estimate speed. The function supports two calculation methods: Method A (Alexander, 1976) and Method B (Ruiz & Torices, 2013), which are specified via the `method` argument. By default, Method A is applied to all tracks if no method is specified. The gravitational acceleration, `G`, is set to 9.8 m/s^{2} by default but can be modified if needed.
+## **Calculating Velocities and Relative Stride Lengths**  
 
-This function works by first extracting the track data and then calculating the Euclidean distance between consecutive footprints to determine the stride length. For each step, the velocity is calculated using one of the two methods.
+The **`velocity_track()`** function calculates the **velocities** and **relative stride lengths** for each step within a series of tracks. It requires a **'track' R object** as input, which contains both **trajectories and footprints**, and uses the **height at the hip** for each track maker to estimate speed. The function supports two calculation methods: **Method A (Alexander, 1976)** and **Method B (Ruiz & Torices, 2013)**, which are specified via the `method` argument. By default, **Method A** is applied to all tracks if no method is specified. The **gravitational acceleration**, `G`, is set to **9.8 m/s^{2}** by default but can be modified if needed.  
 
-Method A applies the formula (Alexander, 1976):
+This function works by first extracting the track data and then calculating the **Euclidean distance** between consecutive footprints to determine the **stride length**. For each step, the **velocity** is calculated using one of the two methods.  
+
+**Method A** applies the formula (Alexander, 1976):  
 
 \[
 v = 0.25 \cdot \sqrt{G} \cdot S^{1.67} \cdot H^{-1.17}
 \]
 
-where \( v \) is the velocity (m/s), \( G \) is gravity (m/s^{2}), \( S \) is stride length (m), and \( H \) is the hip height (m). This method is based on empirical studies that model the relationship between stride length, body size, and speed for general terrestrial vertebrates. The coefficients \( 0.25 \), \( 1.67 \), and \( -1.17 \) have been derived from studies focused on scaling relationships in bipedal and quadrupedal animals.
+where \( v \) is the **velocity (m/s)**, \( G \) is **gravity (m/s^{2})**, \( S \) is **stride length (m)**, and \( H \) is the **hip height (m)**. This method is based on empirical studies that model the relationship between stride length, body size, and speed for general terrestrial vertebrates. The coefficients **\( 0.25 \)**, **\( 1.67 \)**, and **\( -1.17 \)** have been derived from studies focused on scaling relationships in **bipedal and quadrupedal animals**.  
 
-Method B follows a similar approach but with a coefficient of \( 0.226 \) instead of \( 0.25 \), which provides a refinement for bipedal locomotion. The formula is (Ruiz & Torices, 2013):
+**Method B** follows a similar approach but with a coefficient of **\( 0.226 \)** instead of **\( 0.25 \)**, which provides a refinement for **bipedal locomotion**. The formula is (Ruiz & Torices, 2013):  
 
 \[
 v = 0.226 \cdot \sqrt{G} \cdot S^{1.67} \cdot H^{-1.17}
 \]
 
-The relative stride length is calculated as the ratio between stride length and hip height (\( S / H \)), which allows distinguishing between different gaits according to Thulborn & Wade (1984). The classification is as follows:  
+The **relative stride length** is calculated as the ratio between **stride length and hip height** (\( S / H \)), which allows distinguishing between different **gaits** according to **Thulborn & Wade (1984)**. The classification is as follows:
+
 - **Walk:** Relative stride \( < 2.0 \) (locomotor performance equivalent to walking in mammals).  
 - **Trot:** Relative stride \( 2.0 \leq A/H \leq 2.9 \) (locomotor performance equivalent to trotting or racking in mammals).  
 - **Run:** Relative stride \( > 2.9 \) (locomotor performance equivalent to cantering, galloping, or sprinting in mammals).  
 
-The function returns a 'track velocity' R object containing a list of lists, each representing a track. For each track, it provides:  
-- **Step_velocities:** A vector of calculated velocities for each step (in m/s).  
-- **Mean_velocity:** The average velocity across all steps.  
-- **Standard_deviation_velocity:** The standard deviation of the calculated velocities.  
-- **Maximum_velocity:** The highest calculated velocity.  
-- **Minimum_velocity:** The lowest calculated velocity.  
-- **Step_relative_stride:** A vector of calculated relative stride lengths.  
-- **Mean_relative_stride:** The average of the relative stride lengths.  
-- **Standard_deviation_relative_stride:** The standard deviation of the relative stride lengths.  
-- **Maximum_relative_stride:** The highest calculated relative stride length.  
-- **Minimum_relative_stride:** The lowest calculated relative stride length.  
+The function returns a **`track velocity R object`**, which is structured as a **list of lists**, with each list representing an individual track. For each track, the output includes various metrics that describe the calculated velocities and relative stride lengths. Specifically, it provides a vector of calculated velocities for each step, referred to as **`Step_velocities`**, measured in meters per second (**m/s**). Additionally, the function calculates the **`Mean_velocity`**, which represents the average speed across all steps, as well as the **`Standard_deviation_velocity`**, which quantifies the variation in velocity measurements. The **`Maximum_velocity`** and **`Minimum_velocity`** indicate the highest and lowest calculated velocities, respectively. In terms of relative stride lengths, the function also provides a vector of calculated values known as **`Step_relative_stride`**. The average of these values is captured by the **`Mean_relative_stride`**, while their variation is described by the **`Standard_deviation_relative_stride`**. Moreover, the highest and lowest calculated relative stride lengths are denoted as **`Maximum_relative_stride`** and **`Minimum_relative_stride`**, respectively. This comprehensive output allows users to thoroughly assess the speed and locomotion style of the track-makers under study. 
 
-The function is particularly useful for estimating the speed of ancient track-makers from their footprints and evaluating their locomotion style (walking, trotting, or running).  
-
-
+The function is particularly useful for estimating the **speed of ancient track-makers** from their footprints and evaluating their **locomotion style (walking, trotting, or running)**.  
 
 ### **Examples of Usage:**  
-Calculate velocities for the MountTom dataset (Method A).
-```{r echo=TRUE}
+Calculate velocities with default options (Method A).
+
+```{r, eval=FALSE}
+H_paluxyriver <- c(3.472, 2.200)
+velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver)
+```
+
+```{r echo=FALSE}
+H_paluxyriver <- c(3.472, 2.200)
+velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver)
+```
+
+
+```{r, eval=FALSE}
 H_mounttom <- c(
   1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
   1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
@@ -595,20 +588,28 @@ H_mounttom <- c(
 velocity_mounttom <- velocity_track(MountTom, H = H_mounttom)
 ```
 
-Calculate velocities for the PaluxyRiver dataset (Method A)
-```{r echo=TRUE}
-H_paluxyriver <- c(3.472, 2.200)
-velocity_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver)
+```{r echo=FALSE}
+H_mounttom <- c(
+  1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
+  1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784, 1.676, 1.872,
+  1.648, 1.760, 1.612
+)
+velocity_mounttom <- velocity_track(MountTom, H = H_mounttom)
 ```
 
-Calculate velocities for the PaluxyRiver dataset with different methods
-```{r echo=TRUE}
+Calculate velocities for the PaluxyRiver dataset with different methods for the sauropod (Method A) and theropod (Method B) trackways.
+
+```{r, eval=FALSE}
+H_paluxyriver <- c(3.472, 2.200)
+Method_paluxyriver <- c("A", "B")
+velocity_paluxyriver_diff <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
+```
+
+```{r echo=FALSE}
 H_paluxyriver <- c(3.472, 2.200)
 Method_paluxyriver <- c("A", "B")
 velocity_paluxyriver_diff_methods <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 ```
-
-
 
 
 
@@ -656,8 +657,8 @@ If `"GLM"` is specified, the function uses a **Generalized Linear Model (GLM)** 
 If the argument `plot = TRUE` is specified, a boxplot of velocities by track is generated for visual comparison of velocity distributions across tracks. The boxplot allows the user to visually assess differences in central tendency and variability across tracks, complementing the statistical analyses.
 
 The function returns a list of results that includes:  
-- **`normality_results`**: A matrix containing the test statistic and p-value for the Shapiro-Wilk normality test for each track.  
-- **`homogeneity_test`**: The result of Levene's test, including the p-value for testing homogeneity of variances across tracks.  
+- **`normality_results`**: A matrix containing the test statistic and *p*-value for the Shapiro-Wilk normality test for each track.  
+- **`homogeneity_test`**: The result of Levene's test, including the *p*-value for testing homogeneity of variances across tracks.  
 - **`ANOVA`** (if selected): A list containing the ANOVA table and **Tukey HSD** post-hoc results.  
 - **`Kruskal_Wallis`** (if selected): A list containing the Kruskal-Wallis test result and **Dunn's test** post-hoc results.  
 - **`GLM`** (if selected): A summary of the **GLM fit** and pairwise comparisons from the `emmeans` package.  
@@ -677,7 +678,7 @@ The function returns a list of results that includes:
 
 The **`mode_velocity()`** function evaluates whether a track maker is accelerating, decelerating, or maintaining a steady speed along its trajectory by applying Spearman’s rank correlation test. This test is particularly suitable for analyzing trends in velocity because it does not assume normality or linearity in the relationship between step number and velocity. Instead, it detects monotonic relationships based on ranks, making it robust to outliers and effective for identifying general trends.
 
-The function processes each trajectory in the `trackvel` list separately. For each trajectory, the function calculates the Spearman correlation coefficient and its associated p-value, comparing velocity values to their corresponding step numbers. If the p-value is less than 0.05, the trend is classified as “acceleration” if the correlation coefficient is positive or “deceleration” if it is negative. If the p-value is greater than or equal to 0.05, the trend is labeled as “steady,” indicating no significant monotonic relationship between velocity and step number. This approach allows the detection of gradual changes in velocity over the course of a track, which may reflect shifts in locomotor performance or behavior.
+The function processes each trajectory in the `trackvel` list separately. For each trajectory, the function calculates the Spearman correlation coefficient and its associated *p*-value, comparing velocity values to their corresponding step numbers. If the *p*-value is less than 0.05, the trend is classified as “acceleration” if the correlation coefficient is positive or “deceleration” if it is negative. If the *p*-value is greater than or equal to 0.05, the trend is labeled as “steady,” indicating no significant monotonic relationship between velocity and step number. This approach allows the detection of gradual changes in velocity over the course of a track, which may reflect shifts in locomotor performance or behavior.
 
 Trajectories with fewer than three steps are considered insufficient for reliable statistical analysis, and the function returns a message indicating that the data is inadequate for correlation analysis. This is because the calculation of a meaningful correlation requires a minimum of three data points.
 
@@ -756,10 +757,10 @@ The similarity measure is computed using the **`dtw()`** function from the **`dt
 
 If `test = TRUE`, the function performs a statistical test by comparing the observed DTW distances with those generated from simulated tracks. The simulation process involves generating random trajectories that are compared against the original tracks to determine if the observed DTW distances are significantly smaller than those expected under random conditions.
 
-P-values are calculated in two ways:
+*P*-values are calculated in two ways:
 
-- **Pairwise P-values:** For each trajectory pair, the proportion of simulated DTW distances smaller than the observed distance is calculated.
-- **Combined P-value:** The overall proportion of simulations where all observed distances are smaller than the simulated distances, providing a measure of how distinct the observed tracks are from the simulated ones.
+- **Pairwise *P*-values:** For each trajectory pair, the proportion of simulated DTW distances smaller than the observed distance is calculated.
+- **Combined *P*-value:** The overall proportion of simulations where all observed distances are smaller than the simulated distances, providing a measure of how distinct the observed tracks are from the simulated ones.
 
 This method is valuable for evaluating the similarity of animal movement patterns under different experimental conditions or testing hypotheses about how closely simulated tracks replicate real movements. However, DTW is sensitive to noise and outliers, and large differences in trajectory lengths can introduce biases. Therefore, preprocessing or normalization may be necessary to improve accuracy.
 
@@ -782,9 +783,9 @@ The function allows users to align trajectories before computing the Fréchet di
 
 If `test = TRUE`, the function performs statistical testing by comparing observed Fréchet distances with those derived from simulated trajectories. The simulations are generated using the **`simulate_track()`** function, and comparisons are made to determine if observed distances are significantly smaller than what would be expected by chance.
 
-P-values are computed in two ways:
-- **Pairwise P-values:** These p-values represent the proportion of simulated distances that are smaller than the observed distance for each trajectory pair.
-- **Combined P-value:** The overall proportion of simulations where all observed distances are smaller than the simulated distances, providing a comprehensive measure of similarity.
+*P*-values are computed in two ways:
+- **Pairwise *P*-values:** These *p*-values represent the proportion of simulated distances that are smaller than the observed distance for each trajectory pair.
+- **Combined *P*-value:** The overall proportion of simulations where all observed distances are smaller than the simulated distances, providing a comprehensive measure of similarity.
 
 The **Fréchet distance** is particularly suited for applications where the overall shape of a trajectory matters, such as comparing migration routes, travel paths, or animal tracks. However, it is sensitive to noise because all points are considered in its calculation. Additionally, the method may yield invalid measurements when comparing very disparate tracks, such as those simulated under completely unconstrained models. When this occurs, the Fréchet distance is returned as -1.
 
@@ -811,7 +812,7 @@ The function also allows for more sophisticated hypothesis testing through the g
 
 To enhance the flexibility of the function, it supports various methods for altering the starting positions of simulated tracks. These options are controlled by the `origin.permutation` argument, which offers several choices. If it is set to `"None"`, simulated trajectories are not shifted and their starting points match the original data. If it is set to `"Min.Box"`, the starting points of simulated trajectories are randomly placed within the minimum bounding box that surrounds all original starting points. The `"Conv.Hull"` option, on the other hand, places the simulated tracks within the convex hull that encompasses all original starting points, which is often a more precise reflection of the space the tracks occupy. The most customizable option, `"Custom"`, allows the user to define a specific area by providing a set of coordinates that delimit a particular region of interest. This feature is particularly useful when there is prior knowledge of terrain features or other environmental factors that might influence movement.
 
-The results are returned as a list containing several components, depending on whether testing was performed. At the most basic level, the function returns a matrix where each cell represents the number of unique intersection points between two trajectories. If testing is enabled, the function also returns a matrix of p-values that compare observed intersection counts to those generated from simulated tracks, providing a statistical assessment of how unusual the observed intersections are. Additionally, the function provides an overall p-value that summarizes the significance of the intersection counts across all pairs of trajectories. Finally, it returns the full list of simulated intersection counts, which can be useful for further exploration or visualization of the results.
+The results are returned as a list containing several components, depending on whether testing was performed. At the most basic level, the function returns a matrix where each cell represents the number of unique intersection points between two trajectories. If testing is enabled, the function also returns a matrix of *p*-values that compare observed intersection counts to those generated from simulated tracks, providing a statistical assessment of how unusual the observed intersections are. Additionally, the function provides an overall *p*-value that summarizes the significance of the intersection counts across all pairs of trajectories. Finally, it returns the full list of simulated intersection counts, which can be useful for further exploration or visualization of the results.
 
 The function’s versatility makes it applicable to a range of scenarios. For instance, if trackmakers are expected to be moving in parallel—such as members of a herd or pack following a common path—fewer intersections would be expected compared to random movement. In such cases, a significantly low number of intersections would support the hypothesis of coordinated or parallel movement. Conversely, in a hunting or chasing scenario, a greater number of intersections than expected by chance might be anticipated. Therefore, analyzing the number of intersections alongside similarity metrics from functions like `simil_DTW_metric()` or `simil_Frechet_metric()` can provide a more comprehensive assessment of trackmaker behavior. 
 
@@ -822,21 +823,21 @@ Ultimately, this function offers a robust way of examining track interactions by
 
 
 
-## **Combining P-values from Multiple Similarity and Intersection Metrics**
+## **Combining *P*-values from Multiple Similarity and Intersection Metrics**
 
-The `combined_prob()` function is designed to combine p-values obtained from various similarity and intersection metrics to provide a more comprehensive assessment of how well the observed trajectories compare to those generated through simulation. The function can be particularly useful when multiple metrics are applied to the same set of data, as it allows users to integrate the results and obtain an overall measure of significance.
+The `combined_prob()` function is designed to combine *p*-values obtained from various similarity and intersection metrics to provide a more comprehensive assessment of how well the observed trajectories compare to those generated through simulation. The function can be particularly useful when multiple metrics are applied to the same set of data, as it allows users to integrate the results and obtain an overall measure of significance.
 
 The basic idea behind this function is to assess how the observed similarity or intersection metrics compare to those generated under various simulated scenarios. It starts by receiving a list of metrics, each of which is expected to be an R object representing the results of similarity or intersection tests. These metrics could have been obtained from functions like `simil_DTW_metric()`, `simil_Frechet_metric()`, and `track_intersection()`.
 
 To make meaningful comparisons, the function ensures that all metrics provided in the `metrics` list have been derived using the same number of simulations (`nsim`). If the metrics are incompatible, the function raises an error to prevent incorrect calculations.
 
-The process works by generating a matrix of p-values where each entry represents the combined significance of multiple metrics for a particular trajectory pair. For each simulation iteration, the function subtracts the observed metric values from the simulated ones, building a series of differences for each metric. If all differences for a given trajectory pair are positive, that combination is considered significant, contributing to the calculation of p-values.
+The process works by generating a matrix of *p*-values where each entry represents the combined significance of multiple metrics for a particular trajectory pair. For each simulation iteration, the function subtracts the observed metric values from the simulated ones, building a series of differences for each metric. If all differences for a given trajectory pair are positive, that combination is considered significant, contributing to the calculation of *p*-values.
 
-The function also provides an overall p-value that summarizes the combined significance across all trajectory pairs. This value indicates how consistently the observed data differs from the simulated datasets across all metrics. 
+The function also provides an overall *p*-value that summarizes the combined significance across all trajectory pairs. This value indicates how consistently the observed data differs from the simulated datasets across all metrics. 
 
 The result is returned as a list containing two components:
-1. A matrix of combined p-values for each trajectory pair, where the entries represent the probability of observing the combined metrics across all simulations.
-2. A single overall p-value summarizing the combined significance of all metrics across all pairs of trajectories.
+1. A matrix of combined *p*-values for each trajectory pair, where the entries represent the probability of observing the combined metrics across all simulations.
+2. A single overall *p*-value summarizing the combined significance of all metrics across all pairs of trajectories.
 
 The `combined_prob()` function provides an efficient way to aggregate multiple similarity or intersection metrics, making it an essential tool for users who wish to comprehensively evaluate their models and hypotheses. By allowing for the integration of different metrics, the function offers a holistic approach to analyzing and comparing track data.
 

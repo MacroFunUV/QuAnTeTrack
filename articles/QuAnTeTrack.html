@@ -452,62 +452,63 @@ of <code>.tps</code> files of these datasets can be downloaded here:</p>
 <h2 id="loading-and-converting-data">
 <strong>Loading and Converting Data</strong><a class="anchor" aria-label="anchor" href="#loading-and-converting-data"></a>
 </h2>
-<p>The <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong> function is a
-critical tool for converting raw <code>.TPS</code> files containing
-digitized trackway data into usable <code>track</code> objects within
-the <strong>QuAnTeTrack</strong> package. It is particularly useful for
-reconstructing trackways from footprints digitized using the <strong>TPS
-software suite</strong>, such as <strong>tpsUtil</strong> or
-<strong>tpsDig</strong>. This function reads the raw <code>.TPS</code>
-files, extracts coordinates, and transforms them into structured
-<code>track</code> R objects for further analysis.</p>
+<p>The <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong> function is an
+essential component of the <strong>QuAnTeTrack</strong> package,
+designed to transform raw <strong><code>.TPS</code> files</strong>
+containing digitized trackway data into structured
+<strong><code>track</code> objects</strong>. This tool is particularly
+useful for reconstructing trackways from footprints digitized using the
+<strong>TPS software suite</strong>, such as <strong>tpsUtil</strong>
+and <strong>tpsDig</strong>. The function reads the raw
+<strong><code>.TPS</code> files</strong>, extracts the coordinate data,
+and processes it to generate <strong><code>track</code> objects</strong>
+that are compatible with the analytical tools provided by
+<strong>QuAnTeTrack</strong>.</p>
 <p>The <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong> function reads
-<code>.TPS</code> files where each track is represented by a series of
-(x, y) coordinates saved as different images. It then processes these
-data to create a set of trajectory coordinates by calculating the
-midpoints between consecutive footprints. These trajectories represent
-the reconstructed pathways of the trackmaker, allowing users to analyze
-the overall movement patterns. If some footprints are missing, the
-function can interpolate them based on the position of adjacent
-footprints and the specified side (left or right) of the first
-footprint.</p>
-<p>The function accepts several arguments to handle different aspects of
-the data. The <strong><code>file</code></strong> argument specifies the
-path to the <code>.TPS</code> file containing the digitized footprints.
-The <strong><code>scale</code></strong> argument is a numeric value that
-defines the scale factor (meters per pixel) to convert coordinates to
-real-world measurements. The <strong><code>missing</code></strong>
-argument indicates whether the dataset contains missing footprints that
-need interpolation (<code>TRUE</code> or <code>FALSE</code>). The
-<strong><code>NAs</code></strong> argument is a matrix that specifies
-the missing footprints to be interpolated, where each row indicates the
-track number and the position of the missing footprint. The
-<strong><code>R.L.side</code></strong> argument is a character vector
-that indicates whether the first footprint of each track is from the
-left or right side. This information is essential when handling tracks
-with missing footprints.</p>
-<p>The <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong> function generates a
-structured <code>track</code> R object consisting of two elements:
-<strong>Trajectories</strong> and <strong>Footprints</strong>. The
-<strong><code>Trajectories</code></strong> element is a list of
-interpolated trajectories representing the reconstructed pathways of the
-trackmaker. Each trajectory is calculated as the midpoint between
-consecutive footprints. The <strong><code>Footprints</code></strong>
-element is a list of data frames containing the original footprint
-coordinates, associated metadata (such as image reference and ID), and a
-marker indicating whether each footprint is actual or inferred.</p>
-<p>The <strong>returned <code>track</code> R object</strong>
-includes:<br>
-- <strong>Trajectories:</strong> A list of interpolated trajectories,
-where each trajectory is a series of midpoints between consecutive
-footprints.<br>
-- <strong>Footprints:</strong> A list of data frames containing
-footprint coordinates, metadata (e.g., image reference, ID), and a
-marker indicating whether the footprint is actual or inferred.</p>
-<p>This function provides a comprehensive approach to converting raw
-<code>.TPS</code> files into structured data objects, making it possible
-to apply further analyses using the <strong>QuAnTeTrack</strong>
-package.</p>
+<strong><code>.TPS</code> files</strong> where each track is represented
+by a series of <strong>(x, y) coordinates</strong> stored as separate
+images. These data points are then processed to generate
+<strong>trajectory coordinates</strong> by calculating the
+<strong>midpoints between consecutive footprints</strong>. These
+trajectories serve as reconstructed pathways, allowing users to analyze
+overall movement patterns. When missing footprints are encountered, the
+function can interpolate their positions based on the locations of
+adjacent footprints and the specified side (left or right) of the
+initial footprint.</p>
+<p>Several arguments are provided to customize data handling. The
+<strong><code>file</code></strong> argument specifies the path to the
+<code>.TPS</code> file, while the <strong><code>scale</code></strong>
+argument allows users to define a scale factor (in <strong>meters per
+pixel</strong>) to convert coordinates to real-world measurements. To
+account for missing footprints, the
+<strong><code>missing</code></strong> argument specifies whether
+interpolation is required, while the <strong><code>NAs</code></strong>
+argument provides a matrix detailing which footprints need
+interpolation. Additionally, the <strong><code>R.L.side</code></strong>
+argument identifies whether the first footprint of each track belongs to
+the <strong>left or right side</strong>, which is essential when dealing
+with incomplete trackways.</p>
+<p>The function generates a <strong><code>track</code> object</strong>
+consisting of two main components:
+<strong><code>Trajectories</code></strong> and
+<strong><code>Footprints</code></strong>. The
+<strong><code>Trajectories</code></strong> element contains a list of
+interpolated trajectories, where each trajectory represents a series of
+midpoints calculated between consecutive footprints. The
+<strong><code>Footprints</code></strong> element comprises a list of
+data frames with the original footprint coordinates, associated metadata
+(such as image reference and ID), and an indicator specifying whether
+each footprint is actual or inferred.</p>
+<p>The resulting <strong><code>track</code> object</strong> provides a
+comprehensive framework for organizing digitized trackway data, making
+it compatible with the various analytical functions within the
+<strong>QuAnTeTrack</strong> package. This structured data format
+enables users to perform advanced analyses such as calculating movement
+parameters, testing hypotheses about trackmaker behavior, and comparing
+tracks using similarity metrics. By transforming raw data into
+structured objects, the <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong>
+function serves as a foundational step in the broader analytical
+pipeline provided by <strong>QuAnTeTrack</strong>.</p>
 <div class="section level3">
 <h3 id="examples-of-usage">
 <strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage"></a>
@@ -564,49 +565,63 @@ with the <strong>file paths to your .TPS files</strong> (e.g.,
 <strong>Plotting Tracks</strong><a class="anchor" aria-label="anchor" href="#plotting-tracks"></a>
 </h2>
 <p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function is a
-versatile tool designed to visualize track and footprint data in various
-ways, providing a flexible approach to examining and presenting trackway
-datasets. This function generates customizable plots using the
-<code>ggplot2</code> package, allowing users to inspect individual
-tracks, footprints, or a combination of both. By adjusting various
-plotting parameters, users can tailor their visualizations to highlight
-specific aspects of the dataset, such as individual track paths,
-footprint shapes, and colors.</p>
+versatile tool designed to visualize <strong>track and footprint
+data</strong> in various ways, providing a flexible approach to
+examining and presenting trackway datasets. This function generates
+customizable plots using the <strong><code>ggplot2</code></strong>
+package, allowing users to inspect individual tracks, footprints, or a
+combination of both. By adjusting various plotting parameters, users can
+tailor their visualizations to highlight specific aspects of the
+dataset, such as <strong>individual track paths</strong>,
+<strong>footprint shapes</strong>, and <strong>colors</strong>.</p>
 <p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function allows users
-to choose between three plotting modes: plotting only the footprints,
-only the interpolated trackways, or a combination of both. This is
-controlled by the <code>plot</code> argument, which can be set to
-<code>"Footprints"</code>, <code>"Tracks"</code>, or
-<code>"FootprintsTracks"</code> (default). The footprints and tracks are
-plotted using different layers, with footprints represented by points
-and tracks represented by lines.</p>
-<p>Additional customization options include changing colors, sizes,
-shapes, and transparency of the plotted elements. Users can provide a
-vector of colors via the <code>colours</code> argument, which allows
-different tracks to be plotted in different colors. The
-<code>cex.f</code> and <code>cex.t</code> arguments control the sizes of
-footprint points and track lines, respectively. The <code>shape.f</code>
-argument allows users to specify the shapes of footprint points, while
-the <code>alpha.f</code>, <code>alpha.t</code>, and <code>alpha.l</code>
-arguments control the transparency of footprints, track lines, and
-labels, respectively.</p>
+to choose between three plotting modes: plotting only the
+<strong>footprints</strong>, only the <strong>interpolated
+trackways</strong>, or a <strong>combination of both</strong>. This is
+controlled by the <strong><code>plot</code></strong> argument, which can
+be set to <strong><code>"Footprints"</code></strong>,
+<strong><code>"Tracks"</code></strong>, or
+<strong><code>"FootprintsTracks"</code></strong> (default). The
+footprints and tracks are plotted using different layers, with
+footprints represented by <strong>points</strong> and tracks represented
+by <strong>lines</strong>.</p>
+<p>Additional customization options include changing
+<strong>colors</strong>, <strong>sizes</strong>,
+<strong>shapes</strong>, and <strong>transparency</strong> of the
+plotted elements. Users can provide a vector of colors via the
+<strong><code>colours</code></strong> argument, which allows different
+tracks to be plotted in different colors. The
+<strong><code>cex.f</code></strong> and
+<strong><code>cex.t</code></strong> arguments control the sizes of
+footprint points and track lines, respectively. The
+<strong><code>shape.f</code></strong> argument allows users to specify
+the shapes of footprint points, while the
+<strong><code>alpha.f</code></strong>,
+<strong><code>alpha.t</code></strong>, and
+<strong><code>alpha.l</code></strong> arguments control the transparency
+of footprints, track lines, and labels, respectively.</p>
 <p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function also supports
-the addition of labels to individual tracks. If the
-<code>plot.labels</code> argument is set to <code>TRUE</code>, labels
-are displayed at the start of each track, with the label text determined
-by the <code>labels</code> argument. If labels are not provided, the
-function automatically generates labels based on track names. Users can
-adjust the label size using the <code>cex.l</code> argument and control
-the padding around the labels with the <code>box.p</code> argument.</p>
+the addition of <strong>labels</strong> to individual tracks. If the
+<strong><code>plot.labels</code></strong> argument is set to
+<strong><code>TRUE</code></strong>, labels are displayed at the start of
+each track, with the label text determined by the
+<strong><code>labels</code></strong> argument. If labels are not
+provided, the function automatically generates labels based on track
+names. Users can adjust the label size using the
+<strong><code>cex.l</code></strong> argument and control the padding
+around the labels with the <strong><code>box.p</code></strong>
+argument.</p>
 <p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function returns a
-<code>ggplot</code> object, which can be further customized using
-additional <code>ggplot2</code> functions. This allows users to enhance
-their plots with additional layers, themes, and annotations as
-needed.</p>
-<p>The function is especially useful for comparing multiple trackways at
-once, providing a comprehensive view of track distribution, direction,
-and spacing. It also allows users to produce clean visualizations
-suitable for presentation or publication.</p>
+<strong><code>ggplot</code></strong> object, which can be further
+customized using additional <strong><code>ggplot2</code></strong>
+functions. This allows users to enhance their plots with additional
+layers, themes, and annotations as needed.</p>
+<p>The function is especially useful for comparing <strong>multiple
+trackways at once</strong>, providing a comprehensive view of
+<strong>track distribution</strong>, <strong>direction</strong>, and
+<strong>spacing</strong>. It also allows users to produce <strong>clean
+visualizations</strong> suitable for <strong>presentation or
+publication</strong>.</p>
 <div class="section level3">
 <h3 id="examples-of-usage-1">
 <strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-1"></a>
@@ -645,9 +660,9 @@ visualization helps analyze the continuity and pattern of movement.</p>
 <h3 id="further-customizations">
 <strong>Further Customizations</strong><a class="anchor" aria-label="anchor" href="#further-customizations"></a>
 </h3>
-<p>The <code><a href="../reference/plot_track.html">plot_track()</a></code> function also allows for various
-customizations to enhance visualization. Below are some examples
-illustrating these customizations:</p>
+<p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function also allows
+for <strong>various customizations</strong> to enhance visualization.
+Below are some examples illustrating these customizations:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Track"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">MountTom</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">MountTom</span>, plot.labels <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="va">labels</span>, cex.l <span class="op">=</span> <span class="fl">4</span>, box.p <span class="op">=</span> <span class="fl">0.3</span>, alpha.l <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
@@ -662,78 +677,100 @@ illustrating these customizations:</p>
 <strong>Extracting Track Parameters</strong><a class="anchor" aria-label="anchor" href="#extracting-track-parameters"></a>
 </h2>
 <p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function is designed
-to compute and print various parameters related to the movement patterns
-of tracks from a <code>track</code> object, which is a structured list
+to compute and display various parameters related to the
+<strong>movement patterns of tracks</strong> from a
+<strong><code>track</code> object</strong>, which is a structured list
 generated by the <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong> function.
 This function is essential for extracting detailed information about the
-structure of individual tracks and their spatial relationships,
-providing key metrics that can be used for further analysis, comparison,
-and visualization. The <code><a href="../reference/track_param.html">track_param()</a></code> function uses several
-helper functions from the <code>trajr</code> package, which is commonly
-applied in animal movement analysis.</p>
+<strong>structure of individual tracks</strong> and their
+<strong>spatial relationships</strong>, providing key metrics that can
+be used for further analysis, comparison, and visualization. The
+<strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function utilizes several
+helper functions from the <strong><code>trajr</code></strong> package,
+which is commonly applied in <strong>animal movement
+analysis</strong>.</p>
 <p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function works by
 iterating over each trajectory within the provided track data and
-computing a set of movement-related parameters. The function calculates
-turning angles, step lengths, total distances covered, track lengths,
-and measures of sinuosity and straightness. These parameters are
-essential for understanding the locomotor patterns of the
-trackmakers.</p>
-<p>The turning angles are calculated using the <code>TrajAngles()</code>
-function, providing a measure of directional changes at each step. The
-mean turning angle and standard deviation are also calculated to
-summarize overall turning behavior. The distance covered by the track is
-obtained using the <code>TrajDistance()</code> function, which measures
-the total straight-line distance between the start and end points of the
-track. The track length is calculated using the
-<code>TrajLength()</code> function, which sums the distances between all
-consecutive points in the track. The step lengths, or the distances
-between consecutive points, are calculated with
-<code>TrajStepLengths()</code>. The function also computes the mean and
-standard deviation of these step lengths. The sinuosity of the track is
-calculated using the <code>TrajSinuosity2()</code> function, which
-quantifies how much a path deviates from a straight line. The measure of
-sinuosity is based on the method described by Benhamou (2004), which
-refines previous methods to provide more accurate estimates of
-tortuosity for paths with varying turning angles and step lengths. The
-straightness index is calculated with <code>TrajStraightness()</code>,
-defined as the ratio between the beeline distance (start to end) and the
-total path length. This measure is based on the work of Batschelet
-(1981) and provides insight into how direct or meandering the movement
-of the trackmaker was.</p>
-<p>The sinuosity calculation is based on the following formula:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">[</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>c</mi></mrow><mrow><mn>1</mn><mo>−</mo><mi>c</mi></mrow></mfrac><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo>−</mo><mn>0.5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">
+computing a set of <strong>movement-related parameters</strong>. These
+include <strong>turning angles</strong>, <strong>step lengths</strong>,
+<strong>total distances covered</strong>, <strong>track
+lengths</strong>, and measures of <strong>sinuosity and
+straightness</strong>. Such parameters are crucial for understanding the
+<strong>locomotor patterns of trackmakers</strong> and assessing their
+<strong>movement efficiency</strong>.</p>
+<p>The <strong>turning angles</strong> are calculated using the
+<strong><code>TrajAngles()</code></strong> function, providing a measure
+of <strong>directional changes</strong> at each step. The <strong>mean
+turning angle</strong> and <strong>standard deviation</strong> are also
+calculated to summarize overall turning behavior. The <strong>distance
+covered by the track</strong> is obtained using the
+<strong><code>TrajDistance()</code></strong> function, which measures
+the total <strong>straight-line distance</strong> between the start and
+end points of the track. The <strong>track length</strong> is calculated
+using the <strong><code>TrajLength()</code></strong> function, which
+sums the distances between all consecutive points in the track. The
+<strong>step lengths</strong>, representing the distances between
+consecutive points, are calculated with
+<strong><code>TrajStepLengths()</code></strong>. The function also
+computes the <strong>mean and standard deviation of these step
+lengths</strong>.</p>
+<p>The <strong>sinuosity</strong> of the track is calculated using the
+<strong><code>TrajSinuosity2()</code></strong> function, which
+quantifies how much a path deviates from a straight line. This measure
+of sinuosity is based on the method described by <strong>Benhamou
+(2004)</strong>, which refines previous methods to provide more accurate
+estimates of tortuosity for paths with varying turning angles and step
+lengths. The <strong>straightness index</strong> is calculated with
+<strong><code>TrajStraightness()</code></strong>, defined as the ratio
+between the beeline distance (start to end) and the total path length.
+This measure is based on the work of <strong>Batschelet (1981)</strong>
+and provides insight into how direct or meandering the movement of the
+trackmaker was.</p>
+<p>The calculation of <strong>sinuosity</strong> is based on the
+formula:<br><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mn>2</mn><msup><mrow><mo stretchy="true" form="prefix">[</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>c</mi></mrow><mrow><mn>1</mn><mo>−</mo><mi>c</mi></mrow></mfrac><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo>−</mo><mn>0.5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">
 S = 2 \left[ p \left( \frac{1 + c}{1 - c} + b^2 \right) \right]^{-0.5}
-</annotation></semantics></math> where: -
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>
-is the mean step length (in meters), -
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
-is the mean cosine of turning angles (in radians), and -
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>
-is the coefficient of variation of the step length (in meters).</p>
-<p>The straightness index is calculated as the ratio
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mi>L</mi></mrow><annotation encoding="application/x-tex">D/L</annotation></semantics></math>,
+</annotation></semantics></math></p>
+<p>where:</p>
+<ul>
+<li>
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></strong>
+is the mean step length (in meters),</li>
+<li>
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math></strong>
+is the mean cosine of turning angles (in radians), and</li>
+<li>
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math></strong>
+is the coefficient of variation of the step length (in meters).</li>
+</ul>
+<p>The <strong>straightness index</strong> is calculated as the ratio
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mi>/</mi><mi>L</mi></mrow><annotation encoding="application/x-tex">D/L</annotation></semantics></math></strong>,
 where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math></strong>
 is the beeline distance between the first and last points of the
 trajectory, and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>
-is the total path length. This index is useful for comparing the
-efficiency of directed walks but is not suitable for random
-trajectories, where the index tends towards zero with increasing
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math></strong>
+is the total path length. This index is particularly useful for
+comparing the efficiency of directed walks, but it is not suitable for
+random trajectories, where the index tends towards zero with increasing
 steps.</p>
 <p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function returns a
-list of lists, where each sublist contains the computed parameters for a
-corresponding track. The parameters include turning angles, mean turning
-angle, standard deviation of turning angles, distance, length, step
-lengths, mean step length, standard deviation of step length, sinuosity,
-and straightness. The reference direction for calculating angles is
+<strong>list of lists</strong>, where each sublist contains the
+<strong>computed parameters</strong> for a corresponding track. The
+parameters include: <strong>turning angles</strong>, <strong>mean
+turning angle</strong>, <strong>standard deviation of turning
+angles</strong>, <strong>distance</strong>, <strong>length</strong>,
+<strong>step lengths</strong>, <strong>mean step length</strong>,
+<strong>standard deviation of step length</strong>,
+<strong>sinuosity</strong> and <strong>straightness</strong>.</p>
+<p>The <strong>reference direction for calculating angles</strong> is
 considered to be along the positive x-axis, with angles measured
 counterclockwise. The computed parameters are returned in a structured
 format, allowing users to further process or visualize the data as
 needed.</p>
 <p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function provides
-valuable insights into the structure and efficiency of trackmaker
-movements, making it a crucial tool for analyzing fossil trackways.</p>
+valuable insights into the <strong>structure and efficiency of
+trackmaker movements</strong>, making it a crucial tool for analyzing
+<strong>fossil trackways</strong>.</p>
 <div class="section level3">
 <h3 id="examples-of-usage-2">
 <strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-2"></a>
@@ -1558,41 +1595,49 @@ movements, making it a crucial tool for analyzing fossil trackways.</p>
 <h2 id="plotting-direction-data">
 <strong>Plotting Direction Data</strong><a class="anchor" aria-label="anchor" href="#plotting-direction-data"></a>
 </h2>
-<p>The <strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function generates
-various types of plots to visualize direction data from
-<code>track</code> R objects. It provides users with the ability to
-create boxplots, polar histograms of step directions, polar histograms
-of average directions per track, and faceted polar histograms. The plots
-can be customized by adjusting parameters such as angle range for
-binning, positioning of y-axis labels, and specifying manual breaks for
-the y-axis.</p>
-<p>This function supports multiple plotting styles through the
-<code>plot_type</code> argument, allowing users to compare and visualize
-direction data effectively. The <strong><code>plot_type</code></strong>
-argument accepts four options:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>“boxplot”</strong> - Displays the distribution of step
-directions across tracks as boxplots.<br>
-</li>
-<li>
-<strong>“polar_steps”</strong> - Generates polar histograms showing
-the frequency of steps in various directional bins.<br>
-</li>
-<li>
-<strong>“polar_average”</strong> - Creates polar histograms showing
-the frequency of average directions per track.<br>
-</li>
-<li>
-<strong>“faceted”</strong> - Produces faceted polar histograms of
-step directions for each track individually.</li>
-</ol>
-<p>The <strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function returns a
-<code>ggplot</code> object displaying the specified plot type. The use
-of the <strong><code>ggplot2</code></strong> package provides
-high-quality visualizations with extensive customization options, making
-this function a versatile tool for analyzing trackway direction
-data.</p>
+<p>The <strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function provides
+a comprehensive approach to visualizing <strong>direction data</strong>
+from <strong><code>track</code> R objects</strong>. It allows users to
+generate various types of plots to effectively compare and examine
+directionality within their datasets. The available plotting styles are
+highly customizable, making this function versatile for different types
+of directional analysis.</p>
+<p>This function supports four primary <strong>plotting styles</strong>,
+specified by the <strong><code>plot_type</code></strong> argument. The
+<strong><code>"boxplot"</code></strong> option displays the distribution
+of step directions across tracks as boxplots, providing an overview of
+directionality variations by showing medians, quartiles, and potential
+outliers. The <strong><code>"polar_steps"</code></strong> option
+generates <strong>polar histograms</strong> that visualize the frequency
+of steps within various directional bins, making it particularly useful
+for examining the spread and density of step directions around a central
+point and highlighting dominant movement trends. The
+<strong><code>"polar_average"</code></strong> style also produces
+<strong>polar histograms</strong>, but it focuses on average directions
+per track rather than individual steps. This summarization approach
+offers a simplified comparison of overall trends across multiple tracks.
+Finally, the <strong><code>"faceted"</code></strong> option creates
+<strong>faceted polar histograms</strong> where each track is displayed
+separately within a grid of plots, providing a clear visual comparison
+of step directions across tracks and making it especially effective for
+analyzing individual trackmaker behaviors.</p>
+<p>The <strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function allows
+users to customize the visualizations by adjusting parameters such as
+the <strong>angle range for binning</strong>, <strong>positioning of
+y-axis labels</strong>, and specifying <strong>manual breaks for the
+y-axis</strong>. This flexibility ensures that the user can tailor the
+output to suit specific analytical needs.</p>
+<p>By generating high-quality visualizations as
+<strong><code>ggplot</code> objects</strong>, the
+<strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function allows for
+further customization using additional functions from the
+<strong><code>ggplot2</code></strong> package. This integration makes it
+easy to enhance plots with annotations, themes, and other graphical
+elements.</p>
+<p>The function is particularly useful for analyzing <strong>trackway
+direction data</strong>, providing valuable insights into
+<strong>movement patterns</strong>, <strong>orientation
+preferences</strong>, and <strong>potential group behavior</strong>.</p>
 <div class="section level3">
 <h3 id="examples-of-usage-3">
 <strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-3"></a>
@@ -1639,12 +1684,12 @@ comparison of movement patterns across multiple tracks.</p>
 <strong>Further Customizations</strong><a class="anchor" aria-label="anchor" href="#further-customizations-1"></a>
 </h3>
 <p>The <strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function offers
-several customization options to enhance the visualization of your
-data:</p>
+several <em>customization options</em> to enhance the visualization of
+your data:</p>
 <ul>
 <li>
 <strong><code>y_breaks_manual</code></strong>: Define custom breaks
-on the radial axis for <code>polar_average</code> plots. Example:</li>
+on the radial axis for <code>polar_average</code> plots.</li>
 </ul>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_average"</span>, y_breaks_manual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1653,7 +1698,7 @@ on the radial axis for <code>polar_average</code> plots. Example:</li>
 <li>
 <strong><code>y_labels_position</code></strong>: Adjust the position
 of y-axis labels. This can be helpful when fine-tuning polar plots for
-presentation. Example:</li>
+presentation.</li>
 </ul>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span>, y_labels_position <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span></code></pre></div>
@@ -1672,70 +1717,74 @@ fit your analytical needs and presentation preferences.</p>
 <h2 id="testing-for-differences-in-direction-means">
 <strong>Testing for Differences in Direction Means</strong><a class="anchor" aria-label="anchor" href="#testing-for-differences-in-direction-means"></a>
 </h2>
-<p>The <strong><code><a href="../reference/test_direction.html">test_direction()</a></code></strong> function evaluates
-differences in mean direction across different tracks within a
-<code>track</code> R object. It provides three statistical methods:
-<strong>ANOVA</strong>, <strong>Kruskal-Wallis test</strong>, and
-<strong>Generalized Linear Models (GLM)</strong>, allowing users to
-compare directional data and identify significant differences between
-tracks. The function also includes diagnostic tests to check assumptions
-of normality and homogeneity of variances before proceeding with the
-analysis. When more than two tracks are present, it performs pairwise
-comparisons to identify specific differences between tracks.</p>
-<p>The <strong><code><a href="../reference/test_direction.html">test_direction()</a></code></strong> function requires
-that each track contains more than three footprints to be included in
-the analysis. Tracks with three or fewer footprints are removed because
-statistical tests for comparing mean directions rely on having a
-sufficient number of data points to provide meaningful results. With
-only three or fewer footprints, the sample size is too small to
-accurately estimate mean direction and variability, making statistical
-comparisons unreliable. This threshold ensures that the results are
-statistically robust and meaningful.</p>
-<p>If <code>"ANOVA"</code> is selected, the function checks for
-normality (using the <strong>Shapiro-Wilk test</strong>) and homogeneity
-of variances (using <strong>Levene’s test</strong>). If assumptions are
-violated, it issues warnings suggesting the use of
-<code>"Kruskal-Wallis"</code> or <code>"GLM"</code> instead.
-<code>"ANOVA"</code> compares mean directions across tracks, and if
-significant differences are detected, <strong>Tukey’s HSD</strong> is
-used for post-hoc pairwise comparisons.</p>
-<p>When <code>"Kruskal-Wallis"</code> is chosen, the function performs a
-<strong>non-parametric test</strong> that compares median directions
-across tracks. If significant differences are detected, <strong>Dunn’s
-test</strong> is used for post-hoc pairwise comparisons. If
-<code>"GLM"</code> is specified, the function uses a <strong>Generalized
-Linear Model (GLM)</strong> with a Gaussian family to compare mean
-directions across tracks. Pairwise comparisons are conducted using the
-<code>emmeans</code> package, which computes differences between group
-means and adjusts for multiple comparisons using <strong>Tukey’s
-method</strong>. This approach is useful when the data does not meet the
-assumptions of ANOVA but still requires a parametric approach.</p>
-<p>The function returns a list of results that includes:<br>
-- <strong><code>normality_results</code></strong>: A matrix containing
-the test statistic and p-value for the Shapiro-Wilk normality test for
-each track.<br>
-- <strong><code>homogeneity_test</code></strong>: The result of Levene’s
-test, including the p-value for testing homogeneity of variances across
-tracks.<br>
-- <strong><code>ANOVA</code></strong> (if selected): A list containing
-the ANOVA table and <strong>Tukey HSD</strong> post-hoc results.<br>
-- <strong><code>Kruskal_Wallis</code></strong> (if selected): A list
-containing the Kruskal-Wallis test result and <strong>Dunn’s
-test</strong> post-hoc results.<br>
-- <strong><code>GLM</code></strong> (if selected): A summary of the
-<strong>GLM fit</strong> and pairwise comparisons from the
-<code>emmeans</code> package.</p>
 <p>The <strong><code><a href="../reference/test_direction.html">test_direction()</a></code></strong> function provides
-a comprehensive statistical framework to compare directional data from
-different tracks. Its ability to perform parametric, non-parametric, and
-generalized linear model analyses makes it versatile for a wide range of
-datasets, even when assumptions of normality or homogeneity of variances
-are violated.</p>
+a powerful statistical framework for comparing <strong>mean
+directions</strong> across different tracks within a
+<strong><code>track</code> R object</strong>. It offers three distinct
+methods for this purpose: <strong>ANOVA</strong>, <strong>Kruskal-Wallis
+test</strong>, and <strong>Generalized Linear Models (GLM)</strong>,
+ensuring robust analysis even when assumptions about data distribution
+and variance homogeneity are violated. The function requires that each
+track contains more than <strong>three footprints</strong> to be
+included in the analysis, as statistical tests for comparing mean
+directions require a sufficient sample size to generate meaningful
+results. This threshold ensures that the comparisons are statistically
+reliable and robust.</p>
+<p>When using the <strong>ANOVA</strong> method, the function first
+checks the <strong>normality of the data</strong> through the
+<strong>Shapiro-Wilk test</strong> and assesses <strong>homogeneity of
+variances</strong> using <strong>Levene’s test</strong>. If these
+assumptions are violated, the user is advised to consider the
+<strong>Kruskal-Wallis</strong> or <strong>GLM</strong> methods instead.
+The <strong>ANOVA</strong> method compares <strong>mean directions
+across tracks</strong>, and if significant differences are detected,
+<strong>Tukey’s HSD test</strong> is applied to perform <strong>post-hoc
+pairwise comparisons</strong>. The <strong>Kruskal-Wallis</strong> test,
+in contrast, offers a non-parametric approach that compares
+<strong>median directions</strong> across tracks and applies
+<strong>Dunn’s test</strong> for pairwise comparisons if significant
+differences are found. This method is particularly suitable when data do
+not meet the assumptions required for parametric tests. Alternatively,
+if the <strong>GLM</strong> method is selected, the function applies a
+<strong>Generalized Linear Model (GLM)</strong> with a <strong>Gaussian
+family</strong> to compare <strong>mean directions</strong>. The
+<strong><code>emmeans</code> package</strong> is then used to compute
+<strong>pairwise comparisons</strong>, with adjustments for multiple
+comparisons following <strong>Tukey’s method</strong>, offering a
+flexible approach when dealing with complex data distributions or
+deviations from normality.</p>
+<p>The <strong><code><a href="../reference/test_direction.html">test_direction()</a></code></strong> function returns a
+detailed set of results. It provides a <strong>normality results
+matrix</strong> containing the <strong>Shapiro-Wilk test statistic and
+p-value</strong> for each track, allowing the user to evaluate whether
+the data follows a normal distribution. The function also outputs the
+result of <strong>Levene’s test</strong>, including the
+<strong>p-value</strong> used to assess whether variances across tracks
+are homogeneous. When the <strong>ANOVA</strong> method is selected, the
+function delivers the <strong>ANOVA table</strong> along with
+<strong>Tukey HSD post-hoc results</strong>, enabling a thorough
+examination of differences between groups. For the
+<strong>Kruskal-Wallis</strong> test, the function returns the overall
+test result alongside <strong>Dunn’s test post-hoc comparisons</strong>,
+providing a non-parametric alternative for analyzing differences in
+central tendency. In the case of <strong>GLM</strong>, the output
+includes a summary of the model fit along with the <strong>pairwise
+comparisons</strong> calculated via the <strong><code>emmeans</code>
+package</strong>, providing an efficient method to detect significant
+differences while accommodating more complex statistical models.</p>
+<p>The flexibility and comprehensiveness of the
+<strong><code><a href="../reference/test_direction.html">test_direction()</a></code></strong> function make it a
+versatile tool for comparing <strong>directional data</strong> across
+multiple tracks. Its ability to perform <strong>parametric,
+non-parametric, and generalized linear model analyses</strong> ensures
+that researchers can robustly test hypotheses related to
+<strong>movement patterns, group behavior, and ecological
+interactions</strong>, regardless of the underlying data structure.</p>
 <div class="section level3">
 <h3 id="examples-of-usage-4">
 <strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-4"></a>
 </h3>
-<p>Testing with ANOVA.</p>
+<p>Testing for differences in direction with ANOVA.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_direction.html">test_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, analysis <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; $Track_1</span></span>
@@ -2673,7 +2722,7 @@ are violated.</p>
 <span><span class="co">#&gt; Track 16-Track 15    9.2205340   -1.991949   20.4330168 0.2018750</span></span>
 <span><span class="co">#&gt; Track 18-Track 15   -6.4995332  -18.938666    5.9395996 0.8028891</span></span>
 <span><span class="co">#&gt; Track 18-Track 16  -15.7200672  -26.932550   -4.5075844 0.0007922</span></span></code></pre>
-<p>Testing with Kruskal-Wallis.</p>
+<p>Testing for differences in direction with Kruskal-Wallis.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_direction.html">test_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, analysis <span class="op">=</span> <span class="st">"Kruskal-Wallis"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; $Track_1</span></span>
@@ -3693,7 +3742,8 @@ are violated.</p>
 <span><span class="co">#&gt; [49] "Track 04 - Track 18" "Track 07 - Track 18" "Track 08 - Track 18"</span></span>
 <span><span class="co">#&gt; [52] "Track 09 - Track 18" "Track 13 - Track 18" "Track 15 - Track 18"</span></span>
 <span><span class="co">#&gt; [55] "Track 16 - Track 18"</span></span></code></pre>
-<p>Testing with Generalized Linear Model.</p>
+<p>Testing for differences in direction with Generalized Linear
+Model.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_direction.html">test_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, analysis <span class="op">=</span> <span class="st">"GLM"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; $Track_1</span></span>
@@ -4692,104 +4742,207 @@ are violated.</p>
 <strong>Calculating Velocities and Relative Stride
 Lengths</strong><a class="anchor" aria-label="anchor" href="#calculating-velocities-and-relative-stride-lengths"></a>
 </h2>
+</div>
+<div class="section level2">
+<h2 id="calculating-velocities-and-relative-stride-lengths-1">
+<strong>Calculating Velocities and Relative Stride
+Lengths</strong><a class="anchor" aria-label="anchor" href="#calculating-velocities-and-relative-stride-lengths-1"></a>
+</h2>
 <p>The <strong><code><a href="../reference/velocity_track.html">velocity_track()</a></code></strong> function
-calculates the velocities and relative stride lengths for each step
-within a series of tracks. It requires a ‘track’ R object as input,
-which contains both trajectories and footprints, and uses the height at
-the hip for each track maker to estimate speed. The function supports
-two calculation methods: Method A (Alexander, 1976) and Method B (Ruiz
-&amp; Torices, 2013), which are specified via the <code>method</code>
-argument. By default, Method A is applied to all tracks if no method is
-specified. The gravitational acceleration, <code>G</code>, is set to 9.8
-m/s^{2} by default but can be modified if needed.</p>
+calculates the <strong>velocities</strong> and <strong>relative stride
+lengths</strong> for each step within a series of tracks. It requires a
+<strong>‘track’ R object</strong> as input, which contains both
+<strong>trajectories and footprints</strong>, and uses the
+<strong>height at the hip</strong> for each track maker to estimate
+speed. The function supports two calculation methods: <strong>Method A
+(Alexander, 1976)</strong> and <strong>Method B (Ruiz &amp; Torices,
+2013)</strong>, which are specified via the <code>method</code>
+argument. By default, <strong>Method A</strong> is applied to all tracks
+if no method is specified. The <strong>gravitational
+acceleration</strong>, <code>G</code>, is set to <strong>9.8
+m/s^{2}</strong> by default but can be modified if needed.</p>
 <p>This function works by first extracting the track data and then
-calculating the Euclidean distance between consecutive footprints to
-determine the stride length. For each step, the velocity is calculated
-using one of the two methods.</p>
-<p>Method A applies the formula (Alexander, 1976):</p>
+calculating the <strong>Euclidean distance</strong> between consecutive
+footprints to determine the <strong>stride length</strong>. For each
+step, the <strong>velocity</strong> is calculated using one of the two
+methods.</p>
+<p><strong>Method A</strong> applies the formula (Alexander, 1976):</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mn>0.25</mn><mo>⋅</mo><msqrt><mi>G</mi></msqrt><mo>⋅</mo><msup><mi>S</mi><mn>1.67</mn></msup><mo>⋅</mo><msup><mi>H</mi><mrow><mo>−</mo><mn>1.17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">
 v = 0.25 \cdot \sqrt{G} \cdot S^{1.67} \cdot H^{-1.17}
 </annotation></semantics></math></p>
 <p>where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
-is the velocity (m/s),
+is the <strong>velocity (m/s)</strong>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>G</mi><annotation encoding="application/x-tex">G</annotation></semantics></math>
-is gravity (m/s^{2}),
+is <strong>gravity (m/s^{2})</strong>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
-is stride length (m), and
+is <strong>stride length (m)</strong>, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
-is the hip height (m). This method is based on empirical studies that
-model the relationship between stride length, body size, and speed for
-general terrestrial vertebrates. The coefficients
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.25</mn><annotation encoding="application/x-tex">0.25</annotation></semantics></math>,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.67</mn><annotation encoding="application/x-tex">1.67</annotation></semantics></math>,
+is the <strong>hip height (m)</strong>. This method is based on
+empirical studies that model the relationship between stride length,
+body size, and speed for general terrestrial vertebrates. The
+coefficients
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.25</mn><annotation encoding="application/x-tex">0.25</annotation></semantics></math></strong>,
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.67</mn><annotation encoding="application/x-tex">1.67</annotation></semantics></math></strong>,
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1.17</mn></mrow><annotation encoding="application/x-tex">-1.17</annotation></semantics></math>
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1.17</mn></mrow><annotation encoding="application/x-tex">-1.17</annotation></semantics></math></strong>
 have been derived from studies focused on scaling relationships in
-bipedal and quadrupedal animals.</p>
-<p>Method B follows a similar approach but with a coefficient of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.226</mn><annotation encoding="application/x-tex">0.226</annotation></semantics></math>
+<strong>bipedal and quadrupedal animals</strong>.</p>
+<p><strong>Method B</strong> follows a similar approach but with a
+coefficient of
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.226</mn><annotation encoding="application/x-tex">0.226</annotation></semantics></math></strong>
 instead of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.25</mn><annotation encoding="application/x-tex">0.25</annotation></semantics></math>,
-which provides a refinement for bipedal locomotion. The formula is (Ruiz
-&amp; Torices, 2013):</p>
+<strong><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.25</mn><annotation encoding="application/x-tex">0.25</annotation></semantics></math></strong>,
+which provides a refinement for <strong>bipedal locomotion</strong>. The
+formula is (Ruiz &amp; Torices, 2013):</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mn>0.226</mn><mo>⋅</mo><msqrt><mi>G</mi></msqrt><mo>⋅</mo><msup><mi>S</mi><mn>1.67</mn></msup><mo>⋅</mo><msup><mi>H</mi><mrow><mo>−</mo><mn>1.17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">
 v = 0.226 \cdot \sqrt{G} \cdot S^{1.67} \cdot H^{-1.17}
 </annotation></semantics></math></p>
-<p>The relative stride length is calculated as the ratio between stride
-length and hip height
+<p>The <strong>relative stride length</strong> is calculated as the
+ratio between <strong>stride length and hip height</strong>
 (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>/</mi><mi>H</mi></mrow><annotation encoding="application/x-tex">S / H</annotation></semantics></math>),
-which allows distinguishing between different gaits according to
-Thulborn &amp; Wade (1984). The classification is as follows:<br>
-- <strong>Walk:</strong> Relative stride
+which allows distinguishing between different <strong>gaits</strong>
+according to <strong>Thulborn &amp; Wade (1984)</strong>. The
+classification is as follows:</p>
+<ul>
+<li>
+<strong>Walk:</strong> Relative stride
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&lt;</mo><mn>2.0</mn></mrow><annotation encoding="application/x-tex">&lt; 2.0</annotation></semantics></math>
 (locomotor performance equivalent to walking in mammals).<br>
-- <strong>Trot:</strong> Relative stride
+</li>
+<li>
+<strong>Trot:</strong> Relative stride
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2.0</mn><mo>≤</mo><mi>A</mi><mi>/</mi><mi>H</mi><mo>≤</mo><mn>2.9</mn></mrow><annotation encoding="application/x-tex">2.0 \leq A/H \leq 2.9</annotation></semantics></math>
 (locomotor performance equivalent to trotting or racking in
 mammals).<br>
-- <strong>Run:</strong> Relative stride
+</li>
+<li>
+<strong>Run:</strong> Relative stride
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>&gt;</mo><mn>2.9</mn></mrow><annotation encoding="application/x-tex">&gt; 2.9</annotation></semantics></math>
 (locomotor performance equivalent to cantering, galloping, or sprinting
-in mammals).</p>
-<p>The function returns a ‘track velocity’ R object containing a list of
-lists, each representing a track. For each track, it provides:<br>
-- <strong>Step_velocities:</strong> A vector of calculated velocities
-for each step (in m/s).<br>
-- <strong>Mean_velocity:</strong> The average velocity across all
-steps.<br>
-- <strong>Standard_deviation_velocity:</strong> The standard deviation
-of the calculated velocities.<br>
-- <strong>Maximum_velocity:</strong> The highest calculated
-velocity.<br>
-- <strong>Minimum_velocity:</strong> The lowest calculated
-velocity.<br>
-- <strong>Step_relative_stride:</strong> A vector of calculated relative
-stride lengths.<br>
-- <strong>Mean_relative_stride:</strong> The average of the relative
-stride lengths.<br>
-- <strong>Standard_deviation_relative_stride:</strong> The standard
-deviation of the relative stride lengths.<br>
-- <strong>Maximum_relative_stride:</strong> The highest calculated
-relative stride length.<br>
-- <strong>Minimum_relative_stride:</strong> The lowest calculated
-relative stride length.</p>
-<p>The function is particularly useful for estimating the speed of
-ancient track-makers from their footprints and evaluating their
-locomotion style (walking, trotting, or running).</p>
+in mammals).</li>
+</ul>
+<p>The function returns a
+<strong><code>track velocity R object</code></strong>, which is
+structured as a <strong>list of lists</strong>, with each list
+representing an individual track. For each track, the output includes
+various metrics that describe the calculated velocities and relative
+stride lengths. Specifically, it provides a vector of calculated
+velocities for each step, referred to as
+<strong><code>Step_velocities</code></strong>, measured in meters per
+second (<strong>m/s</strong>). Additionally, the function calculates the
+<strong><code>Mean_velocity</code></strong>, which represents the
+average speed across all steps, as well as the
+<strong><code>Standard_deviation_velocity</code></strong>, which
+quantifies the variation in velocity measurements. The
+<strong><code>Maximum_velocity</code></strong> and
+<strong><code>Minimum_velocity</code></strong> indicate the highest and
+lowest calculated velocities, respectively. In terms of relative stride
+lengths, the function also provides a vector of calculated values known
+as <strong><code>Step_relative_stride</code></strong>. The average of
+these values is captured by the
+<strong><code>Mean_relative_stride</code></strong>, while their
+variation is described by the
+<strong><code>Standard_deviation_relative_stride</code></strong>.
+Moreover, the highest and lowest calculated relative stride lengths are
+denoted as <strong><code>Maximum_relative_stride</code></strong> and
+<strong><code>Minimum_relative_stride</code></strong>, respectively.
+This comprehensive output allows users to thoroughly assess the speed
+and locomotion style of the track-makers under study.</p>
+<p>The function is particularly useful for estimating the <strong>speed
+of ancient track-makers</strong> from their footprints and evaluating
+their <strong>locomotion style (walking, trotting, or
+running)</strong>.</p>
 <div class="section level3">
 <h3 id="examples-of-usage-5">
 <strong>Examples of Usage:</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-5"></a>
 </h3>
-<p>Calculate velocities for the MountTom dataset (Method A).</p>
+<p>Calculate velocities with default options (Method A).</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">H_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.472</span>, <span class="fl">2.200</span><span class="op">)</span></span>
+<span><span class="va">velocity_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, H <span class="op">=</span> <span class="va">H_paluxyriver</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; $Track_1</span></span>
+<span><span class="co">#&gt; $Track_1$Step_velocities</span></span>
+<span><span class="co">#&gt;  [1] 0.2884087 0.2667234 0.2246319 0.2038125 0.2297207 0.2673225 0.2495612</span></span>
+<span><span class="co">#&gt;  [8] 0.2303131 0.2352243 0.1496251 0.1616271 0.2372131 0.2426553 0.2254857</span></span>
+<span><span class="co">#&gt; [15] 0.2041018 0.2211659 0.2609607 0.2515620 0.3030204 0.2519311 0.2015630</span></span>
+<span><span class="co">#&gt; [22] 0.1627231 0.2052861 0.2788176 0.2525451 0.2455988 0.2475302 0.3025814</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_1$Mean_velocity</span></span>
+<span><span class="co">#&gt; [1] 0.2357754</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_1$Standard_deviation_velocity</span></span>
+<span><span class="co">#&gt; [1] 0.03865919</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_1$Maximum_velocity</span></span>
+<span><span class="co">#&gt; [1] 0.3030204</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_1$Minimum_velocity</span></span>
+<span><span class="co">#&gt; [1] 0.1496251</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_1$Step_relative_stride</span></span>
+<span><span class="co">#&gt;  [1] 0.3789154 0.3615884 0.3262496 0.3077913 0.3306554 0.3620745 0.3474711</span></span>
+<span><span class="co">#&gt;  [8] 0.3311657 0.3353764 0.2557886 0.2678840 0.3370715 0.3416810 0.3269916</span></span>
+<span><span class="co">#&gt; [15] 0.3080528 0.3232259 0.3568899 0.3491365 0.3902964 0.3494432 0.3057525</span></span>
+<span><span class="co">#&gt; [22] 0.2689704 0.3091219 0.3713188 0.3499529 0.3441569 0.3457750 0.3899578</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_1$Mean_relative_stride</span></span>
+<span><span class="co">#&gt; [1] 0.3347413</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_1$Standard_deviation_relative_stride</span></span>
+<span><span class="co">#&gt; [1] 0.03373255</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_1$Maximum_relative_stride</span></span>
+<span><span class="co">#&gt; [1] 0.3902964</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_1$Minimum_relative_stride</span></span>
+<span><span class="co">#&gt; [1] 0.2557886</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_2</span></span>
+<span><span class="co">#&gt; $Track_2$Step_velocities</span></span>
+<span><span class="co">#&gt;  [1] 0.4217631 0.4424676 0.5313636 0.5147757 0.5386046 0.5371984 0.4793255</span></span>
+<span><span class="co">#&gt;  [8] 0.3964918 0.3818617 0.4191057 0.4207669 0.3792643 0.5615777 0.7805553</span></span>
+<span><span class="co">#&gt; [15] 0.5455458 0.3713092 0.3961137 0.4110622 0.5113603 0.5568550 0.6203647</span></span>
+<span><span class="co">#&gt; [22] 0.6723679 0.7106800</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_2$Mean_velocity</span></span>
+<span><span class="co">#&gt; [1] 0.5043818</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_2$Standard_deviation_velocity</span></span>
+<span><span class="co">#&gt; [1] 0.11228</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_2$Maximum_velocity</span></span>
+<span><span class="co">#&gt; [1] 0.7805553</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_2$Minimum_velocity</span></span>
+<span><span class="co">#&gt; [1] 0.3713092</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_2$Step_relative_stride</span></span>
+<span><span class="co">#&gt;  [1] 0.5453924 0.5612701 0.6263007 0.6145187 0.6313974 0.6304098 0.5888162</span></span>
+<span><span class="co">#&gt;  [8] 0.5255821 0.5138819 0.5433321 0.5446207 0.5117860 0.6473884 0.7884788</span></span>
+<span><span class="co">#&gt; [15] 0.6362574 0.5053306 0.5252820 0.5370638 0.6120740 0.6441228 0.6871563</span></span>
+<span><span class="co">#&gt; [22] 0.7210902 0.7454200</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_2$Mean_relative_stride</span></span>
+<span><span class="co">#&gt; [1] 0.6037814</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_2$Standard_deviation_relative_stride</span></span>
+<span><span class="co">#&gt; [1] 0.0789691</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_2$Maximum_relative_stride</span></span>
+<span><span class="co">#&gt; [1] 0.7884788</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Track_2$Minimum_relative_stride</span></span>
+<span><span class="co">#&gt; [1] 0.5053306</span></span></code></pre>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H_mounttom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">1.380</span>, <span class="fl">1.404</span>, <span class="fl">1.320</span>, <span class="fl">1.736</span>, <span class="fl">1.364</span>, <span class="fl">1.432</span>, <span class="fl">1.508</span>, <span class="fl">1.768</span>, <span class="fl">1.600</span>,</span>
 <span>  <span class="fl">1.848</span>, <span class="fl">1.532</span>, <span class="fl">1.532</span>, <span class="fl">0.760</span>, <span class="fl">1.532</span>, <span class="fl">1.688</span>, <span class="fl">1.620</span>, <span class="fl">0.636</span>, <span class="fl">1.784</span>, <span class="fl">1.676</span>, <span class="fl">1.872</span>,</span>
 <span>  <span class="fl">1.648</span>, <span class="fl">1.760</span>, <span class="fl">1.612</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">velocity_mounttom</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">MountTom</span>, H <span class="op">=</span> <span class="va">H_mounttom</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $Track_01</span></span>
+<span><span class="va">velocity_mounttom</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">MountTom</span>, H <span class="op">=</span> <span class="va">H_mounttom</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; $Track_01</span></span>
 <span><span class="co">#&gt; $Track_01$Step_velocities</span></span>
 <span><span class="co">#&gt; [1] 1.917671 1.699122 1.724574 1.690528 1.646310 1.521394 1.326607 1.634729</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -5522,92 +5675,15 @@ locomotion style (walking, trotting, or running).</p>
 <span><span class="co">#&gt; [1] 2.216404</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_23$Minimum_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 2.216404</span></span></code></pre></div>
-<p>Calculate velocities for the PaluxyRiver dataset (Method A)</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">H_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.472</span>, <span class="fl">2.200</span><span class="op">)</span></span>
-<span><span class="va">velocity_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, H <span class="op">=</span> <span class="va">H_paluxyriver</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $Track_1</span></span>
-<span><span class="co">#&gt; $Track_1$Step_velocities</span></span>
-<span><span class="co">#&gt;  [1] 0.2884087 0.2667234 0.2246319 0.2038125 0.2297207 0.2673225 0.2495612</span></span>
-<span><span class="co">#&gt;  [8] 0.2303131 0.2352243 0.1496251 0.1616271 0.2372131 0.2426553 0.2254857</span></span>
-<span><span class="co">#&gt; [15] 0.2041018 0.2211659 0.2609607 0.2515620 0.3030204 0.2519311 0.2015630</span></span>
-<span><span class="co">#&gt; [22] 0.1627231 0.2052861 0.2788176 0.2525451 0.2455988 0.2475302 0.3025814</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_1$Mean_velocity</span></span>
-<span><span class="co">#&gt; [1] 0.2357754</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_1$Standard_deviation_velocity</span></span>
-<span><span class="co">#&gt; [1] 0.03865919</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_1$Maximum_velocity</span></span>
-<span><span class="co">#&gt; [1] 0.3030204</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_1$Minimum_velocity</span></span>
-<span><span class="co">#&gt; [1] 0.1496251</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_1$Step_relative_stride</span></span>
-<span><span class="co">#&gt;  [1] 0.3789154 0.3615884 0.3262496 0.3077913 0.3306554 0.3620745 0.3474711</span></span>
-<span><span class="co">#&gt;  [8] 0.3311657 0.3353764 0.2557886 0.2678840 0.3370715 0.3416810 0.3269916</span></span>
-<span><span class="co">#&gt; [15] 0.3080528 0.3232259 0.3568899 0.3491365 0.3902964 0.3494432 0.3057525</span></span>
-<span><span class="co">#&gt; [22] 0.2689704 0.3091219 0.3713188 0.3499529 0.3441569 0.3457750 0.3899578</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_1$Mean_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 0.3347413</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_1$Standard_deviation_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 0.03373255</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_1$Maximum_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 0.3902964</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_1$Minimum_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 0.2557886</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_2</span></span>
-<span><span class="co">#&gt; $Track_2$Step_velocities</span></span>
-<span><span class="co">#&gt;  [1] 0.4217631 0.4424676 0.5313636 0.5147757 0.5386046 0.5371984 0.4793255</span></span>
-<span><span class="co">#&gt;  [8] 0.3964918 0.3818617 0.4191057 0.4207669 0.3792643 0.5615777 0.7805553</span></span>
-<span><span class="co">#&gt; [15] 0.5455458 0.3713092 0.3961137 0.4110622 0.5113603 0.5568550 0.6203647</span></span>
-<span><span class="co">#&gt; [22] 0.6723679 0.7106800</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_2$Mean_velocity</span></span>
-<span><span class="co">#&gt; [1] 0.5043818</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_2$Standard_deviation_velocity</span></span>
-<span><span class="co">#&gt; [1] 0.11228</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_2$Maximum_velocity</span></span>
-<span><span class="co">#&gt; [1] 0.7805553</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_2$Minimum_velocity</span></span>
-<span><span class="co">#&gt; [1] 0.3713092</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_2$Step_relative_stride</span></span>
-<span><span class="co">#&gt;  [1] 0.5453924 0.5612701 0.6263007 0.6145187 0.6313974 0.6304098 0.5888162</span></span>
-<span><span class="co">#&gt;  [8] 0.5255821 0.5138819 0.5433321 0.5446207 0.5117860 0.6473884 0.7884788</span></span>
-<span><span class="co">#&gt; [15] 0.6362574 0.5053306 0.5252820 0.5370638 0.6120740 0.6441228 0.6871563</span></span>
-<span><span class="co">#&gt; [22] 0.7210902 0.7454200</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_2$Mean_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 0.6037814</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_2$Standard_deviation_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 0.0789691</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_2$Maximum_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 0.7884788</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $Track_2$Minimum_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 0.5053306</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 2.216404</span></span></code></pre>
 <p>Calculate velocities for the PaluxyRiver dataset with different
-methods</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+methods for the sauropod (Method A) and theropod (Method B)
+trackways.</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.472</span>, <span class="fl">2.200</span><span class="op">)</span></span>
 <span><span class="va">Method_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span></span>
-<span><span class="va">velocity_paluxyriver_diff_methods</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, H <span class="op">=</span> <span class="va">H_paluxyriver</span>, method <span class="op">=</span> <span class="va">Method_paluxyriver</span><span class="op">)</span></span>
-<span><span class="co">#&gt; $Track_1</span></span>
+<span><span class="va">velocity_paluxyriver_diff</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, H <span class="op">=</span> <span class="va">H_paluxyriver</span>, method <span class="op">=</span> <span class="va">Method_paluxyriver</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; $Track_1</span></span>
 <span><span class="co">#&gt; $Track_1$Step_velocities</span></span>
 <span><span class="co">#&gt;  [1] 0.2884087 0.2667234 0.2246319 0.2038125 0.2297207 0.2673225 0.2495612</span></span>
 <span><span class="co">#&gt;  [8] 0.2303131 0.2352243 0.1496251 0.1616271 0.2372131 0.2426553 0.2254857</span></span>
@@ -5680,7 +5756,7 @@ methods</p>
 <span><span class="co">#&gt; [1] 0.7884788</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Track_2$Minimum_relative_stride</span></span>
-<span><span class="co">#&gt; [1] 0.5053306</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.5053306</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -5776,11 +5852,11 @@ assess differences in central tendency and variability across tracks,
 complementing the statistical analyses.</p>
 <p>The function returns a list of results that includes:<br>
 - <strong><code>normality_results</code></strong>: A matrix containing
-the test statistic and p-value for the Shapiro-Wilk normality test for
-each track.<br>
+the test statistic and <em>p</em>-value for the Shapiro-Wilk normality
+test for each track.<br>
 - <strong><code>homogeneity_test</code></strong>: The result of Levene’s
-test, including the p-value for testing homogeneity of variances across
-tracks.<br>
+test, including the <em>p</em>-value for testing homogeneity of
+variances across tracks.<br>
 - <strong><code>ANOVA</code></strong> (if selected): A list containing
 the ANOVA table and <strong>Tukey HSD</strong> post-hoc results.<br>
 - <strong><code>Kruskal_Wallis</code></strong> (if selected): A list
@@ -5807,15 +5883,16 @@ monotonic relationships based on ranks, making it robust to outliers and
 effective for identifying general trends.</p>
 <p>The function processes each trajectory in the <code>trackvel</code>
 list separately. For each trajectory, the function calculates the
-Spearman correlation coefficient and its associated p-value, comparing
-velocity values to their corresponding step numbers. If the p-value is
-less than 0.05, the trend is classified as “acceleration” if the
-correlation coefficient is positive or “deceleration” if it is negative.
-If the p-value is greater than or equal to 0.05, the trend is labeled as
-“steady,” indicating no significant monotonic relationship between
-velocity and step number. This approach allows the detection of gradual
-changes in velocity over the course of a track, which may reflect shifts
-in locomotor performance or behavior.</p>
+Spearman correlation coefficient and its associated <em>p</em>-value,
+comparing velocity values to their corresponding step numbers. If the
+<em>p</em>-value is less than 0.05, the trend is classified as
+“acceleration” if the correlation coefficient is positive or
+“deceleration” if it is negative. If the <em>p</em>-value is greater
+than or equal to 0.05, the trend is labeled as “steady,” indicating no
+significant monotonic relationship between velocity and step number.
+This approach allows the detection of gradual changes in velocity over
+the course of a track, which may reflect shifts in locomotor performance
+or behavior.</p>
 <p>Trajectories with fewer than three steps are considered insufficient
 for reliable statistical analysis, and the function returns a message
 indicating that the data is inadequate for correlation analysis. This is
@@ -5987,17 +6064,17 @@ simulated tracks. The simulation process involves generating random
 trajectories that are compared against the original tracks to determine
 if the observed DTW distances are significantly smaller than those
 expected under random conditions.</p>
-<p>P-values are calculated in two ways:</p>
+<p><em>P</em>-values are calculated in two ways:</p>
 <ul>
 <li>
-<strong>Pairwise P-values:</strong> For each trajectory pair, the
-proportion of simulated DTW distances smaller than the observed distance
-is calculated.</li>
+<strong>Pairwise <em>P</em>-values:</strong> For each trajectory
+pair, the proportion of simulated DTW distances smaller than the
+observed distance is calculated.</li>
 <li>
-<strong>Combined P-value:</strong> The overall proportion of
-simulations where all observed distances are smaller than the simulated
-distances, providing a measure of how distinct the observed tracks are
-from the simulated ones.</li>
+<strong>Combined <em>P</em>-value:</strong> The overall proportion
+of simulations where all observed distances are smaller than the
+simulated distances, providing a measure of how distinct the observed
+tracks are from the simulated ones.</li>
 </ul>
 <p>This method is valuable for evaluating the similarity of animal
 movement patterns under different experimental conditions or testing
@@ -6051,13 +6128,13 @@ simulated trajectories. The simulations are generated using the
 <strong><code><a href="../reference/simulate_track.html">simulate_track()</a></code></strong> function, and comparisons
 are made to determine if observed distances are significantly smaller
 than what would be expected by chance.</p>
-<p>P-values are computed in two ways: - <strong>Pairwise
-P-values:</strong> These p-values represent the proportion of simulated
-distances that are smaller than the observed distance for each
-trajectory pair. - <strong>Combined P-value:</strong> The overall
-proportion of simulations where all observed distances are smaller than
-the simulated distances, providing a comprehensive measure of
-similarity.</p>
+<p><em>P</em>-values are computed in two ways: - <strong>Pairwise
+<em>P</em>-values:</strong> These <em>p</em>-values represent the
+proportion of simulated distances that are smaller than the observed
+distance for each trajectory pair. - <strong>Combined
+<em>P</em>-value:</strong> The overall proportion of simulations where
+all observed distances are smaller than the simulated distances,
+providing a comprehensive measure of similarity.</p>
 <p>The <strong>Fréchet distance</strong> is particularly suited for
 applications where the overall shape of a trajectory matters, such as
 comparing migration routes, travel paths, or animal tracks. However, it
@@ -6120,13 +6197,13 @@ environmental factors that might influence movement.</p>
 depending on whether testing was performed. At the most basic level, the
 function returns a matrix where each cell represents the number of
 unique intersection points between two trajectories. If testing is
-enabled, the function also returns a matrix of p-values that compare
-observed intersection counts to those generated from simulated tracks,
-providing a statistical assessment of how unusual the observed
+enabled, the function also returns a matrix of <em>p</em>-values that
+compare observed intersection counts to those generated from simulated
+tracks, providing a statistical assessment of how unusual the observed
 intersections are. Additionally, the function provides an overall
-p-value that summarizes the significance of the intersection counts
-across all pairs of trajectories. Finally, it returns the full list of
-simulated intersection counts, which can be useful for further
+<em>p</em>-value that summarizes the significance of the intersection
+counts across all pairs of trajectories. Finally, it returns the full
+list of simulated intersection counts, which can be useful for further
 exploration or visualization of the results.</p>
 <p>The function’s versatility makes it applicable to a range of
 scenarios. For instance, if trackmakers are expected to be moving in
@@ -6148,16 +6225,16 @@ behavior.</p>
 </div>
 <div class="section level2">
 <h2 id="combining-p-values-from-multiple-similarity-and-intersection-metrics">
-<strong>Combining P-values from Multiple Similarity and Intersection
-Metrics</strong><a class="anchor" aria-label="anchor" href="#combining-p-values-from-multiple-similarity-and-intersection-metrics"></a>
+<strong>Combining <em>P</em>-values from Multiple Similarity and
+Intersection Metrics</strong><a class="anchor" aria-label="anchor" href="#combining-p-values-from-multiple-similarity-and-intersection-metrics"></a>
 </h2>
 <p>The <code><a href="../reference/combined_prob.html">combined_prob()</a></code> function is designed to combine
-p-values obtained from various similarity and intersection metrics to
-provide a more comprehensive assessment of how well the observed
-trajectories compare to those generated through simulation. The function
-can be particularly useful when multiple metrics are applied to the same
-set of data, as it allows users to integrate the results and obtain an
-overall measure of significance.</p>
+<em>p</em>-values obtained from various similarity and intersection
+metrics to provide a more comprehensive assessment of how well the
+observed trajectories compare to those generated through simulation. The
+function can be particularly useful when multiple metrics are applied to
+the same set of data, as it allows users to integrate the results and
+obtain an overall measure of significance.</p>
 <p>The basic idea behind this function is to assess how the observed
 similarity or intersection metrics compare to those generated under
 various simulated scenarios. It starts by receiving a list of metrics,
@@ -6171,22 +6248,23 @@ provided in the <code>metrics</code> list have been derived using the
 same number of simulations (<code>nsim</code>). If the metrics are
 incompatible, the function raises an error to prevent incorrect
 calculations.</p>
-<p>The process works by generating a matrix of p-values where each entry
-represents the combined significance of multiple metrics for a
-particular trajectory pair. For each simulation iteration, the function
-subtracts the observed metric values from the simulated ones, building a
-series of differences for each metric. If all differences for a given
-trajectory pair are positive, that combination is considered
-significant, contributing to the calculation of p-values.</p>
-<p>The function also provides an overall p-value that summarizes the
-combined significance across all trajectory pairs. This value indicates
-how consistently the observed data differs from the simulated datasets
-across all metrics.</p>
+<p>The process works by generating a matrix of <em>p</em>-values where
+each entry represents the combined significance of multiple metrics for
+a particular trajectory pair. For each simulation iteration, the
+function subtracts the observed metric values from the simulated ones,
+building a series of differences for each metric. If all differences for
+a given trajectory pair are positive, that combination is considered
+significant, contributing to the calculation of <em>p</em>-values.</p>
+<p>The function also provides an overall <em>p</em>-value that
+summarizes the combined significance across all trajectory pairs. This
+value indicates how consistently the observed data differs from the
+simulated datasets across all metrics.</p>
 <p>The result is returned as a list containing two components: 1. A
-matrix of combined p-values for each trajectory pair, where the entries
-represent the probability of observing the combined metrics across all
-simulations. 2. A single overall p-value summarizing the combined
-significance of all metrics across all pairs of trajectories.</p>
+matrix of combined <em>p</em>-values for each trajectory pair, where the
+entries represent the probability of observing the combined metrics
+across all simulations. 2. A single overall <em>p</em>-value summarizing
+the combined significance of all metrics across all pairs of
+trajectories.</p>
 <p>The <code><a href="../reference/combined_prob.html">combined_prob()</a></code> function provides an efficient way
 to aggregate multiple similarity or intersection metrics, making it an
 essential tool for users who wish to comprehensively evaluate their

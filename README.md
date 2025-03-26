@@ -15,7 +15,8 @@ coverage](https://codecov.io/gh/MacroFunUV/QuAnTeTrack/graph/badge.svg)](https:/
 Studying fossil vertebrate trackways is crucial as they provide valuable
 insights into the behavior, locomotion, and environmental interactions
 of extinct species, offering a dynamic perspective on prehistoric life
-that skeletal remains alone cannot. Here, I present **QuAnTeTrack**, an
+that skeletal remains alone cannot. Here, I present **QuAnTeTrack**
+(**Qu**antitative **An**alysis of **Te**trapod **Track**ways), an
 integrated tool designed to **semi-automatically extract
 palaeobiological information** by digitizing footprint and trackway
 coordinates and analyzing them within the R environment.

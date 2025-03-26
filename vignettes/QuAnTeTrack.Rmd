@@ -78,7 +78,6 @@ if (Sys.getenv("RGL_USE_NULL") == "" && !interactive()) {
 ```
 
 ## **Getting Started with QuAnTeTrack**  
-This section will guide you through installing and loading the package.
 
 ### **Installation**
 To install the **QuAnTeTrack** package from GitHub, you will need to use the `devtools` package. If you haven't installed `devtools` yet, you can do so with the following command:
@@ -111,29 +110,30 @@ This command will make all the functions from **QuAnTeTrack** available for use.
 
 ## **Overview of the Analytical Workflow in QuAnTeTrack**
 
-The **QuAnTeTrack** package provides a structured and comprehensive workflow for analyzing trackway data, facilitating the assessment of paleoecological and paleoethological hypotheses. The workflow integrates various functions for data digitization, loading, exploratory analysis, statistical testing, simulation, similarity assessment, intersection detection, and clustering. This pipeline aims to help researchers reconstruct, compare, and interpret movement patterns and behavioral dynamics of trackmakers.
+The **QuAnTeTrack** package (**Qu**antitative **An**alysis of **Te**trapod **Track**ways) provides a structured and comprehensive workflow for analyzing trackway data, facilitating the assessment of paleoecological and paleoethological hypotheses. The workflow integrates various functions for data digitization, loading, exploratory analysis, statistical testing, simulation, similarity assessment, intersection detection, and clustering. This pipeline aims to help researchers reconstruct, compare, and interpret movement patterns and behavioral dynamics of trackmakers.
 
 
 ### **1. Data Digitization and Preprocessing**
 
 The first step involves **digitizing the trackway data** using the **TPS software suite**, particularly:
 
-- **tpsUtil**: For compiling and converting `.TPS` files.  
-- **tpsDig**: For digitizing footprint coordinates from trackways.  
+- **tpsUtil** (*Rohlf, 2008*): For compiling and converting `.TPS` files.  
+- **tpsDig** (*Rohlf, 2009*): For digitizing footprint coordinates from trackways.  
 
-The digitization process should ensure that the footprints are consistently recorded across all samples, with attention to proper scaling. This process is essential for converting raw images into structured data for further analysis.
+The digitization process should ensure that the footprints are consistently recorded across all tracks. This process is essential for converting raw images into structured data for further analysis.
 
 
 ### **2. Loading Data with `tps_to_track()`**
 
 Once digitized, the data is loaded into **QuAnTeTrack** using the `tps_to_track()` function. This function:
 
-- Reads `.TPS` files containing digitized footprints.
+- Reads `.TPS` files containing digitized footprints within tracks.
 - Extracts and organizes data into structured `track` R objects.
 - Handles missing footprints through interpolation if required.
 - Converts raw data into real-world measurements using user-specified scales.
 
 The resulting **`track` R objects** contain:
+
 - **Trajectories:** Interpolated pathways derived from midpoints between footprints.  
 - **Footprints:** Original digitized points and metadata for each track.  
 
@@ -144,6 +144,12 @@ Additionally, if the dataset is extensive, users can utilize the **`subset_track
 
 Before testing specific hypotheses, users should perform an initial exploration of the data. This includes:
 
+- **Visual Inspection of Tracks (`plot_track()`)**:  
+  Generates visualizations of trackways and footprints to inspect their overall structure. The function offers various modes:
+  - Plotting only footprints
+  - Plotting only tracks
+  - Plotting both footprints and tracks
+
 - **Parameter Calculation (`track_param()`)**:  
   Calculates essential movement parameters, including:
   - Step lengths
@@ -151,17 +157,10 @@ Before testing specific hypotheses, users should perform an initial exploration 
   - Total distance and track length
   - Sinuosity
   - Straightness
-  - Velocity
   
 - **Velocity Calculation (`velocity_track()`)**:  
   Estimates velocities and relative stride lengths for each track, applying formulas based on empirical studies. This step is crucial for understanding speed dynamics and comparing them across different trackmakers or scenarios.
-  
-- **Visual Inspection of Tracks (`plot_track()`)**:  
-  Generates visualizations of trackways and footprints to inspect their overall structure. The function offers various modes:
-  - Plotting only footprints
-  - Plotting only tracks
-  - Plotting both footprints and tracks
-  
+
 - **Visualization of Velocity Patterns (`plot_velocity()`)**:  
   Provides a detailed view of how velocity or relative stride length changes along each track. This visualization is essential for identifying patterns of acceleration, deceleration, or steady movement.
 
@@ -176,18 +175,19 @@ These functions help identify general patterns and irregularities in the data be
 
 ### **4. Testing Directional and Velocity Patterns**
 
-To assess whether tracks exhibit distinct movement patterns, the following statistical tests are applied:
-
-- **Testing Direction (`test_direction()`)**:  
-  - Uses **ANOVA**, **Kruskal-Wallis**, or **Generalized Linear Models (GLM)** to compare mean directions across tracks.  
-  - Performs pairwise comparisons if necessary and generates statistical measures of similarity or divergence.
+To assess whether tracks exhibit distinct movement patterns, the following statistical tests can be applied:
 
 - **Testing Velocity (`test_velocity()`)**:  
   - Compares mean velocities across tracks using ANOVA, Kruskal-Wallis, or GLM.
+  - Performs pairwise comparisons if necessary.
   - Provides visualizations of velocity distributions across different tracks.
 
 - **Movement Mode Analysis (`mode_velocity()`)**:  
   - Applies Spearman’s rank correlation to detect trends of **acceleration**, **deceleration**, or **steady movement** along each track.
+
+- **Testing Direction (`test_direction()`)**:  
+  - Uses **ANOVA**, **Kruskal-Wallis**, or **Generalized Linear Models (GLM)** to compare mean directions across tracks.  
+  - Performs pairwise comparisons if necessary.
 
 These statistical tests allow researchers to rigorously compare and quantify movement characteristics, providing a foundation for hypothesis testing.
 
@@ -200,15 +200,14 @@ The `simulate_track()` function generates **simulated trajectories** based on di
 - **Constrained Model:** Generates correlated random walks, suitable for partially directed movement.  
 - **Unconstrained Model:** Represents fully random exploratory movement.  
 
-These models can be **informed by geological data** (e.g., sedimentology, topography) to test the influence of environmental constraints on movement. For example, natural barriers or features inferred from geological evidence may restrict the range of simulated paths.
+These models can be **informed by geological data** (e.g., sedimentology, paleogeomorphology, etc.) to test the influence of environmental constraints on movement. For example, natural barriers or features inferred from geological evidence may restrict the range of simulated paths.
 
-**Visualization of Simulations (`plot_sim()`)**:  
 The `plot_sim()` function overlays simulated tracks on the actual trajectories, allowing users to visually assess how well different models replicate observed track patterns. This visual comparison is essential for evaluating the realism of simulated tracks.
 
 
 ### **6. Comparing Simulated and Empirical Tracks**
 
-To compare simulated tracks against real data, various similarity metrics and intersection tests are applied:
+The **QuAnTeTrack** package offers several functions aimed at comparing similarity and intersection metrics between two or more actual tracks. These metrics are then evaluated against simulated datasets to determine the probability of observing such similarity or intersection counts under scenarios of independent (non-coordinated) movement.
 
 - **Dynamic Time Warping (`simil_DTW_metric()`)**:  
   Compares trajectories based on the optimal alignment of points, allowing for variable path lengths.
@@ -219,12 +218,10 @@ To compare simulated tracks against real data, various similarity metrics and in
 - **Track Intersections (`track_intersection()`)**:  
   Identifies and counts unique intersections between tracks, which can indicate interaction or coordinated movement.
 
-The functions allow users to generate simulated datasets to compare against real tracks and assess statistical significance through permutation tests.
-
 
 ### **7. Combining Probability Metrics (`combined_prob()`)**
 
-The `combined_prob()` function integrates p-values from multiple similarity metrics and intersection tests to provide a more robust assessment of observed patterns. This approach offers an overall measure of significance, enhancing the reliability of the results by accounting for different aspects of similarity and interaction.
+The `combined_prob()` function integrates *p*-values from multiple similarity metrics and intersection tests to provide a more robust assessment of observed patterns. This approach offers an overall measure of significance, enhancing the reliability of the results by accounting for different aspects of similarity and interaction.
 
 
 ### **8. Clustering Analysis (`cluster_track()`)**
@@ -246,12 +243,15 @@ The `cluster_track()` function is an optional but powerful step that can be appl
   - **tpsUtil** (*Rohlf, 2008*) - for file manipulation and data conversion.  
   - **tpsDig** (*Rohlf, 2009*) - for digitizing landmarks and outlines.  
 
-This vignette demonstrates how to **load, process, and analyze trackway data** using the **QuAnTeTrack** package. We will walk through the **Paluxy River** and the **Mount Tom** datasets, representing dinosaur tracks from the Paluxy River site (**Farlow et al. (2012)**) and the Mount Tom site (**Ostrom (1972)**), respectively.
+This vignette demonstrates how to **load, process, and analyze trackway data** using the **QuAnTeTrack** package. We will walk through the **Paluxy River** and the **Mount Tom** datasets, representing dinosaur tracks from the Paluxy River site (**Farlow et al. (2012)**) and the Mount Tom site (**Ostrom (1972)**), respectively. Examples of `.tps` files of these datasets can be downloaded here:
+
+  - [Paluxy River](../inst/extdata/PaluxyRiver.tps)
+  - [Mount Tom](../inst/extdata/MountTom.tps)
 
 
 ## **Loading and Converting Data**  
 
-The **`tps_to_track()`** function is a critical tool for converting raw `.TPS` files containing digitized trackway data into usable track objects within the **QuAnTeTrack** package. It is particularly useful for reconstructing trackways from footprints digitized using the **TPS software suite**, such as **tpsUtil** or **tpsDig**. This function reads the raw `.TPS` files, extracts coordinates, and transforms them into structured `track` R objects for further analysis.
+The **`tps_to_track()`** function is a critical tool for converting raw `.TPS` files containing digitized trackway data into usable `track` objects within the **QuAnTeTrack** package. It is particularly useful for reconstructing trackways from footprints digitized using the **TPS software suite**, such as **tpsUtil** or **tpsDig**. This function reads the raw `.TPS` files, extracts coordinates, and transforms them into structured `track` R objects for further analysis.
 
 The **`tps_to_track()`** function reads `.TPS` files where each track is represented by a series of (x, y) coordinates saved as different images. It then processes these data to create a set of trajectory coordinates by calculating the midpoints between consecutive footprints. These trajectories represent the reconstructed pathways of the trackmaker, allowing users to analyze the overall movement patterns. If some footprints are missing, the function can interpolate them based on the position of adjacent footprints and the specified side (left or right) of the first footprint. 
 
@@ -266,7 +266,7 @@ The **returned `track` R object** includes:
 This function provides a comprehensive approach to converting raw `.TPS` files into structured data objects, making it possible to apply further analyses using the **QuAnTeTrack** package.
 
 ### **Examples of Usage:**  
-Here, the TPS files (**PaluxyRiver.tps** and **MountTom.tps**) are loaded using the `system.file()` function to ensure compatibility across systems. They are then converted to track objects using the `tps_to_track()` function. The `scale` argument is used to set the coordinate scaling factor. For the **PaluxyRiver** dataset, no footprints are missing, so the `missing` argument is set to `FALSE` and `NAs = NULL`. For the **MountTom** dataset, some footprints are missing, so the `missing` argument is set to `TRUE`, and the missing footprints are specified using the `NAs` matrix. Additionally, the `R.L.side` argument is provided to specify the side of the first footprint of each track (either "R" for right or "L" for left).
+Here, the TPS files (**PaluxyRiver.tps** and **MountTom.tps**) are loaded using the `system.file()` function to ensure compatibility across systems. This approach is necessary because these files are stored as **internal data within the package** (specifically, in the `inst/extdata/` folder). Using `system.file()` ensures that the files can be accessed regardless of the user's operating system or working directory, making the vignette fully portable and reproducible. They are then converted to `track` objects using the `tps_to_track()` function. The `scale` argument is used to set the coordinate scaling factor. For the **PaluxyRiver** dataset, no footprints are missing, so the `missing` argument is set to `FALSE` and `NAs = NULL`. For the **MountTom** dataset, some footprints are missing, so the `missing` argument is set to `TRUE`, and the missing footprints are specified using the `NAs` matrix. Additionally, the `R.L.side` argument is provided to specify the side of the first footprint of each track (either "R" for right or "L" for left).
 
 For users working with their own data, **replace** `system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")` and `system.file("extdata", "MountTom.tps", package = "QuAnTeTrack")` with the **file paths to your .TPS files** (e.g., `"C:/path/to/your/PaluxyRiver.tps"` and `"C:/path/to/your/MountTom.tps"`).  
 
@@ -296,26 +296,11 @@ MountTom <- tps_to_track(
 
 The **`plot_track()`** function is a versatile tool designed to visualize track and footprint data in various ways, providing a flexible approach to examining and presenting trackway datasets. This function generates customizable plots using the `ggplot2` package, allowing users to inspect individual tracks, footprints, or a combination of both. By adjusting various plotting parameters, users can tailor their visualizations to highlight specific aspects of the dataset, such as individual track paths, footprint shapes, and colors.
 
-The **`plot_track()`** function allows users to choose between three plotting modes: plotting only the footprints, only the interpolated trackways, or a combination of both. This is controlled by the `plot` argument, which can be set to `"Footprints"`, `"Tracks"`, or `"FootprintsTracks"` (default). The footprints and tracks are plotted using different layers, with footprints represented by points and tracks represented by lines. 
+The **`plot_track()`** function allows users to choose between three plotting modes: plotting only the footprints, only the interpolated trackways, or a combination of both. This is controlled by the `plot` argument, which can be set to `"Footprints"`, `"Tracks"`, or `"FootprintsTracks"` (default). The footprints and tracks are plotted using different layers, with footprints represented by points and tracks represented by lines.
 
 Additional customization options include changing colors, sizes, shapes, and transparency of the plotted elements. Users can provide a vector of colors via the `colours` argument, which allows different tracks to be plotted in different colors. The `cex.f` and `cex.t` arguments control the sizes of footprint points and track lines, respectively. The `shape.f` argument allows users to specify the shapes of footprint points, while the `alpha.f`, `alpha.t`, and `alpha.l` arguments control the transparency of footprints, track lines, and labels, respectively.
 
 The **`plot_track()`** function also supports the addition of labels to individual tracks. If the `plot.labels` argument is set to `TRUE`, labels are displayed at the start of each track, with the label text determined by the `labels` argument. If labels are not provided, the function automatically generates labels based on track names. Users can adjust the label size using the `cex.l` argument and control the padding around the labels with the `box.p` argument. 
-
-The **function's arguments** are as follows:  
-- **`data`**: A 'track' R object containing two elements: `Trajectories` (interpolated tracks) and `Footprints` (original footprint data).  
-- **`plot`**: Specifies the type of plot to generate. Options are `"FootprintsTracks"` (default), `"Tracks"`, or `"Footprints"`.  
-- **`colours`**: A vector of colors for different tracks. If `NULL`, defaults to black.  
-- **`cex.f`**: Controls the size of footprint points. Default is `2.5`.  
-- **`shape.f`**: A vector specifying shapes for footprints in different tracks. Default is solid circle (`19`).  
-- **`alpha.f`**: Sets the transparency of footprint points. Default is `0.5`.  
-- **`cex.t`**: Controls the size of track lines. Default is `0.5`.  
-- **`alpha.t`**: Sets the transparency of track lines. Default is `1`.  
-- **`plot.labels`**: Logical argument indicating whether to display labels for each track. Default is `FALSE`.  
-- **`labels`**: A vector of labels for each track. If `NULL`, labels are automatically generated.  
-- **`box.p`**: Controls the padding around label boxes if `plot.labels = TRUE`.  
-- **`cex.l`**: Controls the size of labels. Default is `3.88`.  
-- **`alpha.l`**: Sets the transparency of the labels. Default is `0.5`.  
 
 The **`plot_track()`** function returns a `ggplot` object, which can be further customized using additional `ggplot2` functions. This allows users to enhance their plots with additional layers, themes, and annotations as needed.
 
@@ -323,7 +308,7 @@ The function is especially useful for comparing multiple trackways at once, prov
 
 ### **Examples of Usage:**  
  
-By default, **`plot_track()`** displays the complete track, including both footprints and interpolated trajectories. This is useful for getting a general overview of the track and its corresponding interpolated pathways.  
+By default, **`plot_track()`** displays both footprints and interpolated trajectories. This is useful for getting a general overview of the track and its corresponding interpolated pathways.  
 
 ```{r echo=TRUE}
 plot_track(PaluxyRiver)
@@ -357,17 +342,7 @@ plot_track(MountTom, plot = "Tracks")
 
 ### **Further Customizations**  
 
-The `plot_track()` function also allows for various customizations to enhance visualization. Parameters that can be customized include:
-
-- `plot.labels`: Logical value indicating whether to plot labels for each track.  
-- `labels`: Custom labels to be displayed for the tracks.  
-- `cex.l`: Size of the labels.  
-- `box.p`: Size of the boxes around the labels.  
-- `alpha.l`: Transparency level of the labels.  
-- `colours`: Vector of colors to customize the footprints of different tracks.  
-- `shape.f`: Vector specifying the shapes used for footprints.  
-
-Below are some examples illustrating these customizations:  
+The `plot_track()` function also allows for various customizations to enhance visualization. Below are some examples illustrating these customizations:  
 
 ```{r echo=TRUE}
 labels <- paste("Track", seq_along(MountTom[[1]]))
@@ -375,23 +350,19 @@ plot_track(MountTom, plot.labels = TRUE, labels = labels, cex.l = 4, box.p = 0.3
 ```
 
 ```{r echo=TRUE}
-plot_track(PaluxyRiver, plot = "Footprints", colours = c("purple", "orange"), shape.f = c(15, 18))
+plot_track(PaluxyRiver, plot = "Footprints", colours = c("red", "orange"), shape.f = c(15, 18))
 ```
 
 
 ## **Extracting Track Parameters**  
 
-The **`track_param()`** function is designed to compute and print various parameters related to the movement patterns of tracks from a track object, which is a structured list generated by the **`tps_to_track()`** function. This function is essential for extracting detailed information about the structure of individual tracks and their spatial relationships, providing key metrics that can be used for further analysis, comparison, and visualization. The `track_param()` function uses several helper functions from the `trajr` package, which is commonly applied in animal movement analysis.
+The **`track_param()`** function is designed to compute and print various parameters related to the movement patterns of tracks from a `track` object, which is a structured list generated by the **`tps_to_track()`** function. This function is essential for extracting detailed information about the structure of individual tracks and their spatial relationships, providing key metrics that can be used for further analysis, comparison, and visualization. The `track_param()` function uses several helper functions from the `trajr` package, which is commonly applied in animal movement analysis.
 
-The **`track_param()`** function works by iterating over each trajectory within the provided track data and computing a set of movement-related parameters. The function calculates turning angles, step lengths, total distances covered, track lengths, and measures of sinuosity and straightness. These parameters are essential for understanding the locomotor patterns of the trackmakers and their efficiency of movement.
+The **`track_param()`** function works by iterating over each trajectory within the provided track data and computing a set of movement-related parameters. The function calculates turning angles, step lengths, total distances covered, track lengths, and measures of sinuosity and straightness. These parameters are essential for understanding the locomotor patterns of the trackmakers.
 
-The **turning angles** are calculated using the `TrajAngles()` function, providing a measure of directional changes at each step. The mean turning angle and standard deviation are also calculated to summarize overall turning behavior. The **distance** covered by the track is obtained using the `TrajDistance()` function, which measures the total straight-line distance between the start and end points of the track. The **track length** is calculated using the `TrajLength()` function, which sums the distances between all consecutive points in the track.
+The turning angles are calculated using the `TrajAngles()` function, providing a measure of directional changes at each step. The mean turning angle and standard deviation are also calculated to summarize overall turning behavior. The distance covered by the track is obtained using the `TrajDistance()` function, which measures the total straight-line distance between the start and end points of the track. The track length is calculated using the `TrajLength()` function, which sums the distances between all consecutive points in the track. The step lengths, or the distances between consecutive points, are calculated with `TrajStepLengths()`. The function also computes the mean and standard deviation of these step lengths. The sinuosity of the track is calculated using the `TrajSinuosity2()` function, which quantifies how much a path deviates from a straight line. The measure of sinuosity is based on the method described by Benhamou (2004), which refines previous methods to provide more accurate estimates of tortuosity for paths with varying turning angles and step lengths. The straightness index is calculated with `TrajStraightness()`, defined as the ratio between the beeline distance (start to end) and the total path length. This measure is based on the work of Batschelet (1981) and provides insight into how direct or meandering the movement of the trackmaker was.
 
-The **step lengths**, or the distances between consecutive points, are calculated with `TrajStepLengths()`. The function also computes the mean and standard deviation of these step lengths. The **sinuosity** of the track is calculated using the `TrajSinuosity2()` function, which quantifies how much a path deviates from a straight line. The measure of sinuosity is based on the method described by Benhamou (2004), which refines previous methods to provide more accurate estimates of tortuosity for paths with varying turning angles and step lengths. The **straightness index** is calculated with `TrajStraightness()`, defined as the ratio between the beeline distance (start to end) and the total path length. This measure is based on the work of Batschelet (1981) and provides insight into how direct or meandering the movement of the trackmaker was.
-
-The **`track_param()`** function returns a list of lists, where each sublist contains the computed parameters for a corresponding track. The parameters include turning angles, mean turning angle, standard deviation of turning angles, distance, length, step lengths, mean step length, standard deviation of step length, sinuosity, and straightness. The reference direction for calculating angles is considered to be along the positive x-axis, with angles measured counterclockwise. The computed parameters are returned in a structured format, allowing users to further process or visualize the data as needed.
-
-Additionally, the sinuosity calculation is based on the following formula:
+The sinuosity calculation is based on the following formula:
 \[
 S = 2 \left[ p \left( \frac{1 + c}{1 - c} + b^2 \right) \right]^{-0.5}
 \]
@@ -400,11 +371,13 @@ where:
 - \( c \) is the mean cosine of turning angles (in radians), and
 - \( b \) is the coefficient of variation of the step length (in meters).  
 
-The **straightness index** is calculated as the ratio \( D/L \), where \( D \) is the beeline distance between the first and last points of the trajectory, and \( L \) is the total path length. This index is useful for comparing the efficiency of directed walks but is not suitable for random trajectories, where the index tends towards zero with increasing steps.
+The straightness index is calculated as the ratio \( D/L \), where \( D \) is the beeline distance between the first and last points of the trajectory, and \( L \) is the total path length. This index is useful for comparing the efficiency of directed walks but is not suitable for random trajectories, where the index tends towards zero with increasing steps.
+
+The **`track_param()`** function returns a list of lists, where each sublist contains the computed parameters for a corresponding track. The parameters include turning angles, mean turning angle, standard deviation of turning angles, distance, length, step lengths, mean step length, standard deviation of step length, sinuosity, and straightness. The reference direction for calculating angles is considered to be along the positive x-axis, with angles measured counterclockwise. The computed parameters are returned in a structured format, allowing users to further process or visualize the data as needed.
 
 The **`track_param()`** function provides valuable insights into the structure and efficiency of trackmaker movements, making it a crucial tool for analyzing fossil trackways.
 
-
+### **Examples of Usage:**
 ```{r, eval=FALSE}
 params_paluxy <- track_param(PaluxyRiver)
 ```
@@ -888,8 +861,10 @@ Another practical application of clustering is to refine the dataset before appl
 
 
 
-## **References:**  
+## **References**  
 - **Alexander, R. M. (1976).** Estimates of speeds of dinosaurs. *Nature*, 261(5556), 129-130.  
+- **Batschelet, E. (1981).** Circular statistics in biology. *Academic Press*, 388 pp.  
+- **Benhamou, S. (2004).** How to reliably estimate the tortuosity of an animal's path: straightness, sinuosity, or fractal dimension?. *Journal of Theoretical Biology*, 229(2), 209-220.  
 - **Farlow, J. O., O’Brien, M., Kuban, G. J., Dattilo, B. F., Bates, K. T., Falkingham, P. L., & Piñuela, L. (2012).** Dinosaur Tracksites of the Paluxy River Valley (Glen Rose Formation, Lower Cretaceous), Dinosaur Valley State Park, Somervell County, Texas. *In Proceedings of the V International Symposium about Dinosaur Palaeontology and their Environment* (pp. 41-69). Burgos: Salas de los Infantes.  
 - **Ostrom, J. H. (1972).** Were some dinosaurs gregarious? *Palaeogeography, Palaeoclimatology, Palaeoecology*, 11(4), 287-301.  
 - **Rohlf, F. J.** 2008. **tpsUtil. Version 1.40.** Department of Ecology and Evolution, State University of New York.  
@@ -897,4 +872,4 @@ Another practical application of clustering is to refine the dataset before appl
 - **Rohlf, F. J.** 2009. **tpsDig. Version 2.14.** Department of Ecology and Evolution, State University of New York.  
   Available at: [https://sbmorphometrics.org/](https://sbmorphometrics.org/)  
 - **Ruiz, J., & Torices, A. (2013).** Humans running at stadiums and beaches and the accuracy of speed estimations from fossil trackways. *Ichnos*, 20(1), 31-35.  
-- **Thulborn, R. A., & Wade, M. (1984).** Dinosaur trackways in the Winton Formation (mid-Cretaceous) of Queensland. *Memoirs of the Queensland Museum*, 21(2), 413-517.
+- **Thulborn, R. A., & Wade, M. (1984).** Dinosaur trackways in the Winton Formation (mid-Cretaceous) of Queensland. *Memoirs of the Queensland Museum*, 21(2), 413-517.  

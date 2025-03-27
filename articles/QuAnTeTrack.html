@@ -1724,44 +1724,46 @@ presentation.</li>
 a powerful statistical framework for comparing <strong>mean
 directions</strong> across different tracks within a
 <strong><code>track</code> R object</strong>. It offers three distinct
-methods for this purpose: <strong>ANOVA</strong>, <strong>Kruskal-Wallis
-test</strong>, and <strong>Generalized Linear Models (GLM)</strong>,
-ensuring robust analysis even when assumptions about data distribution
-and variance homogeneity are violated. The function requires that each
-track contains more than <strong>three footprints</strong> to be
-included in the analysis, as statistical tests for comparing mean
-directions require a sufficient sample size to generate meaningful
-results. This threshold ensures that the comparisons are statistically
-reliable and robust.</p>
-<p>When using the <strong>ANOVA</strong> method, the function first
-checks the <strong>normality of the data</strong> through the
-<strong>Shapiro-Wilk test</strong> and assesses <strong>homogeneity of
-variances</strong> using <strong>Levene’s test</strong>. If these
+methods for this purpose, which can be selected using the
+<strong><code>analysis</code></strong> argument: <strong>ANOVA</strong>,
+<strong>Kruskal-Wallis test</strong>, and <strong>Generalized Linear
+Models (GLM)</strong>, ensuring robust analysis even when assumptions
+about data distribution and variance homogeneity are violated. The
+function requires that each track contains more than <strong>three
+footprints</strong> to be included in the analysis, as statistical tests
+for comparing mean directions require a sufficient sample size to
+generate meaningful results. This threshold ensures that the comparisons
+are statistically reliable and robust.</p>
+<p>When using the <strong><code>"ANOVA"</code></strong> option, the
+function first checks the <strong>normality of the data</strong> through
+the <strong>Shapiro-Wilk test</strong> and assesses <strong>homogeneity
+of variances</strong> using <strong>Levene’s test</strong>. If these
 assumptions are violated, the user is advised to consider the
 <strong>Kruskal-Wallis</strong> or <strong>GLM</strong> methods instead.
 The <strong>ANOVA</strong> method compares <strong>mean directions
 across tracks</strong>, and if significant differences are detected,
 <strong>Tukey’s HSD test</strong> is applied to perform <strong>post-hoc
-pairwise comparisons</strong>. The <strong>Kruskal-Wallis</strong> test,
-in contrast, offers a non-parametric approach that compares
-<strong>median directions</strong> across tracks and applies
-<strong>Dunn’s test</strong> for pairwise comparisons if significant
-differences are found. This method is particularly suitable when data do
-not meet the assumptions required for parametric tests. Alternatively,
-if the <strong>GLM</strong> method is selected, the function applies a
-<strong>Generalized Linear Model (GLM)</strong> with a <strong>Gaussian
-family</strong> to compare <strong>mean directions</strong>. The
-<strong><code>emmeans</code> package</strong> is then used to compute
-<strong>pairwise comparisons</strong>, with adjustments for multiple
-comparisons following <strong>Tukey’s method</strong>, offering a
-flexible approach when dealing with complex data distributions or
-deviations from normality.</p>
+pairwise comparisons</strong>. The
+<strong><code>"Kruskal-Wallis"</code></strong> option, in contrast,
+offers a non-parametric approach that compares <strong>median
+directions</strong> across tracks and applies <strong>Dunn’s
+test</strong> for pairwise comparisons if significant differences are
+found. This method is particularly suitable when data do not meet the
+assumptions required for parametric tests. Alternatively, if the
+<strong><code>"GLM"</code></strong> option is selected, the function
+applies a <strong>Generalized Linear Model (GLM)</strong> with a
+<strong>Gaussian family</strong> to compare <strong>mean
+directions</strong>. The <strong><code>emmeans</code> package</strong>
+is then used to compute <strong>pairwise comparisons</strong>, with
+adjustments for multiple comparisons following <strong>Tukey’s
+method</strong>, offering a flexible approach when dealing with complex
+data distributions or deviations from normality.</p>
 <p>The <strong><code><a href="../reference/test_direction.html">test_direction()</a></code></strong> function returns a
 detailed set of results. It provides a <strong>normality results
 matrix</strong> containing the <strong>Shapiro-Wilk test statistic and
-p-value</strong> for each track, allowing the user to evaluate whether
-the data follows a normal distribution. The function also outputs the
-result of <strong>Levene’s test</strong>, including the
+<em>p</em>-value</strong> for each track, allowing the user to evaluate
+whether the data follows a normal distribution. The function also
+outputs the result of <strong>Levene’s test</strong>, including the
 <strong>p-value</strong> used to assess whether variances across tracks
 are homogeneous. When the <strong>ANOVA</strong> method is selected, the
 function delivers the <strong>ANOVA table</strong> along with
@@ -4748,11 +4750,17 @@ Lengths</strong><a class="anchor" aria-label="anchor" href="#calculating-velocit
 <p>The <strong><code><a href="../reference/velocity_track.html">velocity_track()</a></code></strong> function
 calculates the <strong>velocities</strong> and <strong>relative stride
 lengths</strong> for each step within a series of tracks. It requires a
-<strong>‘track’ R object</strong> as input, which contains both
-<strong>trajectories and footprints</strong>, and uses the
-<strong>height at the hip</strong> for each track maker to estimate
-speed. The function supports two calculation methods: <strong>Method A
-(Alexander, 1976)</strong> and <strong>Method B (Ruiz &amp; Torices,
+<strong><code>track</code> R object</strong> as input, which contains
+both <strong>trajectories and footprints</strong>, and uses the
+<strong>height at the hip</strong>, <code>H</code>, for each track maker
+to estimate speed. This value is essential because both Method A and
+Method B rely on this information to calculate speed. The H argument
+should be supplied as a numeric value representing the hip height in
+meters. If the hip height is unknown, it must be estimated from skeletal
+proportions or other anatomical information. The accuracy of velocity
+calculations depends heavily on providing a realistic value for this
+parameter. The function supports two calculation methods: <strong>Method
+A (Alexander, 1976)</strong> and <strong>Method B (Ruiz &amp; Torices,
 2013)</strong>, which are specified via the <code>method</code>
 argument. By default, <strong>Method A</strong> is applied to all tracks
 if no method is specified. The <strong>gravitational

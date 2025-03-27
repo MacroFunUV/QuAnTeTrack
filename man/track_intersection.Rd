@@ -113,48 +113,37 @@ behavioral dynamics underlying the observed trackways.
 }
 
 \examples{
-# Example 1: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
-# No origin permutation is applied ("None").
+# Example 1: Intersection metrics in the PaluxyRiver dataset.
 s1 <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
-int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1, origin.permutation = "None")
+int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1,
+  origin.permutation = "None")
 print(int1)
 
-# Example 2: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
-# The origin permutation is applied using the minimum bounding box ("Min.Box").
+# Example 2: Using "Min.Box" origin permutation in PaluxyRiver dataset.
 s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
-int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2, origin.permutation = "Min.Box")
+int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2,
+  origin.permutation = "Min.Box")
 print(int2)
 
-# Example 3: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
-# The origin permutation is applied using the convex hull ("Conv.Hull").
+# Example 3: Using "Conv.Hull" origin permutation in PaluxyRiver dataset.
 s3 <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
-int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3, origin.permutation = "Conv.Hull")
+int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3,
+  origin.permutation = "Conv.Hull")
 print(int3)
 
-# Example 4: Simulating tracks and comparing intersection metrics in a subsample of the
-# MoutTom dataset. The "Min.Box" origin permutation is applied.
+# Example 4: Using "Min.Box" origin permutation in MountTom subset.
 sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 s4 <- simulate_track(sbMountTom, nsim = 10)
-int4 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s4, origin.permutation = "Min.Box")
+int4 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s4,
+  origin.permutation = "Min.Box")
 print(int4)
 
-# Example 5: Simulating tracks and comparing intersection metrics in a subsample of the
-# MoutTom dataset. The origin permutation is customized ("Custom") using predefined coordinates.
+# Example 5: Customized origin permutation in MountTom subset.
 sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 s5 <- simulate_track(sbMountTom, nsim = 10)
-area_origin <- matrix(
-  c(
-    50, 5,
-    10, 5,
-    10, 20,
-    50, 20
-  ),
-  ncol = 2, byrow = TRUE
-)
-int5 <- track_intersection(sbMountTom,
-  test = TRUE,  H1 = "Higher", sim = s5, origin.permutation = "Custom",
-  custom.coord = area_origin
-)
+area_origin <- matrix(c(50, 5, 10, 5, 10, 20, 50, 20), ncol = 2, byrow = TRUE)
+int5 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s5,
+  origin.permutation = "Custom", custom.coord = area_origin)
 print(int5)
 
 }

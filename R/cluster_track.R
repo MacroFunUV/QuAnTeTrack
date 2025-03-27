@@ -7,7 +7,7 @@
 #'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #' @param veltrack A 'track velocity' R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.
 #' @param variables A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include: \code{"TurnAng"}, \code{"sdTurnAng"}, \code{"Distance"}, \code{"Length"}, \code{"StLength"}, \code{"sdStLength"}, \code{"Sinuosity"}, \code{"Straightness"}, \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"}.
-#' a
+#'
 #' @details
 #' The \code{cluster_track()} function performs a model-based clustering analysis on track parameters using the \code{Mclust()} function from the \pkg{mclust} package.
 #'

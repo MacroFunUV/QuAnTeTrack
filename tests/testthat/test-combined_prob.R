@@ -11,7 +11,7 @@ test_that("combined_prob() correctly handles invalid inputs", {
 
   # Create a metric with a different number of simulations
   s_fake2 <- simulate_track(PaluxyRiver, nsim = 9, model = "Directed")
-  int_fake <- track_intersection(PaluxyRiver, test = TRUE, sim = s_fake2, origin.permutation = "None")
+  int_fake <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s_fake2, origin.permutation = "None")
 
   expect_error(combined_prob(PaluxyRiver, metrics = list(DTW_fake, Frechet_fake, int_fake)), "All elements in 'metrics' must have the same number of simulations.")
 })
@@ -21,7 +21,7 @@ test_that("combined_prob() correctly computes combined probabilities", {
   s1 <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
   DTW1 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
   Frechet1 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
-  int1 <- track_intersection(PaluxyRiver, test = TRUE, sim = s1, origin.permutation = "None")
+  int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1, origin.permutation = "None")
   result1 <- combined_prob(PaluxyRiver, metrics = list(DTW1, Frechet1, int1))
 
   expect_true(is.list(result1))
@@ -36,7 +36,7 @@ test_that("combined_prob() correctly computes combined probabilities", {
   s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
   DTW2 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
   Frechet2 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
-  int2 <- track_intersection(PaluxyRiver, test = TRUE, sim = s2, origin.permutation = "Min.Box")
+  int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2, origin.permutation = "Min.Box")
   result2 <- combined_prob(PaluxyRiver, metrics = list(DTW2, Frechet2, int2))
 
   expect_true(is.list(result2))
@@ -47,7 +47,7 @@ test_that("combined_prob() correctly computes combined probabilities", {
   s3 <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
   DTW3 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None")
   Frechet3 <- suppressWarnings(simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None"))
-  int3 <- track_intersection(PaluxyRiver, test = TRUE, sim = s3, origin.permutation = "Conv.Hull")
+  int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3, origin.permutation = "Conv.Hull")
   result3 <- combined_prob(PaluxyRiver, metrics = list(DTW3, Frechet3, int3))
 
   expect_true(is.list(result3))
@@ -59,7 +59,7 @@ test_that("combined_prob() correctly computes combined probabilities", {
   s4 <- suppressWarnings(simulate_track(sbMountTom, nsim = 10))
   DTW4 <- simil_DTW_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid")
   Frechet4 <- suppressWarnings(simil_Frechet_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid"))
-  int4 <- track_intersection(sbMountTom, test = TRUE, sim = s4, origin.permutation = "Min.Box")
+  int4 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s4, origin.permutation = "Min.Box")
   result4 <- combined_prob(sbMountTom, metrics = list(DTW4, Frechet4, int4))
 
   expect_true(is.list(result4))
@@ -73,7 +73,7 @@ test_that("combined_prob() correctly computes combined probabilities", {
   Frechet5 <- suppressWarnings(simil_Frechet_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin"))
   area_origin <- matrix(c(50, 5, 10, 5, 10, 20, 50, 20), ncol = 2, byrow = TRUE)
   int5 <- track_intersection(sbMountTom,
-    test = TRUE, sim = s5,
+    test = TRUE, H1 = "Higher", sim = s5,
     origin.permutation = "Custom", custom.coord = area_origin
   )
   result5 <- combined_prob(sbMountTom, metrics = list(DTW5, Frechet5, int5))

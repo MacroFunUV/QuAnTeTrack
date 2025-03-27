@@ -43,12 +43,12 @@ This function is particularly useful for comparing multiple models and evaluatin
 s1 <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
 DTW1 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 Frechet1 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
-int1 <- track_intersection(PaluxyRiver, test = TRUE, sim = s1, origin.permutation = "None")
+int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1, origin.permutation = "None")
 combined_prob(PaluxyRiver, metrics = list(DTW1, Frechet1, int1))
 
 # Example 2: Simulating tracks using the "Constrained" model and comparing similarity metrics.
 s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
-DTW2 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
+DTW2 <- simil_DTW_metric(PaluxyRiver, test = TRUE, H1 = "Lower",, sim = s2, superposition = "None")
 Frechet2 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
 int2 <- track_intersection(PaluxyRiver,
   test = TRUE, sim = s2,
@@ -58,7 +58,7 @@ combined_prob(PaluxyRiver, metrics = list(DTW2, Frechet2, int2))
 
 # Example 3: Simulating tracks using the "Unconstrained" model and comparing similarity metrics.
 s3 <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
-DTW3 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None")
+DTW3 <- simil_DTW_metric(PaluxyRiver, test = TRUE, H1 = "Lower",, sim = s3, superposition = "None")
 Frechet3 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None")
 int3 <- track_intersection(PaluxyRiver,
   test = TRUE, sim = s3,
@@ -69,7 +69,7 @@ combined_prob(PaluxyRiver, metrics = list(DTW3, Frechet3, int3))
 # Example 4: Simulating tracks in MountTom and using the "Centroid" superposition method.
 sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 s4 <- simulate_track(sbMountTom, nsim = 10)
-DTW4 <- simil_DTW_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid")
+DTW4 <- simil_DTW_metric(sbMountTom, test = TRUE, H1 = "Higher",, sim = s4, superposition = "Centroid")
 Frechet4 <- simil_Frechet_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid")
 int4 <- track_intersection(sbMountTom,
   test = TRUE, sim = s4,
@@ -80,7 +80,7 @@ combined_prob(sbMountTom, metrics = list(DTW4, Frechet4, int4))
 # Example 5: Simulating tracks in MountTom using the "Origin" superposition method.
 sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 s5 <- simulate_track(sbMountTom, nsim = 10)
-DTW5 <- simil_DTW_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
+DTW5 <- simil_DTW_metric(sbMountTom, test = TRUE, H1 = "Higher",, sim = s5, superposition = "Origin")
 Frechet5 <- simil_Frechet_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
 area_origin <- matrix(c(50, 5, 10, 5, 10, 20, 50, 20), ncol = 2, byrow = TRUE)
 int5 <- track_intersection(sbMountTom,

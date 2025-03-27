@@ -9,7 +9,7 @@ test_that("track_intersection correctly calculates intersection metrics without 
 
 test_that("track_intersection correctly calculates intersection metrics with testing (None)", {
   suppressWarnings(s1 <- simulate_track(PaluxyRiver, nsim = 10))
-  result <- track_intersection(PaluxyRiver, test = TRUE, sim = s1, origin.permutation = "None")
+  result <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1, origin.permutation = "None")
 
   # Check that result is a list with expected components
   expect_true(is.list(result))
@@ -21,7 +21,7 @@ test_that("track_intersection correctly calculates intersection metrics with tes
 
 test_that("track_intersection correctly calculates intersection metrics with testing (Min.Box)", {
   suppressWarnings(s2 <- simulate_track(PaluxyRiver, nsim = 10))
-  result <- track_intersection(PaluxyRiver, test = TRUE, sim = s2, origin.permutation = "Min.Box")
+  result <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2, origin.permutation = "Min.Box")
 
   # Check structure
   expect_true(is.list(result))
@@ -31,7 +31,7 @@ test_that("track_intersection correctly calculates intersection metrics with tes
 
 test_that("track_intersection correctly calculates intersection metrics with testing (Conv.Hull)", {
   suppressWarnings(s3 <- simulate_track(PaluxyRiver, nsim = 10))
-  result <- track_intersection(PaluxyRiver, test = TRUE, sim = s3, origin.permutation = "Conv.Hull")
+  result <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3, origin.permutation = "Conv.Hull")
 
   # Check structure
   expect_true(is.list(result))
@@ -52,7 +52,7 @@ test_that("track_intersection correctly calculates intersection metrics with cus
   )
 
   result <- track_intersection(sbMountTom,
-    test = TRUE, sim = s5, origin.permutation = "Custom",
+    test = TRUE, H1 = "Higher", sim = s5, origin.permutation = "Custom",
     custom.coord = area_origin
   )
 
@@ -65,21 +65,21 @@ test_that("track_intersection gives an error for invalid data input", {
 })
 
 test_that("track_intersection gives an error for invalid origin permutation method", {
-  expect_error(track_intersection(PaluxyRiver, test = TRUE, sim = suppressWarnings(simulate_track(PaluxyRiver, nsim = 10)), origin.permutation = "InvalidMethod"), "Invalid 'origin.permutation'. Valid options are: None, Min.Box, Conv.Hull, Custom")
+  expect_error(track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = suppressWarnings(simulate_track(PaluxyRiver, nsim = 10)), origin.permutation = "InvalidMethod"), "Invalid 'origin.permutation'. Valid options are: None, Min.Box, Conv.Hull, Custom")
 })
 
 test_that("track_intersection gives an error when test = TRUE but no sim data is provided", {
-  expect_error(track_intersection(PaluxyRiver, test = TRUE), "A 'sim' argument must be provided when 'test' is TRUE.")
+  expect_error(track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower"), "A 'sim' argument must be provided when 'test' is TRUE.")
 })
 
 test_that("track_intersection warns when custom.coord is missing for 'Custom' permutation", {
-  expect_error(track_intersection(PaluxyRiver, test = TRUE, sim = suppressWarnings(simulate_track(PaluxyRiver, nsim = 10)), origin.permutation = "Custom"), "If 'origin.permutation' is set to 'Custom', the 'custom.coord' must be provided.")
+  expect_error(track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = suppressWarnings(simulate_track(PaluxyRiver, nsim = 10)), origin.permutation = "Custom"), "If 'origin.permutation' is set to 'Custom', the 'custom.coord' must be provided.")
 })
 
 test_that("track_intersection gives an error when custom.coord is not a matrix or dataframe", {
-  expect_error(track_intersection(PaluxyRiver, test = TRUE, sim = suppressWarnings(simulate_track(PaluxyRiver, nsim = 10)), origin.permutation = "Custom", custom.coord = list(1, 2, 3)), "The 'custom.coord' must be a matrix or a data frame.")
+  expect_error(track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = suppressWarnings(simulate_track(PaluxyRiver, nsim = 10)), origin.permutation = "Custom", custom.coord = list(1, 2, 3)), "The 'custom.coord' must be a matrix or a data frame.")
 })
 
 test_that("track_intersection gives an error when custom.coord does not have two columns", {
-  expect_error(track_intersection(PaluxyRiver, test = TRUE, sim = suppressWarnings(simulate_track(PaluxyRiver, nsim = 10)), origin.permutation = "Custom", custom.coord = matrix(1:9, ncol = 3)), "The 'custom.coord' must have exactly two columns.")
+  expect_error(track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = suppressWarnings(simulate_track(PaluxyRiver, nsim = 10)), origin.permutation = "Custom", custom.coord = matrix(1:9, ncol = 3)), "The 'custom.coord' must have exactly two columns.")
 })

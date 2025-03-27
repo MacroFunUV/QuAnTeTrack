@@ -15,8 +15,7 @@ cluster_track(data, veltrack, variables)
 
 \item{veltrack}{A 'track velocity' R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.}
 
-\item{variables}{A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include: \code{"TurnAng"}, \code{"sdTurnAng"}, \code{"Distance"}, \code{"Length"}, \code{"StLength"}, \code{"sdStLength"}, \code{"Sinuosity"}, \code{"Straightness"}, \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"}.
-a}
+\item{variables}{A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include: \code{"TurnAng"}, \code{"sdTurnAng"}, \code{"Distance"}, \code{"Length"}, \code{"StLength"}, \code{"sdStLength"}, \code{"Sinuosity"}, \code{"Straightness"}, \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"}.}
 }
 \value{
 A 'track clustering' R object consisting of a list containing the following elements:

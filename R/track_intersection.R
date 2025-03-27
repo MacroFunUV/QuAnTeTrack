@@ -8,7 +8,8 @@
 #' @param data A 'track' R object, which is a list consisting of two elements:
 #'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
 #'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
-#' @param test Logical; if \code{TRUE}, the function compares the observed DTW distances against. Default is \code{FALSE}.
+#' @param test Logical; if \code{TRUE}, the function compares the observed intersection metrics against. Default is \code{FALSE}.
+#' @param H1 A character string specifying the alternative hypothesis to be tested. Options are \code{"Lower"} for testing whether the observed intersections are significantly lower than the simulated ones (e.g., coordinated or gregarious movement), or \code{"Higher"} for testing whether the observed intersections are significantly higher than the simulated ones (e.g., predatory or chasing events).
 #' @param sim A 'track simulation' R object consisting of a list of simulated trajectories to use for comparison when \code{test = TRUE}.
 #' @param origin.permutation A character string specifying the method for permutation of the coordinates of the simulated trajectories' origins.
 #' Options include "None", "Min.Box", "Conv.Hull", or "Custom". Default is "None".
@@ -16,45 +17,54 @@
 #' trajectories' origins.
 #'
 #' @details
-#' The \code{track_intersection()} function calculates the number of unique intersections between trajectories.
-#' The function also provides options for conducting hypothesis testing through simulated data with permutations of simulated
-#' trajectory origins, enabling the calculation of p-values to evaluate the significance of observed intersections.
+#' The \code{track_intersection()} function is designed to calculate the number of unique intersections between trajectories
+#' and to evaluate their statistical significance through hypothesis testing based on simulated tracks. This process provides a
+#' robust framework for comparing observed intersections against those expected under random conditions, allowing users to test
+#' specific behavioral hypotheses related to the movement patterns of trackmakers.
 #'
-#' The \code{origin.permutation} parameter determines whether any permutation will occur for the simulated trajectories
-#' and specifies the method used to permute the starting coordinates of these trajectories. The available options
-#' include \code{"None"}, which indicates that no permutation will be applied, allowing the function to compute
-#' intersections based solely on the simulated trajectories starting at the same coordinates as the original data.
-#' The \code{"Min.Box"} option conducts permutation within the minimum bounding box surrounding the original
-#' coordinates of origin. Alternatively, the \code{"Conv.Hull"} option utilizes the convex hull around the original
-#' coordinates of origin to perform permutations. Lastly, the \code{"Custom"} option allows for permutation based
-#' on user-defined coordinates that delimit a specific area of interest, as specified in the \code{custom.coord} parameter.
-#' The \code{custom.coord} parameter must be a matrix specifying custom coordinates representing the vertices of the desired area,
-#' effectively constraining the random placement of trajectory origins to this defined region.
+#' Hypothesis testing is controlled by the \code{H1} argument, which defines the \strong{alternative hypothesis} to be evaluated.
+#' This argument is crucial for interpreting the statistical results, as it determines whether the function will test for
+#' \strong{reduced} or \strong{increased} intersection counts compared to simulated trajectories.
 #'
-#' Intersections between trajectories can provide valuable insights into (palaeo)ethological behaviors,
-#' such as group movement or hunting dynamics. In cases of side-by-side movement, like a group walking
-#' in parallel or a hunting pack, fewer intersections in the actual data  would be expected compared to random
-#' scenarios, as coordinated movements reduce the likelihood of trajectories crossing. Similarly,
-#' in a chasing or hunting scene or queuing, where one trackmaker is moving ahead of the other, the paths may intersect more frequently than
-#' random movement would predict, leading to an increase in intersections. In both cases, significant similarity metrics may also emerge,
-#' as these structured, non-random movement patterns deviate considerably from those in random simulations. Therefore, combining results
-#' from intersection counts and similarity metrics from \code{simil_DTW_metric()} and \code{simil_Frechet_metric()} functions might be advisable
-#' when testing specific behavioral hypotheses.
+#' The \code{H1} argument accepts two possible values:
+#' - \code{"Lower"}: This option tests whether the observed intersections are significantly lower than those generated by simulations.
+#'   This scenario corresponds to hypotheses involving \strong{coordinated or gregarious movement}, where animals moving in parallel
+#'   or in a group (e.g., hunting packs or social gatherings) would produce \strong{fewer intersections} than expected under random conditions.
+#' - \code{"Higher"}: This option tests whether the observed intersections are significantly higher than those generated by simulations.
+#'   It applies to scenarios where \strong{predatory or chasing interactions} are likely, such as when one trackmaker follows or crosses
+#'   the path of another. This behavior results in \strong{more intersections} than what would occur randomly.
 #'
-#' The application of permutation to the origins of simulated trajectories, and the method selected, depends on the hypothesis being tested.
-#' If the objective is to determine how many intersections should be expected when trackmakers originate from specific points,
-#' and compare this to the actual data, the origin points should be constrained by the original coordinates, making the \code{"None"}
-#' option the most appropriate. Conversely, if the hypothesis involves testing how many intersections would occur if trackmakers
-#' passed through a broader or defined area, the \code{"Min.Box"}, \code{"Conv.Hull"}, or \code{"Custom"} options are more suitable.
+#' The selection of the \code{H1} argument must be consistent with the behavioral hypothesis being tested. For example, use \code{"Lower"}
+#' when investigating group movement or cooperative behavior, and \code{"Higher"} when analyzing predatory or competitive interactions.
+#' The function will automatically adjust the calculation of \emph{p}-values to reflect the selected \code{H1}. If the argument is left
+#' \code{NULL}, an error will be triggered, indicating that users must explicitly specify the hypothesis to be tested.
 #'
-#' The choice of permutation method also relies on available information about the spatial region where tracks might have been recorded.
-#' For example, the \code{"Min.Box"} or \code{"Conv.Hull"} methods may be employed when there is a defined region that reflects
-#' the likely constraints of where trackmakers left their traces. The \code{"Custom"} option is particularly useful when there is specific
-#' knowledge of the area (e.g., terrain features or environmental conditions) and permutations need to be restricted or excluded from certain zones.
+#' The interpretation of the \strong{combined p-value} returned by the function is directly influenced by the choice of \code{H1}, as it determines
+#' whether the statistical comparison aims to detect a \strong{reduction} or an \strong{increase} in intersection counts compared to the simulated dataset.
 #'
-#' Ultimately, the selection of an appropriate permutation method (or none at all) should align with the behavioral assumptions
-#' underlying the hypothesis—whether testing for gregarism, parallel movement, hunting strategies, or random movement—and
-#' how these behaviors are expected to manifest in the number of intersections observed in both the actual and simulated datasets.
+#' In addition to hypothesis testing, the \code{track_intersection()} function offers several options for altering the initial positions
+#' of simulated tracks through the \code{origin.permutation} argument. The available options include:
+#' - \code{"None"}: Simulated trajectories are not shifted and are compared based on their original starting positions.
+#' - \code{"Min.Box"}: Trajectories are randomly placed within the \strong{minimum bounding box} surrounding the original starting points.
+#' - \code{"Conv.Hull"}: Trajectories are placed within the \strong{convex hull} that encompasses all original starting points, providing
+#'   a more precise representation of the area occupied by the tracks.
+#' - \code{"Custom"}: Allows users to define a specific region of interest by providing a matrix of coordinates (\code{custom.coord}) that
+#'   specifies the vertices of the desired area. This option is particularly useful when certain spatial features or environmental conditions
+#'   are known to constrain movement.
+#'
+#' The choice of \code{origin.permutation} should reflect the nature of the behavioral hypothesis being tested. For example, using
+#' \code{"None"} is most appropriate when testing how intersections compare under scenarios where trackmakers originate from specific
+#' locations. In contrast, options like \code{"Min.Box"}, \code{"Conv.Hull"}, or \code{"Custom"} are suitable when evaluating how intersections
+#' would differ if the tracks originated from a broader or predefined area.
+#'
+#' The \code{track_intersection()} function also allows for integration with similarity metrics computed using \code{simil_DTW_metric()} and
+#' \code{simil_Frechet_metric()}. This combination of intersection counts and similarity metrics can provide a more comprehensive analysis
+#' of how trackmakers interacted, whether their movements were coordinated or independent, and whether their interactions were consistent
+#' with the hypothesized behavioral patterns.
+#'
+#' Overall, the selection of \code{H1} and \code{origin.permutation} should be carefully considered in light of the specific hypotheses
+#' being tested. By combining intersection metrics with similarity measures, users can obtain a deeper understanding of the
+#' behavioral dynamics underlying the observed trackways.
 #'
 #' @return A 'track intersection' R object consisting of a list containing the following elements:
 #' \item{Intersection_metric}{A matrix of unique intersection counts between trajectories. Each entry
@@ -85,26 +95,26 @@
 #' # Example 1: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
 #' # No origin permutation is applied ("None").
 #' s1 <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
-#' int1 <- track_intersection(PaluxyRiver, test = TRUE, sim = s1, origin.permutation = "None")
+#' int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1, origin.permutation = "None")
 #' print(int1)
 #'
 #' # Example 2: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
 #' # The origin permutation is applied using the minimum bounding box ("Min.Box").
 #' s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
-#' int2 <- track_intersection(PaluxyRiver, test = TRUE, sim = s2, origin.permutation = "Min.Box")
+#' int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2, origin.permutation = "Min.Box")
 #' print(int2)
 #'
 #' # Example 3: Simulating tracks and comparing intersection metrics in the PaluxyRiver dataset.
 #' # The origin permutation is applied using the convex hull ("Conv.Hull").
 #' s3 <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
-#' int3 <- track_intersection(PaluxyRiver, test = TRUE, sim = s3, origin.permutation = "Conv.Hull")
+#' int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3, origin.permutation = "Conv.Hull")
 #' print(int3)
 #'
 #' # Example 4: Simulating tracks and comparing intersection metrics in a subsample of the
 #' # MoutTom dataset. The "Min.Box" origin permutation is applied.
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 #' s4 <- simulate_track(sbMountTom, nsim = 10)
-#' int4 <- track_intersection(sbMountTom, test = TRUE, sim = s4, origin.permutation = "Min.Box")
+#' int4 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s4, origin.permutation = "Min.Box")
 #' print(int4)
 #'
 #' # Example 5: Simulating tracks and comparing intersection metrics in a subsample of the
@@ -121,7 +131,7 @@
 #'   ncol = 2, byrow = TRUE
 #' )
 #' int5 <- track_intersection(sbMountTom,
-#'   test = TRUE, sim = s5, origin.permutation = "Custom",
+#'   test = TRUE,  H1 = "Higher", sim = s5, origin.permutation = "Custom",
 #'   custom.coord = area_origin
 #' )
 #' print(int5)
@@ -136,7 +146,7 @@
 #' @export
 
 
-track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation = NULL, custom.coord = NULL) {
+track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.permutation = NULL, custom.coord = NULL) {
 
   ## Set default values if arguments are NULL----
   if (is.null(test)) test <- FALSE # Set default if 'test' is NULL
@@ -162,6 +172,16 @@ track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation
   # Check if 'sim' is provided when test is TRUE
   if (test == TRUE && is.null(sim)) {
     stop("A 'sim' argument must be provided when 'test' is TRUE.")
+  }
+
+  # Check if 'H1' argument is provided when 'test = TRUE'
+  if (test == TRUE && is.null(H1)) {
+    stop("'H1' argument must be specified when 'test' is TRUE. Choose either 'Lower' or 'Higher'.")
+  }
+
+  # Check if 'H1' argument is one of the valid options
+  if (!is.null(H1) && !H1 %in% c("Lower", "Higher")) {
+    stop("Invalid 'H1' argument. Valid options are 'Lower' or 'Higher'.")
   }
 
   # If 'sim' is provided, ensure it is a list and has the same structure as 'data'
@@ -328,7 +348,7 @@ track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation
     Intersectsim <- Matrixsim
 
     listIntersect <- list()
-    listnegIntersect <- c()
+    listdiffIntersect <- c()
 
     for (i in 1:nsim) {
       for (c in 1:length(data)) {
@@ -339,9 +359,9 @@ track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation
       }
       listIntersect[[i]] <- Intersectsim
 
-      positive <- c(as.matrix(Intersect - listIntersect[[i]]))
-      positive <- positive[!is.na(positive)]
-      listnegIntersect[i] <- all(is.real.positive(positive))
+      diffinter <- c(as.matrix(Intersect - listIntersect[[i]]))
+      diffinter <- diffinter[!is.na(diffinter)]
+      listdiffIntersect[i] <- sum(diffinter)
 
       writeLines(paste(Sys.time(), paste("Iteration", i)))
       writeLines(" ")
@@ -356,6 +376,7 @@ track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation
     }
 
     # Calculate p-values
+    if (H1 == "Lower") {
     Intersectsim_pval <- Matrixsim
 
     vector <- c()
@@ -364,14 +385,34 @@ track_intersection <- function(data, test = NULL, sim = NULL, origin.permutation
         if (c <= r) next
         for (i in 1:nsim) {
           vector[i] <- listIntersect[[i]][r, c]
-          Intersectsim_pval[r, c] <- length(which(vector <= Intersect[r, c])) / nsim
+          Intersectsim_pval[r, c] <- 1-length(which(vector < Intersect[r, c])) / nsim
         }
       }
     }
 
     vector <- c()
 
-    Intersect_together_pval <- length(which(listnegIntersect == TRUE)) / nsim
+    Intersect_together_pval <- 1-length(which(listdiffIntersect > 0)) / nsim
+    }
+
+    if (H1 == "Higher") {
+      Intersectsim_pval <- Matrixsim
+
+      vector <- c()
+      for (c in 1:length(data)) {
+        for (r in 1:length(data)) {
+          if (c <= r) next
+          for (i in 1:nsim) {
+            vector[i] <- listIntersect[[i]][r, c]
+            Intersectsim_pval[r, c] <- 1-length(which(vector > Intersect[r, c])) / nsim
+          }
+        }
+      }
+
+      vector <- c()
+
+      Intersect_together_pval <- 1-length(which(listdiffIntersect < 0)) / nsim
+    }
   }
 
 

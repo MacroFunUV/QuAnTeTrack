@@ -1622,11 +1622,22 @@ separately within a grid of plots, providing a clear visual comparison
 of step directions across tracks and making it especially effective for
 analyzing individual trackmaker behaviors.</p>
 <p>The <strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function allows
-users to customize the visualizations by adjusting parameters such as
-the <strong>angle range for binning</strong>, <strong>positioning of
-y-axis labels</strong>, and specifying <strong>manual breaks for the
-y-axis</strong>. This flexibility ensures that the user can tailor the
-output to suit specific analytical needs.</p>
+users to <strong>customize visualizations</strong> through several
+arguments. The <strong><code>angle_range</code></strong> argument
+controls the width of the bins used in <strong>polar
+histograms</strong>, allowing users to specify the desired
+<strong>angular resolution</strong>. The
+<strong><code>y_labels_position</code></strong> argument is useful for
+<strong>positioning the labels of the y-axis</strong>, especially in
+polar plots, to enhance clarity and presentation. Users can also provide
+<strong>custom breaks for the y-axis</strong> using the
+<strong><code>y_breaks_manual</code></strong> argument, which defines
+where the labels should be placed for better visualization of frequency
+data. This flexibility ensures that the user can <strong>tailor the
+output</strong> to suit specific analytical needs, whether examining
+<strong>general trends</strong>, comparing <strong>individual
+tracks</strong>, or highlighting particular aspects of
+<strong>directional data</strong>.</p>
 <p>By generating high-quality visualizations as
 <strong><code>ggplot</code> objects</strong>, the
 <strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function allows for
@@ -1703,19 +1714,11 @@ presentation.</li>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span>, y_labels_position <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-28-1.png" width="100%"></p>
-<ul>
-<li>
-<strong><code>facet_labels</code></strong>: Provide custom labels
-for faceted plots to improve clarity when comparing multiple
-tracks.</li>
-</ul>
-<p>These customization options allow you to tailor your plots to best
-fit your analytical needs and presentation preferences.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="testing-for-differences-in-direction-means">
-<strong>Testing for Differences in Direction Means</strong><a class="anchor" aria-label="anchor" href="#testing-for-differences-in-direction-means"></a>
+<h2 id="testing-for-differences-in-direction">
+<strong>Testing for Differences in Direction</strong><a class="anchor" aria-label="anchor" href="#testing-for-differences-in-direction"></a>
 </h2>
 <p>The <strong><code><a href="../reference/test_direction.html">test_direction()</a></code></strong> function provides
 a powerful statistical framework for comparing <strong>mean
@@ -4742,12 +4745,6 @@ Model.</p>
 <strong>Calculating Velocities and Relative Stride
 Lengths</strong><a class="anchor" aria-label="anchor" href="#calculating-velocities-and-relative-stride-lengths"></a>
 </h2>
-</div>
-<div class="section level2">
-<h2 id="calculating-velocities-and-relative-stride-lengths-1">
-<strong>Calculating Velocities and Relative Stride
-Lengths</strong><a class="anchor" aria-label="anchor" href="#calculating-velocities-and-relative-stride-lengths-1"></a>
-</h2>
 <p>The <strong><code><a href="../reference/velocity_track.html">velocity_track()</a></code></strong> function
 calculates the <strong>velocities</strong> and <strong>relative stride
 lengths</strong> for each step within a series of tracks. It requires a
@@ -5769,14 +5766,15 @@ powerful visualization tool for examining trajectories colored by either
 applying color gradients, it highlights how these parameters change
 along the paths of various tracks, providing valuable insights into
 locomotor dynamics.</p>
-<p>The function takes as inputs a <code>track</code> R object and a
-<code>track velocity</code> R object, where the latter contains the
-calculated velocities and relative stride lengths for each track. The
-user can specify the parameter to be visualized via the
-<strong><code>param</code></strong> argument, choosing between
-<code>"V"</code> for velocity or <code>"RSL"</code> for relative stride
+<p>The function takes as inputs a <strong><code>track</code> R
+object</strong> and a <strong><code>track velocity</code> R
+object</strong>, where the latter contains the calculated velocities and
+relative stride lengths for each track. The user can specify the
+parameter to be visualized via the <strong><code>param</code></strong>
+argument, choosing between <strong><code>"V"</code></strong> for
+velocity or <strong><code>"RSL"</code></strong> for relative stride
 length. If not specified, the function defaults to visualizing
-velocity.</p>
+<strong>velocity</strong>.</p>
 <p>The plotting process is handled by the
 <strong><code>ggplot2</code></strong> package, using
 <strong><code>geom_path()</code></strong> to plot the tracks and
@@ -5787,86 +5785,98 @@ adjust the line width with the <strong><code>lwd</code></strong>
 argument.</p>
 <p>The function also allows the user to include or exclude a legend from
 the plot by setting the <strong><code>legend</code></strong> argument to
-<code>TRUE</code> or <code>FALSE</code>, respectively. This flexibility
+<strong><code>TRUE</code></strong> or
+<strong><code>FALSE</code></strong>, respectively. This flexibility
 ensures that the plots can be tailored to the user’s preferences and
 presentation requirements.</p>
 <p>The resulting plot provides a visually appealing and informative
-representation of how velocity or relative stride length changes along
-each trajectory. Such plots are particularly useful for comparing the
-locomotor patterns of different track makers or assessing how
-environmental or anatomical factors influence movement.</p>
+representation of how <strong>velocity</strong> or <strong>relative
+stride length</strong> changes along each trajectory. Such plots are
+particularly useful for comparing the locomotor patterns of different
+track makers or assessing how environmental or anatomical factors
+influence movement.</p>
 </div>
 <div class="section level2">
-<h2 id="testing-for-differences-in-velocity-means">
-<strong>Testing for Differences in Velocity Means</strong><a class="anchor" aria-label="anchor" href="#testing-for-differences-in-velocity-means"></a>
+<h2 id="testing-for-differences-in-velocity">
+<strong>Testing for Differences in Velocity</strong><a class="anchor" aria-label="anchor" href="#testing-for-differences-in-velocity"></a>
 </h2>
 <p>The <strong><code><a href="../reference/test_velocity.html">test_velocity()</a></code></strong> function evaluates
-differences in mean velocities across different tracks within a
-<code>track</code> R object. It provides three statistical methods:
-<strong>ANOVA</strong>, <strong>Kruskal-Wallis test</strong>, and
-<strong>Generalized Linear Models (GLM)</strong>, allowing users to
-compare velocity data and identify significant differences between
-tracks. The function also includes diagnostic tests to check assumptions
-of normality and homogeneity of variances before proceeding with the
-analysis. When more than two tracks are present, it performs pairwise
-comparisons to identify specific differences between tracks.</p>
+differences in <strong>mean velocities</strong> across different tracks
+within a <strong><code>track</code> R object</strong>. It provides three
+statistical methods: <strong>ANOVA</strong>, <strong>Kruskal-Wallis
+test</strong>, and <strong>Generalized Linear Models (GLM)</strong>,
+allowing users to compare velocity data and identify significant
+differences between tracks. The function also includes diagnostic tests
+to check assumptions of <strong>normality</strong> and
+<strong>homogeneity of variances</strong> before proceeding with the
+analysis. When more than two tracks are present, it performs
+<strong>pairwise comparisons</strong> to identify specific differences
+between tracks.</p>
 <p>The <strong><code><a href="../reference/test_velocity.html">test_velocity()</a></code></strong> function requires
-that each track contains more than three footprints to be included in
-the analysis. This is necessary because statistical tests for comparing
-mean velocities rely on having a sufficient number of data points to
-provide meaningful results. When a track contains only three or fewer
-footprints, the sample size is too small to accurately estimate mean
-velocity and its variability, making statistical comparisons unreliable.
-By setting this threshold, the function ensures that the results are
-statistically robust and meaningful.</p>
-<p>The function accepts a <code>trackvel</code> object, which is an
-output of the <strong><code><a href="../reference/velocity_track.html">velocity_track()</a></code></strong> function.
-This object contains calculated velocities and other related parameters
-for each track, including individual step velocities, mean velocities,
-and relative stride lengths. This information serves as the input for
-the statistical comparisons performed by
-<strong><code><a href="../reference/test_velocity.html">test_velocity()</a></code></strong>.</p>
-<p>If <code>"ANOVA"</code> is selected, the function checks for
-normality (using the <strong>Shapiro-Wilk test</strong>) and homogeneity
-of variances (using <strong>Levene’s test</strong>). If assumptions are
-violated, it issues warnings suggesting the use of
-<code>"Kruskal-Wallis"</code> or <code>"GLM"</code> instead.
-<code>"ANOVA"</code> compares mean velocities across tracks, and if
-significant differences are detected, <strong>Tukey’s HSD</strong> is
-used for post-hoc pairwise comparisons.</p>
-<p>When <code>"Kruskal-Wallis"</code> is chosen, the function performs a
-<strong>non-parametric test</strong> that compares median velocities
-across tracks. If significant differences are detected, <strong>Dunn’s
-test</strong> is used for post-hoc pairwise comparisons. If
-<code>"GLM"</code> is specified, the function uses a <strong>Generalized
-Linear Model (GLM)</strong> with a Gaussian family to compare mean
-velocities across tracks. Pairwise comparisons are conducted using the
-<code>emmeans</code> package, which computes differences between group
-means and adjusts for multiple comparisons using <strong>Tukey’s
-method</strong>. This approach is useful when the data does not meet the
-assumptions of ANOVA but still requires a parametric approach.</p>
-<p>If the argument <code>plot = TRUE</code> is specified, a boxplot of
-velocities by track is generated for visual comparison of velocity
-distributions across tracks. The boxplot allows the user to visually
-assess differences in central tendency and variability across tracks,
-complementing the statistical analyses.</p>
-<p>The function returns a list of results that includes:<br>
-- <strong><code>normality_results</code></strong>: A matrix containing
-the test statistic and <em>p</em>-value for the Shapiro-Wilk normality
-test for each track.<br>
-- <strong><code>homogeneity_test</code></strong>: The result of Levene’s
-test, including the <em>p</em>-value for testing homogeneity of
-variances across tracks.<br>
-- <strong><code>ANOVA</code></strong> (if selected): A list containing
-the ANOVA table and <strong>Tukey HSD</strong> post-hoc results.<br>
-- <strong><code>Kruskal_Wallis</code></strong> (if selected): A list
-containing the Kruskal-Wallis test result and <strong>Dunn’s
-test</strong> post-hoc results.<br>
-- <strong><code>GLM</code></strong> (if selected): A summary of the
-<strong>GLM fit</strong> and pairwise comparisons from the
-<code>emmeans</code> package.<br>
-- <strong><code>plot</code></strong> (if requested): A boxplot of
-velocities by track.</p>
+that each track contains more than <strong>three footprints</strong> to
+be included in the analysis. This is necessary because statistical tests
+for comparing mean velocities rely on having a sufficient number of data
+points to provide meaningful results. When a track contains only three
+or fewer footprints, the sample size is too small to accurately estimate
+mean velocity and its variability, making statistical comparisons
+unreliable. By setting this threshold, the function ensures that the
+results are <strong>statistically robust and meaningful</strong>.</p>
+<p>The function accepts a <strong><code>trackvel</code> object</strong>,
+which is an output of the <strong><code><a href="../reference/velocity_track.html">velocity_track()</a></code></strong>
+function. This object contains <strong>calculated velocities</strong>
+and other related parameters for each track, including
+<strong>individual step velocities</strong>, <strong>mean
+velocities</strong>, and <strong>relative stride lengths</strong>. This
+information serves as the input for the statistical comparisons
+performed by <strong><code><a href="../reference/test_velocity.html">test_velocity()</a></code></strong>.</p>
+<p>If <strong><code>"ANOVA"</code></strong> is selected, the function
+checks for <strong>normality</strong> (using the <strong>Shapiro-Wilk
+test</strong>) and <strong>homogeneity of variances</strong> (using
+<strong>Levene’s test</strong>). If assumptions are violated, it issues
+warnings suggesting the use of
+<strong><code>"Kruskal-Wallis"</code></strong> or
+<strong><code>"GLM"</code></strong> instead.
+<strong><code>"ANOVA"</code></strong> compares mean velocities across
+tracks, and if significant differences are detected, <strong>Tukey’s
+HSD</strong> is used for <strong>post-hoc pairwise comparisons</strong>.
+When <strong><code>"Kruskal-Wallis"</code></strong> is chosen, the
+function performs a <strong>non-parametric test</strong> that compares
+<strong>median velocities</strong> across tracks. If significant
+differences are detected, <strong>Dunn’s test</strong> is used for
+<strong>post-hoc pairwise comparisons</strong>. If
+<strong><code>"GLM"</code></strong> is specified, the function uses a
+<strong>Generalized Linear Model (GLM)</strong> with a <strong>Gaussian
+family</strong> to compare <strong>mean velocities</strong> across
+tracks. <strong>Pairwise comparisons</strong> are conducted using the
+<strong><code>emmeans</code> package</strong>, which computes
+differences between group means and adjusts for multiple comparisons
+using <strong>Tukey’s method</strong>. This approach is useful when the
+data does not meet the assumptions of <strong>ANOVA</strong> but still
+requires a parametric approach.</p>
+<p>If the argument <strong><code>plot = TRUE</code></strong> is
+specified, a <strong>boxplot of velocities by track</strong> is
+generated for visual comparison of <strong>velocity
+distributions</strong> across tracks. The boxplot allows the user to
+visually assess differences in <strong>central tendency</strong> and
+<strong>variability</strong> across tracks, complementing the
+statistical analyses.</p>
+<p>The function returns a list of results that includes:
+<strong><code>normality_results</code></strong>, a matrix containing the
+test statistic and <em>p</em>-value for the <strong>Shapiro-Wilk
+normality test</strong> for each track;
+<strong><code>homogeneity_test</code></strong>, the result of
+<strong>Levene’s test</strong>, including the <em>p</em>-value for
+testing <strong>homogeneity of variances</strong> across tracks;
+<strong><code>ANOVA</code></strong>, if selected, containing the
+<strong>ANOVA table</strong> and <strong>Tukey HSD</strong> post-hoc
+results; <strong><code>Kruskal_Wallis</code></strong>, if selected,
+containing the <strong>Kruskal-Wallis test result</strong> and
+<strong>Dunn’s test</strong> post-hoc results;
+<strong><code>GLM</code></strong>, if selected, providing a summary of
+the <strong>GLM fit</strong> and pairwise comparisons from the
+<strong><code>emmeans</code> package</strong>; and finally, the
+<strong><code>plot</code></strong> if requested, displaying a
+<strong>boxplot of velocities by track</strong>.</p>
 </div>
 <div class="section level2">
 <h2 id="testing-for-acceleration-deceleration-or-steady-movement-along-trajectories">
@@ -5874,44 +5884,52 @@ velocities by track.</p>
 along Trajectories</strong><a class="anchor" aria-label="anchor" href="#testing-for-acceleration-deceleration-or-steady-movement-along-trajectories"></a>
 </h2>
 <p>The <strong><code><a href="../reference/mode_velocity.html">mode_velocity()</a></code></strong> function evaluates
-whether a track maker is accelerating, decelerating, or maintaining a
-steady speed along its trajectory by applying Spearman’s rank
-correlation test. This test is particularly suitable for analyzing
-trends in velocity because it does not assume normality or linearity in
-the relationship between step number and velocity. Instead, it detects
-monotonic relationships based on ranks, making it robust to outliers and
-effective for identifying general trends.</p>
-<p>The function processes each trajectory in the <code>trackvel</code>
-list separately. For each trajectory, the function calculates the
-Spearman correlation coefficient and its associated <em>p</em>-value,
-comparing velocity values to their corresponding step numbers. If the
-<em>p</em>-value is less than 0.05, the trend is classified as
-“acceleration” if the correlation coefficient is positive or
-“deceleration” if it is negative. If the <em>p</em>-value is greater
-than or equal to 0.05, the trend is labeled as “steady,” indicating no
-significant monotonic relationship between velocity and step number.
-This approach allows the detection of gradual changes in velocity over
-the course of a track, which may reflect shifts in locomotor performance
-or behavior.</p>
-<p>Trajectories with fewer than three steps are considered insufficient
-for reliable statistical analysis, and the function returns a message
-indicating that the data is inadequate for correlation analysis. This is
-because the calculation of a meaningful correlation requires a minimum
-of three data points.</p>
+whether a track maker is <strong>accelerating</strong>,
+<strong>decelerating</strong>, or maintaining a <strong>steady
+speed</strong> along its trajectory by applying <strong>Spearman’s rank
+correlation test</strong>. This test is particularly suitable for
+analyzing trends in velocity because it does not assume normality or
+linearity in the relationship between step number and velocity. Instead,
+it detects <strong>monotonic relationships based on ranks</strong>,
+making it robust to <strong>outliers</strong> and effective for
+identifying general trends.</p>
+<p>The function processes each trajectory in the
+<strong><code>trackvel</code> list</strong> separately. For each
+trajectory, the function calculates the <strong>Spearman correlation
+coefficient</strong> and its associated <em>p</em>-value, comparing
+<strong>velocity values</strong> to their corresponding <strong>step
+numbers</strong>. If the <em>p</em>-value is less than
+<strong>0.05</strong>, the trend is classified as
+<strong>“acceleration”</strong> if the correlation coefficient is
+positive or <strong>“deceleration”</strong> if it is negative. If the
+<em>p</em>-value is greater than or equal to <strong>0.05</strong>, the
+trend is labeled as <strong>“steady,”</strong> indicating no significant
+monotonic relationship between <strong>velocity and step
+number</strong>. This approach allows the detection of gradual changes
+in velocity over the course of a track, which may reflect shifts in
+<strong>locomotor performance or behavior</strong>.</p>
+<p>Trajectories with fewer than <strong>three steps</strong> are
+considered insufficient for reliable statistical analysis, and the
+function returns a message indicating that the data is inadequate for
+<strong>correlation analysis</strong>. This is because the calculation
+of a meaningful correlation requires a minimum of <strong>three data
+points</strong>.</p>
 <p>The <strong><code><a href="../reference/mode_velocity.html">mode_velocity()</a></code></strong> function provides a
-straightforward way to classify velocity trends based on statistical
-significance, making it a useful tool for examining how track makers
-modulate their speed along their paths. However, it only identifies
-monotonic trends and may not detect more complex, non-monotonic changes
-in speed. Furthermore, the classification is qualitative, providing
-information about the general nature of the trend rather than
-quantifying the rate of change.</p>
-<p>This approach draws from established non-parametric statistical
-techniques developed by <strong>Spearman (1904)</strong> for measuring
-association between variables. The robustness of the method to
-non-normal data and its resistance to outliers makes it well-suited for
-paleontological and biomechanical applications where data quality and
-quantity can be limited.</p>
+straightforward way to classify <strong>velocity trends</strong> based
+on statistical significance, making it a useful tool for examining how
+track makers <strong>modulate their speed</strong> along their paths.
+However, it only identifies <strong>monotonic trends</strong> and may
+not detect more complex, <strong>non-monotonic changes in
+speed</strong>. Furthermore, the classification is
+<strong>qualitative</strong>, providing information about the general
+nature of the trend rather than quantifying the rate of change.</p>
+<p>This approach draws from established <strong>non-parametric
+statistical techniques</strong> for measuring association between
+variables. The robustness of the method to <strong>non-normal
+data</strong> and its resistance to <strong>outliers</strong> makes it
+well-suited for <strong>paleontological and biomechanical
+applications</strong> where data quality and quantity can be
+limited.</p>
 </div>
 <div class="section level2">
 <h2 id="subsetting-tracks-from-track-data">
@@ -5919,29 +5937,33 @@ quantity can be limited.</p>
 </h2>
 <p>The <strong><code><a href="../reference/subset_track.html">subset_track()</a></code></strong> function is designed
 to extract specific tracks from a larger dataset of tracks, making it
-easier to focus on particular trajectories or footprints for further
-analysis or visualization. This function is particularly useful when
-working with extensive datasets where only a subset of tracks is
-relevant to the research question.</p>
-<p>The function operates by taking a <code>track</code> R object, which
-contains two elements: <strong><code>Trajectories</code></strong> and
+easier to focus on particular <strong>trajectories or
+footprints</strong> for further analysis or visualization. This function
+is particularly useful when working with <strong>extensive
+datasets</strong> where only a subset of tracks is relevant to the
+research question.</p>
+<p>The function operates by taking a <strong><code>track</code> R
+object</strong>, which contains two elements:
+<strong><code>Trajectories</code></strong> and
 <strong><code>Footprints</code></strong>. Each of these elements is a
-list, where each list entry corresponds to a separate track. By
-specifying the desired indices through the
+<strong>list</strong>, where each list entry corresponds to a separate
+track. By specifying the desired indices through the
 <strong><code>tracks</code></strong> argument, users can isolate
 particular tracks of interest.</p>
 <p>If the <strong><code>tracks</code></strong> argument is left
-unspecified (<code>NULL</code>), the function defaults to returning all
-tracks in the dataset. Otherwise, it subsets the dataset based on the
-indices provided. If any indices are outside the range of available
-tracks, they are ignored with a warning message to notify the user. This
-functionality ensures robustness when working with datasets of varying
-sizes.</p>
-<p>The function returns a modified <code>track</code> R object with the
-same structure as the original, but only containing the specified
-tracks. This approach maintains compatibility with other functions that
-expect a <code>track</code> R object, allowing for seamless integration
-into broader analytical workflows.</p>
+unspecified (<strong><code>NULL</code></strong>), the function defaults
+to returning <strong>all tracks</strong> in the dataset. Otherwise, it
+subsets the dataset based on the <strong>indices provided</strong>. If
+any indices are <strong>outside the range of available tracks</strong>,
+they are ignored with a <strong>warning message</strong> to notify the
+user. This functionality ensures robustness when working with datasets
+of varying sizes.</p>
+<p>The function returns a modified <strong><code>track</code> R
+object</strong> with the same structure as the original, but only
+containing the specified tracks. This approach maintains compatibility
+with other functions that expect a <strong><code>track</code> R
+object</strong>, allowing for seamless integration into broader
+analytical workflows.</p>
 </div>
 <div class="section level2">
 <h2 id="simulating-tracks-using-different-movement-models">
@@ -5949,384 +5971,441 @@ into broader analytical workflows.</p>
 Models</strong><a class="anchor" aria-label="anchor" href="#simulating-tracks-using-different-movement-models"></a>
 </h2>
 <p>The <strong><code><a href="../reference/simulate_track.html">simulate_track()</a></code></strong> function generates
-simulated movement trajectories based on an existing set of tracks. It
-offers three distinct movement models—<strong>Directed</strong>,
-<strong>Constrained</strong>, and <strong>Unconstrained</strong>—each
-representing varying levels of constraint in movement patterns. This
-flexibility allows users to model scenarios reflecting biological or
-environmental constraints, such as directed movement towards resources,
+<strong>simulated movement trajectories</strong> based on an existing
+set of tracks. It offers three distinct movement
+models—<strong>Directed</strong>, <strong>Constrained</strong>, and
+<strong>Unconstrained</strong>—each representing varying levels of
+constraint in movement patterns. This flexibility allows users to model
+scenarios reflecting <strong>biological or environmental
+constraints</strong>, such as directed movement towards resources,
 movement along geographical features, or free exploratory behavior.</p>
 <p>The <strong><code>Directed</code></strong> model is the most
 constrained, simulating trajectories that follow a specific direction
-based on the original track’s angular orientation. It aims to maintain a
-consistent overall direction with minor deviations to reflect natural
-variability. This model is useful for scenarios where movement is highly
-directional, such as an animal navigating toward a known resource.</p>
+based on the original track’s <strong>angular orientation</strong>. It
+aims to maintain a consistent overall direction with minor deviations to
+reflect natural variability. This model is useful for scenarios where
+movement is <strong>highly directional</strong>, such as an animal
+navigating toward a known resource.</p>
 <p>The <strong><code>Constrained</code></strong> model represents a
-correlated random walk, where movement is not strictly directional but
-is influenced by certain angular and linear properties of the original
-track. This model allows for random exploration while retaining some of
-the characteristics of the original movement pattern. It is suitable for
-situations where animals navigate with limited knowledge of their
-surroundings, such as navigating within a bounded area without a
-specific destination.</p>
+<strong>correlated random walk</strong>, where movement is not strictly
+directional but is influenced by certain <strong>angular and linear
+properties</strong> of the original track. This model allows for random
+exploration while retaining some of the characteristics of the original
+movement pattern. It is suitable for situations where animals navigate
+with <strong>limited knowledge of their surroundings</strong>, such as
+navigating within a <strong>bounded area without a specific
+destination</strong>.</p>
 <p>The <strong><code>Unconstrained</code></strong> model provides the
-most flexibility, simulating trajectories that represent exploratory or
-dispersal behavior without directional bias. It is based on a fully
-random walk with the starting direction randomly determined for each
-simulation. This model is appropriate for scenarios where animals are
-moving through unfamiliar or homogeneous environments.</p>
+most flexibility, simulating trajectories that represent
+<strong>exploratory or dispersal behavior without directional
+bias</strong>. It is based on a <strong>fully random walk</strong> with
+the starting direction randomly determined for each simulation. This
+model is appropriate for scenarios where animals are moving through
+<strong>unfamiliar or homogeneous environments</strong>.</p>
+<p>The <strong><code><a href="../reference/simulate_track.html">simulate_track()</a></code></strong> function requires
+several arguments to define the simulation process. The
+<strong><code>data</code></strong> argument specifies the input as a
+<code>track</code> R object, which is a structured list consisting of
+two elements: <strong>Trajectories</strong>, which is a list of
+interpolated trajectories where each trajectory is a series of midpoints
+between consecutive footprints, and <strong>Footprints</strong>, which
+is a list of data frames containing footprint coordinates, metadata
+(such as image reference and ID), and a marker indicating whether each
+footprint is actual or inferred. The <strong><code>nsim</code></strong>
+argument defines the number of simulations to run, with a default value
+of <strong>1000</strong> if not specified. The
+<strong><code>model</code></strong> argument determines the type of
+movement model to be used, which can be <strong>“Directed”</strong>,
+<strong>“Constrained”</strong>, or <strong>“Unconstrained”</strong>,
+with the default being <strong>“Unconstrained”</strong> if not
+provided.</p>
 <p>The function ensures that simulations are only applied to
-trajectories with at least four steps. This requirement is necessary
-because calculating the standard deviations of angles and step lengths,
-which are essential for simulating the trajectories, is impossible for
-shorter trajectories. If shorter tracks are present, the user is advised
-to use the <strong><code><a href="../reference/subset_track.html">subset_track()</a></code></strong> function to
-filter them out.</p>
-<p>The function returns a <code>track simulation</code> R object, which
-is a list of simulated trajectories. Each simulation is stored
-separately, and users can choose to visualize or analyze these
-simulations to compare them against the original tracks, assess movement
-constraints, or explore alternative movement hypotheses.</p>
+<strong>trajectories with at least four steps</strong>, as calculating
+the <strong>standard deviations of angles and step
+lengths</strong>—essential for the simulation process—is not feasible
+for shorter trajectories. In cases where tracks are too short, the user
+is advised to use the <strong><code><a href="../reference/subset_track.html">subset_track()</a></code></strong>
+function to exclude those tracks from the simulation process.</p>
+<p>The <strong><code><a href="../reference/simulate_track.html">simulate_track()</a></code></strong> function returns a
+<strong><code>track simulation</code> R object</strong>, which is a list
+of simulated trajectories. Each simulation is stored separately,
+providing users with the flexibility to <strong>visualize, analyze, and
+compare these simulations</strong> against the original tracks to
+evaluate <strong>movement constraints</strong> or explore
+<strong>alternative movement hypotheses</strong>. This approach is
+particularly useful for testing <strong>paleoecological and
+paleoethological hypotheses</strong>, such as assessing whether observed
+movement patterns are consistent with group behavior, resource-driven
+navigation, or independent exploratory movement.</p>
 </div>
 <div class="section level2">
 <h2 id="plotting-simulated-and-actual-tracks">
 <strong>Plotting Simulated and Actual Tracks</strong><a class="anchor" aria-label="anchor" href="#plotting-simulated-and-actual-tracks"></a>
 </h2>
 <p>The <strong><code><a href="../reference/plot_sim.html">plot_sim()</a></code></strong> function provides a
-visual comparison between simulated movement trajectories and the actual
-observed tracks. By overlaying simulated tracks generated through
+<strong>visual comparison</strong> between <strong>simulated movement
+trajectories</strong> and the <strong>actual observed tracks</strong>.
+By overlaying simulated tracks generated through
 <strong><code><a href="../reference/simulate_track.html">simulate_track()</a></code></strong> with the original tracks,
 this function enables the user to evaluate how closely the simulations
-replicate real movement patterns.</p>
+replicate <strong>real movement patterns</strong>.</p>
 <p>The function relies on the <strong><code>ggplot2</code></strong>
-package to create plots with two primary components:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Simulated Trajectories:</strong><br>
-These are displayed with paths colored according to the user-specified
-colors via the <code>colours_sim</code> argument. The user can also
-adjust transparency and line width through the <code>alpha_sim</code>
-and <code>lwd_sim</code> arguments. The default color is black, and the
-default transparency level is set to a low value (<code>0.1</code>) to
-avoid visual clutter when many simulated tracks are plotted.</p></li>
-<li><p><strong>Actual Trajectories:</strong><br>
-The original tracks are plotted on top of the simulated trajectories
-using the colors specified by the <code>colours_act</code> argument.
-Users can also adjust transparency (<code>alpha_act</code>) and line
-width (<code>lwd_act</code>) to enhance visibility. This overlay helps
-in visually comparing the similarity between actual and simulated
-tracks.</p></li>
-</ol>
+package to create plots with two primary components (simulated and
+actual trajectories). Simulated trajectories are displayed with paths
+colored according to the user-specified colors via the
+<strong><code>colours_sim</code></strong> argument. The user can also
+adjust <strong>transparency</strong> and <strong>line width</strong>
+through the <strong><code>alpha_sim</code></strong> and
+<strong><code>lwd_sim</code></strong> arguments. The default color is
+<strong>black</strong>, and the default transparency level is set to a
+low value (<strong><code>0.1</code></strong>) to avoid visual clutter
+when many simulated tracks are plotted. The original trajectories are
+plotted on top of the simulated trajectories using the colors specified
+by the <strong><code>colours_act</code></strong> argument. Users can
+also adjust <strong>transparency (<code>alpha_act</code>)</strong> and
+<strong>line width (<code>lwd_act</code>)</strong> to enhance
+visibility. This overlay helps in visually comparing the similarity
+between <strong>actual and simulated tracks</strong>.</p>
 <p>This visualization tool is essential for assessing whether the chosen
 simulation model (<strong>Directed</strong>,
 <strong>Constrained</strong>, or <strong>Unconstrained</strong>)
-adequately captures the movement dynamics represented by the original
-tracks. It allows researchers to compare multiple models or to test how
-well a specific model can replicate the original track patterns under
-various conditions.</p>
+adequately captures the <strong>movement dynamics</strong> represented
+by the original tracks. It allows researchers to compare multiple models
+or to test how well a specific model can replicate the original track
+patterns under various conditions.</p>
 </div>
 <div class="section level2">
-<h2 id="similarity-metric-calculation-using-dynamic-time-warping-dtw">
+<h2 id="similarity-metric-calculation-using-dynamic-time-warping-dtw-and-fréchet-distance">
 <strong>Similarity Metric Calculation using Dynamic Time Warping
-(DTW)</strong><a class="anchor" aria-label="anchor" href="#similarity-metric-calculation-using-dynamic-time-warping-dtw"></a>
+(DTW) and Fréchet Distance</strong><a class="anchor" aria-label="anchor" href="#similarity-metric-calculation-using-dynamic-time-warping-dtw-and-fr%C3%A9chet-distance"></a>
 </h2>
-<p>The <strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong> function is
-designed to compare the similarity between two or more movement
-trajectories using the <strong>Dynamic Time Warping (DTW)</strong>
-algorithm. This approach allows for comparing sequences that may differ
-in length, aligning them optimally by minimizing the cumulative distance
-between corresponding points. It’s particularly effective for analyzing
-animal movement patterns, where trajectories often exhibit temporal
-distortions or variable lengths.</p>
-<p>The function provides three options for aligning trajectories before
-computing the DTW metric:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>None:</strong> No alignment is applied; the trajectories are
-compared as they are.</li>
-<li>
-<strong>Centroid:</strong> Trajectories are shifted so that their
-centroids are aligned, which helps eliminate positional differences
-while preserving the overall shape.</li>
-<li>
-<strong>Origin:</strong> Trajectories are aligned to their starting
-points, making the comparison independent of the initial position.</li>
-</ol>
-<p>The similarity measure is computed using the
+<p>The <strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong> and
+<strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong> functions both
+offer powerful tools for comparing <strong>movement
+trajectories</strong> by quantifying their similarity through different
+mathematical approaches. The
+<strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong> function applies the
+<strong>Dynamic Time Warping (DTW)</strong> algorithm, which is
+particularly effective for analyzing <strong>animal movement
+patterns</strong> that may exhibit <strong>temporal distortions or
+variable lengths</strong>. This method optimally aligns sequences by
+minimizing the <strong>cumulative distance between corresponding
+points</strong>, making it ideal for comparing tracks where timing or
+pacing may differ. The similarity measure is calculated using the
 <strong><code>dtw()</code></strong> function from the
-<strong><code>dtw</code></strong> package, with the Euclidean distance
-used to calculate local distances between points. The resulting metric
-is a non-negative and unbounded value, with larger values indicating
-greater dissimilarity between trajectories.</p>
-<p>If <code>test = TRUE</code>, the function performs a statistical test
-by comparing the observed DTW distances with those generated from
-simulated tracks. The simulation process involves generating random
-trajectories that are compared against the original tracks to determine
-if the observed DTW distances are significantly smaller than those
-expected under random conditions.</p>
-<p><em>P</em>-values are calculated in two ways:</p>
-<ul>
-<li>
-<strong>Pairwise <em>P</em>-values:</strong> For each trajectory
-pair, the proportion of simulated DTW distances smaller than the
-observed distance is calculated.</li>
-<li>
-<strong>Combined <em>P</em>-value:</strong> The overall proportion
-of simulations where all observed distances are smaller than the
-simulated distances, providing a measure of how distinct the observed
-tracks are from the simulated ones.</li>
-</ul>
-<p>This method is valuable for evaluating the similarity of animal
-movement patterns under different experimental conditions or testing
-hypotheses about how closely simulated tracks replicate real movements.
-However, DTW is sensitive to noise and outliers, and large differences
-in trajectory lengths can introduce biases. Therefore, preprocessing or
-normalization may be necessary to improve accuracy.</p>
-<p>The <strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong> function
-provides a flexible framework for conducting DTW-based comparisons,
-allowing users to test the robustness of their results through
-simulations and to explore different alignment methods to enhance
-comparability.</p>
-</div>
-<div class="section level2">
-<h2 id="similarity-metric-calculation-using-fréchet-distance">
-<strong>Similarity Metric Calculation using Fréchet
-Distance</strong><a class="anchor" aria-label="anchor" href="#similarity-metric-calculation-using-fr%C3%A9chet-distance"></a>
-</h2>
-<p>The <strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong> function
-compares movement trajectories using the <strong>Fréchet
-distance</strong>, a metric that measures the similarity between two
-curves or continuous trajectories by considering both the order and
-location of points. It’s often described through the analogy of a person
-walking a dog on an extendable leash, where both move along their
-respective paths but can adjust their speed independently. The Fréchet
-distance corresponds to the minimum leash length required to keep the
-person and the dog connected throughout their journey.</p>
-<p>Unlike other methods like <strong>Dynamic Time Warping
-(DTW)</strong>, which focuses on pointwise alignment, the Fréchet
-distance is particularly effective when analyzing overall shapes of
-trajectories. This makes it a valuable tool for comparing animal
-movement patterns where the global shape of the movement path is of
-interest.</p>
-<p>The function allows users to align trajectories before computing the
-Fréchet distance using three methods:</p>
-<ol style="list-style-type: decimal">
-<li>
-<strong>None:</strong> No alignment is applied; trajectories are
-compared in their original form.</li>
-<li>
-<strong>Centroid:</strong> Trajectories are shifted so their
-centroids are aligned, ensuring that positional differences do not
-affect the comparison.</li>
-<li>
-<strong>Origin:</strong> Trajectories are aligned to their starting
-points, making comparisons independent of their initial position.</li>
-</ol>
-<p>If <code>test = TRUE</code>, the function performs statistical
-testing by comparing observed Fréchet distances with those derived from
-simulated trajectories. The simulations are generated using the
-<strong><code><a href="../reference/simulate_track.html">simulate_track()</a></code></strong> function, and comparisons
-are made to determine if observed distances are significantly smaller
-than what would be expected by chance.</p>
-<p><em>P</em>-values are computed in two ways: - <strong>Pairwise
-<em>P</em>-values:</strong> These <em>p</em>-values represent the
-proportion of simulated distances that are smaller than the observed
-distance for each trajectory pair. - <strong>Combined
-<em>P</em>-value:</strong> The overall proportion of simulations where
-all observed distances are smaller than the simulated distances,
-providing a comprehensive measure of similarity.</p>
-<p>The <strong>Fréchet distance</strong> is particularly suited for
-applications where the overall shape of a trajectory matters, such as
-comparing migration routes, travel paths, or animal tracks. However, it
-is sensitive to noise because all points are considered in its
-calculation. Additionally, the method may yield invalid measurements
-when comparing very disparate tracks, such as those simulated under
-completely unconstrained models. When this occurs, the Fréchet distance
-is returned as -1.</p>
-<p>The <strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong> function
-provides a robust framework for comparing trajectories, offering
-multiple options for alignment and statistical testing to assess how
-well simulations replicate real-world movement patterns.</p>
+<strong><code>dtw</code></strong> package, with the <strong>Euclidean
+distance</strong> employed to compute local distances between points.
+This approach is valuable for testing how well simulated tracks
+replicate real movements, though it is sensitive to noise and outliers,
+particularly when comparing trajectories of differing lengths.</p>
+<p>On the other hand, the
+<strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong> function uses the
+<strong>Fréchet distance</strong>, a metric that measures the
+<strong>similarity between two curves or continuous
+trajectories</strong> by considering both the <strong>order and location
+of points</strong>. Unlike DTW, which focuses on pointwise alignment,
+the Fréchet distance evaluates the <strong>overall shape of
+trajectories</strong>, making it especially effective when the global
+path of movement is of primary interest. The Fréchet distance is often
+described by the analogy of a <strong>person walking a dog on an
+extendable leash</strong>, where both can adjust their speed
+independently but must remain connected. The distance measured
+corresponds to the minimum leash length required to keep the person and
+the dog connected along their paths. This method is particularly useful
+for comparing trajectories where the overall path shape matters, such as
+in studies of <strong>migration routes</strong>, <strong>travel
+paths</strong>, or <strong>animal tracks</strong>. However, this method
+is sensitive to noise because it considers all points in the
+calculation, and it may produce invalid measurements when comparing
+highly disparate tracks, especially those generated under completely
+<strong>unconstrained models</strong>. In such cases, the Fréchet
+distance is returned as <strong>-1</strong>.</p>
+<p>Both <strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong> and
+<strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong> functions allow
+users to align trajectories before computing similarity metrics,
+providing three options: <strong>None</strong>, where trajectories are
+compared as they are; <strong>Centroid</strong>, where trajectories are
+shifted to align their centroids, thus eliminating positional
+differences while preserving their shape; and <strong>Origin</strong>,
+where trajectories are aligned to their starting points, making
+comparisons independent of absolute positions. These alignment options
+ensure that comparisons are based on movement patterns rather than
+arbitrary spatial differences.</p>
+<p>Additionally, both functions allow users to perform
+<strong>statistical testing</strong> by comparing observed similarity
+metrics with those derived from <strong>simulated trajectories</strong>
+when <strong><code>test = TRUE</code></strong>. This simulation process
+involves generating random trajectories and comparing them to the
+original tracks to determine whether the observed similarities are
+significantly greater than expected under random conditions. Two types
+of <em>P</em>-values are calculated: <strong>Pairwise
+<em>P</em>-values</strong>, which represent the proportion of simulated
+distances smaller than the observed distance for each trajectory pair,
+and <strong>Combined <em>P</em>-values</strong>, which measure the
+overall proportion of simulations where all observed distances are
+smaller than the simulated ones. This statistical framework provides a
+comprehensive assessment of the similarity between tracks and helps
+evaluate whether observed patterns deviate from random expectations.</p>
+<p>Overall, the <strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong> and
+<strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong> functions provide a
+robust framework for comparing trajectories, allowing users to test the
+robustness of their results through simulations and explore how well
+generated tracks replicate the observed patterns. By offering multiple
+alignment options and statistical testing, these tools are highly
+valuable for investigating <strong>animal movement patterns</strong>,
+testing hypotheses about <strong>track similarity</strong>, and
+evaluating the accuracy of simulations.</p>
 </div>
 <div class="section level2">
 <h2 id="intersection-metric-calculation-for-tracks">
 <strong>Intersection Metric Calculation for Tracks</strong><a class="anchor" aria-label="anchor" href="#intersection-metric-calculation-for-tracks"></a>
 </h2>
-<p>The <code><a href="../reference/track_intersection.html">track_intersection()</a></code> function is designed to detect
-and count the number of unique intersections between movement
-trajectories, making it a useful tool for exploring interactions between
-trackmakers. By examining when and where different trajectories cross,
-it’s possible to infer potential behavioral interactions, like
-coordinated movement, chasing, or random exploration. The function can
-also generate simulated tracks to provide a statistical basis for
-comparison, allowing users to evaluate how often intersections would
-occur under various scenarios.</p>
+<p>The <strong><code><a href="../reference/track_intersection.html">track_intersection()</a></code></strong> function
+detects and counts <strong>unique intersections</strong> between
+<strong>movement trajectories</strong>, helping to identify potential
+<strong>behavioral interactions</strong> such as <strong>coordinated
+movement</strong>, <strong>chasing</strong>, or <strong>random
+exploration</strong>. By comparing actual tracks against
+<strong>simulated trajectories</strong> generated with the
+<strong><code><a href="../reference/simulate_track.html">simulate_track()</a></code></strong> function, users can
+statistically assess whether observed intersections occur more or less
+frequently than expected under random conditions.</p>
 <p>The way the function works is fairly straightforward. It examines
-each pair of trajectories, represented as lines made up of consecutive
-points. It then checks whether line segments from different trajectories
-cross one another, recording each crossing point. Since each
-intersection is represented by a unique coordinate, duplicates are
-removed to ensure only unique intersection points are counted. This
-count provides a basic measure of interaction between the
-trajectories.</p>
-<p>The function also allows for more sophisticated hypothesis testing
-through the generation of simulated trajectories. If the
-<code>test</code> argument is set to <code>TRUE</code>, the user must
-provide a set of simulated tracks to compare against the original ones.
-The idea here is to see how many intersections occur in the real data
-compared to those that occur in simulated, randomized scenarios. This
-comparison can provide valuable insights into whether observed
-intersections are more or less frequent than expected by chance.</p>
-<p>To enhance the flexibility of the function, it supports various
-methods for altering the starting positions of simulated tracks. These
-options are controlled by the <code>origin.permutation</code> argument,
-which offers several choices. If it is set to <code>"None"</code>,
-simulated trajectories are not shifted and their starting points match
-the original data. If it is set to <code>"Min.Box"</code>, the starting
-points of simulated trajectories are randomly placed within the minimum
-bounding box that surrounds all original starting points. The
-<code>"Conv.Hull"</code> option, on the other hand, places the simulated
-tracks within the convex hull that encompasses all original starting
-points, which is often a more precise reflection of the space the tracks
-occupy. The most customizable option, <code>"Custom"</code>, allows the
-user to define a specific area by providing a set of coordinates that
-delimit a particular region of interest. This feature is particularly
-useful when there is prior knowledge of terrain features or other
-environmental factors that might influence movement.</p>
-<p>The results are returned as a list containing several components,
-depending on whether testing was performed. At the most basic level, the
-function returns a matrix where each cell represents the number of
-unique intersection points between two trajectories. If testing is
-enabled, the function also returns a matrix of <em>p</em>-values that
-compare observed intersection counts to those generated from simulated
-tracks, providing a statistical assessment of how unusual the observed
-intersections are. Additionally, the function provides an overall
-<em>p</em>-value that summarizes the significance of the intersection
-counts across all pairs of trajectories. Finally, it returns the full
-list of simulated intersection counts, which can be useful for further
+each pair of trajectories, represented as <strong>lines made up of
+consecutive points</strong>. It then checks whether <strong>line
+segments from different trajectories cross one another</strong>,
+recording each crossing point. Since each intersection is represented by
+a <strong>unique coordinate</strong>, duplicates are removed to ensure
+only <strong>unique intersection points</strong> are counted. This count
+provides a basic measure of <strong>interaction between the
+trajectories</strong>.</p>
+<p>The function also allows for more sophisticated <strong>hypothesis
+testing</strong> through the comparison of actual and <strong>simulated
+trajectories</strong>. If the <strong><code>test</code></strong>
+argument is set to <strong><code>TRUE</code></strong>, the user must
+provide a set of <strong>simulated tracks</strong> to compare against
+the original ones. The idea here is to see how many intersections occur
+in the <strong>real data compared to those that occur in simulated,
+randomized scenarios</strong>. This comparison can provide valuable
+insights into whether <strong>observed intersections are more or less
+frequent than expected by chance</strong>.</p>
+<p>The flexibility of the
+<strong><code><a href="../reference/track_intersection.html">track_intersection()</a></code></strong> function is enhanced
+by its ability to alter the <strong>starting positions of simulated
+tracks</strong> through the
+<strong><code>origin.permutation</code></strong> argument, which offers
+multiple options to fit different scenarios. When set to
+<strong><code>"None"</code></strong>, simulated trajectories retain
+their original <strong>starting points</strong>, matching the positions
+of the actual data without any modification. By contrast, the
+<strong><code>"Min.Box"</code></strong> option randomly places the
+<strong>starting points of simulated trajectories</strong> within the
+<strong>minimum bounding box</strong> that encompasses all original
+starting points, providing a straightforward way to simulate movement
+within a defined area. A more precise alternative is the
+<strong><code>"Conv.Hull"</code></strong> option, which places simulated
+tracks within the <strong>convex hull</strong> that encloses all
+original starting points, better reflecting the space occupied by the
+tracks. For maximum customization, the
+<strong><code>"Custom"</code></strong> option allows users to specify a
+particular region by providing a <strong>set of coordinates</strong>
+that define the area of interest, which is especially useful when prior
+knowledge of <strong>terrain features or environmental factors</strong>
+suggests that movement may be influenced by specific spatial
+constraints.</p>
+<p>The results are returned as a <strong>list</strong> containing
+several components, depending on whether <strong>testing was
+performed</strong>. At the most basic level, the function returns a
+<strong>matrix where each cell represents the number of unique
+intersection points</strong> between two trajectories. If testing is
+enabled, the function also returns a <strong>matrix of
+<em>p</em>-values</strong> that compare <strong>observed intersection
+counts</strong> to those generated from <strong>simulated
+tracks</strong>, providing a <strong>statistical assessment of how
+unusual the observed intersections are</strong>. Additionally, the
+function provides an <strong>overall <em>p</em>-value</strong> that
+summarizes the significance of the intersection counts across all pairs
+of trajectories. Finally, it returns the <strong>full list of simulated
+intersection counts</strong>, which can be useful for further
 exploration or visualization of the results.</p>
 <p>The function’s versatility makes it applicable to a range of
-scenarios. For instance, if trackmakers are expected to be moving in
-parallel—such as members of a herd or pack following a common path—fewer
-intersections would be expected compared to random movement. In such
-cases, a significantly low number of intersections would support the
-hypothesis of coordinated or parallel movement. Conversely, in a hunting
-or chasing scenario, a greater number of intersections than expected by
+scenarios. For instance, if <strong>trackmakers (or at least some of
+them) are expected to be moving in parallel</strong>—such as members of
+a <strong>herd or pack following a common path</strong>—fewer
+intersections would be expected compared to <strong>random
+movement</strong>. In such cases, a significantly low number of
+intersections would support the hypothesis of <strong>coordinated or
+parallel movement</strong>. Conversely, in a <strong>hunting or chasing
+scenario</strong>, a greater number of intersections than expected by
 chance might be anticipated. Therefore, analyzing the number of
-intersections alongside similarity metrics from functions like
-<code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code> or <code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code>
-can provide a more comprehensive assessment of trackmaker behavior.</p>
-<p>Ultimately, this function offers a robust way of examining track
-interactions by comparing observed intersection counts to those expected
-under different simulated scenarios. By allowing various permutation
-methods, it provides the user with the flexibility to tailor the
-analysis to specific research questions and assumptions about trackmaker
-behavior.</p>
+intersections alongside <strong>similarity metrics</strong> from
+functions like <strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong> or
+<strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong> can provide a more
+comprehensive assessment of <strong>trackmaker behavior</strong>.</p>
+<p>Ultimately, this function offers a <strong>robust way of examining
+track interactions</strong> by comparing <strong>observed intersection
+counts</strong> to those expected under different <strong>simulated
+scenarios</strong>. By allowing various <strong>permutation
+methods</strong>, it provides the user with the flexibility to tailor
+the analysis to <strong>specific research questions and assumptions
+about trackmaker behavior</strong>.</p>
 </div>
 <div class="section level2">
 <h2 id="combining-p-values-from-multiple-similarity-and-intersection-metrics">
 <strong>Combining <em>P</em>-values from Multiple Similarity and
 Intersection Metrics</strong><a class="anchor" aria-label="anchor" href="#combining-p-values-from-multiple-similarity-and-intersection-metrics"></a>
 </h2>
-<p>The <code><a href="../reference/combined_prob.html">combined_prob()</a></code> function is designed to combine
-<em>p</em>-values obtained from various similarity and intersection
-metrics to provide a more comprehensive assessment of how well the
-observed trajectories compare to those generated through simulation. The
-function can be particularly useful when multiple metrics are applied to
-the same set of data, as it allows users to integrate the results and
-obtain an overall measure of significance.</p>
-<p>The basic idea behind this function is to assess how the observed
-similarity or intersection metrics compare to those generated under
-various simulated scenarios. It starts by receiving a list of metrics,
-each of which is expected to be an R object representing the results of
-similarity or intersection tests. These metrics could have been obtained
-from functions like <code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code>,
-<code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code>, and
-<code><a href="../reference/track_intersection.html">track_intersection()</a></code>.</p>
+<p>The <strong><code><a href="../reference/combined_prob.html">combined_prob()</a></code></strong> function is
+designed to combine <em>p</em>-values obtained from various similarity
+and intersection metrics** to provide a more comprehensive assessment of
+how well the <strong>observed trajectories compare to those generated
+through simulation</strong>. The function can be particularly useful
+when multiple metrics are applied to the same set of data, as it allows
+users to <strong>integrate the results and obtain an overall measure of
+significance</strong>.</p>
+<p>The basic idea behind this function is to assess how the
+<strong>observed similarity or intersection metrics</strong> compare to
+those generated under various <strong>simulated scenarios</strong>. It
+starts by receiving a <strong>list of metrics</strong>, each of which is
+expected to be an <strong>R object representing the results of
+similarity or intersection tests</strong>. These metrics could have been
+obtained from functions like
+<strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong>,
+<strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong>, and
+<strong><code><a href="../reference/track_intersection.html">track_intersection()</a></code></strong>.</p>
 <p>To make meaningful comparisons, the function ensures that all metrics
-provided in the <code>metrics</code> list have been derived using the
-same number of simulations (<code>nsim</code>). If the metrics are
-incompatible, the function raises an error to prevent incorrect
-calculations.</p>
-<p>The process works by generating a matrix of <em>p</em>-values where
-each entry represents the combined significance of multiple metrics for
-a particular trajectory pair. For each simulation iteration, the
-function subtracts the observed metric values from the simulated ones,
-building a series of differences for each metric. If all differences for
-a given trajectory pair are positive, that combination is considered
-significant, contributing to the calculation of <em>p</em>-values.</p>
-<p>The function also provides an overall <em>p</em>-value that
-summarizes the combined significance across all trajectory pairs. This
-value indicates how consistently the observed data differs from the
-simulated datasets across all metrics.</p>
-<p>The result is returned as a list containing two components: 1. A
-matrix of combined <em>p</em>-values for each trajectory pair, where the
-entries represent the probability of observing the combined metrics
-across all simulations. 2. A single overall <em>p</em>-value summarizing
-the combined significance of all metrics across all pairs of
-trajectories.</p>
-<p>The <code><a href="../reference/combined_prob.html">combined_prob()</a></code> function provides an efficient way
-to aggregate multiple similarity or intersection metrics, making it an
-essential tool for users who wish to comprehensively evaluate their
-models and hypotheses. By allowing for the integration of different
-metrics, the function offers a holistic approach to analyzing and
-comparing track data.</p>
+provided in the <strong><code>metrics</code> list</strong> have been
+derived using the same number of simulations
+(<strong><code>nsim</code></strong>). If the metrics are incompatible,
+the function raises an error to prevent incorrect calculations.</p>
+<p>The process works by generating a <strong>matrix of
+<em>p</em>-values</strong> where each entry represents the
+<strong>combined significance of multiple metrics for a particular
+trajectory pair</strong>. For each simulation iteration, the function
+subtracts the <strong>observed metric values from the simulated
+ones</strong>, building a series of differences for each metric. If all
+differences for a given trajectory pair are positive, that combination
+is considered significant, contributing to the calculation of
+<strong><em>p</em>-values</strong>.</p>
+<p>The function also provides an <strong>overall
+<em>p</em>-value</strong> that summarizes the combined significance
+across all <strong>trajectory pairs</strong>. This value indicates how
+consistently the <strong>observed data differs from the simulated
+datasets</strong> across all metrics.</p>
+<p>The result is returned as a <strong>list</strong> consisting of two
+main components. The first component is a <strong>matrix of combined
+<em>p</em>-values for each trajectory pair</strong>, where the entries
+indicate the <strong>probability of observing the combined metrics
+across all simulations</strong>. This matrix provides a detailed
+comparison of how <strong>individual track pairs</strong> compare to the
+simulated datasets. The second component is a <strong>single overall
+<em>p</em>-value</strong> that summarizes the <strong>combined
+significance of all metrics across all pairs of trajectories</strong>,
+offering a <strong>comprehensive assessment of the dataset as a
+whole</strong>.</p>
+<p>The <strong><code><a href="../reference/combined_prob.html">combined_prob()</a></code></strong> function provides
+an efficient way to <strong>aggregate multiple similarity or
+intersection metrics</strong>, making it an essential tool for users who
+wish to <strong>comprehensively evaluate their models and
+hypotheses</strong>. By allowing for the integration of different
+metrics, the function offers a <strong>holistic approach to analyzing
+and comparing track data</strong>.</p>
 </div>
 <div class="section level2">
 <h2 id="clustering-tracks-based-on-movement-parameters">
 <strong>Clustering Tracks Based on Movement Parameters</strong><a class="anchor" aria-label="anchor" href="#clustering-tracks-based-on-movement-parameters"></a>
 </h2>
-<p>Clustering tracks is a powerful way to identify patterns of movement
-that might suggest particular behaviors or strategies used by
-trackmakers. The <code><a href="../reference/cluster_track.html">cluster_track()</a></code> function is designed to
-take a set of tracks, calculate various movement parameters for each
-track, and then classify them into groups based on their similarities.
-This approach allows us to go beyond simply comparing tracks pairwise;
-instead, we can detect broader patterns of behavior shared across
-multiple tracks.</p>
-<p>The first step in this process involves preparing the data by
-filtering out tracks with fewer than four steps. Such short tracks can’t
-provide reliable information about movement patterns and would only add
-noise to the clustering process. After filtering, the function
-calculates several movement parameters, each reflecting different
-aspects of the trackmaker’s behavior.</p>
-<p>These parameters include metrics like turning angles, step lengths,
-sinuosity, straightness, and velocity. Turning angles capture how often
-the trackmaker changes direction, which can indicate whether it was
-moving in a directed or exploratory manner. Step lengths and their
-variability provide clues about the consistency of movement, while
-sinuosity and straightness measure how direct or meandering the
-trackmaker’s path was. Finally, velocity parameters describe the overall
-speed and how much it fluctuated throughout the track.</p>
-<p>The function uses the <code>mclust</code> package to perform
-clustering based on these parameters. It applies model-based clustering,
-which means that instead of forcing the data into arbitrary groups, it
-looks for natural clusters by fitting a series of Gaussian mixture
-models. The best-fitting model is selected based on the Bayesian
-Information Criterion (BIC), allowing for both single-parameter and
-multi-parameter clustering. If only one parameter is selected, simpler
-models with equal or variable variance are used. When multiple
-parameters are included, the function considers the entire range of
-Gaussian models available in <code>mclust</code>.</p>
-<p>This clustering process has important biological implications. By
-identifying groups of tracks that share similar movement parameters, we
-can begin to understand the underlying behaviors that produced those
-tracks. For example, tracks with low sinuosity and high velocity might
-represent individuals moving directly towards a target, while high
-sinuosity and variable step lengths could suggest foraging or
-exploratory behavior.</p>
-<p>More interestingly, clustering can help detect coordinated movement.
-If several tracks are classified within the same group and also show
-high similarity when measured with metrics like Dynamic Time Warping
-(DTW) or Fréchet distance, it may indicate that the trackmakers were
-moving together. This approach could be particularly valuable for
-studying social behavior, such as gregarism or coordinated hunting.</p>
-<p>Another practical application of clustering is to refine the dataset
-before applying more computationally intensive similarity metrics or
-intersection tests. By first identifying groups of tracks that share
-similar movement characteristics, researchers can focus on the most
-relevant comparisons, enhancing the robustness of their hypothesis
-testing.</p>
+<p><strong>Clustering tracks</strong> is a powerful approach for
+detecting <strong>patterns of movement</strong> that may reveal specific
+<strong>behaviors or strategies employed by trackmakers</strong>. The
+<strong><code><a href="../reference/cluster_track.html">cluster_track()</a></code></strong> function is designed to
+process a set of tracks by <strong>calculating various movement
+parameters</strong> and then classifying them into groups based on their
+<strong>similarities</strong>. Instead of just comparing tracks
+pairwise, this method allows for the identification of broader
+<strong>behavioral patterns shared across multiple tracks</strong>.</p>
+<p>The process begins with <strong>preparing the data</strong>, where
+tracks containing <strong>fewer than four steps</strong> are filtered
+out. Short tracks lack sufficient information about movement patterns
+and would introduce noise into the clustering process. Once filtered,
+the function calculates multiple <strong>movement parameters</strong> to
+characterize the trackmaker’s behavior.</p>
+<p>These parameters include metrics such as <strong>turning
+angles</strong>, <strong>step lengths</strong>,
+<strong>sinuosity</strong>, <strong>straightness</strong>, and
+<strong>velocity</strong>. <strong>Turning angles</strong> reflect how
+frequently the trackmaker changes direction, providing insights into
+whether it was moving in a <strong>directed or exploratory
+manner</strong>. <strong>Step lengths and their variability</strong>
+reveal the consistency of movement, while <strong>sinuosity and
+straightness</strong> indicate whether the path was <strong>directed or
+meandering</strong>. <strong>Velocity parameters</strong>, including
+<strong>average speed</strong>, <strong>standard deviation of
+speed</strong>, <strong>maximum velocity</strong>, and <strong>minimum
+velocity</strong>, describe how fast the trackmaker was moving and how
+consistently it maintained speed.</p>
+<p>The <strong><code><a href="../reference/cluster_track.html">cluster_track()</a></code></strong> function uses the
+<strong><code>mclust</code> package</strong> to perform
+<strong>model-based clustering</strong>, which is particularly effective
+because it identifies <strong>natural clusters</strong> by fitting
+various <strong>Gaussian mixture models</strong> to the data. Unlike
+methods that impose arbitrary groupings, <strong>model-based
+clustering</strong> selects the most suitable model by optimizing the
+<strong>Bayesian Information Criterion (BIC)</strong>. This approach is
+versatile, supporting <strong>single-parameter and multi-parameter
+clustering</strong>, depending on the user’s analytical needs. When
+<strong>only one parameter</strong> is selected, the function uses
+simpler models with <strong>equal or variable variance</strong>. When
+<strong>multiple parameters</strong> are specified, it examines the
+entire range of <strong>Gaussian models</strong> provided by
+<strong><code>mclust</code></strong>.</p>
+<p>The parameters used for clustering are specified via the
+<strong><code>variables</code></strong> argument. Users can choose from
+a variety of options, including <strong>“TurnAng”</strong>,
+<strong>“sdTurnAng”</strong>, <strong>“Distance”</strong>,
+<strong>“Length”</strong>, <strong>“StLength”</strong>,
+<strong>“sdStLength”</strong>, <strong>“Sinuosity”</strong>,
+<strong>“Straightness”</strong>, <strong>“Velocity”</strong>,
+<strong>“sdVelocity”</strong>, <strong>“MaxVelocity”</strong>, and
+<strong>“MinVelocity”</strong>. This flexibility allows users to focus
+on specific aspects of movement or combine multiple characteristics to
+create a comprehensive profile of trackmaker behavior.</p>
+<p>The <strong><code>data</code></strong> argument expects a
+<strong>‘track’ R object</strong>, which is a structured list comprising
+two elements: <strong>Trajectories</strong> and
+<strong>Footprints</strong>. The <strong><code>veltrack</code></strong>
+argument requires a <strong>‘track velocity’ R object</strong>, which
+contains calculated velocity parameters for each track. These parameters
+are used to enhance the clustering process by incorporating
+speed-related information alongside spatial metrics.</p>
+<p>The results of the clustering process have important
+<strong>biological implications</strong>. By grouping tracks with
+similar <strong>movement parameters</strong>, researchers can infer the
+<strong>behaviors that produced those tracks</strong>. For instance,
+tracks characterized by <strong>low sinuosity and high velocity</strong>
+might indicate animals moving directly toward a target, while
+<strong>high sinuosity and variable step lengths</strong> could suggest
+<strong>foraging or exploratory behavior</strong>.</p>
+<p>Additionally, clustering can reveal <strong>coordinated
+movement</strong>. If multiple tracks fall within the same cluster and
+also exhibit high similarity when analyzed with methods like
+<strong>Dynamic Time Warping (DTW)</strong> or <strong>Fréchet
+distance</strong>, it could indicate <strong>group movement or
+coordinated hunting strategies</strong>.</p>
+<p>Moreover, the clustering approach offers a practical way to
+<strong>refine datasets</strong> before applying more computationally
+demanding tests. By first identifying groups of tracks that share
+similar characteristics, users can focus on the most relevant
+comparisons, enhancing the <strong>robustness of their hypothesis
+testing</strong>. This <strong>pre-clustering step</strong> can
+significantly improve the efficiency and reliability of subsequent
+analyses, such as <strong>similarity metrics or intersection
+tests</strong>.</p>
+<p>The <strong><code><a href="../reference/cluster_track.html">cluster_track()</a></code></strong> function provides a
+flexible and powerful framework for identifying <strong>behavioral
+patterns</strong> from trackway data, enabling researchers to draw
+meaningful conclusions about the <strong>behavioral ecology of ancient
+trackmakers</strong>.</p>
 </div>
 <div class="section level2">
 <h2 id="references">

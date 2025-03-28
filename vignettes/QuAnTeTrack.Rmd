@@ -316,6 +316,32 @@ MountTom <- tps_to_track(
 )
 ```
 
+
+## **Subsetting Tracks from Track Data**
+
+The **`subset_track()`** function is designed to extract specific tracks from a larger dataset of tracks, making it easier to focus on particular **trajectories or footprints** for further analysis or visualization. This function is particularly useful when working with **extensive datasets** where only a subset of tracks is relevant to the research question.
+
+The function operates by taking a **`track` R object**, which contains two elements: **`Trajectories`** and **`Footprints`**. Each of these elements is a **list**, where each list entry corresponds to a separate track. By specifying the desired indices through the **`tracks`** argument, users can isolate particular tracks of interest.
+
+If the **`tracks`** argument is left unspecified (**`NULL`**), the function defaults to returning **all tracks** in the dataset. Otherwise, it subsets the dataset based on the **indices provided**. If any indices are **outside the range of available tracks**, they are ignored with a **warning message** to notify the user. This functionality ensures robustness when working with datasets of varying sizes.
+
+The function returns a modified **`track` R object** with the same structure as the original, but only containing the specified tracks. This approach maintains compatibility with other functions that expect a **`track` R object**, allowing for seamless integration into broader analytical workflows.
+
+### **Examples of Usage**
+
+To prepare a subset of tracks with more than **three footprints** from the **MountTom dataset** for later analyses, you can use the **`subset_track()`** function. This is especially useful for focusing on a selection of tracks of interest before applying similarity metrics, simulations, or statistical tests.
+
+```{r, eval=FALSE}
+sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
+print(sbMountTom)
+```
+
+```{r echo=FALSE}
+sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
+print(sbMountTom)
+```
+
+
 ## **Plotting Tracks**
 
 The **`plot_track()`** function is a versatile tool designed to visualize **track and footprint data** from a **`track` object** in various ways, providing a flexible approach to examining and presenting trackway datasets. This function generates customizable plots using the **`ggplot2`** package, allowing users to inspect individual tracks, footprints, or a combination of both. By adjusting various plotting parameters, users can tailor their visualizations to highlight specific aspects of the dataset, such as **individual track paths**, **footprint shapes**, and **colors**.
@@ -432,135 +458,6 @@ params_mount <- track_param(MountTom)
 params_mount <- track_param(MountTom)
 ```
 
-## **Plotting Direction Data**
-
-The **`plot_direction()`** function provides a comprehensive approach to visualizing **direction data** from **`track` R objects**. It allows users to generate various types of plots to effectively compare and examine directionality within their datasets. The available plotting styles are highly customizable, making this function versatile for different types of directional analysis.
-
-This function supports four primary **plotting styles**, specified by the **`plot_type`** argument. The **`"boxplot"`** option displays the distribution of step directions across tracks as boxplots, providing an overview of directionality variations by showing medians, quartiles, and potential outliers. The **`"polar_steps"`** option generates **polar histograms** that visualize the frequency of steps within various directional bins, making it particularly useful for examining the spread and density of step directions around a central point and highlighting dominant movement trends. The **`"polar_average"`** style also produces **polar histograms**, but it focuses on average directions per track rather than individual steps. This summarization approach offers a simplified comparison of overall trends across multiple tracks. Finally, the **`"faceted"`** option creates **faceted polar histograms** where each track is displayed separately within a grid of plots, providing a clear visual comparison of step directions across tracks and making it especially effective for analyzing individual trackmaker behaviors.
-
-The **`plot_direction()`** function allows users to **customize visualizations** through several arguments. The **`angle_range`** argument controls the width of the bins used in **polar histograms**, allowing users to specify the desired **angular resolution**. The **`y_labels_position`** argument is useful for **positioning the labels of the y-axis**, especially in polar plots, to enhance clarity and presentation. Users can also provide **custom breaks for the y-axis** using the **`y_breaks_manual`** argument, which defines where the labels should be placed for better visualization of frequency data. This flexibility ensures that the user can **tailor the output** to suit specific analytical needs, whether examining **general trends**, comparing **individual tracks**, or highlighting particular aspects of **directional data**.
-
-By generating high-quality visualizations as **`ggplot` objects**, the **`plot_direction()`** function allows for further customization using additional functions from the **`ggplot2`** package. This integration makes it easy to enhance plots with annotations, themes, and other graphical elements.
-
-The function is particularly useful for analyzing **trackway direction data**, providing valuable insights into **movement patterns**, **orientation preferences**, and **potential group behavior**.
-
-### **Examples of Usage:**
-
-The **boxplot** option generates a summary of directional data distribution, highlighting central tendency, variability, and potential outliers across tracks.
-
-```{r echo=TRUE, results='hide'}
-plot_direction(PaluxyRiver, plot_type = "boxplot")
-```
-
-```{r echo=TRUE, results='hide'}
-plot_direction(MountTom, plot_type = "boxplot")
-```
-
-The **polar_steps** option creates a polar histogram of individual steps radiating from a central point, revealing the angular spread of movement and dominant directions.
-
-```{r echo=TRUE, results='hide'}
-plot_direction(PaluxyRiver, plot_type = "polar_steps")
-```
-
-```{r echo=TRUE, results='hide'}
-plot_direction(MountTom, plot_type = "polar_steps")
-```
-
-The **polar_average** option generates a simplified polar plot by averaging step directions for each track, providing a general overview of dominant movement trends.
-
-```{r echo=TRUE, results='hide'}
-plot_direction(PaluxyRiver, plot_type = "polar_average")
-```
-
-```{r echo=TRUE, results='hide'}
-plot_direction(MountTom, plot_type = "polar_average")
-```
-
-The **faceted** option displays individual step directions separately for each track using faceted panels, allowing detailed comparison of movement patterns across multiple tracks.
-
-```{r echo=TRUE, results='hide'}
-plot_direction(PaluxyRiver, plot_type = "faceted")
-```
-
-```{r echo=TRUE, results='hide'}
-plot_direction(MountTom, plot_type = "faceted")
-```
-
-Customization options include setting custom breaks on the radial axis with **`y_breaks_manual`** and adjusting the position of y-axis labels with **`y_labels_position`** for better presentation.
-
-```{r echo=TRUE, results='hide'}
-plot_direction(PaluxyRiver, plot_type = "polar_average", y_breaks_manual = c(1, 2))
-```
-
-```{r echo=TRUE, results='hide'}
-plot_direction(PaluxyRiver, plot_type = "polar_steps", y_labels_position = -90)
-```
-
-## **Testing for Differences in Direction**
-
-The **`test_direction()`** function provides a powerful statistical framework for comparing **mean directions** across different tracks within a **`track` R object**. It offers three distinct methods for this purpose, which can be selected using the **`analysis`** argument: **ANOVA**, **Kruskal-Wallis test**, and **Generalized Linear Models (GLM)**, ensuring robust analysis even when assumptions about data distribution and variance homogeneity are violated. The function requires that each track contains more than **three footprints** to be included in the analysis, as statistical tests for comparing mean directions require a sufficient sample size to generate meaningful results. This threshold ensures that the comparisons are statistically reliable and robust.
-
-When using the **`"ANOVA"`** option, the function first checks the **normality of the data** through the **Shapiro-Wilk test** and assesses **homogeneity of variances** using **Levene’s test**. If these assumptions are violated, the user is advised to consider the **Kruskal-Wallis** or **GLM** methods instead. The **ANOVA** method compares **mean directions across tracks**, and if significant differences are detected, **Tukey’s HSD test** is applied to perform **post-hoc pairwise comparisons**. The **`"Kruskal-Wallis"`** option, in contrast, offers a non-parametric approach that compares **median directions** across tracks and applies **Dunn's test** for pairwise comparisons if significant differences are found. This method is particularly suitable when data do not meet the assumptions required for parametric tests. Alternatively, if the **`"GLM"`** option is selected, the function applies a **Generalized Linear Model (GLM)** with a **Gaussian family** to compare **mean directions**. The **`emmeans` package** is then used to compute **pairwise comparisons**, with adjustments for multiple comparisons following **Tukey’s method**, offering a flexible approach when dealing with complex data distributions or deviations from normality.
-
-The **`test_direction()`** function returns list with a detailed set of results. It provides a **normality results matrix** containing the **Shapiro-Wilk test statistic and *p*-value** for each track, allowing the user to evaluate whether the data follows a normal distribution. The function also outputs the result of **Levene’s test**, including the **p-value** used to assess whether variances across tracks are homogeneous. When the **ANOVA** method is selected, the function delivers the **ANOVA table** along with **Tukey HSD post-hoc results**, enabling a thorough examination of differences between groups. For the **Kruskal-Wallis** test, the function returns the overall test result alongside **Dunn’s test post-hoc comparisons**, providing a non-parametric alternative for analyzing differences in central tendency. In the case of **GLM**, the output includes a summary of the model fit along with the **pairwise comparisons** calculated via the **`emmeans` package**, providing an efficient method to detect significant differences while accommodating more complex statistical models.
-
-The flexibility and comprehensiveness of the **`test_direction()`** function make it a versatile tool for comparing **directional data** across multiple tracks. Its ability to perform **parametric, non-parametric, and generalized linear model analyses** ensures that researchers can robustly test hypotheses related to **movement patterns, group behavior, and ecological interactions**, regardless of the underlying data structure.
-
-### **Examples of Usage:**
-
-Testing with **ANOVA** checks for differences in **mean directions** across tracks, assuming the data is normally distributed and variances are homogeneous. Post-hoc pairwise comparisons are conducted if significant differences are found.
-
-```{r, eval=FALSE}
-test_direction(PaluxyRiver, analysis = "ANOVA")
-```
-
-```{r echo=FALSE}
-test_direction(PaluxyRiver, analysis = "ANOVA")
-```
-
-```{r, eval=FALSE}
-test_direction(MountTom, analysis = "ANOVA")
-```
-
-```{r echo=FALSE}
-test_direction(MountTom, analysis = "ANOVA")
-```
-
-Testing with **Kruskal-Wallis** provides a non-parametric alternative for comparing **median directions** across tracks when the data does not meet the assumptions of ANOVA. Significant differences are further examined using Dunn’s test.
-
-```{r, eval=FALSE}
-test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
-```
-
-```{r echo=FALSE}
-test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
-```
-
-```{r, eval=FALSE}
-test_direction(MountTom, analysis = "Kruskal-Wallis")
-```
-
-```{r echo=FALSE}
-test_direction(MountTom, analysis = "Kruskal-Wallis")
-```
-
-Testing with **Generalized Linear Model (GLM)** offers a flexible approach for comparing **mean directions** even when data distribution assumptions are violated. Pairwise comparisons are computed using the `emmeans` package.
-
-```{r, eval=FALSE}
-test_direction(PaluxyRiver, analysis = "GLM")
-```
-
-```{r echo=FALSE}
-test_direction(PaluxyRiver, analysis = "GLM")
-```
-
-```{r, eval=FALSE}
-test_direction(MountTom, analysis = "GLM")
-```
-
-```{r echo=FALSE}
-test_direction(MountTom, analysis = "GLM")
-```
 
 ## **Calculating Velocities and Relative Stride Lengths**
 
@@ -647,19 +544,114 @@ The **`plot_velocity()`** function provides a powerful visualization tool for ex
 
 The function takes as inputs a **`track` R object** and a **`track velocity` R object**, where the latter contains the calculated velocities and relative stride lengths for each track. The user can specify the parameter to be visualized via the **`param`** argument, choosing between **`"V"`** for velocity or **`"RSL"`** for relative stride length. If not specified, the function defaults to visualizing **velocity**.
 
-The plotting process is handled by the **`ggplot2`** package, using **`geom_path()`** to plot the tracks and **`scale_color_gradientn()`** to apply a color gradient representing the selected parameter. Users can customize the color palette via the **`colours`** argument and adjust the line width with the **`lwd`** argument.
+The plotting process is handled by the **`ggplot2`** package, using **`ggplot2::geom_path()`** to plot the tracks and **`ggplot2::scale_color_gradientn()`** to apply a color gradient representing the selected parameter. Users can customize the color palette via the **`colours`** argument and adjust the line width with the **`lwd`** argument.
 
 The function also allows the user to include or exclude a legend from the plot by setting the **`legend`** argument to **`TRUE`** or **`FALSE`**, respectively. This flexibility ensures that the plots can be tailored to the user's preferences and presentation requirements.
 
 The resulting plot provides a visually appealing and informative representation of how **velocity** or **relative stride length** changes along each trajectory. Such plots are particularly useful for comparing the locomotor patterns of different track makers or assessing how environmental or anatomical factors influence movement.
 
+
+### **Examples of Usage**
+
+
+Plotting trajectories colored by **relative stride length (RSL)** for the **PaluxyRiver dataset** using the previously calculated `velocity_paluxyriver_diff` object.
+
+```{r echo=TRUE}
+plot_velocity(PaluxyRiver, velocity_paluxyriver_diff, param = "RSL")
+```
+
+Plotting trajectories colored by **velocity** for the **MountTom dataset** using the previously calculated `velocity_mounttom` object.
+
+```{r echo=TRUE}
+plot_velocity(MountTom, velocity_mounttom, param = "V")
+```
+
+Generating a clean visualization of **relative stride length (RSL)** for the **PaluxyRiver dataset** without displaying a legend.
+
+```{r echo=TRUE}
+plot_velocity(PaluxyRiver, velocity_paluxyriver_diff, param = "RSL", lwd = 1.5, 
+              colours = c("purple", "orange", "pink", "gray"), legend = FALSE)
+```
+
+Applying **custom colors and increased line width** to enhance visualization of **velocity patterns** for the **MountTom dataset**.
+
+```{r echo=TRUE}
+plot_velocity(MountTom, velocity_mounttom, param = "V", lwd = 2, 
+              colours = c("blue", "green", "yellow", "red"))
+```
+
+
+## **Plotting Direction Data**
+
+The **`plot_direction()`** function provides a comprehensive approach to visualizing **direction data** from **`track` R objects**. It allows users to generate various types of plots to effectively compare and examine directionality within their datasets. The available plotting styles are highly customizable, making this function versatile for different types of directional analysis.
+
+This function supports four primary **plotting styles**, specified by the **`plot_type`** argument. The **`"boxplot"`** option displays the distribution of step directions across tracks as boxplots, providing an overview of directionality variations by showing medians, quartiles, and potential outliers. The **`"polar_steps"`** option generates **polar histograms** that visualize the frequency of steps within various directional bins, making it particularly useful for examining the spread and density of step directions around a central point and highlighting dominant movement trends. The **`"polar_average"`** style also produces **polar histograms**, but it focuses on average directions per track rather than individual steps. This summarization approach offers a simplified comparison of overall trends across multiple tracks. Finally, the **`"faceted"`** option creates **faceted polar histograms** where each track is displayed separately within a grid of plots, providing a clear visual comparison of step directions across tracks and making it especially effective for analyzing individual trackmaker behaviors.
+
+The **`plot_direction()`** function allows users to **customize visualizations** through several arguments. The **`angle_range`** argument controls the width of the bins used in **polar histograms**, allowing users to specify the desired **angular resolution**. The **`y_labels_position`** argument is useful for **positioning the labels of the y-axis**, especially in polar plots, to enhance clarity and presentation. Users can also provide **custom breaks for the y-axis** using the **`y_breaks_manual`** argument, which defines where the labels should be placed for better visualization of frequency data. This flexibility ensures that the user can **tailor the output** to suit specific analytical needs, whether examining **general trends**, comparing **individual tracks**, or highlighting particular aspects of **directional data**.
+
+By generating high-quality visualizations as **`ggplot` objects**, the **`plot_direction()`** function allows for further customization using additional functions from the **`ggplot2`** package. This integration makes it easy to enhance plots with annotations, themes, and other graphical elements.
+
+The function is particularly useful for analyzing **trackway direction data**, providing valuable insights into **movement patterns**, **orientation preferences**, and **potential group behavior**.
+
+### **Examples of Usage:**
+
+The **boxplot** option generates a summary of directional data distribution, highlighting central tendency, variability, and potential outliers across tracks.
+
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver, plot_type = "boxplot")
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(MountTom, plot_type = "boxplot")
+```
+
+The **polar_steps** option creates a polar histogram of individual steps radiating from a central point, revealing the angular spread of movement and dominant directions.
+
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver, plot_type = "polar_steps")
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(MountTom, plot_type = "polar_steps")
+```
+
+The **polar_average** option generates a simplified polar plot by averaging step directions for each track, providing a general overview of dominant movement trends.
+
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver, plot_type = "polar_average")
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(MountTom, plot_type = "polar_average")
+```
+
+The **faceted** option displays individual step directions separately for each track using faceted panels, allowing detailed comparison of movement patterns across multiple tracks.
+
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver, plot_type = "faceted")
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(MountTom, plot_type = "faceted")
+```
+
+Customization options include setting custom breaks on the radial axis with **`y_breaks_manual`** and adjusting the position of y-axis labels with **`y_labels_position`** for better presentation.
+
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver, plot_type = "polar_average", y_breaks_manual = c(1, 2))
+```
+
+```{r echo=TRUE, results='hide'}
+plot_direction(PaluxyRiver, plot_type = "polar_steps", y_labels_position = -90)
+```
+
 ## **Testing for Differences in Velocity**
 
-The **`test_velocity()`** function evaluates differences in **mean velocities** across different tracks within a **`track` R object**. It provides three statistical methods: **ANOVA**, **Kruskal-Wallis test**, and **Generalized Linear Models (GLM)**, allowing users to compare velocity data and identify significant differences between tracks. The function also includes diagnostic tests to check assumptions of **normality** and **homogeneity of variances** before proceeding with the analysis. When more than two tracks are present, it performs **pairwise comparisons** to identify specific differences between tracks.
+The **`test_velocity()`** function evaluates differences in **mean velocities** across different tracks within a **`track` R object**. It provides three statistical methods,  which can be selected using the `analysis` argument:: **ANOVA**, **Kruskal-Wallis test**, and **Generalized Linear Models (GLM)**, allowing users to compare velocity data and identify significant differences between tracks. The function also includes diagnostic tests to check assumptions of **normality** and **homogeneity of variances** before proceeding with the analysis. When more than two tracks are present, it performs **pairwise comparisons** to identify specific differences between tracks.
 
 The **`test_velocity()`** function requires that each track contains more than **three footprints** to be included in the analysis. This is necessary because statistical tests for comparing mean velocities rely on having a sufficient number of data points to provide meaningful results. When a track contains only three or fewer footprints, the sample size is too small to accurately estimate mean velocity and its variability, making statistical comparisons unreliable. By setting this threshold, the function ensures that the results are **statistically robust and meaningful**.
 
-The function accepts a **`trackvel` object**, which is an output of the **`velocity_track()`** function. This object contains **calculated velocities** and other related parameters for each track, including **individual step velocities**, **mean velocities**, and **relative stride lengths**. This information serves as the input for the statistical comparisons performed by **`test_velocity()`**.
+The function accepts a **`track velocity` object**, which is an output of the **`velocity_track()`** function. This object contains **calculated velocities** and other related parameters for each track, including **individual step velocities**, **mean velocities**, and **relative stride lengths**. This information serves as the input for the statistical comparisons performed by **`test_velocity()`**.
 
 If **`"ANOVA"`** is selected, the function checks for **normality** (using the **Shapiro-Wilk test**) and **homogeneity of variances** (using **Levene’s test**). If assumptions are violated, it issues warnings suggesting the use of **`"Kruskal-Wallis"`** or **`"GLM"`** instead. **`"ANOVA"`** compares mean velocities across tracks, and if significant differences are detected, **Tukey’s HSD** is used for **post-hoc pairwise comparisons**. When **`"Kruskal-Wallis"`** is chosen, the function performs a **non-parametric test** that compares **median velocities** across tracks. If significant differences are detected, **Dunn's test** is used for **post-hoc pairwise comparisons**. If **`"GLM"`** is specified, the function uses a **Generalized Linear Model (GLM)** with a **Gaussian family** to compare **mean velocities** across tracks. **Pairwise comparisons** are conducted using the **`emmeans` package**, which computes differences between group means and adjusts for multiple comparisons using **Tukey’s method**. This approach is useful when the data does not meet the assumptions of **ANOVA** but still requires a parametric approach.
 
@@ -667,11 +659,68 @@ If the argument **`plot = TRUE`** is specified, a **boxplot of velocities by tra
 
 The function returns a list of results that includes: **`normality_results`**, a matrix containing the test statistic and *p*-value for the **Shapiro-Wilk normality test** for each track; **`homogeneity_test`**, the result of **Levene's test**, including the *p*-value for testing **homogeneity of variances** across tracks; **`ANOVA`**, if selected, containing the **ANOVA table** and **Tukey HSD** post-hoc results; **`Kruskal_Wallis`**, if selected, containing the **Kruskal-Wallis test result** and **Dunn's test** post-hoc results; **`GLM`**, if selected, providing a summary of the **GLM fit** and pairwise comparisons from the **`emmeans` package**; and finally, the **`plot`** if requested, displaying a **boxplot of velocities by track**.
 
+### **Examples of Usage**  
+
+The **ANOVA** method is suitable for comparing mean velocities when data meet the assumptions of normality and homogeneity of variances. 
+
+```{r, eval=FALSE}
+test_velocity(PaluxyRiver, velocity_paluxyriver_diff, analysis = "ANOVA")
+```
+
+```{r echo=FALSE}
+test_velocity(PaluxyRiver, velocity_paluxyriver_diff, analysis = "ANOVA")
+```
+
+```{r, eval=FALSE}
+test_velocity(MountTom, velocity_mounttom, analysis = "ANOVA")
+```
+
+```{r echo=FALSE}
+test_velocity(MountTom, velocity_mounttom, analysis = "ANOVA")
+```
+
+The **Kruskal-Wallis** test is a non-parametric method that compares median velocities, useful when normality or homogeneity of variances cannot be assumed.
+
+```{r, eval=FALSE}
+test_velocity(PaluxyRiver, velocity_paluxyriver_diff, analysis = "Kruskal-Wallis")
+```
+
+```{r echo=FALSE}
+test_velocity(PaluxyRiver, velocity_paluxyriver_diff, analysis = "Kruskal-Wallis")
+```
+
+```{r, eval=FALSE}
+test_velocity(MountTom, velocity_mounttom, analysis = "Kruskal-Wallis")
+```
+
+```{r echo=FALSE}
+test_velocity(MountTom, velocity_mounttom, analysis = "Kruskal-Wallis")
+```
+
+The **GLM** approach offers a flexible alternative when data do not meet the assumptions required for ANOVA. This method fits a linear model with a Gaussian family and performs pairwise comparisons using `emmeans`.
+
+```{r, eval=FALSE}
+test_velocity(PaluxyRiver, velocity_paluxyriver_diff, analysis = "GLM")
+```
+
+```{r echo=FALSE}
+test_velocity(PaluxyRiver, velocity_paluxyriver_diff, analysis = "GLM")
+```
+
+```{r, eval=FALSE}
+test_velocity(MountTom, velocity_mounttom, analysis = "GLM")
+```
+
+```{r echo=FALSE}
+test_velocity(MountTom, velocity_mounttom, analysis = "GLM")
+```
+
+
 ## **Testing for Acceleration, Deceleration, or Steady Movement along Trajectories**
 
 The **`mode_velocity()`** function evaluates whether a track maker is **accelerating**, **decelerating**, or maintaining a **steady speed** along its trajectory by applying **Spearman’s rank correlation test**. This test is particularly suitable for analyzing trends in velocity because it does not assume normality or linearity in the relationship between step number and velocity. Instead, it detects **monotonic relationships based on ranks**, making it robust to **outliers** and effective for identifying general trends.
 
-The function processes each trajectory in the **`trackvel` list** separately. For each trajectory, the function calculates the **Spearman correlation coefficient** and its associated *p*-value, comparing **velocity values** to their corresponding **step numbers**. If the *p*-value is less than **0.05**, the trend is classified as **“acceleration”** if the correlation coefficient is positive or **“deceleration”** if it is negative. If the *p*-value is greater than or equal to **0.05**, the trend is labeled as **“steady,”** indicating no significant monotonic relationship between **velocity and step number**. This approach allows the detection of gradual changes in velocity over the course of a track, which may reflect shifts in **locomotor performance or behavior**.
+The function accepts a **`track velocity` object** and processes each trajectory separately. For each trajectory, the function calculates the **Spearman correlation coefficient** and its associated *p*-value, comparing **velocity values** to their corresponding **step numbers**. If the *p*-value is less than **0.05**, the trend is classified as **“acceleration”** if the correlation coefficient is positive or **“deceleration”** if it is negative. If the *p*-value is greater than or equal to **0.05**, the trend is labeled as **“steady,”** indicating no significant monotonic relationship between **velocity and step number**. This approach allows the detection of gradual changes in velocity over the course of a track, which may reflect shifts in **locomotor performance or behavior**.
 
 Trajectories with fewer than **three steps** are considered insufficient for reliable statistical analysis, and the function returns a message indicating that the data is inadequate for **correlation analysis**. This is because the calculation of a meaningful correlation requires a minimum of **three data points**.
 
@@ -679,15 +728,96 @@ The **`mode_velocity()`** function provides a straightforward way to classify **
 
 This approach draws from established **non-parametric statistical techniques** for measuring association between variables. The robustness of the method to **non-normal data** and its resistance to **outliers** makes it well-suited for **paleontological and biomechanical applications** where data quality and quantity can be limited.
 
-## **Subsetting Tracks from Track Data**
+### **Examples of Usage**
+The **`velocity_paluxyriver_diff`** object contains calculated velocities for the **PaluxyRiver dataset** with different methods applied to the sauropod (Method A) and theropod (Method B).
 
-The **`subset_track()`** function is designed to extract specific tracks from a larger dataset of tracks, making it easier to focus on particular **trajectories or footprints** for further analysis or visualization. This function is particularly useful when working with **extensive datasets** where only a subset of tracks is relevant to the research question.
 
-The function operates by taking a **`track` R object**, which contains two elements: **`Trajectories`** and **`Footprints`**. Each of these elements is a **list**, where each list entry corresponds to a separate track. By specifying the desired indices through the **`tracks`** argument, users can isolate particular tracks of interest.
+```{r, eval=FALSE}
+mode_velocity(velocity_paluxyriver_diff)
+```
 
-If the **`tracks`** argument is left unspecified (**`NULL`**), the function defaults to returning **all tracks** in the dataset. Otherwise, it subsets the dataset based on the **indices provided**. If any indices are **outside the range of available tracks**, they are ignored with a **warning message** to notify the user. This functionality ensures robustness when working with datasets of varying sizes.
+```{r echo=FALSE}
+mode_velocity(velocity_paluxyriver_diff)
+```
 
-The function returns a modified **`track` R object** with the same structure as the original, but only containing the specified tracks. This approach maintains compatibility with other functions that expect a **`track` R object**, allowing for seamless integration into broader analytical workflows.
+The **`velocity_mounttom`** object contains calculated velocities for the **MountTom dataset**.
+
+
+```{r, eval=FALSE}
+mode_velocity(velocity_mounttom)
+```
+
+```{r echo=FALSE}
+mode_velocity(velocity_mounttom)
+```
+
+
+## **Testing for Differences in Direction**
+
+The **`test_direction()`** function provides a powerful statistical framework for comparing **mean directions** across different tracks within a **`track` R object**. It offers three distinct methods for this purpose, which can be selected using the **`analysis`** argument: **ANOVA**, **Kruskal-Wallis test**, and **Generalized Linear Models (GLM)**, ensuring robust analysis even when assumptions about data distribution and variance homogeneity are violated. The function requires that each track contains more than **three footprints** to be included in the analysis, as statistical tests for comparing mean directions require a sufficient sample size to generate meaningful results. This threshold ensures that the comparisons are statistically reliable and robust.
+
+When using the **`"ANOVA"`** option, the function first checks the **normality of the data** through the **Shapiro-Wilk test** and assesses **homogeneity of variances** using **Levene’s test**. If these assumptions are violated, the user is advised to consider the **Kruskal-Wallis** or **GLM** methods instead. The **ANOVA** method compares **mean directions across tracks**, and if significant differences are detected, **Tukey’s HSD test** is applied to perform **post-hoc pairwise comparisons**. The **`"Kruskal-Wallis"`** option, in contrast, offers a non-parametric approach that compares **median directions** across tracks and applies **Dunn's test** for pairwise comparisons if significant differences are found. This method is particularly suitable when data do not meet the assumptions required for parametric tests. Alternatively, if the **`"GLM"`** option is selected, the function applies a **Generalized Linear Model (GLM)** with a **Gaussian family** to compare **mean directions**. The **`emmeans` package** is then used to compute **pairwise comparisons**, with adjustments for multiple comparisons following **Tukey’s method**, offering a flexible approach when dealing with complex data distributions or deviations from normality.
+
+The **`test_direction()`** function returns list with a detailed set of results. It provides a **normality results matrix** containing the **Shapiro-Wilk test statistic and *p*-value** for each track, allowing the user to evaluate whether the data follows a normal distribution. The function also outputs the result of **Levene’s test**, including the **p-value** used to assess whether variances across tracks are homogeneous. When the **ANOVA** method is selected, the function delivers the **ANOVA table** along with **Tukey HSD post-hoc results**, enabling a thorough examination of differences between groups. For the **Kruskal-Wallis** test, the function returns the overall test result alongside **Dunn’s test post-hoc comparisons**, providing a non-parametric alternative for analyzing differences in central tendency. In the case of **GLM**, the output includes a summary of the model fit along with the **pairwise comparisons** calculated via the **`emmeans` package**, providing an efficient method to detect significant differences while accommodating more complex statistical models.
+
+The flexibility and comprehensiveness of the **`test_direction()`** function make it a versatile tool for comparing **directional data** across multiple tracks. Its ability to perform **parametric, non-parametric, and generalized linear model analyses** ensures that researchers can robustly test hypotheses related to **movement patterns, group behavior, and ecological interactions**, regardless of the underlying data structure.
+
+### **Examples of Usage:**
+
+Testing with **ANOVA** checks for differences in **mean directions** across tracks, assuming the data is normally distributed and variances are homogeneous. Post-hoc pairwise comparisons are conducted if significant differences are found.
+
+```{r, eval=FALSE}
+test_direction(PaluxyRiver, analysis = "ANOVA")
+```
+
+```{r echo=FALSE}
+test_direction(PaluxyRiver, analysis = "ANOVA")
+```
+
+```{r, eval=FALSE}
+test_direction(MountTom, analysis = "ANOVA")
+```
+
+```{r echo=FALSE}
+test_direction(MountTom, analysis = "ANOVA")
+```
+
+Testing with **Kruskal-Wallis** provides a non-parametric alternative for comparing **median directions** across tracks when the data does not meet the assumptions of ANOVA. Significant differences are further examined using Dunn’s test.
+
+```{r, eval=FALSE}
+test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
+```
+
+```{r echo=FALSE}
+test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
+```
+
+```{r, eval=FALSE}
+test_direction(MountTom, analysis = "Kruskal-Wallis")
+```
+
+```{r echo=FALSE}
+test_direction(MountTom, analysis = "Kruskal-Wallis")
+```
+
+Testing with **Generalized Linear Model (GLM)** offers a flexible approach for comparing **mean directions** even when data distribution assumptions are violated. Pairwise comparisons are computed using the `emmeans` package.
+
+```{r, eval=FALSE}
+test_direction(PaluxyRiver, analysis = "GLM")
+```
+
+```{r echo=FALSE}
+test_direction(PaluxyRiver, analysis = "GLM")
+```
+
+```{r, eval=FALSE}
+test_direction(MountTom, analysis = "GLM")
+```
+
+```{r echo=FALSE}
+test_direction(MountTom, analysis = "GLM")
+```
+
 
 ## **Simulating Tracks Using Different Movement Models**
 

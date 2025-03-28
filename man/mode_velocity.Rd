@@ -7,7 +7,7 @@
 mode_velocity(trackvel)
 }
 \arguments{
-\item{trackvel}{A list where each element corresponds to a track and contains a vector of velocity or relative stride length data.}
+\item{trackvel}{A 'track velocity' object  where each element corresponds to a track and contains a vector of velocity or relative stride length data.}
 }
 \value{
 A list where each element corresponds to a trajectory from the input \code{trackvel} and contains:

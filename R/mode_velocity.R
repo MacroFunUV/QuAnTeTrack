@@ -2,7 +2,7 @@
 #'
 #' \code{mode_velocity()} evaluates the trend in velocity along each trajectory by applying Spearman's rank correlation test. The function classifies the trend into "acceleration," "deceleration," or "steady" based on the correlation and the p-value.
 #'
-#' @param trackvel A list where each element corresponds to a track and contains a vector of velocity or relative stride length data.
+#' @param trackvel A 'track velocity' object  where each element corresponds to a track and contains a vector of velocity or relative stride length data.
 #'
 #' @details
 #' The \code{mode_velocity()} function performs the following operations:

@@ -96,12 +96,39 @@ hypotheses.
 
 ## Installation
 
-You can install the development version of QuAnTeTrack from
-[GitHub](https://github.com/) with:
+To install the **QuAnTeTrack** package, you can choose between
+installing the **stable version from CRAN** (recommended) or the
+**development version from GitHub**.
+
+### **From CRAN (recommended)**
+
+To install the stable version from CRAN, use:
 
 ``` r
-# install.packages("devtools")
+install.packages("QuAnTeTrack")
+```
+
+### **From GitHub (development version)**
+
+If you want the latest development version, you will need to use the
+`devtools` package. If you haven’t installed `devtools` yet, you can do
+so with the following command:
+
+``` r
+install.packages("devtools")
+```
+
+Once `devtools` is installed, you can install **QuAnTeTrack** using:
+
+``` r
 devtools::install_github("MacroFunUV/QuAnTeTrack")
+```
+
+If you have already installed **QuAnTeTrack** and want to ensure you
+have the latest version, you can update it with:
+
+``` r
+devtools::install_github("MacroFunUV/QuAnTeTrack", force = TRUE)
 ```
 
 ## Usage Details & Functionality

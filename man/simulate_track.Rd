@@ -7,18 +7,18 @@
 simulate_track(data, nsim = NULL, model = NULL)
 }
 \arguments{
-\item{data}{A 'track' R object, which is a list consisting of two elements:
+\item{data}{A \code{track} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 }}
 
-\item{nsim}{The number of simulations to run. Defaults to 1000 if not specified.}
+\item{nsim}{The number of simulations to run. Defaults to \code{1000} if not specified.}
 
-\item{model}{The type of movement model to use. Options are "Directed", "Constrained", or "Unconstrained". Defaults to "Unconstrained" if not provided.}
+\item{model}{The type of movement model to use. Options are \code{"Directed"}, \code{"Constrained"}, or \code{"Unconstrained"}. Defaults to \code{"Unconstrained"} if not provided.}
 }
 \value{
-A 'track simulation' R object consisting of a list of simulated trajectories stored as 'track' R objects.
+A \code{track simulation} R object consisting of a list of simulated trajectories stored as \code{track} R objects.
 }
 \description{
 \code{simulate_track()} simulates movement trajectories based on an original set of tracks. Three movement models are available for simulation, each reflecting different levels of constraint in movement patterns. These models can represent biological or environmental constraints, such as movement along coastlines, rivers, or towards resources like water or food.
@@ -80,15 +80,15 @@ The \code{NISTdegTOradian()} function from the \pkg{NISTunits} package is used t
 # Default number of simulations (1000)
 simulated_tracks <- simulate_track(PaluxyRiver)
 
-# Example 2: Simulate 100 tracks using the "Directed" model, representing movement
+# Example 2: Simulate 10 tracks using the "Directed" model, representing movement
 # toward a resource (e.g., water source)
 simulated_tracks_directed <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
 
-# Example 3: Simulate 100 tracks using the "Constrained" model, representing movement
+# Example 3: Simulate 10 tracks using the "Constrained" model, representing movement
 # along a geographic feature (e.g., coastline)
 simulated_tracks_constrained <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
 
-# Example 4: Simulate 100 tracks using the "Unconstrained" model (random exploratory movement)
+# Example 4: Simulate 10 tracks using the "Unconstrained" model (random exploratory movement)
 simulated_tracks_unconstrained <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
 
 # Subsetting trajectories with four or more steps in the MountTom dataset
@@ -99,15 +99,15 @@ sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16,
 # Default number of simulations (1000)
 simulated_tracks_mt <- simulate_track(sbMountTom)
 
-# Example 6: Simulate 100 tracks using the "Directed" model for Mount Tom, representing
+# Example 6: Simulate 10 tracks using the "Directed" model for Mount Tom, representing
 # directed movement
 simulated_tracks_mt_directed <- simulate_track(sbMountTom, nsim = 10, model = "Directed")
 
-# Example 7: Simulate 100 tracks using the "Constrained" model for Mount Tom, representing
+# Example 7: Simulate 10 tracks using the "Constrained" model for Mount Tom, representing
 # constrained movement
 simulated_tracks_mt_constrained <- simulate_track(sbMountTom, nsim = 10, model = "Constrained")
 
-# Example 8: Simulate 100 tracks using the "Unconstrained" model for Mount Tom, representing
+# Example 8: Simulate 10 tracks using the "Unconstrained" model for Mount Tom, representing
 # random exploratory movement
 simulated_tracks_mt_unconstrained <- simulate_track(sbMountTom, nsim = 10, model = "Unconstrained")
 

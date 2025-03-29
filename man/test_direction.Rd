@@ -2,15 +2,15 @@
 % Please edit documentation in R/test_direction.R
 \name{test_direction}
 \alias{test_direction}
-\title{Test for Differences in Direction Means with Pairwise Comparisons}
+\title{Test for differences in direction means with pairwise comparisons}
 \usage{
 test_direction(data, analysis = NULL)
 }
 \arguments{
-\item{data}{A 'track' R object, which is a list consisting of two elements:
+\item{data}{A \code{track} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 }}
 
 \item{analysis}{A character string specifying the type of analysis: \code{"ANOVA"}, \code{"Kruskal-Wallis"}, or \code{"GLM"}. Default is \code{"ANOVA"}.}
@@ -18,7 +18,7 @@ test_direction(data, analysis = NULL)
 \value{
 A list with the results of the statistical analysis and diagnostic tests:
 \itemize{
-\item \code{normality_results}: A matrix of test statistics and p-values from the Shapiro-Wilk test for each track, with rows for the test statistic and p-value, and columns for each track.
+\item \code{normality_results}: A matrix of test statistics and \emph{p}-values from the Shapiro-Wilk test for each track, with rows for the test statistic and p-value, and columns for each track.
 \item \code{homogeneity_test}: The result of Levene's test, including the p-value for homogeneity of variances.
 \item \code{ANOVA} (If \code{analysis} is \code{"ANOVA"}): A list containing the ANOVA table and Tukey HSD post-hoc test results.
 \item \code{Kruskal_Wallis} (If \code{analysis} is \code{"Kruskal-Wallis"}): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.

@@ -14,13 +14,13 @@ plot_velocity(
 )
 }
 \arguments{
-\item{data}{A 'track' R object, which is a list consisting of two elements:
+\item{data}{A \code{track} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 }}
 
-\item{trackvel}{A 'track velocity' R object consisting of a list where each element corresponds to a track and contains velocity or relative stride length data.}
+\item{trackvel}{A \code{track velocity} R object consisting of a list where each element corresponds to a track and contains velocity or relative stride length data.}
 
 \item{param}{A character string specifying the parameter to plot. Options are:
 \itemize{
@@ -36,10 +36,10 @@ If \code{NULL}, the default value \code{"V"} will be used.
 \item{legend}{Logical. If \code{TRUE}, the legend will be shown. If \code{FALSE}, the legend will be removed. Default is \code{TRUE}.}
 }
 \value{
-A ggplot object showing the trajectories colored by the specified parameter.
+A \code{ggplot} object showing the trajectories colored by the specified parameter.
 }
 \description{
-\code{plot_velocity()} creates a plot of trajectories, colored by either velocity or relative stride length from 'track' and 'track velocity' R objects. The function uses \pkg{ggplot2} package for visualization and allows customization of line width and color gradients.
+\code{plot_velocity()} creates a plot of trajectories, colored by either velocity or relative stride length from \code{track} and \code{track velocity} R objects. The function uses \pkg{ggplot2} package for visualization and allows customization of line width and color gradients.
 }
 \details{
 The function creates a plot where each trajectory is colored based on the specified parameter (\code{"V"} for velocity or \code{"RSL"} for relative stride length). The \pkg{ggplot2} package is used for plotting.

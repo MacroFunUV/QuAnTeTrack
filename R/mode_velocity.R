@@ -1,8 +1,8 @@
 #' Test for steady, acceleration, or deceleration along trajectories
 #'
-#' \code{mode_velocity()} evaluates the trend in velocity along each trajectory by applying Spearman's rank correlation test. The function classifies the trend into "acceleration," "deceleration," or "steady" based on the correlation and the p-value.
+#' \code{mode_velocity()} evaluates the trend in velocity along each trajectory by applying Spearman's rank correlation test. The function classifies the trend into "acceleration", "deceleration", or "steady" based on the correlation and the *p*-value.
 #'
-#' @param trackvel A 'track velocity' object  where each element corresponds to a track and contains a vector of velocity or relative stride length data.
+#' @param trackvel A \code{track velocity} object  where each element corresponds to a track and contains a vector of velocity or relative stride length data.
 #'
 #' @details
 #' The \code{mode_velocity()} function performs the following operations:
@@ -13,7 +13,7 @@
 #'
 #' - **Function Operation:**
 #'   - For each trajectory in the \code{trackvel} list, the function calculates the Spearman correlation coefficient and the associated p-value between velocity and step number.
-#'   - Based on the p-value and correlation coefficient, it classifies the trend as "acceleration," "deceleration," or "steady."
+#'   - Based on the *p*-value and correlation coefficient, it classifies the trend as "acceleration", "deceleration", or "steady".
 #'   - If a trajectory contains fewer than 3 steps, the function returns a message indicating insufficient data for correlation analysis.
 #'
 #' - **Advantages:**
@@ -26,9 +26,9 @@
 #'   - Identifies monotonic trends based on statistical significance but does not distinguish between different types of monotonic relationships (e.g., steady acceleration vs. abrupt changes).
 #'
 #' **Interpretation of Results:**
-#'   - **Acceleration:** If the p-value is less than 0.05 and the Spearman correlation coefficient is positive.
-#'   - **Deceleration:** If the p-value is less than 0.05 and the Spearman correlation coefficient is negative.
-#'   - **Steady:** If the p-value is greater than or equal to 0.05, indicating no significant monotonic relationship.
+#'   - **Acceleration:** If the *p*-value is less than 0.05 and the Spearman correlation coefficient is positive.
+#'   - **Deceleration:** If the *p*-value is less than 0.05 and the Spearman correlation coefficient is negative.
+#'   - **Steady:** If the *p*-value is greater than or equal to 0.05, indicating no significant monotonic relationship.
 #'
 #' **Usage Considerations:**
 #'   - Ensure that each trajectory in \code{trackvel} has a sufficient number of steps for meaningful analysis.
@@ -36,7 +36,7 @@
 #'
 #' @return A list where each element corresponds to a trajectory from the input \code{trackvel} and contains:
 #'   - **correlation:** The result of the Spearman correlation test, including the correlation coefficient and p-value.
-#'   - **trend:** A classification of the trend as "Acceleration," "Deceleration," or "Steady" based on the p-value and the correlation coefficient.
+#'   - **trend:** A classification of the trend as "Acceleration", "Deceleration", or "Steady" based on the p-value and the correlation coefficient.
 #'   - If a trajectory has fewer than 3 steps, the entry contains the message "Less than three steps."
 #'
 #' @section Logo:

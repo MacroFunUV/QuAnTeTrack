@@ -266,7 +266,7 @@ The function generates a **`track` object** consisting of two main components: *
 
 The resulting **`track` object** provides a comprehensive framework for organizing digitized trackway data, making it compatible with the various analytical functions within the **QuAnTeTrack** package. This structured data format enables users to perform advanced analyses such as calculating movement parameters, testing hypotheses about trackmaker behavior, and comparing tracks using similarity metrics. By transforming raw data into structured objects, the **`tps_to_track()`** function serves as a foundational step in the broader analytical pipeline provided by **QuAnTeTrack**.
 
-### **Examples of Usage:**
+### **Examples of Usage**
 
 Here, the TPS files (**PaluxyRiver.tps** and **MountTom.tps**) are loaded using the `system.file()` function to ensure compatibility across systems. This approach is necessary because these files are stored as **internal data within the package** (specifically, in the `inst/extdata/` folder). Using `system.file()` ensures that the files can be accessed regardless of the user's operating system or working directory, making the vignette fully portable and reproducible. They are then converted to `track` objects using the `tps_to_track()` function. The `scale` argument is used to set the coordinate scaling factor. For the **PaluxyRiver** dataset, no footprints are missing, so the `missing` argument is set to `FALSE` and `NAs = NULL`. For the **MountTom** dataset, some footprints are missing, so the `missing` argument is set to `TRUE`, and the missing footprints are specified using the `NAs` matrix. Additionally, the `R.L.side` argument is provided to specify the side of the first footprint of each track (either "R" for right or "L" for left).
 
@@ -356,7 +356,7 @@ The **`plot_track()`** function returns a **`ggplot`** object, which can be furt
 
 The function is especially useful for comparing **multiple trackways at once**, providing a comprehensive view of **track distribution**, **direction**, and **spacing**. It also allows users to produce **clean visualizations** suitable for **presentation or publication**.
 
-### **Examples of Usage:**
+### **Examples of Usage**
 
 By default, **`plot_track()`** displays both footprints and interpolated trajectories. This is useful for getting a general overview of the track and its corresponding interpolated pathways.
 
@@ -438,7 +438,7 @@ The **reference direction for calculating angles** is considered to be along the
 
 The **`track_param()`** function provides valuable insights into the **structure and efficiency of trackmaker movements**, making it a crucial tool for analyzing **fossil trackways**.
 
-### **Examples of Usage:**
+### **Examples of Usage**
 
 The **`track_param()`** function extracts movement parameters such as turning angles, step lengths, distances, track lengths, sinuosity, and straightness from **`track` R objects**. The examples below calculate these parameters for the **Paluxy River** and **Mount Tom** datasets.
 
@@ -489,7 +489,7 @@ The function returns a **track `velocity object`**, which is structured as a **l
 
 The function is particularly useful for estimating the **speed of ancient track-makers** from their footprints and evaluating their **locomotion style (walking, trotting, or running)**.
 
-### **Examples of Usage:**
+### **Examples of Usage**
 
 Calculating velocities for the **Paluxy River dataset** using **Method A** for both tracks. The hip heights (`H_paluxyriver`) are provided for each trackmaker.
 
@@ -553,7 +553,6 @@ The resulting plot provides a visually appealing and informative representation 
 
 ### **Examples of Usage**
 
-
 Plotting trajectories colored by **relative stride length (RSL)** for the **PaluxyRiver dataset** using the previously calculated `velocity_paluxyriver_diff` object.
 
 ```{r echo=TRUE}
@@ -593,7 +592,7 @@ By generating high-quality visualizations as **`ggplot` objects**, the **`plot_d
 
 The function is particularly useful for analyzing **trackway direction data**, providing valuable insights into **movement patterns**, **orientation preferences**, and **potential group behavior**.
 
-### **Examples of Usage:**
+### **Examples of Usage**
 
 The **boxplot** option generates a summary of directional data distribution, highlighting central tendency, variability, and potential outliers across tracks.
 
@@ -762,7 +761,7 @@ The **`test_direction()`** function returns list with a detailed set of results.
 
 The flexibility and comprehensiveness of the **`test_direction()`** function make it a versatile tool for comparing **directional data** across multiple tracks. Its ability to perform **parametric, non-parametric, and generalized linear model analyses** ensures that researchers can robustly test hypotheses related to **movement patterns, group behavior, and ecological interactions**, regardless of the underlying data structure.
 
-### **Examples of Usage:**
+### **Examples of Usage**
 
 Testing with **ANOVA** checks for differences in **mean directions** across tracks, assuming the data is normally distributed and variances are homogeneous. Post-hoc pairwise comparisons are conducted if significant differences are found.
 
@@ -770,17 +769,28 @@ Testing with **ANOVA** checks for differences in **mean directions** across trac
 test_direction(PaluxyRiver, analysis = "ANOVA")
 ```
 
-```{r echo=FALSE}
-test_direction(PaluxyRiver, analysis = "ANOVA")
+```{r include=FALSE}
+test_dir_paluxy_anova <- test_direction(PaluxyRiver, analysis = "ANOVA")
 ```
+
+```{r, echo=FALSE}
+print(test_dir_paluxy_anova)
+```
+
 
 ```{r, eval=FALSE}
 test_direction(MountTom, analysis = "ANOVA")
 ```
 
-```{r echo=FALSE}
-test_direction(MountTom, analysis = "ANOVA")
+
+```{r include=FALSE}
+test_dir_mount_anova <- test_direction(MountTom, analysis = "ANOVA")
 ```
+
+```{r, echo=FALSE}
+print(test_dir_mount_anova)
+```
+
 
 Testing with **Kruskal-Wallis** provides a non-parametric alternative for comparing **median directions** across tracks when the data does not meet the assumptions of ANOVA. Significant differences are further examined using Dunn’s test.
 
@@ -788,17 +798,28 @@ Testing with **Kruskal-Wallis** provides a non-parametric alternative for compar
 test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
 ```
 
-```{r echo=FALSE}
-test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
+```{r include=FALSE}
+test_dir_paluxy_Kruskal <- test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
 ```
+
+```{r, echo=FALSE}
+print(test_dir_paluxy_Kruskal)
+```
+
 
 ```{r, eval=FALSE}
 test_direction(MountTom, analysis = "Kruskal-Wallis")
 ```
 
-```{r echo=FALSE}
-test_direction(MountTom, analysis = "Kruskal-Wallis")
+
+```{r include=FALSE}
+test_dir_mount_Kruskal <- test_direction(MountTom, analysis = "Kruskal-Wallis")
 ```
+
+```{r, echo=FALSE}
+print(test_dir_mount_Kruskal)
+```
+
 
 Testing with **Generalized Linear Model (GLM)** offers a flexible approach for comparing **mean directions** even when data distribution assumptions are violated. Pairwise comparisons are computed using the `emmeans` package.
 
@@ -806,18 +827,25 @@ Testing with **Generalized Linear Model (GLM)** offers a flexible approach for c
 test_direction(PaluxyRiver, analysis = "GLM")
 ```
 
-```{r echo=FALSE}
-test_direction(PaluxyRiver, analysis = "GLM")
+```{r include=FALSE}
+test_dir_paluxy_GLM <- test_direction(PaluxyRiver, analysis = "GLM")
+```
+
+```{r, echo=FALSE}
+print(test_dir_paluxy_GLM)
 ```
 
 ```{r, eval=FALSE}
 test_direction(MountTom, analysis = "GLM")
 ```
 
-```{r echo=FALSE}
-test_direction(MountTom, analysis = "GLM")
+```{r include=FALSE}
+test_dir_mount_GLM <- test_direction(MountTom, analysis = "GLM")
 ```
 
+```{r, echo=FALSE}
+print(test_dir_mount_GLM)
+```
 
 ## **Simulating Tracks Using Different Movement Models**
 
@@ -829,63 +857,301 @@ The **`Constrained`** model represents a **correlated random walk**, where movem
 
 The **`Unconstrained`** model provides the most flexibility, simulating trajectories that represent **exploratory or dispersal behavior without directional bias**. It is based on a **fully random walk** with the starting direction randomly determined for each simulation. This model is appropriate for scenarios where animals are moving through **unfamiliar or homogeneous environments**.
 
-The **`simulate_track()`** function requires several arguments to define the simulation process. The **`data`** argument specifies the input as a `track` R object, which is a structured list consisting of two elements: **Trajectories**, which is a list of interpolated trajectories where each trajectory is a series of midpoints between consecutive footprints, and **Footprints**, which is a list of data frames containing footprint coordinates, metadata (such as image reference and ID), and a marker indicating whether each footprint is actual or inferred. The **`nsim`** argument defines the number of simulations to run, with a default value of **1000** if not specified. The **`model`** argument determines the type of movement model to be used, which can be **"Directed"**, **"Constrained"**, or **"Unconstrained"**, with the default being **"Unconstrained"** if not provided.
+The **`simulate_track()`** function requires several arguments to define the simulation process. The **`data`** argument specifies the input as a `track` R object. The **`nsim`** argument defines the number of simulations to run, with a default value of **1000** if not specified. The **`model`** argument determines the type of movement model to be used, which can be **"Directed"**, **"Constrained"**, or **"Unconstrained"**, with the default being **"Unconstrained"** if not provided.
 
 The function ensures that simulations are only applied to **trajectories with at least four steps**, as calculating the **standard deviations of angles and step lengths**—essential for the simulation process—is not feasible for shorter trajectories. In cases where tracks are too short, the user is advised to use the **`subset_track()`** function to exclude those tracks from the simulation process.
 
 The **`simulate_track()`** function returns a **`track simulation` R object**, which is a list of simulated trajectories. Each simulation is stored separately, providing users with the flexibility to **visualize, analyze, and compare these simulations** against the original tracks to evaluate **movement constraints** or explore **alternative movement hypotheses**. This approach is particularly useful for testing **paleoecological and paleoethological hypotheses**, such as assessing whether observed movement patterns are consistent with group behavior, resource-driven navigation, or independent exploratory movement.
 
+### **Examples of Usage**
+
+Simulating tracks from the **Paluxy River** and **Mount Tom** datasets using the **Unconstrained**, **Directed**, and **Constrained** models. For the **Mount Tom** dataset, tracks were preprocessed using **`subset_track()`** to retain only those containing at least four steps. Although the simulations were performed with **1000 simulated tracks**, the examples below display **only a subset of 10 simulated tracks** to prevent the vignette from becoming excessively large. This approach ensures the vignette remains efficient, clear, and easy to navigate.
+
+```{r, eval=FALSE}
+sim_unconstrained_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Unconstrained")
+print(sim_unconstrained_paluxy[1:10])
+```
+
+```{r echo=FALSE}
+sim_unconstrained_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Unconstrained")
+print(sim_unconstrained_paluxy[1:10])
+```
+
+
+```{r, eval=FALSE}
+sim_directed_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Directed")
+print(sim_directed_paluxy[1:10])
+```
+
+```{r echo=FALSE}
+sim_directed_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Directed")
+print(sim_directed_paluxy[1:10])
+```
+
+```{r, eval=FALSE}
+sim_constrained_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Constrained")
+print(sim_constrained_paluxy[1:10])
+```
+
+```{r echo=FALSE}
+sim_constrained_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Constrained")
+print(sim_constrained_paluxy[1:10])
+```
+
+```{r, eval=FALSE}
+sim_unconstrained_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Unconstrained")
+print(sim_unconstrained_mount[1:10])
+```
+
+```{r echo=FALSE}
+sim_unconstrained_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Unconstrained")
+print(sim_unconstrained_mount[1:10])
+```
+
+
+```{r, eval=FALSE}
+sim_directed_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Directed")
+print(sim_directed_mount[1:10])
+```
+
+```{r echo=FALSE}
+sim_directed_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Directed")
+print(sim_directed_mount[1:10])
+```
+
+```{r, eval=FALSE}
+sim_constrained_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Constrained")
+print(sim_constrained_mount[1:10])
+```
+
+```{r echo=FALSE}
+sim_constrained_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Constrained")
+print(sim_constrained_mount[1:10])
+```
+
+
 ## **Plotting Simulated and Actual Tracks**
 
-The **`plot_sim()`** function provides a **visual comparison** between **simulated movement trajectories** and the **actual observed tracks**. By overlaying simulated tracks generated through **`simulate_track()`** with the original tracks, this function enables the user to evaluate how closely the simulations replicate **real movement patterns**.
+The **`plot_sim()`** function provides a **visual comparison** between **simulated movement trajectories** and the **actual observed tracks**, allowing users to evaluate how closely the simulations replicate **real movement patterns**. The function requires two main inputs: a **`track` R object** representing the original track data and a **`track simulation` R object** generated by the **`simulate_track()`** function, which contains the simulated trajectories to be compared against the original tracks.
 
-The function relies on the **`ggplot2`** package to create plots with two primary components (simulated and actual trajectories). Simulated trajectories are displayed with paths colored according to the user-specified colors via the **`colours_sim`** argument. The user can also adjust **transparency** and **line width** through the **`alpha_sim`** and **`lwd_sim`** arguments. The default color is **black**, and the default transparency level is set to a low value (**`0.1`**) to avoid visual clutter when many simulated tracks are plotted. The original trajectories are plotted on top of the simulated trajectories using the colors specified by the **`colours_act`** argument. Users can also adjust **transparency (`alpha_act`)** and **line width (`lwd_act`)** to enhance visibility. This overlay helps in visually comparing the similarity between **actual and simulated tracks**.
+The function relies on the **`ggplot2`** package to create plots with two primary components: **simulated and actual trajectories**. **Simulated trajectories** are displayed with paths colored according to the user-specified colors via the **`colours_sim`** argument. The user can also adjust **transparency** and **line width** through the **`alpha_sim`** and **`lwd_sim`** arguments. The default color for simulated tracks is **black**, and the default transparency level is set to a low value (**`0.1`**) to avoid visual clutter when many simulated tracks are plotted. The **original trajectories** are plotted on top of the simulated trajectories using the colors specified by the **`colours_act`** argument. Users can also adjust **transparency** (**`alpha_act`**) and **line width** (**`lwd_act`**) to enhance visibility. This overlay helps in visually comparing the **similarity between actual and simulated tracks**.
 
-This visualization tool is essential for assessing whether the chosen simulation model (**Directed**, **Constrained**, or **Unconstrained**) adequately captures the **movement dynamics** represented by the original tracks. It allows researchers to compare multiple models or to test how well a specific model can replicate the original track patterns under various conditions.
+The function **returns a `ggplot` object** that overlays the original and simulated tracks, allowing for further customization using additional **`ggplot2`** functions if desired. This visualization tool is essential for assessing whether the chosen simulation model (**Directed**, **Constrained**, or **Unconstrained**) adequately captures the **movement dynamics** represented by the original tracks and for comparing how well a specific model replicates the original track patterns under various conditions.
+
+### **Examples of Usage**
+
+Visualizing the **Unconstrained simulation for the Paluxy River dataset** using default settings.  
+This plot provides a basic comparison of the simulated tracks (black lines) over the original tracks.
+
+```{r echo=TRUE}
+plot_sim(PaluxyRiver, sim_unconstrained_paluxy)
+```
+
+Visualizing the **Directed simulation for the Paluxy River dataset** with customized colors, transparency, and line width. Simulated tracks are plotted using light blue and orange colors with moderate transparency, making them easily distinguishable from the actual tracks plotted in black.  
+```{r echo=TRUE}
+plot_sim(PaluxyRiver, sim_directed_paluxy,
+  colours_sim = c("#E69F00", "#56B4E9"),
+  alpha_sim = 0.4, lwd_sim = 1,
+  colours_act = c("black", "black"), alpha_act = 0.7, lwd_act = 2
+)
+```
+
+Visualizing the **Constrained simulation for the Paluxy River dataset** with enhanced transparency and a reduced line width for the simulated tracks. This approach highlights the actual tracks more clearly, emphasizing the contrast between real and simulated data.
+
+```{r echo=TRUE}
+plot_sim(PaluxyRiver, sim_constrained_paluxy,
+  colours_sim = c("#E69F00", "#56B4E9"),
+  alpha_sim = 0.6, lwd_sim = 0.1,
+  alpha_act = 0.5, lwd_act = 2
+)
+```
+
+Visualizing the **Unconstrained simulation for the MountTom dataset** using default settings.  
+This plot provides a straightforward comparison of the simulated tracks over the actual tracks without any customization.
+
+```{r echo=TRUE}
+plot_sim(sbMountTom, sim_unconstrained_mount)
+```
+
+Visualizing the **Directed simulation for the MountTom dataset** with a custom color palette, higher transparency, and thicker lines for simulated tracks. This setup allows for better differentiation between the various simulated tracks and the original ones.
+
+```{r echo=TRUE}
+plot_sim(sbMountTom, sim_directed_mount,
+  colours_sim = c("#6BAED6", "#FF7F00", "#1F77B4", "#D62728", 
+                  "#2CA02C", "#9467BD", "#8C564B", "#E377C2", 
+                  "#7F7F7F", "#BCBD22", "#17BECF"),
+  alpha_sim = 0.3, lwd_sim = 1.5,
+  alpha_act = 0.8, lwd_act = 2
+)
+```
+
+Visualizing the **Constrained simulation for the MountTom dataset** with a diverse color palette and thinner simulated tracks for better clarity.  The high transparency of simulated tracks ensures the original tracks remain clearly visible.
+
+```{r echo=TRUE}
+plot_sim(sbMountTom, sim_constrained_mount,
+  colours_sim = c("#6BAED6", "#FF7F00", "#1F77B4", "#D62728", 
+                  "#2CA02C", "#9467BD", "#8C564B", "#E377C2", 
+                  "#7F7F7F", "#BCBD22", "#17BECF"),
+  alpha_sim = 0.5, lwd_sim = 0.2,
+  alpha_act = 0.6, lwd_act = 2
+)
+```
+
 
 ## **Similarity Metric Calculation using Dynamic Time Warping (DTW) and Fréchet Distance**
 
-The **`simil_DTW_metric()`** and **`simil_Frechet_metric()`** functions both offer powerful tools for comparing **movement trajectories** by quantifying their similarity through different mathematical approaches. The **`simil_DTW_metric()`** function applies the **Dynamic Time Warping (DTW)** algorithm, which is particularly effective for analyzing **animal movement patterns** that may exhibit **temporal distortions or variable lengths**. This method optimally aligns sequences by minimizing the **cumulative distance between corresponding points**, making it ideal for comparing tracks where timing or pacing may differ. The similarity measure is calculated using the **`dtw()`** function from the **`dtw`** package, with the **Euclidean distance** employed to compute local distances between points. This approach is valuable for testing how well simulated tracks replicate real movements, though it is sensitive to noise and outliers, particularly when comparing trajectories of differing lengths.
+The **`simil_DTW_metric()`** and **`simil_Frechet_metric()`** functions provide robust tools for comparing **movement trajectories** by quantifying their similarity through distinct mathematical approaches. Both functions operate on a **`track` object**, allowing users to evaluate whether observed patterns deviate from random expectations by comparing real tracks to simulated ones. 
 
-On the other hand, the **`simil_Frechet_metric()`** function uses the **Fréchet distance**, a metric that measures the **similarity between two curves or continuous trajectories** by considering both the **order and location of points**. Unlike DTW, which focuses on pointwise alignment, the Fréchet distance evaluates the **overall shape of trajectories**, making it especially effective when the global path of movement is of primary interest. The Fréchet distance is often described by the analogy of a **person walking a dog on an extendable leash**, where both can adjust their speed independently but must remain connected. The distance measured corresponds to the minimum leash length required to keep the person and the dog connected along their paths. This method is particularly useful for comparing trajectories where the overall path shape matters, such as in studies of **migration routes**, **travel paths**, or **animal tracks**. However, this method is sensitive to noise because it considers all points in the calculation, and it may produce invalid measurements when comparing highly disparate tracks, especially those generated under completely **unconstrained models**. In such cases, the Fréchet distance is returned as **-1**.
+The **`simil_DTW_metric()`** function applies the **Dynamic Time Warping (DTW)** algorithm, which is especially suitable for analyzing **animal movement patterns** with **temporal distortions or varying lengths**. By minimizing the **cumulative distance between corresponding points**, it effectively aligns sequences even when timing or pacing differs between trajectories. The calculation uses the **`dtw::dtw()`** function from the **`dtw`** package, employing **Euclidean distance** to compute local distances between points. This method excels at assessing how well simulated tracks replicate real movements, although it can be sensitive to noise and outliers, particularly when comparing trajectories of different lengths.
 
-Both **`simil_DTW_metric()`** and **`simil_Frechet_metric()`** functions allow users to align trajectories before computing similarity metrics, providing three options: **None**, where trajectories are compared as they are; **Centroid**, where trajectories are shifted to align their centroids, thus eliminating positional differences while preserving their shape; and **Origin**, where trajectories are aligned to their starting points, making comparisons independent of absolute positions. These alignment options ensure that comparisons are based on movement patterns rather than arbitrary spatial differences.
+In contrast, the **`simil_Frechet_metric()`** function calculates similarity based on the **Fréchet distance**, a metric that evaluates the **overall shape of trajectories** by considering both the **order and location of points**. Unlike DTW, which focuses on pointwise alignment, the Fréchet distance measures similarity by assessing how closely two paths follow each other over their entire length. This approach is often illustrated by the analogy of a **person walking a dog on a leash**, where both can adjust their speed independently but must remain connected. It is particularly effective for comparing trajectories where the overall path shape matters, such as **migration routes, travel paths, or animal tracks**. However, because the Fréchet distance evaluates all points along the path, this method is particularly **sensitive to noise** and may return an invalid measurement (**-1**) when comparing highly disparate tracks, especially those generated under fully **Unconstrained models**. It is essential for users to **check for the presence of -1 values** in the resulting **`track similarity` object**, as these invalid measurements cannot be used in further analyses. Ignoring this warning may lead to incorrect conclusions or errors when processing the results.
 
-Additionally, both functions allow users to perform **statistical testing** by comparing observed similarity metrics with those derived from **simulated trajectories** when **`test = TRUE`**. This simulation process involves generating random trajectories and comparing them to the original tracks to determine whether the observed similarities are significantly greater than expected under random conditions. Two types of *P*-values are calculated: **Pairwise *P*-values**, which represent the proportion of simulated distances smaller than the observed distance for each trajectory pair, and **Combined *P*-values**, which measure the overall proportion of simulations where all observed distances are smaller than the simulated ones. This statistical framework provides a comprehensive assessment of the similarity between tracks and helps evaluate whether observed patterns deviate from random expectations.
+Both functions include the **`superposition`** argument, which provides options for aligning trajectories before calculating similarity metrics: **`"None"`**, **`"Centroid"`**, and **`"Origin"`**. The **`"None"`** option compares trajectories as they are, while **`"Centroid"`** alignment shifts trajectories to their centroids, eliminating positional differences while preserving shape. The **`"Origin"`** option aligns trajectories to their starting points, making comparisons independent of absolute positions. These alignment methods ensure comparisons are based on **movement patterns** rather than arbitrary spatial differences.
 
-Overall, the **`simil_DTW_metric()`** and **`simil_Frechet_metric()`** functions provide a robust framework for comparing trajectories, allowing users to test the robustness of their results through simulations and explore how well generated tracks replicate the observed patterns. By offering multiple alignment options and statistical testing, these tools are highly valuable for investigating **animal movement patterns**, testing hypotheses about **track similarity**, and evaluating the accuracy of simulations.
+Statistical testing is supported when **`test = TRUE`**, requiring a **`track simulation` object** to be provided through the **`sim`** argument. This allows users to compare similarity metrics between real tracks and simulated trajectories, determining whether observed similarities are significantly greater than those expected under random conditions. The functions provide two types of ***p*-values**: **pairwise *p*-values**, which represent the proportion of simulated distances smaller than the observed distance for each trajectory pair, and **combined *p*-values**, which reflect the overall proportion of simulations where all observed distances are smaller than the simulated ones. This statistical framework offers a comprehensive approach for evaluating similarity metrics and testing hypotheses about track similarity.
+
+The **`simil_DTW_metric()`** and **`simil_Frechet_metric()`** functions return a **`track similarity` object**, which contains valuable information about the similarity between trajectories. This object includes a matrix called **`DTW_distance_metric`** (for the DTW metric) or its equivalent for the Fréchet metric, which stores the pairwise distances calculated between all trajectories. If the **`test`** argument is set to **`TRUE`**, additional components are included in the output. Specifically, a matrix of **`DTW_distance_metric_p_values`** is provided, containing the p-values for the pairwise distances obtained by comparing the observed tracks to those generated through simulations. The **`DTW_metric_p_values_combined`** element reports the overall p-value, summarizing the significance of the similarity between all tracks when considering the simulated datasets. Moreover, the output includes **`DTW_distance_metric_simulations`**, a list of matrices with the similarity metrics calculated from each simulated dataset. This comprehensive output structure allows users to thoroughly evaluate whether the observed similarity between trajectories is greater than expected under random conditions, providing robust statistical support for their analyses.
+
+The combination of flexible alignment options, statistical testing, and compatibility with **simulated datasets** makes these functions highly valuable for investigating **animal movement patterns**, testing hypotheses about **track similarity**, and assessing the accuracy of simulations.
+
+### **Examples of Usage**
+
+Comparing **Paluxy River** tracks against **Directed model simulations** using **Centroid superposition**.
+
+```{r, eval=FALSE}
+simil_dtw_directed_paluxy <- simil_DTW_metric(PaluxyRiver, test = TRUE, 
+                                              sim = sim_directed_paluxy, 
+                                              superposition = "Centroid")
+```
+
+```{r include=FALSE}
+simil_dtw_directed_paluxy <- simil_DTW_metric(PaluxyRiver, test = TRUE, 
+                                              sim = sim_directed_paluxy, 
+                                              superposition = "Centroid")
+```
+
+```{r, echo=FALSE}
+print(simil_dtw_directed_paluxy)
+```
+
+
+```{r, eval=FALSE}
+simil_frechet_directed_paluxy <- simil_Frechet_metric(PaluxyRiver, test = TRUE, 
+                                              sim = sim_directed_paluxy, 
+                                              superposition = "Centroid")
+```
+
+```{r include=FALSE}
+simil_frechet_directed_paluxy <- simil_Frechet_metric(PaluxyRiver, test = TRUE, 
+                                              sim = sim_directed_paluxy, 
+                                              superposition = "Centroid")
+```
+
+```{r, echo=FALSE}
+print(simil_frechet_directed_paluxy)
+```
+
+Comparing **MountTom** tracks (after subsetting) against **Constrained model simulations** using **Origin superposition**.
+
+```{r, eval=FALSE}
+simil_dtw_constrained_mount <- simil_DTW_metric(sbMountTom, test = TRUE, 
+                                                sim = sim_constrained_mount, 
+                                                superposition = "Origin")
+```
+
+```{r include=FALSE}
+simil_dtw_constrained_mount <- simil_DTW_metric(sbMountTom, test = TRUE, 
+                                                sim = sim_constrained_mount, 
+                                                superposition = "Origin")
+```
+
+```{r, echo=FALSE}
+print(simil_dtw_constrained_mount)
+```
+
+```{r, eval=FALSE}
+simil_frechet_constrained_mount <- simil_Frechet_metric(sbMountTom, test = TRUE, 
+                                                sim = sim_constrained_mount, 
+                                                superposition = "Origin")
+```
+
+```{r include=FALSE}
+simil_frechet_constrained_mount <- simil_Frechet_metric(sbMountTom, test = TRUE, 
+                                                sim = sim_constrained_mount, 
+                                                superposition = "Origin")
+```
+
+```{r, echo=FALSE}
+print(simil_frechet_constrained_mount)
+```
+
+The resulting **`track similarity objects`** can then be explored to check **pairwise distances**, ***p*-values**, and **combined *p*-values**. It is important to verify the presence of invalid measurements (**-1**) in the results, especially when working with highly disparate tracks generated by **Unconstrained models**.
+
 
 ## **Intersection Metric Calculation for Tracks**
 
-The **`track_intersection()`** function detects and counts **unique intersections** between **movement trajectories**, helping to identify potential **behavioral interactions** such as **coordinated movement**, **chasing**, or **random exploration**. By comparing actual tracks against **simulated trajectories** generated with the **`simulate_track()`** function, users can statistically assess whether observed intersections occur more or less frequently than expected under random conditions.
+The **`track_intersection()`** function is designed to detect and quantify **unique intersections** between real **movement trajectories**, helping to identify behavioral interactions such as **coordinated movement**, **chasing**, or **random exploration**. By comparing actual tracks against simulated trajectories generated with the **`simulate_track()`** function, users can statistically assess whether observed intersections occur more or less frequently than expected under random conditions.
 
-The way the function works is fairly straightforward. It examines each pair of trajectories, represented as **lines made up of consecutive points**. It then checks whether **line segments from different trajectories cross one another**, recording each crossing point. Since each intersection is represented by a **unique coordinate**, duplicates are removed to ensure only **unique intersection points** are counted. This count provides a basic measure of **interaction between the trajectories**.
+The input to this function is a **`track` object**. If statistical testing is desired, **`test`** argument must be set **`TRUE`** and a **`track simulation` object** provided via the **`sim`** argument.
 
-The function also allows for more sophisticated **hypothesis testing** through the comparison of actual and **simulated trajectories**. If the **`test`** argument is set to **`TRUE`**, the user must provide a set of **simulated tracks** to compare against the original ones. The idea here is to see how many intersections occur in the **real data compared to those that occur in simulated, randomized scenarios**. This comparison can provide valuable insights into whether **observed intersections are more or less frequent than expected by chance**.
+The function offers several options for modifying the **starting positions of simulated tracks**, controlled by the **`origin.permutation`** argument. When set to **`"None"`**, simulated trajectories retain their original starting points, making them comparable to the actual data without spatial modification. The **`"Min.Box"`** option randomly places the starting points of simulated tracks within the **minimum bounding box** surrounding all original starting points, simulating movement within a defined area. The **`"Conv.Hull"`** option provides a more precise alternative by placing simulated tracks within the **convex hull** encompassing all original starting points, reflecting the actual space occupied by the tracks. The **`"Custom"`** option allows users to specify an area of interest by providing a set of coordinates (**`custom.coord`**) defining the region's vertices, which is particularly useful when prior knowledge of terrain features or environmental factors suggests that movement may be spatially constrained.
 
-The flexibility of the **`track_intersection()`** function is enhanced by its ability to alter the **starting positions of simulated tracks** through the **`origin.permutation`** argument, which offers multiple options to fit different scenarios. When set to **`"None"`**, simulated trajectories retain their original **starting points**, matching the positions of the actual data without any modification. By contrast, the **`"Min.Box"`** option randomly places the **starting points of simulated trajectories** within the **minimum bounding box** that encompasses all original starting points, providing a straightforward way to simulate movement within a defined area. A more precise alternative is the **`"Conv.Hull"`** option, which places simulated tracks within the **convex hull** that encloses all original starting points, better reflecting the space occupied by the tracks. For maximum customization, the **`"Custom"`** option allows users to specify a particular region by providing a **set of coordinates** that define the area of interest, which is especially useful when prior knowledge of **terrain features or environmental factors** suggests that movement may be influenced by specific spatial constraints.
+The **`H1`** argument specifies the **alternative hypothesis** to be tested. When set to **`"Lower"`**, the function evaluates whether the observed intersections are significantly fewer than those generated by simulations, which may indicate **coordinated or gregarious movement**. When set to **`"Higher"`**, it tests whether the observed intersections are significantly greater, which could be indicative of **predatory or chasing interactions**. Users must provide a value for **`H1`** when the **`test`** argument is set to **`TRUE`**.
 
-The results are returned as a **list** containing several components, depending on whether **testing was performed**. At the most basic level, the function returns a **matrix where each cell represents the number of unique intersection points** between two trajectories. If testing is enabled, the function also returns a **matrix of *p*-values** that compare **observed intersection counts** to those generated from **simulated tracks**, providing a **statistical assessment of how unusual the observed intersections are**. Additionally, the function provides an **overall *p*-value** that summarizes the significance of the intersection counts across all pairs of trajectories. Finally, it returns the **full list of simulated intersection counts**, which can be useful for further exploration or visualization of the results.
+The output of the **`track_intersection()`** function is a **`track intersection` object** that provides a comprehensive assessment of how tracks intersect and, when applicable, how these intersections compare to simulated datasets. The core component of this object is the **`Intersection_metric`**, a matrix that details the number of unique intersection points between pairs of trajectories. When **`test = TRUE`**, which requires a **`track simulation` object** generated via **`simulate_track()`** provided through the **`sim`** argument, the function produces additional outputs aimed at statistically evaluating the observed intersections. One of these is the **`Intersection_metric_p_values`** matrix, which compares the observed intersections to those derived from simulations. Each p-value in this matrix indicates the proportion of simulated datasets with intersection counts as extreme or more extreme than the observed ones, depending on the selected **`H1`** hypothesis (whether intersections are expected to be fewer or more frequent than random expectation). The function also returns the **`Intersection_metric_p_values_combined`**, a single value that summarizes the overall statistical significance of the intersection metrics across all trajectory pairs. This combined p-value provides a general indication of whether the total number of intersections observed is significantly different from those generated through simulations, either supporting or rejecting the hypothesis under investigation. Additionally, the function provides the **`Intersection_metric_simulations`**, a list containing matrices of intersection counts for each simulation iteration. This detailed output allows users to explore how the number of intersections varies across multiple randomized scenarios, providing deeper insights into the robustness and consistency of the observed patterns. By comparing these results to simulated tracks, researchers can better evaluate whether the observed intersections are genuinely meaningful or simply the result of random chance.
 
-The function’s versatility makes it applicable to a range of scenarios. For instance, if **trackmakers (or at least some of them) are expected to be moving in parallel**—such as members of a **herd or pack following a common path**—fewer intersections would be expected compared to **random movement**. In such cases, a significantly low number of intersections would support the hypothesis of **coordinated or parallel movement**. Conversely, in a **hunting or chasing scenario**, a greater number of intersections than expected by chance might be anticipated. Therefore, analyzing the number of intersections alongside **similarity metrics** from functions like **`simil_DTW_metric()`** or **`simil_Frechet_metric()`** can provide a more comprehensive assessment of **trackmaker behavior**.
+### **Examples of Usage**
 
-Ultimately, this function offers a **robust way of examining track interactions** by comparing **observed intersection counts** to those expected under different **simulated scenarios**. By allowing various **permutation methods**, it provides the user with the flexibility to tailor the analysis to **specific research questions and assumptions about trackmaker behavior**.
+Detecting intersections between **Paluxy River** tracks and simulated tracks generated using the **Directed model**, without modifying the starting positions (**`origin.permutation = "None"`**), and testing for **reduced intersections** (**H1 = "Lower"**).  
+
+```{r, eval=FALSE}
+int_directed_paluxy <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", 
+                                          sim = sim_directed_paluxy, 
+                                          origin.permutation = "None")
+print(int_directed_paluxy)
+```
+
+```{r include=FALSE}
+int_directed_paluxy <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", 
+                                          sim = sim_directed_paluxy, 
+                                          origin.permutation = "None")
+```
+
+```{r, echo=FALSE}
+print(int_directed_paluxy)
+```
+
+
+Detecting intersections between **MountTom** tracks (after subsetting) and simulated tracks generated using the **Constrained model**, with **convex hull permutation** of starting points (**`origin.permutation = "Conv.Hull"`**), and testing for **increased intersections** (**H1 = "Higher"**).  
+
+```{r, eval=FALSE}
+int_constrained_mount <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", 
+                                            sim = sim_constrained_mount, 
+                                            origin.permutation = "Conv.Hull")
+print(int_constrained_mount)
+```
+
+```{r include=FALSE}
+int_constrained_mount <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", 
+                                            sim = sim_constrained_mount, 
+                                            origin.permutation = "Conv.Hull")
+```
+
+```{r, echo=FALSE}
+print(int_constrained_mount)
+```
+
 
 ## **Combining *P*-values from Multiple Similarity and Intersection Metrics**
 
-The **`combined_prob()`** function is designed to combine *p*-values obtained from various similarity and intersection metrics\*\* to provide a more comprehensive assessment of how well the **observed trajectories compare to those generated through simulation**. The function can be particularly useful when multiple metrics are applied to the same set of data, as it allows users to **integrate the results and obtain an overall measure of significance**.
+The **`combined_prob()`** function is designed to **combine *p*-values** obtained from various **similarity and intersection metrics** to provide a more comprehensive assessment of how well the **observed trajectories compare to those generated through simulation**. The function can be particularly useful when multiple metrics are applied to the same set of data, as it allows users to **integrate the results and obtain an overall measure of significance**.
 
-The basic idea behind this function is to assess how the **observed similarity or intersection metrics** compare to those generated under various **simulated scenarios**. It starts by receiving a **list of metrics**, each of which is expected to be an **R object representing the results of similarity or intersection tests**. These metrics could have been obtained from functions like **`simil_DTW_metric()`**, **`simil_Frechet_metric()`**, and **`track_intersection()`**.
-
-To make meaningful comparisons, the function ensures that all metrics provided in the **`metrics` list** have been derived using the same number of simulations (**`nsim`**). If the metrics are incompatible, the function raises an error to prevent incorrect calculations.
-
-The process works by generating a **matrix of *p*-values** where each entry represents the **combined significance of multiple metrics for a particular trajectory pair**. For each simulation iteration, the function subtracts the **observed metric values from the simulated ones**, building a series of differences for each metric. If all differences for a given trajectory pair are positive, that combination is considered significant, contributing to the calculation of ***p*****-values**.
-
-The function also provides an **overall *p*-value** that summarizes the combined significance across all **trajectory pairs**. This value indicates how consistently the **observed data differs from the simulated datasets** across all metrics.
+The basic idea behind this function is to assess how the **observed similarity or intersection metrics** compare to those generated under various **simulated scenarios**. It starts by receiving a **list of `track similarity` and/or `track intersection` objects**, obtained from **`simil_DTW_metric()`**, **`simil_Frechet_metric()`**, and/or **`track_intersection()` functions**. To make meaningful comparisons, the function ensures that all metrics provided in the **`metrics` list** have been derived using the same number of simulations (**`nsim`**). If the metrics are incompatible, the function raises an error to prevent incorrect calculations. The process works by generating a **matrix of *p*-values** where each entry represents the **combined significance of multiple metrics for a particular trajectory pair**. The function also provides an **overall *p*-value** that summarizes the combined significance across all **trajectory pairs**. This value indicates how consistently the **observed data differs from the simulated datasets** across all metrics. 
 
 The result is returned as a **list** consisting of two main components. The first component is a **matrix of combined *p*-values for each trajectory pair**, where the entries indicate the **probability of observing the combined metrics across all simulations**. This matrix provides a detailed comparison of how **individual track pairs** compare to the simulated datasets. The second component is a **single overall *p*-value** that summarizes the **combined significance of all metrics across all pairs of trajectories**, offering a **comprehensive assessment of the dataset as a whole**.
 
 The **`combined_prob()`** function provides an efficient way to **aggregate multiple similarity or intersection metrics**, making it an essential tool for users who wish to **comprehensively evaluate their models and hypotheses**. By allowing for the integration of different metrics, the function offers a **holistic approach to analyzing and comparing track data**.
+
 
 ## **Clustering Tracks Based on Movement Parameters**
 
@@ -899,13 +1165,15 @@ The **`cluster_track()`** function uses the **`mclust` package** to perform **mo
 
 The parameters used for clustering are specified via the **`variables`** argument. Users can choose from a variety of options, including **"TurnAng"**, **"sdTurnAng"**, **"Distance"**, **"Length"**, **"StLength"**, **"sdStLength"**, **"Sinuosity"**, **"Straightness"**, **"Velocity"**, **"sdVelocity"**, **"MaxVelocity"**, and **"MinVelocity"**. This flexibility allows users to focus on specific aspects of movement or combine multiple characteristics to create a comprehensive profile of trackmaker behavior.
 
-The **`data`** argument expects a **'track' R object**, which is a structured list comprising two elements: **Trajectories** and **Footprints**. The **`veltrack`** argument requires a **'track velocity' R object**, which contains calculated velocity parameters for each track. These parameters are used to enhance the clustering process by incorporating speed-related information alongside spatial metrics.
+The **`data`** argument expects a **`track` R object** and the **`veltrack`** argument requires a **`track velocity` R object**. These parameters are used to enhance the clustering process by incorporating speed-related information alongside spatial metrics.
 
 The results of the clustering process have important **biological implications**. By grouping tracks with similar **movement parameters**, researchers can infer the **behaviors that produced those tracks**. For instance, tracks characterized by **low sinuosity and high velocity** might indicate animals moving directly toward a target, while **high sinuosity and variable step lengths** could suggest **foraging or exploratory behavior**.
 
 Additionally, clustering can reveal **coordinated movement**. If multiple tracks fall within the same cluster and also exhibit high similarity when analyzed with methods like **Dynamic Time Warping (DTW)** or **Fréchet distance**, it could indicate **group movement or coordinated hunting strategies**.
 
 Moreover, the clustering approach offers a practical way to **refine datasets** before applying more computationally demanding tests. By first identifying groups of tracks that share similar characteristics, users can focus on the most relevant comparisons, enhancing the **robustness of their hypothesis testing**. This **pre-clustering step** can significantly improve the efficiency and reliability of subsequent analyses, such as **similarity metrics or intersection tests**.
+
+The output of the **`cluster_track()`** function is a **`track clustering` object**, which provides detailed information about the clustering process and the resulting classification of tracks based on their movement parameters. The output is structured as a list containing two primary components: **`matrix`** and **`clust`**. The **`matrix`** element is a data frame that holds the calculated movement parameters for each track, including metrics such as turning angles, step lengths, sinuosity, straightness, and various velocity parameters. This matrix serves as the input data for the clustering process, providing a comprehensive summary of the tracks' movement characteristics. The **`clust`** element is an **`Mclust` object** generated by the **`mclust` package**. This object contains all the results of the model-based clustering analysis, including the optimal model selected according to the **Bayesian Information Criterion (BIC)**. The **`clust`** object includes essential information such as the number of clusters identified (**`G`**), the specific model used (**`modelName`**), the mixing proportions of each component (**`pro`**), the means of each cluster (**`mean`**), and the variance parameters (**`variance`**). Additionally, it provides the **log-likelihood**, **BIC**, and **ICL (Integrated Complete-data Likelihood)** values corresponding to the best-fitting model. The **classification** of tracks is provided within the **`clust`** object as the **`classification`** element, which assigns each track to a specific cluster. The **`z`** matrix within this object gives the probability of each track belonging to each cluster, while the **`uncertainty`** element measures the confidence associated with each classification. The **`cluster_track()`** function's output allows users to assess how tracks are grouped based on their movement patterns, providing valuable insights into potential behavioral strategies. This clustering result can be directly used to guide further analyses, such as comparing clusters with similarity metrics or testing whether clusters correspond to specific ecological or behavioral hypotheses.
 
 The **`cluster_track()`** function provides a flexible and powerful framework for identifying **behavioral patterns** from trackway data, enabling researchers to draw meaningful conclusions about the **behavioral ecology of ancient trackmakers**.
 

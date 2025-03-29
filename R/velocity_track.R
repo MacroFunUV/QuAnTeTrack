@@ -2,12 +2,12 @@
 #'
 #' \code{velocity_track()} calculates the velocities and relative stride lengths for each step in a series of tracks, based on the step length, height at the hip, and gravity acceleration.
 #'
-#' @param data A 'track' R object, which is a list consisting of two elements:
-#'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-#'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+#' @param data A \code{track} R object, which is a list consisting of two elements:
+#'    * \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+#'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #' @param H A numeric vector representing the height at the hip (in meters) for each track maker. The length of this vector should match the number of tracks in the data.
 #' @param G Gravity acceleration (in meters per second squared). Default is \code{9.8}.
-#' @param method A character vector specifying the method to calculate velocities for each track. Method "A" follows the approach from Alexander (1976), while method "B" is based on Ruiz & Torices (2013). If \code{NULL}, method "A" will be used for all tracks.
+#' @param method A character vector specifying the method to calculate velocities for each track. Method \code{"A"} follows the approach from Alexander (1976), while method \code{"B"} is based on Ruiz & Torices (2013). If \code{NULL}, method \code{"A"} will be used for all tracks.
 #'
 #' @details
 #' The \code{velocity_track()} function calculates velocities using two methods:
@@ -35,18 +35,18 @@
 #' - **Trot**: \eqn{2.0 \leq A/H \leq 2.9}; locomotor performance equivalent to trotting or racking in mammals.
 #' - **Run**: \eqn{A/H > 2.9}; locomotor performance equivalent to cantering, galloping, or sprinting in mammals.
 #'
-#' @return A 'track velocity' R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.
+#' @return A \code{track velocity} R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.
 #' The parameters included are:
-#'   * Step_velocities: A vector of velocities for each step in the track (in meters per second).
-#'   * Mean_velocity: The mean velocity across all steps in the track (in meters per second).
-#'   * Standard_deviation_velocity: The standard deviation of velocities across all steps in the track (in meters per second).
-#'   * Maximum_velocity: The maximum velocity among all steps in the track (in meters per second).
-#'   * Minimum_velocity: The minimum velocity among all steps in the track (in meters per second).
-#'   * Step_relative_stride: A vector of relative stride lengths for each step in the track (dimensionless).
-#'   * Mean_relative_stride: The mean relative stride length across all steps in the track (dimensionless).
-#'   * Standard_deviation_relative_stride: The standard deviation of relative stride lengths across all steps in the track (dimensionless).
-#'   * Maximum_relative_stride: The maximum relative stride length among all steps in the track (dimensionless).
-#'   * Minimum_relative_stride: The minimum relative stride length among all steps in the track (dimensionless).
+#'   * \code{Step_velocities}: A vector of velocities for each step in the track (in meters per second).
+#'   * \code{Mean_velocity}: The mean velocity across all steps in the track (in meters per second).
+#'   * \code{Standard_deviation_velocity}: The standard deviation of velocities across all steps in the track (in meters per second).
+#'   * \code{Maximum_velocity}: The maximum velocity among all steps in the track (in meters per second).
+#'   * \code{Minimum_velocity}: The minimum velocity among all steps in the track (in meters per second).
+#'   * \code{Step_relative_stride}: A vector of relative stride lengths for each step in the track (dimensionless).
+#'   * \code{Mean_relative_stride}: The mean relative stride length across all steps in the track (dimensionless).
+#'   * \code{Standard_deviation_relative_stride}: The standard deviation of relative stride lengths across all steps in the track (dimensionless).
+#'   * \code{Maximum_relative_stride}: The maximum relative stride length among all steps in the track (dimensionless).
+#'   * \code{Minimum_relative_stride}: The minimum relative stride length among all steps in the track (dimensionless).
 #'
 #' @section Logo:
 #' \if{html}{\figure{Logo.png}{options: width=30\%}}

@@ -7,26 +7,26 @@
 track_param(data)
 }
 \arguments{
-\item{data}{A 'track' R object, which is a list consisting of two elements:
+\item{data}{A \code{track} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 }}
 }
 \value{
 A list of lists, where each sublist contains the computed parameters for a corresponding track.
 The parameters included are:
 \itemize{
-\item Turning_angles: A vector of turning angles for the track (in degrees).
-\item Mean_turning_angle: The mean of the turning angles (in degrees).
-\item Standard_deviation_turning_angle: The standard deviation of the turning angles (in degrees).
-\item Distance: The total distance covered by the track (in meters).
-\item Length: The length of the track  (in meters).
-\item Step_lengths: A vector of step lengths for the track  (in meters).
-\item Mean_step_length: The mean of the step lengths  (in meters).
-\item Standard_deviation_step_length: The standard deviation of the step lengths  (in meters).
-\item Sinuosity: The sinuosity of the track (dimensionless).
-\item Straightness: The straightness of the track (dimensionless).
+\item \code{Turning_angles}: A vector of turning angles for the track (in degrees).
+\item \code{Mean_turning_angle}: The mean of the turning angles (in degrees).
+\item \code{Standard_deviation_turning_angle}: The standard deviation of the turning angles (in degrees).
+\item \code{Distance}: The total distance covered by the track (in meters).
+\item \code{Length}: The length of the track  (in meters).
+\item \code{Step_lengths}: A vector of step lengths for the track  (in meters).
+\item \code{Mean_step_length}: The mean of the step lengths  (in meters).
+\item \code{Standard_deviation_step_length}: The standard deviation of the step lengths  (in meters).
+\item \code{Sinuosity}: The sinuosity of the track (dimensionless).
+\item \code{Straightness}: The straightness of the track (dimensionless).
 }
 
 The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).

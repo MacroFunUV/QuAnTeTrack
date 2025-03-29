@@ -2,9 +2,9 @@
 #'
 #' \code{track_param()} is a function to compute and print various parameters of tracks from a list of track data.
 #'
-#' @param data A 'track' R object, which is a list consisting of two elements:
-#'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-#'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+#' @param data A \code{track} R object, which is a list consisting of two elements:
+#'    * \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+#'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #'
 #' @details This function calculates various movement parameters for each track in the provided data.
 #' It uses the following helper functions from the \pkg{trajr} (Animal Trajectory Analysis) package:
@@ -17,16 +17,16 @@
 #'
 #' @return A list of lists, where each sublist contains the computed parameters for a corresponding track.
 #' The parameters included are:
-#'    * Turning_angles: A vector of turning angles for the track (in degrees).
-#'    * Mean_turning_angle: The mean of the turning angles (in degrees).
-#'    * Standard_deviation_turning_angle: The standard deviation of the turning angles (in degrees).
-#'    * Distance: The total distance covered by the track (in meters).
-#'    * Length: The length of the track  (in meters).
-#'    * Step_lengths: A vector of step lengths for the track  (in meters).
-#'    * Mean_step_length: The mean of the step lengths  (in meters).
-#'    * Standard_deviation_step_length: The standard deviation of the step lengths  (in meters).
-#'    * Sinuosity: The sinuosity of the track (dimensionless).
-#'    * Straightness: The straightness of the track (dimensionless).
+#'    * \code{Turning_angles}: A vector of turning angles for the track (in degrees).
+#'    * \code{Mean_turning_angle}: The mean of the turning angles (in degrees).
+#'    * \code{Standard_deviation_turning_angle}: The standard deviation of the turning angles (in degrees).
+#'    * \code{Distance}: The total distance covered by the track (in meters).
+#'    * \code{Length}: The length of the track  (in meters).
+#'    * \code{Step_lengths}: A vector of step lengths for the track  (in meters).
+#'    * \code{Mean_step_length}: The mean of the step lengths  (in meters).
+#'    * \code{Standard_deviation_step_length}: The standard deviation of the step lengths  (in meters).
+#'    * \code{Sinuosity}: The sinuosity of the track (dimensionless).
+#'    * \code{Straightness}: The straightness of the track (dimensionless).
 #'
 #' @return The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).
 #'

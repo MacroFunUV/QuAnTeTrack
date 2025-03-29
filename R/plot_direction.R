@@ -1,17 +1,17 @@
 #' Plot direction data in tracks.
 #'
-#' \code{plot_direction()}  generates different types of plots to visualize the direction data from 'track' R objects. The function allows for the creation of boxplots, polar histograms of step directions, polar histograms of average directions per track, and faceted polar histograms.
+#' \code{plot_direction()}  generates different types of plots to visualize the direction data from \code{track} R objects. The function allows for the creation of boxplots, polar histograms of step directions, polar histograms of average directions per track, and faceted polar histograms.
 #'
-#' @param data A 'track' R object, which is a list consisting of two elements:
-#'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-#'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+#' @param data A \code{track} R object, which is a list consisting of two elements:
+#'    * \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+#'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #' @param plot_type A character string indicating the type of plot to generate.
-#'   The options are "boxplot", "polar_steps", "polar_average", and "faceted".
-#'   Default is "boxplot".
+#'   The options are \code{"boxplot"}, \code{"polar_steps"}, \code{"polar_average"}, and \code{"faceted"}.
+#'   Default is \code{"boxplot"}.
 #' @param angle_range A numeric value specifying the width of the bins (in degrees)
-#'   used for polar plots. Default is 30 degrees.
+#'   used for polar plots. Default is \code{30} degrees.
 #' @param y_labels_position A numeric value specifying the position (in degrees)
-#'   of the y-axis labels in the polar plots. Default is 90 degrees.
+#'   of the y-axis labels in the polar plots. Default is \code{90} degrees.
 #' @param y_breaks_manual A numeric vector specifying manual breaks for the y-axis
 #'   in polar plots. If \code{NULL}, the breaks are calculated automatically. Default is \code{NULL}.
 #'

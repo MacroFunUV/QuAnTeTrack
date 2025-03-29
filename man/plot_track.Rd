@@ -21,25 +21,25 @@ plot_track(
 )
 }
 \arguments{
-\item{data}{A 'track' R object, which is a list consisting of two elements:
+\item{data}{A \code{track} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 }}
 
-\item{plot}{Type of plot to generate. Options are "FootprintsTracks" (default), "Tracks", or "Footprints". Determines what elements are included in the plot.}
+\item{plot}{Type of plot to generate. Options are \code{"FootprintsTracks"} (default), \code{"Tracks"}, or \code{"Footprints"}. Determines what elements are included in the plot.}
 
 \item{colours}{A vector of colors to be used for different tracks. If \code{NULL}, defaults to black. The length of this vector should match the number of tracks in the data.}
 
-\item{cex.f}{The size of the footprint points. Default is 2.5.}
+\item{cex.f}{The size of the footprint points. Default is \code{2.5}.}
 
-\item{shape.f}{A vector of shapes to be used for footprints in different tracks. If \code{NULL}, defaults to 19 (solid circle). The length of this vector should match the number of tracks in the data.}
+\item{shape.f}{A vector of shapes to be used for footprints in different tracks. If \code{NULL}, defaults to \code{19} (solid circle). The length of this vector should match the number of tracks in the data.}
 
-\item{alpha.f}{The transparency of the footprint points. Default is 0.5.}
+\item{alpha.f}{The transparency of the footprint points. Default is \code{0.5}.}
 
-\item{cex.t}{The size of the track lines. Default is 0.5.}
+\item{cex.t}{The size of the track lines. Default is \code{0.5}.}
 
-\item{alpha.t}{The transparency of the track lines. Default is 1.}
+\item{alpha.t}{The transparency of the track lines. Default is \code{1}.}
 
 \item{plot.labels}{Logical indicating whether to add labels to each track. Default is \code{FALSE}.}
 
@@ -47,12 +47,12 @@ plot_track(
 
 \item{box.p}{Padding around label boxes, used only if \code{plot.labels} is \code{TRUE}. Adjusts the spacing around the label text.}
 
-\item{cex.l}{The size of the labels. Default is 3.88.}
+\item{cex.l}{The size of the labels. Default is \code{3.88}.}
 
-\item{alpha.l}{The transparency of the labels. Default is 0.5.}
+\item{alpha.l}{The transparency of the labels. Default is \code{0.5}.}
 }
 \value{
-A \code{ggplot} object that displays the specified plot type, including tracks, footprints, or both, from 'track' R objects. The \pkg{ggplot2} package is used for plotting.
+A \code{ggplot} object that displays the specified plot type, including tracks, footprints, or both, from \code{track} R objects. The \pkg{ggplot2} package is used for plotting.
 }
 \description{
 \code{plot_track()} visualizes track and footprint data in various ways, allowing for the plotting of trajectories, footprints, or both combined, with customizable aesthetics.

@@ -16,25 +16,25 @@ plot_sim(
 )
 }
 \arguments{
-\item{data}{A 'track' R object, which is a list consisting of two elements:
+\item{data}{A \code{track} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 }}
 
-\item{sim}{A 'track simulation' R object, where each object is a list of simulated trajectories stored as 'track' R objects.}
+\item{sim}{A \code{track simulation} R object, where each object is a list of simulated trajectories stored as \code{track} R objects.}
 
-\item{colours_sim}{A vector of colors for plotting each set of simulated trajectories. If \code{NULL}, the default color will be black ("#000000").}
+\item{colours_sim}{A vector of colors for plotting each set of simulated trajectories. If \code{NULL}, the default color will be black (\code{"#000000"}).}
 
-\item{alpha_sim}{A numeric value between 0 and 1 for the transparency level of simulated trajectories. The default is 0.1.}
+\item{alpha_sim}{A numeric value between 0 and 1 for the transparency level of simulated trajectories. The default is \code{0.1}.}
 
-\item{lwd_sim}{A numeric value for the line width of the simulated trajectory lines. The default is 0.5.}
+\item{lwd_sim}{A numeric value for the line width of the simulated trajectory lines. The default is \code{0.5}.}
 
-\item{colours_act}{A vector of colors for plotting actual trajectories. If \code{NULL}, the default color will be black ("#000000").}
+\item{colours_act}{A vector of colors for plotting actual trajectories. If \code{NULL}, the default color will be black (\code{"#000000"}).}
 
-\item{alpha_act}{A numeric value between 0 and 1 for the transparency level of actual trajectories. The default is 0.6.}
+\item{alpha_act}{A numeric value between 0 and 1 for the transparency level of actual trajectories. The default is \code{0.6}.}
 
-\item{lwd_act}{A numeric value for the line width of the actual trajectory lines. The default is 0.8.}
+\item{lwd_act}{A numeric value for the line width of the actual trajectory lines. The default is \code{0.8}.}
 }
 \value{
 A \code{ggplot} object displaying the simulated and actual trajectories.

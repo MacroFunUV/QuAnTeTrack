@@ -2,7 +2,7 @@
 % Please edit documentation in R/tps_to_track.R
 \name{tps_to_track}
 \alias{tps_to_track}
-\title{Transform a *.tps file into a 'track' R object}
+\title{Transform a *.tps file into a \code{track} R object}
 \usage{
 tps_to_track(file, scale = NULL, missing = FALSE, NAs = NULL, R.L.side = NULL)
 }
@@ -26,14 +26,14 @@ The length of the vector must be equal to the total number of tracks in the samp
 }}
 }
 \value{
-A 'track' R object, which is a list consisting of two elements:
+A \code{track} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 }
 }
 \description{
-\code{tps_to_track()} reads a *.tps file containing footprint coordinates of one or several tracks and transforms it into a 'track' R object.
+\code{tps_to_track()} reads a *.tps file containing footprint coordinates of one or several tracks and transforms it into a \code{track} R object.
 }
 \details{
 It is highly recommended that the *.tps file is built using the TPS software (Rohlf 2008, 2009).

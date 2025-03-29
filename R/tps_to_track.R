@@ -1,6 +1,6 @@
-#' Transform a *.tps file into a 'track' R object
+#' Transform a *.tps file into a \code{track} R object
 #'
-#' \code{tps_to_track()} reads a *.tps file containing footprint coordinates of one or several tracks and transforms it into a 'track' R object.
+#' \code{tps_to_track()} reads a *.tps file containing footprint coordinates of one or several tracks and transforms it into a \code{track} R object.
 #'
 #' @param file A *.tps file containing (x,y) coordinates of footprints in tracks.
 #' @param scale A numeric value specifying the scale in meters per pixel.
@@ -24,9 +24,9 @@
 #' @details If \code{missing} is set to \code{TRUE}, missing footprints can be interpolated.
 #'          This interpolation is based on adjacent footprints and the provided side information.
 #'
-#' @return A 'track' R object, which is a list consisting of two elements:
-#'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-#'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+#' @return A \code{track} R object, which is a list consisting of two elements:
+#'    * \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+#'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #'
 #' @section Logo:
 #' \if{html}{\figure{Logo.png}{options: width=30\%}}

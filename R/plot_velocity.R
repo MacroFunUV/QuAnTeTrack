@@ -1,11 +1,11 @@
 #' Plot trajectories colored by velocity or relative stride length
 #'
-#' \code{plot_velocity()} creates a plot of trajectories, colored by either velocity or relative stride length from 'track' and 'track velocity' R objects. The function uses \pkg{ggplot2} package for visualization and allows customization of line width and color gradients.
+#' \code{plot_velocity()} creates a plot of trajectories, colored by either velocity or relative stride length from \code{track} and \code{track velocity} R objects. The function uses \pkg{ggplot2} package for visualization and allows customization of line width and color gradients.
 #'
-#' @param data A 'track' R object, which is a list consisting of two elements:
-#'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-#'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
-#' @param trackvel A 'track velocity' R object consisting of a list where each element corresponds to a track and contains velocity or relative stride length data.
+#' @param data A \code{track} R object, which is a list consisting of two elements:
+#'    * \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+#'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+#' @param trackvel A \code{track velocity} R object consisting of a list where each element corresponds to a track and contains velocity or relative stride length data.
 #' @param param A character string specifying the parameter to plot. Options are:
 #'    - \code{"V"} for velocity.
 #'    - \code{"RSL"} for relative stride length.
@@ -19,7 +19,7 @@
 #'
 #' The color gradient for the parameter is applied using \code{scale_color_gradientn()}. The color palette can be customized via the \code{colours} argument.
 #'
-#' @return A ggplot object showing the trajectories colored by the specified parameter.
+#' @return A \code{ggplot} object showing the trajectories colored by the specified parameter.
 #'
 #' @section Logo:
 #' \if{html}{\figure{Logo.png}{options: width=30\%}}

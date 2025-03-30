@@ -48,8 +48,8 @@
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>A 'track' R object, which is a list consisting of two elements:</p><ul><li><p><strong>Trajectories</strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
-<li><p><strong>Footprints</strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
+<dd><p>A <code>track</code> R object, which is a list consisting of two elements:</p><ul><li><p><strong><code>Trajectories</code></strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
+<li><p><strong><code>Footprints</code></strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
 </ul></dd>
 
 
@@ -62,22 +62,22 @@
 
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
-<dd><p>A character vector specifying the method to calculate velocities for each track. Method "A" follows the approach from Alexander (1976), while method "B" is based on Ruiz &amp; Torices (2013). If <code>NULL</code>, method "A" will be used for all tracks.</p></dd>
+<dd><p>A character vector specifying the method to calculate velocities for each track. Method <code>"A"</code> follows the approach from Alexander (1976), while method <code>"B"</code> is based on Ruiz &amp; Torices (2013). If <code>NULL</code>, method <code>"A"</code> will be used for all tracks.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A 'track velocity' R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.
-The parameters included are:</p><ul><li><p>Step_velocities: A vector of velocities for each step in the track (in meters per second).</p></li>
-<li><p>Mean_velocity: The mean velocity across all steps in the track (in meters per second).</p></li>
-<li><p>Standard_deviation_velocity: The standard deviation of velocities across all steps in the track (in meters per second).</p></li>
-<li><p>Maximum_velocity: The maximum velocity among all steps in the track (in meters per second).</p></li>
-<li><p>Minimum_velocity: The minimum velocity among all steps in the track (in meters per second).</p></li>
-<li><p>Step_relative_stride: A vector of relative stride lengths for each step in the track (dimensionless).</p></li>
-<li><p>Mean_relative_stride: The mean relative stride length across all steps in the track (dimensionless).</p></li>
-<li><p>Standard_deviation_relative_stride: The standard deviation of relative stride lengths across all steps in the track (dimensionless).</p></li>
-<li><p>Maximum_relative_stride: The maximum relative stride length among all steps in the track (dimensionless).</p></li>
-<li><p>Minimum_relative_stride: The minimum relative stride length among all steps in the track (dimensionless).</p></li>
+    <p>A <code>track velocity</code> R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.
+The parameters included are:</p><ul><li><p><code>Step_velocities</code>: A vector of velocities for each step in the track (in meters per second).</p></li>
+<li><p><code>Mean_velocity</code>: The mean velocity across all steps in the track (in meters per second).</p></li>
+<li><p><code>Standard_deviation_velocity</code>: The standard deviation of velocities across all steps in the track (in meters per second).</p></li>
+<li><p><code>Maximum_velocity</code>: The maximum velocity among all steps in the track (in meters per second).</p></li>
+<li><p><code>Minimum_velocity</code>: The minimum velocity among all steps in the track (in meters per second).</p></li>
+<li><p><code>Step_relative_stride</code>: A vector of relative stride lengths for each step in the track (dimensionless).</p></li>
+<li><p><code>Mean_relative_stride</code>: The mean relative stride length across all steps in the track (dimensionless).</p></li>
+<li><p><code>Standard_deviation_relative_stride</code>: The standard deviation of relative stride lengths across all steps in the track (dimensionless).</p></li>
+<li><p><code>Maximum_relative_stride</code>: The maximum relative stride length among all steps in the track (dimensionless).</p></li>
+<li><p><code>Minimum_relative_stride</code>: The minimum relative stride length among all steps in the track (dimensionless).</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>

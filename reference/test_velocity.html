@@ -48,13 +48,13 @@
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>A 'track' R object, which is a list consisting of two elements:</p><ul><li><p><strong>Trajectories</strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
-<li><p><strong>Footprints</strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
+<dd><p>A <code>track</code> R object, which is a list consisting of two elements:</p><ul><li><p><strong><code>Trajectories</code></strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
+<li><p><strong><code>Footprints</code></strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
 </ul></dd>
 
 
 <dt id="arg-trackvel">trackvel<a class="anchor" aria-label="anchor" href="#arg-trackvel"></a></dt>
-<dd><p>A 'track velocity' R object consisting of a list where each element corresponds to a track and contains velocity or relative stride length data.</p></dd>
+<dd><p>A <code>track velocity</code> R object consisting of a list where each element corresponds to a track and contains velocity or relative stride length data.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
@@ -67,7 +67,7 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list with the results of the statistical analysis and diagnostic tests:</p><ul><li><p><code>normality_results</code>: A matrix of test statistics and p-values from the Shapiro-Wilk test for each track, with rows for the test statistic and p-value, and columns for each track.</p></li>
+    <p>A list with the results of the statistical analysis and diagnostic tests:</p><ul><li><p><code>normality_results</code>: A matrix of test statistics and <em>p</em>-values from the Shapiro-Wilk test for each track, with rows for the test statistic and p-value, and columns for each track.</p></li>
 <li><p><code>homogeneity_test</code>: The result of Levene's test, including the p-value for homogeneity of variances.</p></li>
 <li><p><code>ANOVA</code> (If <code>analysis</code> is <code>"ANOVA"</code>): A list containing the ANOVA table and Tukey HSD post-hoc test results.</p></li>
 <li><p><code>Kruskal_Wallis</code> (If <code>analysis</code> is <code>"Kruskal-Wallis"</code>): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.</p></li>

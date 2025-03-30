@@ -48,24 +48,24 @@
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>A 'track' R object, which is a list consisting of two elements:</p><ul><li><p><strong>Trajectories</strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
-<li><p><strong>Footprints</strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
+<dd><p>A <code>track</code> R object, which is a list consisting of two elements:</p><ul><li><p><strong><code>Trajectories</code></strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
+<li><p><strong><code>Footprints</code></strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
 </ul></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A list of lists, where each sublist contains the computed parameters for a corresponding track.
-The parameters included are:</p><ul><li><p>Turning_angles: A vector of turning angles for the track (in degrees).</p></li>
-<li><p>Mean_turning_angle: The mean of the turning angles (in degrees).</p></li>
-<li><p>Standard_deviation_turning_angle: The standard deviation of the turning angles (in degrees).</p></li>
-<li><p>Distance: The total distance covered by the track (in meters).</p></li>
-<li><p>Length: The length of the track  (in meters).</p></li>
-<li><p>Step_lengths: A vector of step lengths for the track  (in meters).</p></li>
-<li><p>Mean_step_length: The mean of the step lengths  (in meters).</p></li>
-<li><p>Standard_deviation_step_length: The standard deviation of the step lengths  (in meters).</p></li>
-<li><p>Sinuosity: The sinuosity of the track (dimensionless).</p></li>
-<li><p>Straightness: The straightness of the track (dimensionless).</p></li>
+The parameters included are:</p><ul><li><p><code>Turning_angles</code>: A vector of turning angles for the track (in degrees).</p></li>
+<li><p><code>Mean_turning_angle</code>: The mean of the turning angles (in degrees).</p></li>
+<li><p><code>Standard_deviation_turning_angle</code>: The standard deviation of the turning angles (in degrees).</p></li>
+<li><p><code>Distance</code>: The total distance covered by the track (in meters).</p></li>
+<li><p><code>Length</code>: The length of the track  (in meters).</p></li>
+<li><p><code>Step_lengths</code>: A vector of step lengths for the track  (in meters).</p></li>
+<li><p><code>Mean_step_length</code>: The mean of the step lengths  (in meters).</p></li>
+<li><p><code>Standard_deviation_step_length</code>: The standard deviation of the step lengths  (in meters).</p></li>
+<li><p><code>Sinuosity</code>: The sinuosity of the track (dimensionless).</p></li>
+<li><p><code>Straightness</code>: The straightness of the track (dimensionless).</p></li>
 </ul><p>The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).</p>
 <p>Sinuosity is calculated according to Benhamou (2004), as defined in equation 8.
 The formula used here is a refined version of the sinuosity index presented by Bovet &amp; Benhamou (1988),

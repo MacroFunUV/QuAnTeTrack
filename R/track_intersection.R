@@ -2,17 +2,17 @@
 #'
 #' \code{track_intersection()} calculates the number of unique intersections between trajectories.
 #' The function also supports testing with simulations and different permutation procedures for the coordinates
-#' of the simulated trajectories' origins to compute p-values. This allows for a robust assessment of the intersection metrics,
+#' of the simulated trajectories' origins to compute *p*-values. This allows for a robust assessment of the intersection metrics,
 #' enabling users to evaluate the significance of the observed intersections in relation to simulated trajectories.
 #'
-#' @param data A 'track' R object, which is a list consisting of two elements:
-#'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-#'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+#' @param data A \code{track} R object, which is a list consisting of two elements:
+#'    * \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+#'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #' @param test Logical; if \code{TRUE}, the function compares the observed intersection metrics against. Default is \code{FALSE}.
 #' @param H1 A character string specifying the alternative hypothesis to be tested. Options are \code{"Lower"} for testing whether the observed intersections are significantly lower than the simulated ones (e.g., coordinated or gregarious movement), or \code{"Higher"} for testing whether the observed intersections are significantly higher than the simulated ones (e.g., predatory or chasing events).
-#' @param sim A 'track simulation' R object consisting of a list of simulated trajectories to use for comparison when \code{test = TRUE}.
+#' @param sim A \code{track simulation} R object consisting of a list of simulated trajectories to use for comparison when \code{test = TRUE}.
 #' @param origin.permutation A character string specifying the method for permutation of the coordinates of the simulated trajectories' origins.
-#' Options include "None", "Min.Box", "Conv.Hull", or "Custom". Default is "None".
+#' Options include \code{"None"}, \code{"Min.Box"}, \code{"Conv.Hull"}, or \code{"Custom"}. Default is \code{"None"}.
 #' @param custom.coord A matrix of custom coordinates that define the vertices of an area for permutation of the coordinates of the simulated
 #' trajectories' origins.
 #'
@@ -36,10 +36,10 @@
 #'
 #' The selection of the \code{H1} argument must be consistent with the behavioral hypothesis being tested. For example, use \code{"Lower"}
 #' when investigating group movement or cooperative behavior, and \code{"Higher"} when analyzing predatory or competitive interactions.
-#' The function will automatically adjust the calculation of \emph{p}-values to reflect the selected \code{H1}. If the argument is left
+#' The function will automatically adjust the calculation of *p*-values to reflect the selected \code{H1}. If the argument is left
 #' \code{NULL}, an error will be triggered, indicating that users must explicitly specify the hypothesis to be tested.
 #'
-#' The interpretation of the \strong{combined p-value} returned by the function is directly influenced by the choice of \code{H1}, as it determines
+#' The interpretation of the \strong{combined *p*-value} returned by the function is directly influenced by the choice of \code{H1}, as it determines
 #' whether the statistical comparison aims to detect a \strong{reduction} or an \strong{increase} in intersection counts compared to the simulated dataset.
 #'
 #' In addition to hypothesis testing, the \code{track_intersection()} function offers several options for altering the initial positions
@@ -66,15 +66,15 @@
 #' being tested. By combining intersection metrics with similarity measures, users can obtain a deeper understanding of the
 #' behavioral dynamics underlying the observed trackways.
 #'
-#' @return A 'track intersection' R object consisting of a list containing the following elements:
+#' @return A \code{track intersection} R object consisting of a list containing the following elements:
 #' \item{Intersection_metric}{A matrix of unique intersection counts between trajectories. Each entry
 #' represents the number of unique intersection points between the corresponding pair of trajectories.}
-#' \item{Intersection_metric_p_values}{(If \code{test = TRUE}) A matrix of p-values associated with
+#' \item{Intersection_metric_p_values}{(If \code{test = TRUE}) A matrix of *p*-values associated with
 #' the intersection metrics, calculated through permutations of simulated trajectory origins. Each entry
 #' reflects the probability of observing an intersection count as extreme as the observed one,
 #' given the null hypothesis of no difference.}
 #' \item{Intersection_metric_p_values_combined}{(If \code{test = TRUE}) A numeric value representing
-#' the combined p-value for all intersections, indicating the overall significance of the
+#' the combined *p*-value for all intersections, indicating the overall significance of the
 #' intersection metrics across all pairs of trajectories.}
 #' \item{Intersection_metric_simulations}{(If \code{test = TRUE}) A list containing matrices of
 #' intersection counts for each simulation iteration, allowing for further inspection of the

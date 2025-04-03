@@ -7,32 +7,32 @@
 simil_Frechet_metric(data, test = FALSE, sim = NULL, superposition = "None")
 }
 \arguments{
-\item{data}{A 'track' R object, which is a list consisting of two elements:
+\item{data}{A \code{track} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 }}
 
 \item{test}{Logical; if \code{TRUE}, the function compares the observed Fréchet distances against
-simulated trajectories and calculates p-values. Default is \code{FALSE}.}
+simulated trajectories and calculates \emph{p}-values. Default is \code{FALSE}.}
 
-\item{sim}{A 'track simulation' R object consisting of a list of simulated trajectories to use for comparison when \code{test = TRUE}.}
+\item{sim}{A \code{track simulation} R object consisting of a list of simulated trajectories to use for comparison when \code{test = TRUE}.}
 
 \item{superposition}{A character string indicating the method used to align trajectories.
 Options are \code{"None"}, \code{"Centroid"}, or \code{"Origin"}. Default is \code{"None"}.}
 }
 \value{
-A 'track similarity' R object consisting ofa list containing the following elements:
+A \code{track similarity} R object consisting ofa list containing the following elements:
 \item{Frechet_distance_metric}{A matrix containing the pairwise Frechet distances between trajectories.}
-\item{Frechet_distance_metric_p_values}{(If \code{test} is \code{TRUE)} A matrix containing the p-values for the pairwise Frechet distances.}
-\item{Frechet_metric_p_values_combined}{(If \code{test} is \code{TRUE)} The overall p-value for the combined Frechet distances.}
+\item{Frechet_distance_metric_p_values}{(If \code{test} is \code{TRUE)} A matrix containing the \emph{p}-values for the pairwise Frechet distances.}
+\item{Frechet_metric_p_values_combined}{(If \code{test} is \code{TRUE)} The overall \emph{p}-value for the combined Frechet distances.}
 \item{Frechet_distance_metric_simulations}{(If \code{test} is \code{TRUE)} A list of Frechet distance matrices from each simulated dataset.}
 }
 \description{
 \code{simil_Frechet_metric()} computes similarity metrics between two or more trajectories using
 the Fréchet distance. It allows for different superposition methods
 to align trajectories before calculating the Fréchet distance  metrics. The function also supports
-testing with simulations to calculate p-values for the Fréchet distance metrics.
+testing with simulations to calculate \emph{p}-values for the Fréchet distance metrics.
 }
 \details{
 The \code{simil_Frechet_metric()} function calculates the similarity between trajectories using
@@ -61,8 +61,8 @@ before \code{Frechet()} is applied:
 \item \code{"Origin"}: Trajectories are shifted to align based on their starting point.
 }
 
-If \code{test = TRUE}, the function can compute p-values by comparing the observed Fréchet
-distances with those generated from a set of simulated trajectories. The p-values
+If \code{test = TRUE}, the function can compute \emph{p}-values by comparing the observed Fréchet
+distances with those generated from a set of simulated trajectories. The \emph{p}-values
 are calculated for both individual trajectory pairs and for the entire set of trajectories.
 }
 \section{Logo}{

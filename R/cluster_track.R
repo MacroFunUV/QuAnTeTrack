@@ -2,10 +2,10 @@
 #'
 #' \code{cluster_track()} clusters trajectories based on various movement and velocity parameters calculated for each track.
 #'
-#' @param data A 'track' R object, which is a list consisting of two elements:
-#'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-#'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
-#' @param veltrack A 'track velocity' R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.
+#' @param data A \code{track} R object, which is a list consisting of two elements:
+#'    * \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+#'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+#' @param veltrack A \code{track velocity} R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.
 #' @param variables A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include: \code{"TurnAng"}, \code{"sdTurnAng"}, \code{"Distance"}, \code{"Length"}, \code{"StLength"}, \code{"sdStLength"}, \code{"Sinuosity"}, \code{"Straightness"}, \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"}.
 #'
 #' @details
@@ -40,28 +40,28 @@
 #' simulations, refining track selection and improving hypothesis testing in movement ecology studies.
 #'
 #' @return
-#' A 'track clustering' R object consisting of a list containing the following elements:
-#'   * matrix: A data frame containing the movement parameters calculated for each track.
-#'   * clust: An Mclust object containing the results of the model-based clustering analysis. This object provides the optimal (according to BIC) mixture model estimation. The output components are:
-#'     * call: The matched call.
-#'     * data: The input data matrix.
-#'     * modelName: A character string denoting the model at which the optimal BIC occurs.
-#'     * n: The number of observations in the data.
-#'     * d: The dimension of the data.
-#'     * G: The optimal number of mixture components.
-#'     * BIC: All BIC values.
-#'     * loglik: The log-likelihood corresponding to the optimal BIC.
-#'     * df: The number of estimated parameters.
-#'     * bic: BIC value of the selected model.
-#'     * icl: ICL value of the selected model.
-#'     * hypvol: The hypervolume parameter for the noise component if required, otherwise set to NULL.
-#'     * parameters: A list with the following components:
-#'       * pro: A vector whose k\eqn{^{th}} component is the mixing proportion for the k\eqn{^{th}} component of the mixture model. If missing, equal proportions are assumed.
-#'       * mean: The mean for each component. If there is more than one component, this is a matrix whose k\eqn{^{th}} column is the mean of the k\eqn{^{th}} component of the mixture model.
-#'     * variance: A list of variance parameters for the model. The components of this list depend on the model specification. See the help file for mclustVariance for details.
-#'     * z: A matrix whose i,k\eqn{^{th}} entry is the probability that observation i in the test data belongs to the k\eqn{^{th}} class.
-#'     * classification: The classification corresponding to z, i.e., map(z).
-#'     * uncertainty: The uncertainty associated with the classification.
+#' A \code{track clustering} R object consisting of a list containing the following elements:
+#'   * \code{matrix}: A data frame containing the movement parameters calculated for each track.
+#'   * \code{clust}: An \code{Mclust} object containing the results of the model-based clustering analysis. This object provides the optimal (according to BIC) mixture model estimation. The output components are:
+#'     * \code{call}: The matched call.
+#'     * \code{data}: The input data matrix.
+#'     * \code{modelName}: A character string denoting the model at which the optimal BIC occurs.
+#'     * \code{n}: The number of observations in the data.
+#'     * \code{d}: The dimension of the data.
+#'     * \code{G}: The optimal number of mixture components.
+#'     * \code{BIC}: All BIC values.
+#'     * \code{loglik}: The log-likelihood corresponding to the optimal BIC.
+#'     * \code{df}: The number of estimated parameters.
+#'     * \code{bic}: BIC value of the selected model.
+#'     * \code{icl}: ICL value of the selected model.
+#'     * \code{hypvol}: The hypervolume parameter for the noise component if required, otherwise set to NULL.
+#'     * \code{parameters}: A list with the following components:
+#'       * \code{pro}: A vector whose k\eqn{^{th}} component is the mixing proportion for the k\eqn{^{th}} component of the mixture model. If missing, equal proportions are assumed.
+#'       * \code{mean}: The mean for each component. If there is more than one component, this is a matrix whose k\eqn{^{th}} column is the mean of the k\eqn{^{th}} component of the mixture model.
+#'     * \code{variance}: A list of variance parameters for the model. The components of this list depend on the model specification. See the help file for mclustVariance for details.
+#'     * \code{z}: A matrix whose i,k\eqn{^{th}} entry is the probability that observation i in the test data belongs to the k\eqn{^{th}} class.
+#'     * \code{classification}: The classification corresponding to z, i.e., map(z).
+#'     * \code{uncertainty}: The uncertainty associated with the classification.
 #'
 #' @section Logo:
 #' \if{html}{\figure{Logo.png}{options: width=30\%}}

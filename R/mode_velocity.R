@@ -12,7 +12,7 @@
 #'   - It uses ranks rather than raw values, making it robust to outliers and suitable for detecting general trends (acceleration or deceleration) in velocity data.
 #'
 #' - **Function Operation:**
-#'   - For each trajectory in the \code{trackvel} list, the function calculates the Spearman correlation coefficient and the associated p-value between velocity and step number.
+#'   - For each trajectory in the \code{trackvel} list, the function calculates the Spearman correlation coefficient and the associated *p*-value between velocity and step number.
 #'   - Based on the *p*-value and correlation coefficient, it classifies the trend as "acceleration", "deceleration", or "steady".
 #'   - If a trajectory contains fewer than 3 steps, the function returns a message indicating insufficient data for correlation analysis.
 #'
@@ -35,8 +35,8 @@
 #'   - For more detailed analysis of velocity trends, consider complementary methods such as linear or non-linear regression, or specialized change point detection techniques.
 #'
 #' @return A list where each element corresponds to a trajectory from the input \code{trackvel} and contains:
-#'   - **correlation:** The result of the Spearman correlation test, including the correlation coefficient and p-value.
-#'   - **trend:** A classification of the trend as "Acceleration", "Deceleration", or "Steady" based on the p-value and the correlation coefficient.
+#'   - **correlation:** The result of the Spearman correlation test, including the correlation coefficient and *p*-value.
+#'   - **trend:** A classification of the trend as "Acceleration", "Deceleration", or "Steady" based on the *p*-value and the correlation coefficient.
 #'   - If a trajectory has fewer than 3 steps, the entry contains the message "Less than three steps."
 #'
 #' @section Logo:

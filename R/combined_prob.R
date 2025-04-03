@@ -1,22 +1,22 @@
 #' Calculate combined probabilities of similarity or intersection metrics of tracks
 #'
 #' \code{combined_prob()} calculates the combined probabilities of similarity and intersection metrics
-#' derived from different models. The function uses simulation data to extract p-values, providing insight into
+#' derived from different models. The function uses simulation data to extract *p*-values, providing insight into
 #' the significance of combined metrics across various similarity assessments.
 #'
-#' @param data A 'track' R object, which is a list consisting of two elements:
-#'    * \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-#'    * \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
-#' @param metrics A list of 'track similarity' and/or 'track intersection' R objects derived from different tests. All tests must be
+#' @param data A \code{track} R object, which is a list consisting of two elements:
+#'    * \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+#'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+#' @param metrics A list of \code{track similarity} and/or \code{track intersection} R objects derived from different tests. All tests must be
 #' based on the same number of simulations.
 #'
 #' @details
-#' The \code{combined_prob()} function combines p-values derived from multiple similarity metric tests and intersection tests.
-#' It calculates the combined p-values by assessing the probability of observing the combined metrics across simulated datasets.
-#' This function is particularly useful for comparing multiple models and evaluating their collective performance in terms of p-values.
+#' The \code{combined_prob()} function combines *p*-values derived from multiple similarity metric tests and intersection tests.
+#' It calculates the combined *p*-values by assessing the probability of observing the combined metrics across simulated datasets.
+#' This function is particularly useful for comparing multiple models and evaluating their collective performance in terms of *p*-values.
 #'
 #' @return A list containing:
-#' \item{P_values (model names)}{A matrix of p-values for the combined metrics across all trajectories. Each entry represents
+#' \item{P_values (model names)}{A matrix of *p*-values for the combined metrics across all trajectories. Each entry represents
 #' the probability of observing the combined metrics between the corresponding pair of trajectories.}
 #' \item{P_values_combined (model names)}{A numeric value representing the overall probability of observing the combined metrics,
 #' across all pairs of trajectories.}

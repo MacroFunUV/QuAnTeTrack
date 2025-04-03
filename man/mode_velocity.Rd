@@ -12,8 +12,8 @@ mode_velocity(trackvel)
 \value{
 A list where each element corresponds to a trajectory from the input \code{trackvel} and contains:
 \itemize{
-\item \strong{correlation:} The result of the Spearman correlation test, including the correlation coefficient and p-value.
-\item \strong{trend:} A classification of the trend as "Acceleration", "Deceleration", or "Steady" based on the p-value and the correlation coefficient.
+\item \strong{correlation:} The result of the Spearman correlation test, including the correlation coefficient and \emph{p}-value.
+\item \strong{trend:} A classification of the trend as "Acceleration", "Deceleration", or "Steady" based on the \emph{p}-value and the correlation coefficient.
 \item If a trajectory has fewer than 3 steps, the entry contains the message "Less than three steps."
 }
 }
@@ -30,7 +30,7 @@ The \code{mode_velocity()} function performs the following operations:
 }
 \item \strong{Function Operation:}
 \itemize{
-\item For each trajectory in the \code{trackvel} list, the function calculates the Spearman correlation coefficient and the associated p-value between velocity and step number.
+\item For each trajectory in the \code{trackvel} list, the function calculates the Spearman correlation coefficient and the associated \emph{p}-value between velocity and step number.
 \item Based on the \emph{p}-value and correlation coefficient, it classifies the trend as "acceleration", "deceleration", or "steady".
 \item If a trajectory contains fewer than 3 steps, the function returns a message indicating insufficient data for correlation analysis.
 }

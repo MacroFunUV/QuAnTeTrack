@@ -7,43 +7,43 @@
 cluster_track(data, veltrack, variables)
 }
 \arguments{
-\item{data}{A 'track' R object, which is a list consisting of two elements:
+\item{data}{A \code{track} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{Trajectories}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{Footprints}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 }}
 
-\item{veltrack}{A 'track velocity' R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.}
+\item{veltrack}{A \code{track velocity} R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.}
 
 \item{variables}{A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include: \code{"TurnAng"}, \code{"sdTurnAng"}, \code{"Distance"}, \code{"Length"}, \code{"StLength"}, \code{"sdStLength"}, \code{"Sinuosity"}, \code{"Straightness"}, \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"}.}
 }
 \value{
-A 'track clustering' R object consisting of a list containing the following elements:
+A \code{track clustering} R object consisting of a list containing the following elements:
 \itemize{
-\item matrix: A data frame containing the movement parameters calculated for each track.
-\item clust: An Mclust object containing the results of the model-based clustering analysis. This object provides the optimal (according to BIC) mixture model estimation. The output components are:
+\item \code{matrix}: A data frame containing the movement parameters calculated for each track.
+\item \code{clust}: An \code{Mclust} object containing the results of the model-based clustering analysis. This object provides the optimal (according to BIC) mixture model estimation. The output components are:
 \itemize{
-\item call: The matched call.
-\item data: The input data matrix.
-\item modelName: A character string denoting the model at which the optimal BIC occurs.
-\item n: The number of observations in the data.
-\item d: The dimension of the data.
-\item G: The optimal number of mixture components.
-\item BIC: All BIC values.
-\item loglik: The log-likelihood corresponding to the optimal BIC.
-\item df: The number of estimated parameters.
-\item bic: BIC value of the selected model.
-\item icl: ICL value of the selected model.
-\item hypvol: The hypervolume parameter for the noise component if required, otherwise set to NULL.
-\item parameters: A list with the following components:
+\item \code{call}: The matched call.
+\item \code{data}: The input data matrix.
+\item \code{modelName}: A character string denoting the model at which the optimal BIC occurs.
+\item \code{n}: The number of observations in the data.
+\item \code{d}: The dimension of the data.
+\item \code{G}: The optimal number of mixture components.
+\item \code{BIC}: All BIC values.
+\item \code{loglik}: The log-likelihood corresponding to the optimal BIC.
+\item \code{df}: The number of estimated parameters.
+\item \code{bic}: BIC value of the selected model.
+\item \code{icl}: ICL value of the selected model.
+\item \code{hypvol}: The hypervolume parameter for the noise component if required, otherwise set to NULL.
+\item \code{parameters}: A list with the following components:
 \itemize{
-\item pro: A vector whose k\eqn{^{th}} component is the mixing proportion for the k\eqn{^{th}} component of the mixture model. If missing, equal proportions are assumed.
-\item mean: The mean for each component. If there is more than one component, this is a matrix whose k\eqn{^{th}} column is the mean of the k\eqn{^{th}} component of the mixture model.
+\item \code{pro}: A vector whose k\eqn{^{th}} component is the mixing proportion for the k\eqn{^{th}} component of the mixture model. If missing, equal proportions are assumed.
+\item \code{mean}: The mean for each component. If there is more than one component, this is a matrix whose k\eqn{^{th}} column is the mean of the k\eqn{^{th}} component of the mixture model.
 }
-\item variance: A list of variance parameters for the model. The components of this list depend on the model specification. See the help file for mclustVariance for details.
-\item z: A matrix whose i,k\eqn{^{th}} entry is the probability that observation i in the test data belongs to the k\eqn{^{th}} class.
-\item classification: The classification corresponding to z, i.e., map(z).
-\item uncertainty: The uncertainty associated with the classification.
+\item \code{variance}: A list of variance parameters for the model. The components of this list depend on the model specification. See the help file for mclustVariance for details.
+\item \code{z}: A matrix whose i,k\eqn{^{th}} entry is the probability that observation i in the test data belongs to the k\eqn{^{th}} class.
+\item \code{classification}: The classification corresponding to z, i.e., map(z).
+\item \code{uncertainty}: The uncertainty associated with the classification.
 }
 }
 }

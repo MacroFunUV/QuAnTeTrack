@@ -18,8 +18,8 @@ test_direction(data, analysis = NULL)
 \value{
 A list with the results of the statistical analysis and diagnostic tests:
 \itemize{
-\item \code{normality_results}: A matrix of test statistics and \emph{p}-values from the Shapiro-Wilk test for each track, with rows for the test statistic and p-value, and columns for each track.
-\item \code{homogeneity_test}: The result of Levene's test, including the p-value for homogeneity of variances.
+\item \code{normality_results}: A matrix of test statistics and \emph{p}-values from the Shapiro-Wilk test for each track, with rows for the test statistic and \emph{p}-value, and columns for each track.
+\item \code{homogeneity_test}: The result of Levene's test, including the \emph{p}-value for homogeneity of variances.
 \item \code{ANOVA} (If \code{analysis} is \code{"ANOVA"}): A list containing the ANOVA table and Tukey HSD post-hoc test results.
 \item \code{Kruskal_Wallis} (If \code{analysis} is \code{"Kruskal-Wallis"}): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.
 \item \code{GLM} (If \code{analysis} is \code{"GLM"}): A summary of the GLM fit and pairwise comparisons.

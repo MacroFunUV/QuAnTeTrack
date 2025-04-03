@@ -25,8 +25,8 @@
 #'   - If \code{plot} is \code{TRUE}, a boxplot of velocities by track is generated.
 #'
 #' @return A list with the results of the statistical analysis and diagnostic tests:
-#'   - \code{normality_results}: A matrix of test statistics and *p*-values from the Shapiro-Wilk test for each track, with rows for the test statistic and p-value, and columns for each track.
-#'   - \code{homogeneity_test}: The result of Levene's test, including the p-value for homogeneity of variances.
+#'   - \code{normality_results}: A matrix of test statistics and *p*-values from the Shapiro-Wilk test for each track, with rows for the test statistic and *p*-value, and columns for each track.
+#'   - \code{homogeneity_test}: The result of Levene's test, including the *p*-value for homogeneity of variances.
 #'   - \code{ANOVA} (If \code{analysis} is \code{"ANOVA"}): A list containing the ANOVA table and Tukey HSD post-hoc test results.
 #'   - \code{Kruskal_Wallis} (If \code{analysis} is \code{"Kruskal-Wallis"}): A list containing the Kruskal-Wallis test result and Dunn's test post-hoc results.
 #'   - \code{GLM} (If \code{analysis} is \code{"GLM"}): A summary of the GLM fit and pairwise comparisons.

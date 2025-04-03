@@ -44,7 +44,7 @@ testing with simulations to calculate p-values for the DTW distance metrics."></
     <p><code>simil_DTW_metric()</code>  computes similarity metrics between two or more trajectories using
 Dynamic Time Warping (DTW). It allows for different superposition methods
 to align trajectories before calculating the DTW metric. The function also supports
-testing with simulations to calculate p-values for the DTW distance metrics.</p>
+testing with simulations to calculate <em>p</em>-values for the DTW distance metrics.</p>
     </div>
 
     <div class="section level2">
@@ -57,18 +57,18 @@ testing with simulations to calculate p-values for the DTW distance metrics.</p>
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>A 'track' R object, which is a list consisting of two elements:</p><ul><li><p><strong>Trajectories</strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
-<li><p><strong>Footprints</strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
+<dd><p>A <code>track</code> R object, which is a list consisting of two elements:</p><ul><li><p><strong><code>Trajectories</code></strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
+<li><p><strong><code>Footprints</code></strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
 </ul></dd>
 
 
 <dt id="arg-test">test<a class="anchor" aria-label="anchor" href="#arg-test"></a></dt>
 <dd><p>Logical; if <code>TRUE</code>, the function compares the observed DTW distances against
-simulated trajectories and calculates p-values. Default is <code>FALSE</code>.</p></dd>
+simulated trajectories and calculates <em>p</em>-values. Default is <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-sim">sim<a class="anchor" aria-label="anchor" href="#arg-sim"></a></dt>
-<dd><p>A 'track simulation' R object consisting of a list of simulated trajectories to use for comparison when <code>test = TRUE</code>.</p></dd>
+<dd><p>A <code>track simulation</code> R object consisting of a list of simulated trajectories to use for comparison when <code>test = TRUE</code>.</p></dd>
 
 
 <dt id="arg-superposition">superposition<a class="anchor" aria-label="anchor" href="#arg-superposition"></a></dt>
@@ -78,15 +78,15 @@ Options are <code>"None"</code>, <code>"Centroid"</code>, or <code>"Origin"</cod
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A 'track similarity' R object consisting ofa list containing the following elements:</p>
+    <p>A <code>track similarity</code> R object consisting ofa list containing the following elements:</p>
 <dl><dt>DTW_distance_metric</dt>
 <dd><p>A matrix containing the pairwise DTW distances between trajectories.</p></dd>
 
 <dt>DTW_distance_metric_p_values</dt>
-<dd><p>(If <code>test</code> is <code>TRUE</code>) A matrix containing the p-values for the pairwise DTW distances.</p></dd>
+<dd><p>(If <code>test</code> is <code>TRUE</code>) A matrix containing the <em>p</em>-values for the pairwise DTW distances.</p></dd>
 
 <dt>DTW_metric_p_values_combined</dt>
-<dd><p>(If <code>test</code> is <code>TRUE)</code> The overall p-value for the combined DTW distances.</p></dd>
+<dd><p>(If <code>test</code> is <code>TRUE)</code> The overall <em>p</em>-value for the combined DTW distances.</p></dd>
 
 <dt>DTW_distance_metric_simulations</dt>
 <dd><p>(If <code>test</code> is <code>TRUE)</code> A list of DTW distance matrices from each simulated dataset.</p></dd>
@@ -115,8 +115,8 @@ considered when interpreting the results.</p>
 before <code>DTW()</code> is applied:</p><ul><li><p><code>"None"</code>: No superposition is applied.</p></li>
 <li><p><code>"Centroid"</code>: Trajectories are shifted to align based on their centroids.</p></li>
 <li><p><code>"Origin"</code>: Trajectories are shifted to align based on their starting point.</p></li>
-</ul><p>If <code>test = TRUE</code>, the function can compute p-values by comparing the observed DTW
-distances with those generated from a set of simulated trajectories. The p-values
+</ul><p>If <code>test = TRUE</code>, the function can compute <em>p</em>-values by comparing the observed DTW
+distances with those generated from a set of simulated trajectories. The <em>p</em>-values
 are calculated for both individual trajectory pairs and for the entire set of trajectories.</p>
     </div>
     <div class="section level2">
@@ -150,70 +150,70 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-in"><span><span class="co"># in the PaluxyRiver dataset</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">10</span>, model <span class="op">=</span> <span class="st">"Directed"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s1</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.878252 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.55116 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 21.68999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.879976 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.552815 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 41.66089</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.881572 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.554359 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 28.53861</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.883237 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.555908 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 27.68667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.884847 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.55742 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 14.21587</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.886447 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.558981 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 20.47582</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.888055 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.560498 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 17.18041</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.889702 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.562052 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 23.32304</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.891297 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.563572 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 26.82374</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.892896 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.565098 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
@@ -241,70 +241,70 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-in"><span><span class="co"># in the PaluxyRiver dataset</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">10</span>, model <span class="op">=</span> <span class="st">"Constrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s2</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.921259 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.592844 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 33.76018</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.922877 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.594415 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 139.8911</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.924453 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.595993 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 35.00938</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.926047 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.597516 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 42.03352</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.927624 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.599099 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 38.1155</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.929229 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.600648 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 30.00584</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.930816 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.602176 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 35.90138</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.932387 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.603727 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 102.9326</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.933976 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.605251 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 101.6141</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.93554 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.606821 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
@@ -332,70 +332,70 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-in"><span><span class="co"># in the PaluxyRiver dataset</span></span></span>
 <span class="r-in"><span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">10</span>, model <span class="op">=</span> <span class="st">"Unconstrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s3</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.964287 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.634825 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 719.4052</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.965922 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.636393 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 531.7201</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.967519 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.637972 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 258.5845</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.969145 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.639494 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 803.0809</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.97074 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.641058 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 771.076</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.972321 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.6426 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 758.7927</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.973921 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.644143 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 630.9672</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.975489 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.645675 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 473.3425</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.977081 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.647215 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 735.5614</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:28.978654 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.648775 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
@@ -425,7 +425,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-in"><span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">sbMountTom</span>, nsim <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`model` is NULL. Defaulting to 'Unconstrained'.</span>
 <span class="r-in"><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s4</span>, superposition <span class="op">=</span> <span class="st">"Centroid"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.20738 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.868844 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07  Track_08 Track_09</span>
@@ -453,7 +453,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA 10.222981</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.25292 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.913409 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07  Track_08  Track_09</span>
@@ -481,7 +481,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA  5.288930</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.298481 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:02.957987 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09</span>
@@ -509,7 +509,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 12.408269</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.34396 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.008055 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07 Track_08  Track_09</span>
@@ -537,7 +537,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA 12.242886</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.395981 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.051878 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09</span>
@@ -565,7 +565,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA  4.729260</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.440977 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.095587 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09</span>
@@ -593,7 +593,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA       NA       NA 12.078487</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA       NA       NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.486076 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.139519 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03 Track_04 Track_07  Track_08  Track_09</span>
@@ -621,7 +621,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA 12.534522</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.531536 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.183805 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03 Track_04  Track_07 Track_08 Track_09</span>
@@ -649,7 +649,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA       NA        NA 10.877805</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA       NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.576756 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.228022 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09</span>
@@ -677,7 +677,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA  7.409926</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.621985 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.272144 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07  Track_08  Track_09</span>
@@ -770,7 +770,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-in"><span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">sbMountTom</span>, nsim <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`model` is NULL. Defaulting to 'Unconstrained'.</span>
 <span class="r-in"><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s5</span>, superposition <span class="op">=</span> <span class="st">"Origin"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.920409 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.515996 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08 Track_09</span>
@@ -798,7 +798,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 16.724371</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:29.966814 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.560298 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07 Track_08  Track_09</span>
@@ -826,7 +826,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA 19.903371</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:30.013277 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.609848 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07 Track_08 Track_09</span>
@@ -854,7 +854,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA        NA  8.023299</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:30.068768 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.653433 Iteration 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07 Track_08 Track_09</span>
@@ -882,7 +882,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 14.444456</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:30.115153 Iteration 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.697094 Iteration 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07  Track_08 Track_09</span>
@@ -910,7 +910,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA 13.22771</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:30.160677 Iteration 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.741073 Iteration 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07  Track_08 Track_09</span>
@@ -938,7 +938,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA 16.610571</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:30.205905 Iteration 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.785031 Iteration 7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07  Track_08  Track_09</span>
@@ -966,7 +966,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA       NA 21.78808</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:30.251162 Iteration 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.829 Iteration 8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07  Track_08 Track_09</span>
@@ -994,7 +994,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA 22.84815</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:30.296046 Iteration 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.872911 Iteration 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07 Track_08 Track_09</span>
@@ -1022,7 +1022,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA       NA       NA 15.351832</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA       NA       NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-03-29 23:36:30.341159 Iteration 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-04-03 11:58:03.92343 Iteration 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07 Track_08 Track_09</span>

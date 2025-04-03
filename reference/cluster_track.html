@@ -48,13 +48,13 @@
 
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>A 'track' R object, which is a list consisting of two elements:</p><ul><li><p><strong>Trajectories</strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
-<li><p><strong>Footprints</strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
+<dd><p>A <code>track</code> R object, which is a list consisting of two elements:</p><ul><li><p><strong><code>Trajectories</code></strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
+<li><p><strong><code>Footprints</code></strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
 </ul></dd>
 
 
 <dt id="arg-veltrack">veltrack<a class="anchor" aria-label="anchor" href="#arg-veltrack"></a></dt>
-<dd><p>A 'track velocity' R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.</p></dd>
+<dd><p>A <code>track velocity</code> R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.</p></dd>
 
 
 <dt id="arg-variables">variables<a class="anchor" aria-label="anchor" href="#arg-variables"></a></dt>
@@ -63,26 +63,26 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A 'track clustering' R object consisting of a list containing the following elements:</p><ul><li><p>matrix: A data frame containing the movement parameters calculated for each track.</p></li>
-<li><p>clust: An Mclust object containing the results of the model-based clustering analysis. This object provides the optimal (according to BIC) mixture model estimation. The output components are:</p><ul><li><p>call: The matched call.</p></li>
-<li><p>data: The input data matrix.</p></li>
-<li><p>modelName: A character string denoting the model at which the optimal BIC occurs.</p></li>
-<li><p>n: The number of observations in the data.</p></li>
-<li><p>d: The dimension of the data.</p></li>
-<li><p>G: The optimal number of mixture components.</p></li>
-<li><p>BIC: All BIC values.</p></li>
-<li><p>loglik: The log-likelihood corresponding to the optimal BIC.</p></li>
-<li><p>df: The number of estimated parameters.</p></li>
-<li><p>bic: BIC value of the selected model.</p></li>
-<li><p>icl: ICL value of the selected model.</p></li>
-<li><p>hypvol: The hypervolume parameter for the noise component if required, otherwise set to NULL.</p></li>
-<li><p>parameters: A list with the following components:</p><ul><li><p>pro: A vector whose k\(^{th}\) component is the mixing proportion for the k\(^{th}\) component of the mixture model. If missing, equal proportions are assumed.</p></li>
-<li><p>mean: The mean for each component. If there is more than one component, this is a matrix whose k\(^{th}\) column is the mean of the k\(^{th}\) component of the mixture model.</p></li>
+    <p>A <code>track clustering</code> R object consisting of a list containing the following elements:</p><ul><li><p><code>matrix</code>: A data frame containing the movement parameters calculated for each track.</p></li>
+<li><p><code>clust</code>: An <code>Mclust</code> object containing the results of the model-based clustering analysis. This object provides the optimal (according to BIC) mixture model estimation. The output components are:</p><ul><li><p><code>call</code>: The matched call.</p></li>
+<li><p><code>data</code>: The input data matrix.</p></li>
+<li><p><code>modelName</code>: A character string denoting the model at which the optimal BIC occurs.</p></li>
+<li><p><code>n</code>: The number of observations in the data.</p></li>
+<li><p><code>d</code>: The dimension of the data.</p></li>
+<li><p><code>G</code>: The optimal number of mixture components.</p></li>
+<li><p><code>BIC</code>: All BIC values.</p></li>
+<li><p><code>loglik</code>: The log-likelihood corresponding to the optimal BIC.</p></li>
+<li><p><code>df</code>: The number of estimated parameters.</p></li>
+<li><p><code>bic</code>: BIC value of the selected model.</p></li>
+<li><p><code>icl</code>: ICL value of the selected model.</p></li>
+<li><p><code>hypvol</code>: The hypervolume parameter for the noise component if required, otherwise set to NULL.</p></li>
+<li><p><code>parameters</code>: A list with the following components:</p><ul><li><p><code>pro</code>: A vector whose k\(^{th}\) component is the mixing proportion for the k\(^{th}\) component of the mixture model. If missing, equal proportions are assumed.</p></li>
+<li><p><code>mean</code>: The mean for each component. If there is more than one component, this is a matrix whose k\(^{th}\) column is the mean of the k\(^{th}\) component of the mixture model.</p></li>
 </ul></li>
-<li><p>variance: A list of variance parameters for the model. The components of this list depend on the model specification. See the help file for mclustVariance for details.</p></li>
-<li><p>z: A matrix whose i,k\(^{th}\) entry is the probability that observation i in the test data belongs to the k\(^{th}\) class.</p></li>
-<li><p>classification: The classification corresponding to z, i.e., map(z).</p></li>
-<li><p>uncertainty: The uncertainty associated with the classification.</p></li>
+<li><p><code>variance</code>: A list of variance parameters for the model. The components of this list depend on the model specification. See the help file for mclustVariance for details.</p></li>
+<li><p><code>z</code>: A matrix whose i,k\(^{th}\) entry is the probability that observation i in the test data belongs to the k\(^{th}\) class.</p></li>
+<li><p><code>classification</code>: The classification corresponding to z, i.e., map(z).</p></li>
+<li><p><code>uncertainty</code>: The uncertainty associated with the classification.</p></li>
 </ul></li>
 </ul></div>
     <div class="section level2">

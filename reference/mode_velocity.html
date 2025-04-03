@@ -53,8 +53,8 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list where each element corresponds to a trajectory from the input <code>trackvel</code> and contains:</p><ul><li><p><strong>correlation:</strong> The result of the Spearman correlation test, including the correlation coefficient and p-value.</p></li>
-<li><p><strong>trend:</strong> A classification of the trend as "Acceleration", "Deceleration", or "Steady" based on the p-value and the correlation coefficient.</p></li>
+    <p>A list where each element corresponds to a trajectory from the input <code>trackvel</code> and contains:</p><ul><li><p><strong>correlation:</strong> The result of the Spearman correlation test, including the correlation coefficient and <em>p</em>-value.</p></li>
+<li><p><strong>trend:</strong> A classification of the trend as "Acceleration", "Deceleration", or "Steady" based on the <em>p</em>-value and the correlation coefficient.</p></li>
 <li><p>If a trajectory has fewer than 3 steps, the entry contains the message "Less than three steps."</p></li>
 </ul></div>
     <div class="section level2">
@@ -62,7 +62,7 @@
     <p>The <code>mode_velocity()</code> function performs the following operations:</p><ul><li><p><strong>Spearman's Rank Correlation Test:</strong></p><ul><li><p>This non-parametric test assesses the strength and direction of a monotonic relationship between two variables. It does not require assumptions about the normality of data or a linear relationship between velocity and step number.</p></li>
 <li><p>It uses ranks rather than raw values, making it robust to outliers and suitable for detecting general trends (acceleration or deceleration) in velocity data.</p></li>
 </ul></li>
-<li><p><strong>Function Operation:</strong></p><ul><li><p>For each trajectory in the <code>trackvel</code> list, the function calculates the Spearman correlation coefficient and the associated p-value between velocity and step number.</p></li>
+<li><p><strong>Function Operation:</strong></p><ul><li><p>For each trajectory in the <code>trackvel</code> list, the function calculates the Spearman correlation coefficient and the associated <em>p</em>-value between velocity and step number.</p></li>
 <li><p>Based on the <em>p</em>-value and correlation coefficient, it classifies the trend as "acceleration", "deceleration", or "steady".</p></li>
 <li><p>If a trajectory contains fewer than 3 steps, the function returns a message indicating insufficient data for correlation analysis.</p></li>
 </ul></li>

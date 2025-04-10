@@ -857,7 +857,7 @@ The **`Constrained`** model represents a **correlated random walk**, where movem
 
 The **`Unconstrained`** model provides the most flexibility, simulating trajectories that represent **exploratory or dispersal behavior without directional bias**. It is based on a **fully random walk** with the starting direction randomly determined for each simulation. This model is appropriate for scenarios where animals are moving through **unfamiliar or homogeneous environments**.
 
-The **`simulate_track()`** function requires several arguments to define the simulation process. The **`data`** argument specifies the input as a `track` R object. The **`nsim`** argument defines the number of simulations to run, with a default value of **1000** if not specified. The **`model`** argument determines the type of movement model to be used, which can be **"Directed"**, **"Constrained"**, or **"Unconstrained"**, with the default being **"Unconstrained"** if not provided.
+The **`simulate_track()`** function requires several arguments to define the simulation process. The **`data`** argument specifies the input as a `track` R object. The **`nsim`** argument defines the number of simulations to run, with a default value of **1000** if not specified. This number represents a **recommended minimum** to ensure stable and reliable estimation of *p*-values, particularly when assessing the statistical significance of observed trajectory features. Using fewer simulations may result in imprecise or biased *p*-value estimates due to insufficient sampling of the null distribution. The **`model`** argument determines the type of movement model to be used, which can be **"Directed"**, **"Constrained"**, or **"Unconstrained"**, with the default being **"Unconstrained"** if not provided.
 
 The function ensures that simulations are only applied to **trajectories with at least four steps**, as calculating the **standard deviations of angles and step lengths**—essential for the simulation process—is not feasible for shorter trajectories. In cases where tracks are too short, the user is advised to use the **`subset_track()`** function to exclude those tracks from the simulation process.
 
@@ -865,67 +865,67 @@ The **`simulate_track()`** function returns a **`track simulation` R object**, w
 
 ### **Examples of Usage**
 
-Simulating tracks from the **Paluxy River** and **Mount Tom** datasets using the **Unconstrained**, **Directed**, and **Constrained** models. For the **Mount Tom** dataset, tracks were preprocessed using **`subset_track()`** to retain only those containing at least four steps. Although the simulations were performed with **1000 simulated tracks**, the examples below display **only a subset of 10 simulated tracks** to prevent the vignette from becoming excessively large. This approach ensures the vignette remains efficient, clear, and easy to navigate.
+Simulating tracks from the **Paluxy River** and **Mount Tom** datasets using the **Unconstrained**, **Directed**, and **Constrained** models. For the **Mount Tom** dataset, tracks were preprocessed using **`subset_track()`** to retain only those containing at least four steps. Although the simulations were performed with **100 simulated tracks**, the examples below display **only a subset of 10 simulated tracks** to prevent the vignette from becoming excessively large. This approach ensures the vignette remains efficient, clear, and easy to navigate.
 
 ```{r, eval=FALSE}
-sim_unconstrained_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Unconstrained")
+sim_unconstrained_paluxy <- simulate_track(PaluxyRiver, nsim = 100, model = "Unconstrained")
 print(sim_unconstrained_paluxy[1:10])
 ```
 
 ```{r echo=FALSE}
-sim_unconstrained_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Unconstrained")
+sim_unconstrained_paluxy <- simulate_track(PaluxyRiver, nsim = 100, model = "Unconstrained")
 print(sim_unconstrained_paluxy[1:10])
 ```
 
 
 ```{r, eval=FALSE}
-sim_directed_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Directed")
+sim_directed_paluxy <- simulate_track(PaluxyRiver, nsim = 100, model = "Directed")
 print(sim_directed_paluxy[1:10])
 ```
 
 ```{r echo=FALSE}
-sim_directed_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Directed")
+sim_directed_paluxy <- simulate_track(PaluxyRiver, nsim = 100, model = "Directed")
 print(sim_directed_paluxy[1:10])
 ```
 
 ```{r, eval=FALSE}
-sim_constrained_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Constrained")
+sim_constrained_paluxy <- simulate_track(PaluxyRiver, nsim = 100, model = "Constrained")
 print(sim_constrained_paluxy[1:10])
 ```
 
 ```{r echo=FALSE}
-sim_constrained_paluxy <- simulate_track(PaluxyRiver, nsim = 1000, model = "Constrained")
+sim_constrained_paluxy <- simulate_track(PaluxyRiver, nsim = 100, model = "Constrained")
 print(sim_constrained_paluxy[1:10])
 ```
 
 ```{r, eval=FALSE}
-sim_unconstrained_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Unconstrained")
+sim_unconstrained_mount <- simulate_track(sbMountTom, nsim = 100, model = "Unconstrained")
 print(sim_unconstrained_mount[1:10])
 ```
 
 ```{r echo=FALSE}
-sim_unconstrained_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Unconstrained")
+sim_unconstrained_mount <- simulate_track(sbMountTom, nsim = 100, model = "Unconstrained")
 print(sim_unconstrained_mount[1:10])
 ```
 
 
 ```{r, eval=FALSE}
-sim_directed_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Directed")
+sim_directed_mount <- simulate_track(sbMountTom, nsim = 100, model = "Directed")
 print(sim_directed_mount[1:10])
 ```
 
 ```{r echo=FALSE}
-sim_directed_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Directed")
+sim_directed_mount <- simulate_track(sbMountTom, nsim = 100, model = "Directed")
 print(sim_directed_mount[1:10])
 ```
 
 ```{r, eval=FALSE}
-sim_constrained_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Constrained")
+sim_constrained_mount <- simulate_track(sbMountTom, nsim = 100, model = "Constrained")
 print(sim_constrained_mount[1:10])
 ```
 
 ```{r echo=FALSE}
-sim_constrained_mount <- simulate_track(sbMountTom, nsim = 1000, model = "Constrained")
+sim_constrained_mount <- simulate_track(sbMountTom, nsim = 100, model = "Constrained")
 print(sim_constrained_mount[1:10])
 ```
 
@@ -1157,7 +1157,15 @@ The **`combined_prob()`** function provides an efficient way to **aggregate mult
 Combining *p*-values for the **Paluxy River** dataset based on analyses performed with the **Directed model simulations**. In this example, we combine results from three different methods: **Dynamic Time Warping (DTW)**, **Fréchet distance**, and **intersection counts**. All of them were computed using the same simulated dataset (`sim_directed_paluxy`) and are stored in the objects `simil_dtw_directed_paluxy`, `simil_frechet_directed_paluxy`, and `int_directed_paluxy`.
 
 ```{r, eval=FALSE}
-combined_metrics_paluxy <- combined_prob(metrics = list(
+combined_metrics_paluxy <- combined_prob(PaluxyRiver, metrics = list(
+  simil_dtw_directed_paluxy,
+  simil_frechet_directed_paluxy,
+  int_directed_paluxy
+))
+```
+
+```{r include=FALSE}
+combined_metrics_paluxy <- combined_prob(PaluxyRiver, metrics = list(
   simil_dtw_directed_paluxy,
   simil_frechet_directed_paluxy,
   int_directed_paluxy
@@ -1165,11 +1173,7 @@ combined_metrics_paluxy <- combined_prob(metrics = list(
 ```
 
 ```{r echo=FALSE}
-combined_metrics_paluxy <- combined_prob(metrics = list(
-  simil_dtw_directed_paluxy,
-  simil_frechet_directed_paluxy,
-  int_directed_paluxy
-))
+print(combined_metrics_paluxy)
 ```
 
 
@@ -1223,12 +1227,16 @@ clustering_mounttom <- cluster_track(
 )
 ```
 
-```{r echo=FALSE}
+```{r include=FALSE}
 clustering_mounttom <- cluster_track(
   data = sbMountTom,
   veltrack = velocity_sbmounttom,
   variables = c("Sinuosity", "Straightness", "Velocity", "TurnAng")
 )
+```
+
+```{r echo=FALSE}
+print(clustering_mounttom)
 ```
 
 The resulting clusters can help infer **behavioral strategies** (e.g., direct vs. exploratory movement), and serve as a **pre-selection step** for deeper hypothesis testing. Tracks in the same cluster can be further analyzed with **similarity metrics**, **intersection metrics**, and the **combined_prob()** function to test whether observed movement patterns reflect non-random, coordinated, or functionally distinct behaviors—while also **reducing computational cost** by narrowing the scope of comparisons.

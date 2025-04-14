@@ -473,14 +473,14 @@ Tom</a></li>
 essential component of the <strong>QuAnTeTrack</strong> package,
 designed to transform raw <strong><code>.TPS</code> files</strong>
 containing digitized trackway data into structured
-<strong><code>track</code> objects</strong>. This tool is particularly
+<strong><code>track</code> R objects</strong>. This tool is particularly
 useful for reconstructing trackways from footprints digitized using the
 <strong>TPS software suite</strong>, such as <strong>tpsUtil</strong>
 and <strong>tpsDig</strong>. The function reads the raw
 <strong><code>.TPS</code> files</strong>, extracts the coordinate data,
-and processes it to generate <strong><code>track</code> objects</strong>
-that are compatible with the analytical tools provided by
-<strong>QuAnTeTrack</strong>.</p>
+and processes it to generate <strong><code>track</code> R
+objects</strong> that are compatible with the analytical tools provided
+by <strong>QuAnTeTrack</strong>.</p>
 <p>The <strong><code><a href="../reference/tps_to_track.html">tps_to_track()</a></code></strong> function reads
 <strong><code>.TPS</code> files</strong> where each track is represented
 by a series of <strong>(x, y) coordinates</strong> stored as separate
@@ -505,7 +505,7 @@ interpolation. Additionally, the <strong><code>R.L.side</code></strong>
 argument identifies whether the first footprint of each track belongs to
 the <strong>left or right side</strong>, which is essential when dealing
 with incomplete trackways.</p>
-<p>The function generates a <strong><code>track</code> object</strong>
+<p>The function generates a <strong><code>track</code> R object</strong>
 consisting of two main components:
 <strong><code>Trajectories</code></strong> and
 <strong><code>Footprints</code></strong>. The
@@ -516,7 +516,7 @@ midpoints calculated between consecutive footprints. The
 data frames with the original footprint coordinates, associated metadata
 (such as image reference and ID), and an indicator specifying whether
 each footprint is actual or inferred.</p>
-<p>The resulting <strong><code>track</code> object</strong> provides a
+<p>The resulting <strong><code>track</code> R object</strong> provides a
 comprehensive framework for organizing digitized trackway data, making
 it compatible with the various analytical functions within the
 <strong>QuAnTeTrack</strong> package. This structured data format
@@ -539,7 +539,7 @@ systems. This approach is necessary because these files are stored as
 ensures that the files can be accessed regardless of the user’s
 operating system or working directory, making the vignette fully
 portable and reproducible. They are then converted to <code>track</code>
-objects using the <code><a href="../reference/tps_to_track.html">tps_to_track()</a></code> function. The
+R objects using the <code><a href="../reference/tps_to_track.html">tps_to_track()</a></code> function. The
 <code>scale</code> argument is used to set the coordinate scaling
 factor. For the <strong>PaluxyRiver</strong> dataset, no footprints are
 missing, so the <code>missing</code> argument is set to
@@ -1585,7 +1585,7 @@ statistical tests.</p>
 </h2>
 <p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function is a
 versatile tool designed to visualize <strong>track and footprint
-data</strong> from a <strong><code>track</code> object</strong> in
+data</strong> from a <strong><code>track</code> R object</strong> in
 various ways, providing a flexible approach to examining and presenting
 trackway datasets. This function generates customizable plots using the
 <strong><code>ggplot2</code></strong> package, allowing users to inspect
@@ -1627,8 +1627,8 @@ the addition of <strong>labels</strong> to individual tracks. If the
 each track, with the label text determined by the
 <strong><code>labels</code></strong> argument. If labels are not
 provided, the function automatically generates labels based on track
-names. Users can adjust the label size using the
-<strong><code>cex.l</code></strong> argument and control the padding
+names in the original TPS file. Users can adjust the label size using
+the <strong><code>cex.l</code></strong> argument and control the padding
 around the labels with the <strong><code>box.p</code></strong>
 argument.</p>
 <p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function returns a
@@ -1675,55 +1675,26 @@ visualization helps analyze the continuity and pattern of movement.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">MountTom</span>, plot <span class="op">=</span> <span class="st">"Tracks"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-16-1.png" width="100%"></p>
-<p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function offers
-several customization options to enhance the visualization of trackway
-data. These options allow users to label tracks, change colors and
-shapes, and adjust sizes and transparency for improved clarity and
-presentation. Below are two illustrative examples showcasing these
-capabilities:</p>
-<p>Here we add <strong>labels</strong> to each track of the
-<strong>Mount Tom</strong> dataset to facilitate track identification.
-The labels are generated using the <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste()</a></code> function, which
-creates a series of text labels formatted as <code>"Track 1"</code>,
-<code>"Track 2"</code>, etc. The
-<strong><code>plot.labels</code></strong> argument is set to
-<code>TRUE</code> to enable label plotting, while the
-<strong><code>labels</code></strong> argument receives the vector of
-labels.</p>
-<p>Additional customization options include
-<strong><code>cex.l = 4</code></strong>, which sets the label size to a
-larger value for better visibility,
-<strong><code>box.p = 0.3</code></strong>, which adds padding around
-each label for clarity, and <strong><code>alpha.l = 0.7</code></strong>,
-which adjusts the transparency of the labels, making them partially
-see-through for aesthetic appeal.</p>
-<p>The result is a plot where each track is clearly labeled, making it
-easier to distinguish individual tracks and compare them visually. The
-semi-transparent labels reduce clutter while ensuring that the labels
-remain visible against the plot background.</p>
+<p>The <strong><code><a href="../reference/plot_track.html">plot_track()</a></code></strong> function allows
+flexible customization to improve the clarity and presentation of
+trackway data. Users can label tracks, change footprint shapes, adjust
+colors, and control label size and transparency.</p>
+<p>In this first example, tracks from the <strong>Mount Tom</strong>
+dataset are labeled using <code><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste()</a></code> to generate names like
+<code>"Track 1"</code>, <code>"Track 2"</code>, etc. Labels are enlarged
+with <strong><code>cex.l = 4</code></strong>, given padding using
+<strong><code>box.p = 0.3</code></strong>, and made semi-transparent
+with <strong><code>alpha.l = 0.7</code></strong>.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Track"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">MountTom</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">MountTom</span>, plot.labels <span class="op">=</span> <span class="cn">TRUE</span>, labels <span class="op">=</span> <span class="va">labels</span>, cex.l <span class="op">=</span> <span class="fl">4</span>, box.p <span class="op">=</span> <span class="fl">0.3</span>, alpha.l <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-17-1.png" width="100%"></p>
-<p>This other example demonstrates how to <strong>customize the
-appearance of footprints</strong> from the <strong>Paluxy River</strong>
-dataset. The <strong><code>plot</code></strong> argument is set to
-<code>"Footprints"</code> to visualize only the footprint data, without
-the interpolated track paths.</p>
-<p>Customization options include
-<strong><code>colours = c("red", "orange")</code></strong>, which
-specifies a color vector to differentiate between tracks, making the
-plot visually informative and appealing. The
-<strong><code>shape.f = c(15, 18)</code></strong> argument defines the
-shapes of the plotted footprints, allowing users to distinguish between
-different trackmakers or tracks. This setup is particularly useful when
-comparing footprints from multiple trackways within the same
-dataset.</p>
-<p>The resulting plot shows footprints in <strong>red and
-orange</strong>, with different shapes for each track. This approach is
-helpful when visually comparing tracks, assessing potential
-interactions, or presenting data with a clear distinction between
-different trackmakers.</p>
+<p>In the second example, we plot only <strong>footprints</strong> from
+the <strong>Paluxy River</strong> dataset, using
+<strong><code>colours = c("red", "orange")</code></strong> to
+distinguish tracks and <strong><code>shape.f = c(15, 18)</code></strong>
+to assign different shapes to footprints—useful for visually comparing
+trackmakers.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_track.html">plot_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot <span class="op">=</span> <span class="st">"Footprints"</span>, colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"orange"</span><span class="op">)</span>, shape.f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">18</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-18-1.png" width="100%"></p>
@@ -1736,7 +1707,7 @@ different trackmakers.</p>
 <p>The <strong><code><a href="../reference/track_param.html">track_param()</a></code></strong> function is designed
 to compute and display various parameters related to the
 <strong>movement patterns of tracks</strong> from a
-<strong><code>track</code> object</strong>. This function is essential
+<strong><code>track</code> R object</strong>. This function is essential
 for extracting detailed information about the <strong>structure of
 individual tracks</strong> and their <strong>spatial
 relationships</strong>, providing key metrics that can be used for
@@ -3802,7 +3773,7 @@ output</strong> to suit specific analytical needs, whether examining
 tracks</strong>, or highlighting particular aspects of
 <strong>directional data</strong>.</p>
 <p>By generating high-quality visualizations as
-<strong><code>ggplot</code> objects</strong>, the
+<strong><code>ggplot</code> R objects</strong>, the
 <strong><code><a href="../reference/plot_direction.html">plot_direction()</a></code></strong> function allows for
 further customization using additional functions from the
 <strong><code>ggplot2</code></strong> package. This integration makes it
@@ -3816,8 +3787,8 @@ preferences</strong>, and <strong>potential group behavior</strong>.</p>
 <h3 id="examples-of-usage-6">
 <strong>Examples of Usage</strong><a class="anchor" aria-label="anchor" href="#examples-of-usage-6"></a>
 </h3>
-<p>The <strong>boxplot</strong> option generates a summary of
-directional data distribution, highlighting central tendency,
+<p>The <strong><code>boxplot</code></strong> option generates a summary
+of directional data distribution, highlighting central tendency,
 variability, and potential outliers across tracks.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
@@ -3825,26 +3796,26 @@ variability, and potential outliers across tracks.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-34-1.png" width="100%"></p>
-<p>The <strong>polar_steps</strong> option creates a polar histogram of
-individual steps radiating from a central point, revealing the angular
-spread of movement and dominant directions.</p>
+<p>The <strong><code>polar_steps</code></strong> option creates a polar
+histogram of individual steps radiating from a central point, revealing
+the angular spread of movement and dominant directions.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-35-1.png" width="100%"></p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-36-1.png" width="100%"></p>
-<p>The <strong>polar_average</strong> option generates a simplified
-polar plot by averaging step directions for each track, providing a
-general overview of dominant movement trends.</p>
+<p>The <strong><code>polar_average</code></strong> option generates a
+simplified polar plot by averaging step directions for each track,
+providing a general overview of dominant movement trends.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_average"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-37-1.png" width="100%"></p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"polar_average"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-38-1.png" width="100%"></p>
-<p>The <strong>faceted</strong> option displays individual step
-directions separately for each track using faceted panels, allowing
+<p>The <strong><code>faceted</code></strong> option displays individual
+step directions separately for each track using faceted panels, allowing
 detailed comparison of movement patterns across multiple tracks.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"faceted"</span><span class="op">)</span></span></code></pre></div>
@@ -3870,7 +3841,7 @@ presentation.</p>
 <strong>Testing for Differences in Velocity</strong><a class="anchor" aria-label="anchor" href="#testing-for-differences-in-velocity"></a>
 </h2>
 <p>The <strong><code><a href="../reference/test_velocity.html">test_velocity()</a></code></strong> function evaluates
-differences in <strong>mean velocities</strong> across different tracks
+differences in <strong>velocities</strong> across different tracks
 within a <strong><code>track</code> R object</strong>. It provides three
 statistical methods, which can be selected using the
 <code>analysis</code> argument:: <strong>ANOVA</strong>,
@@ -3891,7 +3862,7 @@ or fewer footprints, the sample size is too small to accurately estimate
 mean velocity and its variability, making statistical comparisons
 unreliable. By setting this threshold, the function ensures that the
 results are <strong>statistically robust and meaningful</strong>.</p>
-<p>The function accepts a <strong><code>track velocity</code>
+<p>The function accepts a <strong><code>track velocity</code> R
 object</strong>, which is an output of the
 <strong><code><a href="../reference/velocity_track.html">velocity_track()</a></code></strong> function. This object
 contains <strong>calculated velocities</strong> and other related
@@ -4510,7 +4481,7 @@ linearity in the relationship between step number and velocity. Instead,
 it detects <strong>monotonic relationships based on ranks</strong>,
 making it robust to <strong>outliers</strong> and effective for
 identifying general trends.</p>
-<p>The function accepts a <strong><code>track velocity</code>
+<p>The function accepts a <strong><code>track velocity</code> R
 object</strong> and processes each trajectory separately. For each
 trajectory, the function calculates the <strong>Spearman correlation
 coefficient</strong> and its associated <em>p</em>-value, comparing
@@ -4822,8 +4793,8 @@ calculated velocities for the <strong>MountTom dataset</strong>.</p>
 <strong>Testing for Differences in Direction</strong><a class="anchor" aria-label="anchor" href="#testing-for-differences-in-direction"></a>
 </h2>
 <p>The <strong><code><a href="../reference/test_direction.html">test_direction()</a></code></strong> function provides
-a powerful statistical framework for comparing <strong>mean
-directions</strong> across different tracks within a
+a powerful statistical framework for comparing
+<strong>directions</strong> across different tracks within a
 <strong><code>track</code> R object</strong>. It offers three distinct
 methods for this purpose, which can be selected using the
 <strong><code>analysis</code></strong> argument: <strong>ANOVA</strong>,
@@ -14448,7 +14419,7 @@ adjust <strong>transparency</strong>
 width</strong> (<strong><code>lwd_act</code></strong>) to enhance
 visibility. This overlay helps in visually comparing the
 <strong>similarity between actual and simulated tracks</strong>.</p>
-<p>The function <strong>returns a <code>ggplot</code> object</strong>
+<p>The function <strong>returns a <code>ggplot</code> R object</strong>
 that overlays the original and simulated tracks, allowing for further
 customization using additional <strong><code>ggplot2</code></strong>
 functions if desired. This visualization tool is essential for assessing
@@ -14536,9 +14507,10 @@ ensures the original tracks remain clearly visible.</p>
 <strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong> functions provide
 robust tools for comparing <strong>movement trajectories</strong> by
 quantifying their similarity through distinct mathematical approaches.
-Both functions operate on a <strong><code>track</code> object</strong>,
-allowing users to evaluate whether observed patterns deviate from random
-expectations by comparing real tracks to simulated ones.</p>
+Both functions operate on a <strong><code>track</code> R
+object</strong>, allowing users to evaluate whether observed patterns
+deviate from random expectations by comparing real tracks to simulated
+ones.</p>
 <p>The <strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong> function applies
 the <strong>Dynamic Time Warping (DTW)</strong> algorithm, which is
 especially suitable for analyzing <strong>animal movement
@@ -14570,9 +14542,9 @@ and may return an invalid measurement (<strong>-1</strong>) when
 comparing highly disparate tracks, especially those generated under
 fully <strong>Unconstrained models</strong>. It is essential for users
 to <strong>check for the presence of -1 values</strong> in the resulting
-<strong><code>track similarity</code> object</strong>, as these invalid
-measurements cannot be used in further analyses. Ignoring this warning
-may lead to incorrect conclusions or errors when processing the
+<strong><code>track similarity</code> R object</strong>, as these
+invalid measurements cannot be used in further analyses. Ignoring this
+warning may lead to incorrect conclusions or errors when processing the
 results.</p>
 <p>Both functions include the
 <strong><code>superposition</code></strong> argument, which provides
@@ -14591,7 +14563,7 @@ positions. These alignment methods ensure comparisons are based on
 differences.</p>
 <p>Statistical testing is supported when
 <strong><code>test = TRUE</code></strong>, requiring a
-<strong><code>track simulation</code> object</strong> to be provided
+<strong><code>track simulation</code> R object</strong> to be provided
 through the <strong><code>sim</code></strong> argument. This allows
 users to compare similarity metrics between real tracks and simulated
 trajectories, determining whether observed similarities are
@@ -14606,7 +14578,7 @@ framework offers a comprehensive approach for evaluating similarity
 metrics and testing hypotheses about track similarity.</p>
 <p>The <strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong> and
 <strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong> functions return a
-<strong><code>track similarity</code> object</strong>, which contains
+<strong><code>track similarity</code> R object</strong>, which contains
 valuable information about the similarity between trajectories. This
 object includes a matrix called
 <strong><code>DTW_distance_metric</code></strong> (for the DTW metric)
@@ -21021,11 +20993,11 @@ comparing actual tracks against simulated trajectories generated with
 the <strong><code><a href="../reference/simulate_track.html">simulate_track()</a></code></strong> function, users can
 statistically assess whether observed intersections occur more or less
 frequently than expected under random conditions.</p>
-<p>The input to this function is a <strong><code>track</code>
+<p>The input to this function is a <strong><code>track</code> R
 object</strong>. If statistical testing is desired,
 <strong><code>test</code></strong> argument must be set
 <strong><code>TRUE</code></strong> and a
-<strong><code>track simulation</code> object</strong> provided via the
+<strong><code>track simulation</code> R object</strong> provided via the
 <strong><code>sim</code></strong> argument.</p>
 <p>The function offers several options for modifying the
 <strong>starting positions of simulated tracks</strong>, controlled by
@@ -21060,14 +21032,14 @@ interactions</strong>. Users must provide a value for
 <strong><code>test</code></strong> argument is set to
 <strong><code>TRUE</code></strong>.</p>
 <p>The output of the <strong><code><a href="../reference/track_intersection.html">track_intersection()</a></code></strong>
-function is a <strong><code>track intersection</code> object</strong>
+function is a <strong><code>track intersection</code> R object</strong>
 that provides a comprehensive assessment of how tracks intersect and,
 when applicable, how these intersections compare to simulated datasets.
 The core component of this object is the
 <strong><code>Intersection_metric</code></strong>, a matrix that details
 the number of unique intersection points between pairs of trajectories.
 When <strong><code>test = TRUE</code></strong>, which requires a
-<strong><code>track simulation</code> object</strong> generated via
+<strong><code>track simulation</code> R object</strong> generated via
 <strong><code><a href="../reference/simulate_track.html">simulate_track()</a></code></strong> provided through the
 <strong><code>sim</code></strong> argument, the function produces
 additional outputs aimed at statistically evaluating the observed
@@ -21101,10 +21073,8 @@ meaningful or simply the result of random chance.</p>
 </h3>
 <p>Detecting intersections between <strong>Paluxy River</strong> tracks
 and simulated tracks generated using the <strong>Directed
-model</strong>, without modifying the starting positions
-(<strong><code>origin.permutation = "None"</code></strong>), and testing
-for <strong>reduced intersections</strong> (<strong>H1 =
-“Lower”</strong>).</p>
+model</strong>, without modifying the starting positions, and testing
+for <strong>reduced intersections</strong>.</p>
 <div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">int_directed_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, </span>
 <span>                                          sim <span class="op">=</span> <span class="va">sim_directed_paluxy</span>, </span>
@@ -21626,10 +21596,8 @@ for <strong>reduced intersections</strong> (<strong>H1 =
 <p>Detecting intersections between <strong>MountTom</strong> tracks
 (after subsetting) and simulated tracks generated using the
 <strong>Constrained model</strong>, with <strong>convex hull
-permutation</strong> of starting points
-(<strong><code>origin.permutation = "Conv.Hull"</code></strong>), and
-testing for <strong>increased intersections</strong> (<strong>H1 =
-“Higher”</strong>).</p>
+permutation</strong> of starting points, and testing for
+<strong>increased intersections</strong>.</p>
 <div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">int_constrained_mount</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Higher"</span>, </span>
 <span>                                            sim <span class="op">=</span> <span class="va">sim_constrained_mount</span>, </span>
@@ -24309,7 +24277,7 @@ overall measure of significance</strong>.</p>
 <strong>observed similarity or intersection metrics</strong> compare to
 those generated under various <strong>simulated scenarios</strong>. It
 starts by receiving a <strong>list of <code>track similarity</code>
-and/or <code>track intersection</code> objects</strong>, obtained from
+and/or <code>track intersection</code> R objects</strong>, obtained from
 <strong><code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code></strong>,
 <strong><code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code></strong>, and/or
 <strong><code><a href="../reference/track_intersection.html">track_intersection()</a></code> functions</strong>. To make
@@ -24457,7 +24425,7 @@ significantly improve the efficiency and reliability of subsequent
 analyses, such as <strong>similarity metrics or intersection
 tests</strong>.</p>
 <p>The output of the <strong><code><a href="../reference/cluster_track.html">cluster_track()</a></code></strong>
-function is a <strong><code>track clustering</code> object</strong>,
+function is a <strong><code>track clustering</code> R object</strong>,
 which provides detailed information about the clustering process and the
 resulting classification of tracks based on their movement parameters.
 The output is structured as a list containing two primary components:
@@ -24469,7 +24437,7 @@ such as turning angles, step lengths, sinuosity, straightness, and
 various velocity parameters. This matrix serves as the input data for
 the clustering process, providing a comprehensive summary of the tracks’
 movement characteristics. The <strong><code>clust</code></strong>
-element is an <strong><code>Mclust</code> object</strong> generated by
+element is an <strong><code>Mclust</code> R object</strong> generated by
 the <strong><code>mclust</code> package</strong>. This object contains
 all the results of the model-based clustering analysis, including the
 optimal model selected according to the <strong>Bayesian Information
@@ -24907,6 +24875,28 @@ behavior: <strong>sinuosity</strong>, <strong>straightness</strong>,
 <span><span class="co">#&gt;  [5] "d"              "G"              "BIC"            "loglik"        </span></span>
 <span><span class="co">#&gt;  [9] "df"             "bic"            "icl"            "hypvol"        </span></span>
 <span><span class="co">#&gt; [13] "parameters"     "z"              "classification" "uncertainty"</span></span></code></pre>
+<p>We then check the classification of tracks.</p>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clustering_mounttom</span><span class="op">$</span><span class="va">clust</span><span class="op">$</span><span class="va">classification</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt;  Track 1  Track 2  Track 3  Track 4  Track 5  Track 6  Track 7  Track 8 </span></span>
+<span><span class="co">#&gt;        1        1        2        1        3        1        4        5 </span></span>
+<span><span class="co">#&gt;  Track 9 Track 10 Track 11 </span></span>
+<span><span class="co">#&gt;        1        6        7</span></span></code></pre>
+<p>And the probability of each track belonging to each cluster.</p>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">clustering_mounttom</span><span class="op">$</span><span class="va">clust</span><span class="op">$</span><span class="va">z</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt;          [,1] [,2] [,3] [,4] [,5] [,6] [,7]</span></span>
+<span><span class="co">#&gt; Track 1     1    0    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; Track 2     1    0    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; Track 3     0    1    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; Track 4     1    0    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; Track 5     0    0    1    0    0    0    0</span></span>
+<span><span class="co">#&gt; Track 6     1    0    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; Track 7     0    0    0    1    0    0    0</span></span>
+<span><span class="co">#&gt; Track 8     0    0    0    0    1    0    0</span></span>
+<span><span class="co">#&gt; Track 9     1    0    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; Track 10    0    0    0    0    0    1    0</span></span>
+<span><span class="co">#&gt; Track 11    0    0    0    0    0    0    1</span></span></code></pre>
 <p>The resulting clusters can help infer <strong>behavioral
 strategies</strong> (e.g., direct vs. exploratory movement), and serve
 as a <strong>pre-selection step</strong> for deeper hypothesis testing.

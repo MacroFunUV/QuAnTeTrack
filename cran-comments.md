@@ -17,4 +17,4 @@ There were 2 NOTEs:
    Previous links pointing to `tree/master/...` have been updated to `blob/master/...`.
 
 5. **Examples runtime**  
-   A few examples (e.g., `plot_sim()`, `simulate_track()`) exceed 5 seconds. These are kept to demonstrate simulation-based functionality central to the package’s purpose. However, the vignette demonstrates these in controlled conditions with reduced `nsim`.
+   Although all examples involving simulations have been updated to use a reduced number of simulations (`nsim = 10`) to minimize runtime, a few examples still exceed 5 seconds. These functions represent core features of the package and the examples are essential to illustrate their use and intended scientific applications.

@@ -61,29 +61,6 @@
 #'   origin.permutation = "Conv.Hull")
 #' combined_prob(PaluxyRiver, metrics = list(DTW3, Frechet3, int3))
 #'
-#' # Example 4: "Centroid" superposition method in MountTom.
-#' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
-#' s4 <- simulate_track(sbMountTom, nsim = 10)
-#' DTW4 <- simil_DTW_metric(sbMountTom, test = TRUE, sim = s4,
-#'   superposition = "Centroid")
-#' Frechet4 <- simil_Frechet_metric(sbMountTom, test = TRUE, sim = s4,
-#'   superposition = "Centroid")
-#' int4 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s4,
-#'   origin.permutation = "Min.Box")
-#' combined_prob(sbMountTom, metrics = list(DTW4, Frechet4, int4))
-#'
-#' # Example 5: "Origin" superposition method in MountTom.
-#' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
-#' s5 <- simulate_track(sbMountTom, nsim = 10)
-#' DTW5 <- simil_DTW_metric(sbMountTom, test = TRUE, sim = s5,
-#'   superposition = "Origin")
-#' Frechet5 <- simil_Frechet_metric(sbMountTom, test = TRUE, sim = s5,
-#'   superposition = "Origin")
-#' area_origin <- matrix(c(50, 5, 10, 5, 10, 20, 50, 20), ncol = 2, byrow = TRUE)
-#' int5 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s5,
-#'   origin.permutation = "Custom", custom.coord = area_origin)
-#' combined_prob(sbMountTom, metrics = list(DTW5, Frechet5, int5))
-#'
 #' @seealso \code{\link{tps_to_track}}, \code{\link{simulate_track}}, \code{\link{track_intersection}}, \code{\link{simil_DTW_metric}}, \code{\link{simil_Frechet_metric}}
 #'
 #' @export

@@ -41,26 +41,6 @@
 #'   origin.permutation = "None")
 #' combined_prob(PaluxyRiver, metrics = list(DTW1, Frechet1, int1))
 #'
-#' # Example 2: "Constrained" model and similarity metrics.
-#' s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
-#' DTW2 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2,
-#'   superposition = "None")
-#' Frechet2 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2,
-#'   superposition = "None")
-#' int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2,
-#'   origin.permutation = "Min.Box")
-#' combined_prob(PaluxyRiver, metrics = list(DTW2, Frechet2, int2))
-#'
-#' # Example 3: "Unconstrained" model and similarity metrics.
-#' s3 <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
-#' DTW3 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3,
-#'   superposition = "None")
-#' Frechet3 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3,
-#'   superposition = "None")
-#' int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3,
-#'   origin.permutation = "Conv.Hull")
-#' combined_prob(PaluxyRiver, metrics = list(DTW3, Frechet3, int3))
-#'
 #' @seealso \code{\link{tps_to_track}}, \code{\link{simulate_track}}, \code{\link{track_intersection}}, \code{\link{simil_DTW_metric}}, \code{\link{simil_Frechet_metric}}
 #'
 #' @export

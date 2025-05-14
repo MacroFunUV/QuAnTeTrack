@@ -145,76 +145,27 @@ are calculated for both individual trajectory pairs and for the entire set of tr
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1: Simulating tracks using the "Directed" model and comparing Frechet distance</span></span></span>
 <span class="r-in"><span><span class="co"># in the PaluxyRiver dataset</span></span></span>
-<span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">10</span>, model <span class="op">=</span> <span class="st">"Directed"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Directed"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">simil_Frechet_metric</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s1</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:07.955284 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:22:07.808079 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.8657698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7846134</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:08.138436 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:22:07.998327 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7851949</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7735046</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:08.538649 Iteration 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:22:08.183599 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7773092</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:08.704861 Iteration 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.8497527</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:08.889004 Iteration 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 1.223969</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:09.055185 Iteration 6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.8411122</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:09.227279 Iteration 7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 1.300614</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:09.396272 Iteration 8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7728437</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:09.57823 Iteration 9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 1.114261</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:09.750496 Iteration 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7773987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.7785932</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ANALYSIS COMPLETED</span>
@@ -226,86 +177,37 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Frechet_distance_metric_p_values</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA     0.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.6666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Frechet_metric_p_values_combined</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6666667</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: Simulating tracks using the "Constrained" model and comparing Frechet distance</span></span></span>
 <span class="r-in"><span><span class="co"># in the PaluxyRiver dataset  using the "Centroid" superposition method</span></span></span>
-<span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">10</span>, model <span class="op">=</span> <span class="st">"Constrained"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Constrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">simil_Frechet_metric</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s2</span>, superposition <span class="op">=</span> <span class="st">"Centroid"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:10.099348 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:22:08.555718 Iteration 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 5.013929</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 6.940444</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:10.25669 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:22:08.729248 Iteration 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 5.571915</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 4.896626</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:10.424331 Iteration 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.4976887</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:10.605082 Iteration 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:22:08.914203 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 1.122151</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:10.782312 Iteration 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 1.13864</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:10.946995 Iteration 6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 3.780581</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:11.102501 Iteration 7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 2.999957</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:11.261107 Iteration 8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 3.443225</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:11.41941 Iteration 9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 5.609932</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:11.604668 Iteration 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 2.236396</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 5.205566</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ANALYSIS COMPLETED</span>
@@ -318,88 +220,38 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Frechet_distance_metric_p_values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA     0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Frechet_metric_p_values_combined</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: Simulating tracks using the "Unconstrained" model and comparing Frechet distance</span></span></span>
 <span class="r-in"><span><span class="co"># in the PaluxyRiver dataset using the "Origin" superposition method</span></span></span>
-<span class="r-in"><span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">10</span>, model <span class="op">=</span> <span class="st">"Unconstrained"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Unconstrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">simil_Frechet_metric</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s3</span>, superposition <span class="op">=</span> <span class="st">"Origin"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:22:09.158897 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 30.34401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:22:09.225513 Iteration 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 18.57202</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:11.848646 Iteration 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:22:09.244283 Iteration 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA      -1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:12.023763 Iteration 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.5429262</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:12.066869 Iteration 3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 17.49074</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:12.095531 Iteration 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 30.52256</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:12.124631 Iteration 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA      -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:12.173527 Iteration 6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 16.99588</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:12.206055 Iteration 7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 21.71143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:12.248675 Iteration 8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 22.94208</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:12.342505 Iteration 9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 15.8374</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2025-05-14 06:09:12.379661 Iteration 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Frechet metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 22.72618</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ANALYSIS COMPLETED</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -410,12 +262,12 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Frechet_distance_metric_p_values</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA     0.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.3333333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Frechet_metric_p_values_combined</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

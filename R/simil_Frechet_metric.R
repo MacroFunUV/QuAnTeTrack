@@ -69,17 +69,17 @@
 #' @examples
 #' # Example 1: Simulating tracks using the "Directed" model and comparing Frechet distance
 #' # in the PaluxyRiver dataset
-#' s1 <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
+#' s1 <- simulate_track(PaluxyRiver, nsim = 3, model = "Directed")
 #' simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 #'
 #' # Example 2: Simulating tracks using the "Constrained" model and comparing Frechet distance
 #' # in the PaluxyRiver dataset  using the "Centroid" superposition method
-#' s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
+#' s2 <- simulate_track(PaluxyRiver, nsim = 3, model = "Constrained")
 #' simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "Centroid")
 #'
 #' # Example 3: Simulating tracks using the "Unconstrained" model and comparing Frechet distance
 #' # in the PaluxyRiver dataset using the "Origin" superposition method
-#' s3 <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
+#' s3 <- simulate_track(PaluxyRiver, nsim = 3, model = "Unconstrained")
 #' simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "Origin")
 #'
 #'

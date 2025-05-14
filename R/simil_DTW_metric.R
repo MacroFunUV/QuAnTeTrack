@@ -72,29 +72,29 @@
 #' @examples
 #' # Example 1: Simulating tracks using the "Directed" model and comparing DTW distance
 #' # in the PaluxyRiver dataset
-#' s1 <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
+#' s1 <- simulate_track(PaluxyRiver, nsim = 3, model = "Directed")
 #' simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 #'
 #' # Example 2: Simulating tracks using the "Constrained" model and comparing DTW distance
 #' # in the PaluxyRiver dataset
-#' s2 <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
+#' s2 <- simulate_track(PaluxyRiver, nsim = 3, model = "Constrained")
 #' simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
 #'
 #' # Example 3: Simulating tracks using the "Unconstrained" model and comparing DTW distance
 #' # in the PaluxyRiver dataset
-#' s3 <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
+#' s3 <- simulate_track(PaluxyRiver, nsim = 3, model = "Unconstrained")
 #' simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None")
 #'
 #' # Example 4: Simulating and comparing DTW distance in the MountTom dataset using the
 #' # "Centroid" superposition method
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
-#' s4 <- simulate_track(sbMountTom, nsim = 10)
+#' s4 <- simulate_track(sbMountTom, nsim = 3)
 #' simil_DTW_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid")
 #'
 #' # Example 5: Simulating and comparing DTW distance in the MountTom dataset using the
 #' # "Origin" superposition method
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
-#' s5 <- simulate_track(sbMountTom, nsim = 10)
+#' s5 <- simulate_track(sbMountTom, nsim = 3)
 #' simil_DTW_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
 #'
 #' @importFrom dtw dtw

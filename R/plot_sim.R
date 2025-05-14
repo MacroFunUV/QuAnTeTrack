@@ -34,14 +34,14 @@
 #' @examples
 #' # Example 1: Simulate tracks using data from the Paluxy River
 #' # Default model (Unconstrained movement)
-#' simulated_tracks <- simulate_track(PaluxyRiver, nsim = 10)
+#' simulated_tracks <- simulate_track(PaluxyRiver, nsim = 3)
 #'
 #' # Plot simulated tracks with default settings and actual tracks
 #' plot_sim(PaluxyRiver, simulated_tracks)
 #'
 #' # Example 2: Simulate tracks using the "Directed" model, representing movement toward a
 #' # resource
-#' simulated_tracks_directed <- simulate_track(PaluxyRiver, nsim = 10, model = "Directed")
+#' simulated_tracks_directed <- simulate_track(PaluxyRiver, nsim = 3, model = "Directed")
 #'
 #' # Plot simulated tracks with specific colors and transparency for "Directed" model
 #' plot_sim(PaluxyRiver, simulated_tracks_directed,
@@ -52,7 +52,7 @@
 #'
 #' # Example 3: Simulate tracks using the "Constrained" model, representing movement along
 #' # a feature
-#' simulated_tracks_constrained <- simulate_track(PaluxyRiver, nsim = 10, model = "Constrained")
+#' simulated_tracks_constrained <- simulate_track(PaluxyRiver, nsim = 3, model = "Constrained")
 #'
 #' # Plot simulated tracks with a different color scheme and width for "Constrained" model
 #' plot_sim(PaluxyRiver, simulated_tracks_constrained,
@@ -62,7 +62,7 @@
 #'
 #' # Example 4: Simulate tracks using the "Unconstrained" model (random exploratory
 #' # movement)
-#' simulated_tracks_unconstrained <- simulate_track(PaluxyRiver, nsim = 10, model = "Unconstrained")
+#' simulated_tracks_unconstrained <- simulate_track(PaluxyRiver, nsim = 3, model = "Unconstrained")
 #'
 #' # Plot simulated tracks with default colors and increased transparency for "Unconstrained"
 #' # model
@@ -76,13 +76,13 @@
 #' sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 #'
 #' # Example 5: Simulate tracks using data from Mount Tom
-#' simulated_tracks_mt <- simulate_track(sbMountTom, nsim = 10)
+#' simulated_tracks_mt <- simulate_track(sbMountTom, nsim = 3)
 #'
 #' # Plot simulated tracks with default settings and actual tracks from Mount Tom
 #' plot_sim(sbMountTom, simulated_tracks_mt)
 #'
 #' # Example 6: Simulate tracks using the "Directed" model for Mount Tom
-#' simulated_tracks_mt_directed <- simulate_track(sbMountTom, nsim = 10, model = "Directed")
+#' simulated_tracks_mt_directed <- simulate_track(sbMountTom, nsim = 3, model = "Directed")
 #'
 #' # Plot simulated tracks with specific colors and transparency for "Directed" model for Mount
 #' # Tom
@@ -93,7 +93,7 @@
 #' ), alpha_sim = 0.3, lwd_sim = 1.5, alpha_act = 0.8, lwd_act = 2)
 #'
 #' # Example 7: Simulate tracks using the "Constrained" model for Mount Tom
-#' simulated_tracks_mt_constrained <- simulate_track(sbMountTom, nsim = 10, model = "Constrained")
+#' simulated_tracks_mt_constrained <- simulate_track(sbMountTom, nsim = 3, model = "Constrained")
 #'
 #' # Plot simulated tracks with different color scheme and increased line width for "Constrained"
 #' # model
@@ -104,7 +104,7 @@
 #' ), alpha_sim = 0.5, lwd_sim = 0.2, alpha_act = 0.6, lwd_act = 2)
 #'
 #' # Example 8: Simulate tracks using the "Unconstrained" model for Mount Tom
-#' simulated_tracks_mt_unconstrained <- simulate_track(sbMountTom, nsim = 10, model = "Unconstrained")
+#' simulated_tracks_mt_unconstrained <- simulate_track(sbMountTom, nsim = 3, model = "Unconstrained")
 #'
 #' # Plot simulated tracks with a different color scheme and transparency for "Unconstrained" model
 #' plot_sim(sbMountTom, simulated_tracks_mt_unconstrained, colours_sim = c(

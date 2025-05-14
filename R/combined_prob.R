@@ -34,7 +34,7 @@
 #'
 #' @examples
 #' # Example 1: "Directed" model and similarity metrics.
-#' s1 <- simulate_track(PaluxyRiver, nsim = 2, model = "Directed")
+#' s1 <- simulate_track(PaluxyRiver, nsim = 3, model = "Directed")
 #' DTW1 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 #' Frechet1 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 #' int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1,
@@ -42,7 +42,7 @@
 #' combined_prob(PaluxyRiver, metrics = list(DTW1, Frechet1, int1))
 #'
 #' # Example 2: "Constrained" model and similarity metrics.
-#' s2 <- simulate_track(PaluxyRiver, nsim = 2, model = "Constrained")
+#' s2 <- simulate_track(PaluxyRiver, nsim = 3, model = "Constrained")
 #' DTW2 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2,
 #'   superposition = "None")
 #' Frechet2 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2,
@@ -52,7 +52,7 @@
 #' combined_prob(PaluxyRiver, metrics = list(DTW2, Frechet2, int2))
 #'
 #' # Example 3: "Unconstrained" model and similarity metrics.
-#' s3 <- simulate_track(PaluxyRiver, nsim = 2, model = "Unconstrained")
+#' s3 <- simulate_track(PaluxyRiver, nsim = 3, model = "Unconstrained")
 #' DTW3 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3,
 #'   superposition = "None")
 #' Frechet3 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3,

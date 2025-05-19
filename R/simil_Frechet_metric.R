@@ -221,7 +221,7 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
       for (c in 1:length(data)) {
         for (r in 1:length(data)) {
           if (c <= r) next
-          Frechetsim[r, c] <- Frechet(as.matrix(sim[[i]][which(sim[[i]]$Trajectory == levels[r]), 1:2]), as.matrix(sim[[i]][which(sim[[i]]$Trajectory == levels[c]), 1:2]))
+          Frechetsim[r, c] <- suppressWarnings(Frechet(as.matrix(sim[[i]][which(sim[[i]]$Trajectory == levels[r]), 1:2]), as.matrix(sim[[i]][which(sim[[i]]$Trajectory == levels[c]), 1:2])))
         }
       }
       listFrechet[[i]] <- Frechetsim

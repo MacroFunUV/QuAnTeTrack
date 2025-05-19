@@ -1,8 +1,10 @@
 ## R CMD check results (Resubmision)
-All examples involving simulations have been updated to use a reduced number of simulations (`nsim = 2`) to minimize runtime (less than 5 seconds runtime).
+References to methods implemented in the package have been added to the `Description` field in the required CRAN format, using `<doi:...>`, `<ISBN:...>`, and `<https:...>` for auto-linking (as per: https://contributor.r-project.org/cran-cookbook/description_issues.html#references).
 
-There was 1 NOTE:
+Al `print()`, `cat()`, and `writeLines()` statements have been replaced with `message()`, `warning()`, or wrapped in `if (verbose)` where appropriate, following best practices described at: https://contributor.r-project.org/cran-cookbook/code_issues.html#using-printcat.
 
-**Possibly misspelled words**  
-   The following terms are domain-specific and intentionally used:
-   - "Tetrapod", "Trackways", "palaeo", "tetrapod", "trackways"
+There is still one NOTE about possibly misspelled words ("Tetrapod", "Trackways", "palaeo", "tetrapod", "trackways"). These are domain-specific and intentionally used.
+
+The package now passes `R CMD check --as-cran` with no ERRORs or WARNINGs on my local system.
+
+Thanks for your time and consideration.

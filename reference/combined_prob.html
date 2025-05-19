@@ -108,15 +108,15 @@ This function is particularly useful for comparing multiple models and evaluatin
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1: "Directed" model and similarity metrics.</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Directed"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">DTW1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s1</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:00.266526 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:10.45232 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:00.268708 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:10.454762 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:00.270817 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:10.456941 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -124,15 +124,15 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">Frechet1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s1</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:00.624086 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:10.814235 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:00.800695 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:11.1891 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:00.967963 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:11.358448 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -141,15 +141,15 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">int1</span> <span class="op">&lt;-</span> <span class="fu"><a href="track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, sim <span class="op">=</span> <span class="va">s1</span>,</span></span>
 <span class="r-in"><span>  origin.permutation <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:00.989935 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:11.380733 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:01.000815 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:11.391777 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:01.01172 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:11.402808 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -170,15 +170,15 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Constrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">DTW2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s2</span>,</span></span>
 <span class="r-in"><span>  superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:01.031002 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:11.418362 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:01.033172 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:11.420607 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:01.035304 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:11.422806 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -187,15 +187,15 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">Frechet2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s2</span>,</span></span>
 <span class="r-in"><span>  superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:01.371702 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:11.762635 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:01.531264 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:11.922563 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:01.694558 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:12.082432 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -204,30 +204,30 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">int2</span> <span class="op">&lt;-</span> <span class="fu"><a href="track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, sim <span class="op">=</span> <span class="va">s2</span>,</span></span>
 <span class="r-in"><span>  origin.permutation <span class="op">=</span> <span class="st">"Min.Box"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:02.040252 Permutation 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:12.45237 Permutation 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:02.331781 Permutation 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:12.972714 Permutation 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:02.670911 Permutation 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:13.353821 Permutation 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:02.68246 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:13.365646 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:02.693241 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:13.376715 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:02.703882 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:13.387672 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -248,15 +248,15 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-in"><span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Unconstrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">DTW3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s3</span>,</span></span>
 <span class="r-in"><span>  superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:02.718554 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:13.402827 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:02.720685 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:13.405092 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:02.722816 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:13.407253 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -265,16 +265,15 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">Frechet3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s3</span>,</span></span>
 <span class="r-in"><span>  superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:02.922278 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:13.608144 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:03.043013 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:13.730253 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The Frechet distance was unable to be found</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:03.062477 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:13.749842 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -283,30 +282,30 @@ This function is particularly useful for comparing multiple models and evaluatin
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">int3</span> <span class="op">&lt;-</span> <span class="fu"><a href="track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, sim <span class="op">=</span> <span class="va">s3</span>,</span></span>
 <span class="r-in"><span>  origin.permutation <span class="op">=</span> <span class="st">"Conv.Hull"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:03.459703 Permutation 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:14.363627 Permutation 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:03.591332 Permutation 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:14.70908 Permutation 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:03.718355 Permutation 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:14.862134 Permutation 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:03.729974 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:14.873811 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:03.740856 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:14.884758 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:21:03.75156 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 13:33:14.895473 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>

@@ -230,15 +230,15 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
       positive <- positive[!is.na(positive)]
       listnegFrechet[i] <- all(is.real.positive(positive))
 
-      writeLines(paste(Sys.time(), paste("Iteration", i)))
-      writeLines(" ")
-      writeLines("Frechet metric")
-      print(Frechetsim)
-      writeLines("------------------------------------")
+      message(paste(Sys.time(), paste("Iteration", i)))
+      message(" ")
+      message("Frechet metric")
+      return(Frechetsim)
+      message("------------------------------------")
       if (i == nsim) {
-        writeLines("ANALYSIS COMPLETED")
-        writeLines("------------------------------------")
-        writeLines(" ")
+        message("ANALYSIS COMPLETED")
+        message("------------------------------------")
+        message(" ")
       }
     }
 
@@ -268,7 +268,7 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
     list[[4]] <- listFrechet
 
     names(list) <- c("Frechet_distance_metric", "Frechet_distance_metric_p_values", "Frechet_metric_p_values_combined", "Frechet_distance_metric_simulations")
-    print(list[1:3])
+    return(list[1:3])
     return(invisible(list))
   }
 

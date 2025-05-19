@@ -321,14 +321,14 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
           sim[[i]][[j]] <- TrajTranslate(sim[[i]][[j]], csr(mat, 1)[1], csr(mat, 1)[2])
         }
 
-        writeLines(paste(Sys.time(), paste("Permutation", i)))
-        writeLines(" ")
-        writeLines(paste("Permutation of coordinates at origin using", origin.permutation))
-        writeLines("------------------------------------")
+        message(paste(Sys.time(), paste("Permutation", i)))
+        message(" ")
+        message(paste("Permutation of coordinates at origin using", origin.permutation))
+        message("------------------------------------")
         if (i == nsim) {
-          writeLines("PERMUTATION COMPLETED")
-          writeLines("------------------------------------")
-          writeLines(" ")
+          message("PERMUTATION COMPLETED")
+          message("------------------------------------")
+          message(" ")
         }
       }
     }
@@ -352,15 +352,15 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
       diffinter <- diffinter[!is.na(diffinter)]
       listdiffIntersect[i] <- sum(diffinter)
 
-      writeLines(paste(Sys.time(), paste("Iteration", i)))
-      writeLines(" ")
-      writeLines("Intersect metric")
-      print(Intersectsim)
-      writeLines("------------------------------------")
+      message(paste(Sys.time(), paste("Iteration", i)))
+      message(" ")
+      message("Intersect metric")
+      return(Intersectsim)
+      message("------------------------------------")
       if (i == nsim) {
-        writeLines("ANALYSIS COMPLETED")
-        writeLines("------------------------------------")
-        writeLines(" ")
+        message("ANALYSIS COMPLETED")
+        message("------------------------------------")
+        message(" ")
       }
     }
 
@@ -413,7 +413,7 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
     list[[4]] <- listIntersect
 
     names(list) <- c("Intersection_metric", "Intersection_metric_p_values", "Intersection_metric_p_values_combined", "Intersection_metric_simulations")
-    print(list[1])
+    return(list[1])
     return(list)
   } else {
     return(Intersect)

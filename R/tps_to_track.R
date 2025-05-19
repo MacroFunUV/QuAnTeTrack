@@ -369,5 +369,5 @@ tps_to_track <- function(file, scale = NULL, missing = FALSE, NAs = NULL, R.L.si
     Footprints = data_frame
   )
 
-  print(listdata)
+  return(listdata)
 }

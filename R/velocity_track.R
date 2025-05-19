@@ -205,5 +205,5 @@ velocity_track <- function(data,
   names(list) <- paste0("Track_", str_pad(1:length(data), nchar(length(data)), pad = "0"), sep = "")
 
   # Print the result
-  print(list)
+  return(list)
 }

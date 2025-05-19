@@ -176,7 +176,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
       labs(y = "Direction (degrees)", x = "") +
       scale_y_continuous(limits = c(-180, 180), breaks = seq(-180, 180, by = 30)) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-    print(p_boxplot)
+    return(p_boxplot)
   }
 
   if (plot_type == "polar_steps") {
@@ -232,7 +232,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
       labs(x = "Direction (degrees) vs Steps count") +
       annotate("text", x = rep(y_labels_position, length(y_breaks)), y = y_breaks, label = as.character(y_breaks), size = 3)
 
-    print(p_polar_steps)
+    return(p_polar_steps)
   }
 
   if (plot_type == "polar_average") {
@@ -294,7 +294,7 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
       labs(x = "Direction (degrees) vs Trackways count") +
       annotate("text", x = rep(y_labels_position, length(y_breaks)), y = y_breaks, label = as.character(y_breaks), size = 3)
 
-    print(p_polar_average)
+    return(p_polar_average)
   }
 
   if (plot_type == "faceted") {
@@ -364,6 +364,6 @@ plot_direction <- function(data, plot_type = "boxplot", angle_range = 30, y_labe
         inherit.aes = FALSE
       )
 
-    print(p_faceted)
+    return(p_faceted)
   }
 }

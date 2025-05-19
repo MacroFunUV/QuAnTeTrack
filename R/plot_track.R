@@ -259,5 +259,5 @@ plot_track <- function(data, plot = "FootprintsTracks", colours = NULL, cex.f = 
   }
 
   # Return the final plot----
-  plotfig
+  return(plotfig)
 }

@@ -248,15 +248,15 @@ simil_DTW_metric <- function(data, test = NULL, sim = NULL, superposition = NULL
       positive <- positive[!is.na(positive)]
       listnegDTW[i] <- all(is.real.positive(positive))
 
-      writeLines(paste(Sys.time(), paste("Iteration", i)))
-      writeLines(" ")
-      writeLines("DTW metric")
-      print(DTWsim)
-      writeLines("------------------------------------")
+      message(paste(Sys.time(), paste("Iteration", i)))
+      message(" ")
+      message("DTW metric")
+      return(DTWsim)
+      message("------------------------------------")
       if (i == nsim) {
-        writeLines("ANALYSIS COMPLETED")
-        writeLines("------------------------------------")
-        writeLines(" ")
+        message("ANALYSIS COMPLETED")
+        message("------------------------------------")
+        message(" ")
       }
     }
 
@@ -289,7 +289,7 @@ simil_DTW_metric <- function(data, test = NULL, sim = NULL, superposition = NULL
     list[[4]] <- listDTW
 
     names(list) <- c("DTW_distance_metric", "DTW_distance_metric_p_values", "DTW_metric_p_values_combined", "DTW_distance_metric_simulations")
-    print(list[1:3])
+    return(list[1:3])
     return(invisible(list))
   }
 

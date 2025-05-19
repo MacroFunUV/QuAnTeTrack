@@ -251,7 +251,7 @@ simil_DTW_metric <- function(data, test = NULL, sim = NULL, superposition = NULL
       message(paste(Sys.time(), paste("Iteration", i)))
       message(" ")
       message("DTW metric")
-      return(DTWsim)
+      DTWsim
       message("------------------------------------")
       if (i == nsim) {
         message("ANALYSIS COMPLETED")
@@ -289,8 +289,7 @@ simil_DTW_metric <- function(data, test = NULL, sim = NULL, superposition = NULL
     list[[4]] <- listDTW
 
     names(list) <- c("DTW_distance_metric", "DTW_distance_metric_p_values", "DTW_metric_p_values_combined", "DTW_distance_metric_simulations")
-    return(list[1:3])
-    return(invisible(list))
+    return(list)
   }
 
   if (test == FALSE) {
@@ -299,6 +298,6 @@ simil_DTW_metric <- function(data, test = NULL, sim = NULL, superposition = NULL
     list[[2]] <- DTW
 
     names(list) <- c("DTW_distance_metric")
-    return(invisible(list))
+    return(list)
   }
 }

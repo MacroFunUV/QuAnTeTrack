@@ -355,7 +355,7 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
       message(paste(Sys.time(), paste("Iteration", i)))
       message(" ")
       message("Intersect metric")
-      return(Intersectsim)
+      Intersectsim
       message("------------------------------------")
       if (i == nsim) {
         message("ANALYSIS COMPLETED")
@@ -413,7 +413,6 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
     list[[4]] <- listIntersect
 
     names(list) <- c("Intersection_metric", "Intersection_metric_p_values", "Intersection_metric_p_values_combined", "Intersection_metric_simulations")
-    return(list[1])
     return(list)
   } else {
     return(Intersect)

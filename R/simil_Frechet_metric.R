@@ -233,7 +233,7 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
       message(paste(Sys.time(), paste("Iteration", i)))
       message(" ")
       message("Frechet metric")
-      return(Frechetsim)
+      Frechetsim
       message("------------------------------------")
       if (i == nsim) {
         message("ANALYSIS COMPLETED")
@@ -268,8 +268,7 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
     list[[4]] <- listFrechet
 
     names(list) <- c("Frechet_distance_metric", "Frechet_distance_metric_p_values", "Frechet_metric_p_values_combined", "Frechet_distance_metric_simulations")
-    return(list[1:3])
-    return(invisible(list))
+    return(list)
   }
 
   if (test == FALSE) {
@@ -277,6 +276,6 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
     list[[1]] <- Frechet
 
     names(list) <- c("Frechet_distance_metric")
-    return(invisible(list))
+    return(list)
   }
 }

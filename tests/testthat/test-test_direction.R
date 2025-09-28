@@ -1,106 +1,114 @@
-test_that("test_direction correctly performs ANOVA on MountTom dataset", {
-  suppressWarnings(result <- test_direction(MountTom, analysis = "ANOVA"))
+# tests/testthat/test-test_direction_circular.R
+
+test_that("test_direction correctly performs Watson–Williams test on MountTom dataset", {
+  suppressWarnings(result <- test_direction(MountTom, analysis = "Watson-Williams"))
+
   # Check for expected output structure
-  expect_true("normality_results" %in% names(result))
-  expect_true("homogeneity_test" %in% names(result))
-  expect_true("ANOVA" %in% names(result))
+  expect_true("assumption_results" %in% names(result))
+  expect_true("global_test" %in% names(result))
+  expect_true("pairwise" %in% names(result))
+
+  # Check that assumption results contain required elements
+  expect_true(all(c("rayleigh", "kappa", "kappa_range", "kappa_ratio") %in% names(result$assumption_results)))
+
+  # Check that the global test is an htest object
+  expect_s3_class(result$global_test, "htest")
+
+  # Check pairwise structure if present
+  if (!is.null(result$pairwise) && nrow(result$pairwise) > 0) {
+    expect_true(all(c("track1","track2","statistic","p_value","method","p_adj") %in% names(result$pairwise)))
+  }
 })
 
-test_that("test_direction correctly performs Kruskal-Wallis test on MountTom dataset", {
-  result <- suppressWarnings(test_direction(MountTom, analysis = "Kruskal-Wallis"))
+test_that("test_direction correctly performs Watson–Wheeler test with permutation (B=5) on MountTom dataset", {
+  suppressWarnings(result <- test_direction(MountTom, analysis = "Watson-Wheeler",
+                                            permutation = TRUE, B = 5, seed = 123))
 
   # Check for expected output structure
-  expect_true("normality_results" %in% names(result))
-  expect_true("homogeneity_test" %in% names(result))
-  expect_true("Kruskal_Wallis" %in% names(result))
+  expect_true("assumption_results" %in% names(result))
+  expect_true("global_test" %in% names(result))
+  expect_true("pairwise" %in% names(result))
 
-  # Check that Kruskal-Wallis results contain required elements
-  expect_true("Kruskal_Wallis" %in% names(result$Kruskal_Wallis))
-  expect_true("Dunn" %in% names(result$Kruskal_Wallis))
+  # Check that the global test is permutation-based
+  expect_s3_class(result$global_test, "htest")
+  expect_true(grepl("Watson-Wheeler \\(permutation, B=5\\)", result$global_test$method))
+
+  # Check pairwise structure if present
+  if (!is.null(result$pairwise) && nrow(result$pairwise) > 0) {
+    expect_true(all(c("track1","track2","statistic","p_value","method","p_adj") %in% names(result$pairwise)))
+  }
 })
 
-test_that("test_direction correctly performs GLM on MountTom dataset", {
-  suppressWarnings(result <- test_direction(MountTom, analysis = "GLM"))
+test_that("test_direction correctly performs Watson–Williams test on PaluxyRiver dataset", {
+  suppressWarnings(result <- test_direction(PaluxyRiver, analysis = "Watson-Williams"))
 
   # Check for expected output structure
-  expect_true("normality_results" %in% names(result))
-  expect_true("homogeneity_test" %in% names(result))
-  expect_true("GLM" %in% names(result))
+  expect_true("assumption_results" %in% names(result))
+  expect_true("global_test" %in% names(result))
+  expect_true("pairwise" %in% names(result))
 
-  # Check that GLM results contain required elements
-  expect_true("GLM" %in% names(result$GLM))
-  expect_true("pairwise_results" %in% names(result$GLM))
+  # Check that the global test is an htest object
+  expect_s3_class(result$global_test, "htest")
+
+  # Check pairwise structure if present
+  if (!is.null(result$pairwise) && nrow(result$pairwise) > 0) {
+    expect_true(all(c("track1","track2","statistic","p_value","method","p_adj") %in% names(result$pairwise)))
+  }
 })
 
-test_that("test_direction correctly performs ANOVA on PaluxyRiver dataset", {
-  result <- suppressWarnings(test_direction(PaluxyRiver, analysis = "ANOVA"))
+test_that("test_direction correctly performs Watson–Wheeler test with permutation (B=5) on PaluxyRiver dataset", {
+  suppressWarnings(result <- test_direction(PaluxyRiver, analysis = "Watson-Wheeler",
+                                            permutation = TRUE, B = 5, seed = 123))
 
   # Check for expected output structure
-  expect_true("normality_results" %in% names(result))
-  expect_true("homogeneity_test" %in% names(result))
-  expect_true("ANOVA" %in% names(result))
+  expect_true("assumption_results" %in% names(result))
+  expect_true("global_test" %in% names(result))
+  expect_true("pairwise" %in% names(result))
 
-  # Check that ANOVA results contain required elements
-  expect_true("ANOVA" %in% names(result$ANOVA))
-  expect_true("Tukey" %in% names(result$ANOVA))
-})
+  # Check that the global test is permutation-based
+  expect_s3_class(result$global_test, "htest")
+  expect_true(grepl("Watson-Wheeler \\(permutation, B=5\\)", result$global_test$method))
 
-test_that("test_direction correctly performs Kruskal-Wallis test on PaluxyRiver dataset", {
-  result <- suppressWarnings(test_direction(PaluxyRiver, analysis = "Kruskal-Wallis"))
-
-  # Check for expected output structure
-  expect_true("normality_results" %in% names(result))
-  expect_true("homogeneity_test" %in% names(result))
-  expect_true("Kruskal_Wallis" %in% names(result))
-
-  # Check that Kruskal-Wallis results contain required elements
-  expect_true("Kruskal_Wallis" %in% names(result$Kruskal_Wallis))
-  expect_true("Dunn" %in% names(result$Kruskal_Wallis))
-})
-
-test_that("test_direction correctly performs GLM on PaluxyRiver dataset", {
-  result <- suppressWarnings(test_direction(PaluxyRiver, analysis = "GLM"))
-
-  # Check for expected output structure
-  expect_true("normality_results" %in% names(result))
-  expect_true("homogeneity_test" %in% names(result))
-  expect_true("GLM" %in% names(result))
-
-  # Check that GLM results contain required elements
-  expect_true("GLM" %in% names(result$GLM))
-  expect_true("pairwise_results" %in% names(result$GLM))
+  # Check pairwise structure if present
+  if (!is.null(result$pairwise) && nrow(result$pairwise) > 0) {
+    expect_true(all(c("track1","track2","statistic","p_value","method","p_adj") %in% names(result$pairwise)))
+  }
 })
 
 test_that("test_direction gives an error for invalid analysis type", {
   expect_error(
     test_direction(MountTom, analysis = "InvalidMethod"),
-    "Invalid 'analysis' argument. Choose from 'ANOVA', 'Kruskal-Wallis', or 'GLM'."
+    "Invalid 'analysis' argument. Choose 'Watson-Williams' \\(default\\) or 'Watson-Wheeler'."
   )
 })
 
 test_that("test_direction gives an error when data is not a valid track object", {
   expect_error(
-    test_direction(NULL, analysis = "ANOVA"),
+    test_direction(NULL, analysis = "Watson-Williams"),
     "The 'data' argument must be a 'track' R object, which is a list consisting of two elements: 'Trajectories' and 'Footprints'."
   )
   expect_error(
-    test_direction(list(1, 2, 3), analysis = "ANOVA"),
+    test_direction(list(1, 2, 3), analysis = "Watson-Williams"),
     "Both elements of 'data' must be lists. Ensure that 'Trajectories' and 'Footprints' are provided."
   )
 })
 
-test_that("test_direction emits both expected warnings", {
-  warnings <- capture_warnings(test_direction(MountTom, analysis = "ANOVA"))
+test_that("test_direction emits expected warnings (removal + assumptions) when applicable", {
+  warnings <- capture_warnings(test_direction(MountTom, analysis = "Watson-Williams"))
 
-  expect_true(any(grepl("The following tracks were removed from the analysis due to having 3 or fewer footprints: Track 05, Track 06, Track 10, Track 11, Track 12, Track 14, Track 17, Track 19, Track 20, Track 21, Track 22, Track 23.", warnings)))
+  # Check removal warnings
+  expect_true(any(grepl("removed from the analysis due to having 3 or fewer footprints", warnings)))
 
-  expect_true(any(grepl("One or more tracks do not follow a normal distribution \\(p-value <= 0.05\\). Assumptions for ANOVA are not met. Consider using 'Kruskal-Wallis' or 'GLM'.", warnings)))
+  # Check at least one assumption warning is triggered
+  expect_true(any(grepl("near-uniform directions \\(Rayleigh p > 0\\.05\\)", warnings)) ||
+                any(grepl("unstable concentration \\(kappa\\)", warnings)) ||
+                any(grepl("kappa.*heterogeneous.*ratio > 2", warnings)))
 })
 
 test_that("test_direction gives an error when there are not enough valid tracks", {
-  small_track_data <- subset_track(MountTom, tracks = c(1)) # Only one track
+  small_track_data <- subset_track(MountTom, tracks = c(1)) # only one track
   expect_error(
-    test_direction(small_track_data, analysis = "ANOVA"),
-    "Not enough tracks with more than 3 footprints for meaningful analysis."
+    test_direction(small_track_data, analysis = "Watson-Williams"),
+    "Not enough tracks with more than 3 footprints for meaningful analysis"
   )
 })

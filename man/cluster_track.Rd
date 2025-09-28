@@ -95,7 +95,7 @@ H_mounttom <- c(
   1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784,
   1.676, 1.872, 1.648, 1.760, 1.612
 ) # Hip heights for MountTom tracks
-veltrack_MountTom <- velocity_track(MountTom, H = H_mounttom)
+veltrack_MountTom <- velocity_from_stride_track(MountTom, H = H_mounttom)
 result1 <- cluster_track(MountTom, veltrack_MountTom,
   variables = c("TurnAng", "Velocity")
 )
@@ -120,7 +120,7 @@ result4$clust$classification
 # Example 5: Cluster PaluxyRiver tracks using Distance and Straightness
 H_paluxyriver <- c(3.472, 2.200) # Hip heights for PaluxyRiver tracks
 Method_paluxyriver <- c("A", "B") # Different methods for different tracks
-veltrack_PaluxyRiver <- velocity_track(PaluxyRiver,
+veltrack_PaluxyRiver <- velocity_from_stride_track(PaluxyRiver,
   H = H_paluxyriver,
   method = Method_paluxyriver
 )
@@ -157,7 +157,7 @@ Ruiz, J., & Torices, A. (2013). Humans running at stadiums and beaches and the a
 Scrucca L., Fop M., Murphy T. B., & Raftery A. E. (2016) mclust 5: clustering, classification and density estimation using Gaussian finite mixture models. The R Journal, 8(1), 289-317.
 }
 \seealso{
-\code{\link{track_param}}, \code{\link{velocity_track}}, \code{\link[mclust]{Mclust}}
+\code{\link{track_param}}, \code{\link{velocity_from_stride_track}}, \code{\link[mclust]{Mclust}}
 }
 \author{
 Humberto G. Ferrón

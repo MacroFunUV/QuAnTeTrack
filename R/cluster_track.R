@@ -88,7 +88,7 @@
 #'   1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784,
 #'   1.676, 1.872, 1.648, 1.760, 1.612
 #' ) # Hip heights for MountTom tracks
-#' veltrack_MountTom <- velocity_track(MountTom, H = H_mounttom)
+#' veltrack_MountTom <- velocity_from_stride_track(MountTom, H = H_mounttom)
 #' result1 <- cluster_track(MountTom, veltrack_MountTom,
 #'   variables = c("TurnAng", "Velocity")
 #' )
@@ -113,7 +113,7 @@
 #' # Example 5: Cluster PaluxyRiver tracks using Distance and Straightness
 #' H_paluxyriver <- c(3.472, 2.200) # Hip heights for PaluxyRiver tracks
 #' Method_paluxyriver <- c("A", "B") # Different methods for different tracks
-#' veltrack_PaluxyRiver <- velocity_track(PaluxyRiver,
+#' veltrack_PaluxyRiver <- velocity_from_stride_track(PaluxyRiver,
 #'   H = H_paluxyriver,
 #'   method = Method_paluxyriver
 #' )
@@ -145,7 +145,7 @@
 #' @importFrom mclust mclustBIC
 #' @importFrom mclust mclust.options
 #'
-#' @seealso \code{\link{track_param}}, \code{\link{velocity_track}}, \code{\link[mclust]{Mclust}}
+#' @seealso \code{\link{track_param}}, \code{\link{velocity_from_stride_track}}, \code{\link[mclust]{Mclust}}
 #'
 #' @export
 

@@ -7,13 +7,23 @@
 #'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #'
 #' @details This function calculates various movement parameters for each track in the provided data.
-#' It uses the following helper functions from the \pkg{trajr} (Animal Trajectory Analysis) package:
+#'
+#' It uses the following helper functions:
+#'
+#' From the \pkg{trajr} package:
 #'    * \code{TrajAngles()}: Calculates the turning angles of the track.
 #'    * \code{TrajDistance()}: Calculates the total distance covered by the track.
 #'    * \code{TrajLength()}: Calculates the length of the track.
 #'    * \code{TrajStepLengths()}: Calculates the step lengths of the track.
 #'    * \code{TrajSinuosity2()}: Calculates the sinuosity of the track.
 #'    * \code{TrajStraightness()}: Calculates the straightness of the track.
+#'
+#' From the \pkg{circular} package:
+#'    * \code{circular()}: Converts raw angles (in radians) into a circular data type.
+#'    * \code{mean.circular()}: Computes the circular mean of the turning angles.
+#'    * \code{sd.circular()}: Computes the circular standard deviation of the turning angles.
+#'
+#' The circular mean and circular standard deviation are returned in degrees in this function.
 #'
 #' @return A list of lists, where each sublist contains the computed parameters for a corresponding track.
 #' The parameters included are:
@@ -30,6 +40,30 @@
 #'
 #' @return The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).
 #'
+#' @return Circular mean of turning angles is computed as:
+#'
+#' \deqn{\bar{θ} = atan2\left(\frac{1}{n}\sum_{i=1}^n \sin θ_i, \frac{1}{n}\sum_{i=1}^n \cos θ_i\right)}
+#'
+#' where:
+#' \itemize{
+#'   \item{\eqn{θ_i}}{ is the \eqn{i^{th}} turning angle in radians.}
+#'   \item{\eqn{n}}{ is the total number of turning angles.}
+#'   \item{\eqn{\sin θ_i}, \eqn{\cos θ_i}}{ are the sine and cosine components of each turning angle.}
+#'   \item{\eqn{atan2(y, x)}}{ is the two-argument arctangent that returns the angle in the correct quadrant.}
+#' }
+#'
+#' @return Circular standard deviation of turning angles is computed as:
+#'
+#' \deqn{s_c = \sqrt{-2 \ln(\bar R)}, \quad \bar R = \sqrt{\left(\frac{1}{n}\sum_{i=1}^n \cos θ_i\right)^2 + \left(\frac{1}{n}\sum_{i=1}^n \sin θ_i\right)^2}}
+#'
+#' where:
+#' \itemize{
+#'   \item{\eqn{\bar R}}{ is the mean resultant length, measuring concentration of angles around the mean direction.}
+#'   \item{\eqn{n}}{ is the total number of turning angles.}
+#'   \item{\eqn{\cos θ_i}, \eqn{\sin θ_i}}{ are the trigonometric components of each angle.}
+#'   \item{\eqn{s_c}}{ is the circular standard deviation in radians (converted to degrees in this function).}
+#' }
+#'
 #' @return Sinuosity is calculated according to Benhamou (2004), as defined in equation 8.
 #' The formula used here is a refined version of the sinuosity index presented by Bovet & Benhamou (1988),
 #' which is applicable to a broader range of turning angle distributions and does not require a constant step length.
@@ -37,13 +71,17 @@
 #' The sinuosity is computed using the formula:
 #' \deqn{S = 2 \left[ p \left( \frac{1 + c}{1 - c} + b^2 \right) \right]^{-0.5}}
 #' where:
-#' \item{p}{is the mean step length (in meters),}
-#' \item{c}{is the mean cosine of turning angles (in radians), and}
-#' \item{b}{is the coefficient of variation of the step length (in meters).}
+#' \itemize{
+#' \item{\eqn{p}}{ is the mean step length (in meters),}
+#' \item{\eqn{c}}{ is the mean cosine of turning angles (in radians), and}
+#' \item{\eqn{b}}{ is the coefficient of variation of the step length (in meters).}
+#' }
 #'
 #' @return The straightness index is defined as the ratio D/L, where:
-#' \item{D}{is the beeline distance between the first and last points in the trajectory (in meters), and}
-#' \item{L}{is the total path length traveled (in meters).}
+#' \itemize{
+#' \item{\eqn{D}}{ is the beeline distance between the first and last points in the trajectory (in meters), and}
+#' \item{\eqn{L}}{ is the total path length traveled (in meters).}
+#' }
 #'
 #' Straightness index is based on the method described by Batschelet (1981). According to Benhamou (2004),
 #' the straightness index serves as a reliable measure of the efficiency of a directed walk. However, it is not suitable
@@ -82,12 +120,11 @@
 #' @importFrom trajr TrajStepLengths
 #' @importFrom trajr TrajSinuosity2
 #' @importFrom trajr TrajStraightness
+#' @importFrom circular circular mean.circular sd.circular
 #'
 #' @seealso \code{\link{tps_to_track}}
 #'
 #' @export
-
-
 track_param <- function(data) {
   ## Errors and Warnings----
 
@@ -100,7 +137,6 @@ track_param <- function(data) {
   if (!is.list(data[[1]]) || !is.list(data[[2]])) {
     stop("Both elements of 'data' must be lists. Ensure that 'Trajectories' and 'Footprints' are provided.")
   }
-
 
   ## Code----
 
@@ -116,13 +152,15 @@ track_param <- function(data) {
     sublist <- list()
 
     # Calculate the turning angles for the current trajectory in degrees.
-    sublist[[1]] <- TrajAngles(data[[i]], compass.direction = 0) * (180 / pi)
+    angles_rad <- TrajAngles(data[[i]], compass.direction = 0)                # radians
+    sublist[[1]] <- angles_rad * (180 / pi)                                   # degrees (raw angles)
 
-    # Calculate the mean turning angle for the current trajectory in degrees.
-    sublist[[2]] <- mean(TrajAngles(data[[i]], compass.direction = 0)) * (180 / pi)
+    # Calculate the circular mean turning angle for the current trajectory in degrees.
+    ang_circ <- circular(angles_rad, units = "radians", modulo = "2pi")
+    sublist[[2]] <- as.numeric(mean(ang_circ)) * (180 / pi)
 
-    # Calculate the standard deviation of the turning angles for the current trajectory in degrees.
-    sublist[[3]] <- sd(TrajAngles(data[[i]], compass.direction = 0)) * (180 / pi)
+    # Calculate the circular standard deviation of the turning angles for the current trajectory in degrees.
+    sublist[[3]] <- as.numeric(sd(ang_circ)) * (180 / pi)
 
     # Calculate the total distance traveled for the current trajectory.
     sublist[[4]] <- TrajDistance(data[[i]])

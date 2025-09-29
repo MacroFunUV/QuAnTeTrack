@@ -37,6 +37,8 @@
 #'    * \code{Standard_deviation_step_length}: The standard deviation of the step lengths  (in meters).
 #'    * \code{Sinuosity}: The sinuosity of the track (dimensionless).
 #'    * \code{Straightness}: The straightness of the track (dimensionless).
+#'    * \code{Trackway_width}: Mean lateral separation between left and right footprints (in meters), measured perpendicular to the inferred trackway axis.
+#'    * \code{Pace_angulation}: Mean interior angle (in degrees) computed from alternating triplets (L–R–L or R–L–R).
 #'
 #' @return The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).
 #'
@@ -121,6 +123,7 @@
 #' @importFrom trajr TrajSinuosity2
 #' @importFrom trajr TrajStraightness
 #' @importFrom circular circular mean.circular sd.circular
+#' @importFrom stats prcomp
 #'
 #' @seealso \code{\link{tps_to_track}}
 #'
@@ -128,62 +131,115 @@
 track_param <- function(data) {
   ## Errors and Warnings----
 
-  # Check if 'data' is a list with at least two elements
+  # Check structure
   if (!is.list(data) || length(data) < 2) {
     stop("The 'data' argument must be a 'track' R object.")
   }
-
-  # Check if the two elements of 'data' are lists
   if (!is.list(data[[1]]) || !is.list(data[[2]])) {
     stop("Both elements of 'data' must be lists. Ensure that 'Trajectories' and 'Footprints' are provided.")
   }
 
   ## Code----
+  trajectories <- data[[1]]
+  footprints_list <- data[[2]]
 
-  # Extract the first element of the input 'data' list, which is expected to contain the 'Trajectories' list.
-  data <- data[[1]]
-
-  # Initialize an empty list to store the results for each trajectory.
   list <- list()
 
-  # Loop through each trajectory in the 'data' list.
-  for (i in 1:length(data)) {
-    # Initialize an empty sublist to store the calculated parameters for the current trajectory.
+  # helper: mean circular angle at middle of alternating triplets
+  .pace_angulation <- function(fp) {
+    if (!all(c("X","Y","Side") %in% names(fp))) return(NA_real_)
+    side <- as.character(fp$Side)
+    # normalize to "L"/"R"
+    side <- ifelse(grepl("^[lL]", side), "L",
+                   ifelse(grepl("^[rR]", side), "R", NA))
+    ok <- !is.na(fp$X) & !is.na(fp$Y) & !is.na(side)
+    if (sum(ok) < 3) return(NA_real_)
+    X <- fp$X[ok]; Y <- fp$Y[ok]; s <- side[ok]
+    n <- length(s)
+    angs <- numeric(0)
+    for (k in 2:(n-1)) {
+      if (s[k-1] != s[k] && s[k] != s[k+1] && s[k-1] == s[k+1]) {
+        p1 <- c(X[k-1], Y[k-1]); p2 <- c(X[k], Y[k]); p3 <- c(X[k+1], Y[k+1])
+        u <- p1 - p2; v <- p3 - p2
+        nu <- sqrt(sum(u*u)); nv <- sqrt(sum(v*v))
+        if (nu > 0 && nv > 0) {
+          cosang <- sum(u*v)/(nu*nv)
+          cosang <- max(min(cosang, 1), -1)
+          angs <- c(angs, acos(cosang) * 180/pi)
+        }
+      }
+    }
+    if (length(angs) == 0) NA_real_ else mean(angs)
+  }
+
+  # helper: trackway width using trajectory axis + perpendicular distances of footprints
+  .trackway_width <- function(traj, fp) {
+    if (!all(c("x","y") %in% names(traj))) return(NA_real_)
+    if (!all(c("X","Y","Side") %in% names(fp))) return(NA_real_)
+    side <- as.character(fp$Side)
+    side <- ifelse(grepl("^[lL]", side), "L",
+                   ifelse(grepl("^[rR]", side), "R", NA))
+    ok_fp <- !is.na(fp$X) & !is.na(fp$Y) & !is.na(side)
+    if (sum(ok_fp) < 2 || length(unique(side[ok_fp])) < 2) return(NA_real_)
+
+    coords_traj <- cbind(traj$x, traj$y)
+    if (nrow(coords_traj) < 2) return(NA_real_)
+    pc <- prcomp(coords_traj, center = TRUE, scale. = FALSE)
+    dir <- pc$rotation[, 1]; dir <- dir / sqrt(sum(dir^2))
+    ctr <- colMeans(coords_traj)
+
+    # perpendicular unit vector to axis
+    nvec <- c(-dir[2], dir[1]); nvec <- nvec / sqrt(sum(nvec^2))
+
+    # signed perpendicular distances of footprints to axis
+    coords_fp <- cbind(fp$X[ok_fp], fp$Y[ok_fp])
+    d <- as.numeric((coords_fp[,1] - ctr[1]) * nvec[1] + (coords_fp[,2] - ctr[2]) * nvec[2])
+    s_ok <- side[ok_fp]
+    Ld <- d[s_ok == "L"]; Rd <- d[s_ok == "R"]
+    if (length(Ld) == 0 || length(Rd) == 0) return(NA_real_)
+    abs(mean(Ld, na.rm = TRUE) - mean(Rd, na.rm = TRUE))
+  }
+
+  for (i in seq_along(trajectories)) {
     sublist <- list()
 
-    # Calculate the turning angles for the current trajectory in degrees.
-    angles_rad <- TrajAngles(data[[i]], compass.direction = 0)                # radians
-    sublist[[1]] <- angles_rad * (180 / pi)                                   # degrees (raw angles)
+    # Turning angles (degrees) and circular summaries
+    angles_rad <- TrajAngles(trajectories[[i]], compass.direction = 0)
+    sublist[[1]] <- angles_rad * (180 / pi)
 
-    # Calculate the circular mean turning angle for the current trajectory in degrees.
     ang_circ <- circular(angles_rad, units = "radians", modulo = "2pi")
     sublist[[2]] <- as.numeric(mean(ang_circ)) * (180 / pi)
-
-    # Calculate the circular standard deviation of the turning angles for the current trajectory in degrees.
     sublist[[3]] <- as.numeric(sd(ang_circ)) * (180 / pi)
 
-    # Calculate the total distance traveled for the current trajectory.
-    sublist[[4]] <- TrajDistance(data[[i]])
+    # Distance/length/steps/sinuosity/straightness
+    sublist[[4]]  <- TrajDistance(trajectories[[i]])
+    sublist[[5]]  <- TrajLength(trajectories[[i]])
+    steps_i <- TrajStepLengths(trajectories[[i]])
+    sublist[[6]]  <- steps_i
+    sublist[[7]]  <- mean(steps_i)
+    sublist[[8]]  <- sd(steps_i)
+    sublist[[9]]  <- TrajSinuosity2(trajectories[[i]])
+    sublist[[10]] <- TrajStraightness(trajectories[[i]])
 
-    # Calculate the total length of the trajectory for the current trajectory.
-    sublist[[5]] <- TrajLength(data[[i]])
+    # NEW: Trackway width & Pace angulation from Footprints (X,Y, Side)
+    fp_i <- footprints_list[[i]]
+    tw <- pa <- NA_real_
+    if (is.data.frame(fp_i)) {
+      if (!all(c("X","Y") %in% names(fp_i))) {
+        warning(sprintf("Track %d: Footprints missing 'X'/'Y'; Trackway_width and Pace_angulation set to NA.", i))
+      } else if (!("Side" %in% names(fp_i))) {
+        warning(sprintf("Track %d: Footprints missing 'Side'; Trackway_width and Pace_angulation set to NA.", i))
+      } else {
+        tw <- .trackway_width(trajectories[[i]], fp_i)
+        pa <- .pace_angulation(fp_i)
+      }
+    } else {
+      warning(sprintf("Track %d: Footprints element is not a data.frame; Trackway_width and Pace_angulation set to NA.", i))
+    }
 
-    # Calculate the step lengths (distance between consecutive points) for the current trajectory.
-    sublist[[6]] <- TrajStepLengths(data[[i]])
+    sublist[[11]] <- tw
+    sublist[[12]] <- pa
 
-    # Calculate the mean step length for the current trajectory.
-    sublist[[7]] <- mean(TrajStepLengths(data[[i]]))
-
-    # Calculate the standard deviation of the step lengths for the current trajectory.
-    sublist[[8]] <- sd(TrajStepLengths(data[[i]]))
-
-    # Calculate the sinuosity (a measure of how much a path deviates from a straight line) for the current trajectory.
-    sublist[[9]] <- TrajSinuosity2(data[[i]])
-
-    # Calculate the straightness index (a ratio comparing the straight-line distance to the actual path length) for the current trajectory.
-    sublist[[10]] <- TrajStraightness(data[[i]])
-
-    # Assign descriptive names to the elements of the sublist for clarity.
     names(sublist) <- c(
       "Turning_angles",
       "Mean_turning_angle",
@@ -194,16 +250,14 @@ track_param <- function(data) {
       "Mean_step_length",
       "Standard_deviation_step_length",
       "Sinuosity",
-      "Straightness"
+      "Straightness",
+      "Trackway_width",
+      "Pace_angulation"
     )
 
-    # Store the sublist of parameters for the current trajectory in the main list.
     list[[i]] <- sublist
   }
 
-  # Assign descriptive names to each element of the main list, corresponding to each track.
-  names(list) <- paste0("Track_", str_pad(1:length(data), nchar(length(data)), pad = "0"), sep = "")
-
-  # Print the final list of track parameters.
+  names(list) <- paste0("Track_", str_pad(seq_along(trajectories), nchar(length(trajectories)), pad = "0"))
   return(list)
 }

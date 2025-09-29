@@ -4,32 +4,32 @@
 \alias{tps_to_track}
 \title{Transform a *.tps file into a \code{track} R object}
 \usage{
-tps_to_track(file, scale = NULL, missing = FALSE, NAs = NULL, R.L.side = NULL)
+tps_to_track(file, scale = NULL, R.L.side, missing = FALSE, NAs = NULL)
 }
 \arguments{
 \item{file}{A *.tps file containing (x,y) coordinates of footprints in tracks.}
 
 \item{scale}{A numeric value specifying the scale in meters per pixel.}
 
+\item{R.L.side}{A character vector specifying the side of the first footprint of each track. The length of the vector must be equal to the total number of tracks in the sample.
+\itemize{
+\item \code{"L"}: first footprint corresponds to the left foot.
+\item \code{"R"}: first footprint corresponds to the right foot.
+}}
+
 \item{missing}{A logical value indicating whether there are missing footprints in any track to be interpolated: \code{TRUE}, or \code{FALSE} (the default).}
 
 \item{NAs}{A matrix with two columns indicating which missing footprints will be interpolated.
 The first column gives the number of the track containing missing footprints, and the second column gives the number of the footprint that is missing within this track.
 The number of rows is equal to the total number of missing footprints in the sample.}
-
-\item{R.L.side}{A character vector specifying the side of the first footprint of each track.
-Only needed if \code{missing} is set to \code{TRUE}.
-The length of the vector must be equal to the total number of tracks in the sample.
-\itemize{
-\item \code{"L"}: first footprint corresponds to the left foot.
-\item \code{"R"}: first footprint corresponds to the right foot.
-}}
 }
 \value{
 A \code{track} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of trajectories (midpoints between consecutive footprints).
+Includes columns \code{X}, \code{Y}, \code{IMAGE}, \code{ID}, and \code{Side} (set to \code{"Medial"}).
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates and metadata,
+with a \code{Side} column (\code{"R"} or \code{"L"}) and a \code{missing} marker (\code{"Actual"} or \code{"Inferred"}).
 }
 }
 \description{
@@ -52,45 +52,49 @@ This interpolation is based on adjacent footprints and the provided side informa
 }
 
 \examples{
-# Example 1: Tracks without missing footprints. Based on the Paluxy River
-# dinosaur chase sequence (Farlow et al., 2011).
+# Example 1: Tracks without missing footprints.
+# Based on the Paluxy River dinosaur chase sequence (Farlow et al., 2011).
 
 # Load the example TPS file provided in the QuAnTeTrack package.
-# This TPS data includes footprint coordinates for different tracks,
-# along with associated metadata.
 tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
 
-# Call the tps_to_track function to convert the TPS data in the file
-# into a track object. The 'scale' argument sets the scaling factor
-# for the coordinates, and 'missing=FALSE' indicates that no landmarks
-# are missing in the dataset.
-tps_to_track(tpsPaluxyRiver, scale = 0.004341493, missing = FALSE, NAs = NULL)
+# Convert the TPS data into a track object.
+# The 'scale' argument sets the scaling factor,
+# 'R.L.side' specifies the starting side for each track,
+# and 'missing = FALSE' indicates no footprints are missing.
+tps_to_track(
+  tpsPaluxyRiver,
+  scale = 0.004341493,
+  R.L.side = c("R", "L"),
+  missing = FALSE,
+  NAs = NULL
+)
 
 
-# Example 2: Tracks with missing footprints. Based on dinosaur tracks from
-# the Mount Tom (Ostrom, 1972).
+# Example 2: Tracks with missing footprints.
+# Based on dinosaur tracks from Mount Tom (Ostrom, 1972).
 
-# Load the example TPS file provided in the QuAnTeTrack package.
-# This TPS data includes footprint coordinates for different tracks,
-# along with associated metadata.
+# Load the example TPS file.
 tpsMountTom <- system.file("extdata", "MountTom.tps", package = "QuAnTeTrack")
 
-# Define a matrix representing the footprints that are missing from the dataset.
-# In this example, the matrix 'NAs' specifies that footprint 7 is missing in track 3.
-NAs <- matrix(c(7, 3), nrow = 1, ncol = 2)
+# Define a matrix representing the missing footprints.
+# Here, footprint 7 is missing in track 3.
+NAs <- matrix(c(3, 7), nrow = 1, ncol = 2)
 
-# Call the tps_to_track function, which will convert the TPS data in the file
-# to a track object. The 'scale' argument sets the scaling factor for the coordinates,
-# 'missing' specifies whether missing footprints should be handled, 'NAs' provides
-# the missing footprints matrix, and 'R.L.side' specifies which side (Right or Left)
-# is the first footprint of each track.
-tps_to_track(tpsMountTom,
-  scale = 0.004411765, missing = TRUE, NAs = NAs,
+# Convert the TPS data into a track object.
+# The 'missing = TRUE' flag activates interpolation for missing footprints,
+# 'NAs' specifies which footprints are missing,
+# and 'R.L.side' indicates the starting side for each track.
+tps_to_track(
+  tpsMountTom,
+  scale = 0.004411765,
   R.L.side = c(
     "R", "L", "L", "L", "R", "L", "R", "R", "L", "L", "L",
     "L", "L", "R", "R", "L", "R", "R", "L", "R", "R",
     "R", "R"
-  )
+  ),
+  missing = TRUE,
+  NAs = NAs
 )
 
 }

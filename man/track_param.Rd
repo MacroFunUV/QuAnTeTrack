@@ -27,6 +27,8 @@ The parameters included are:
 \item \code{Standard_deviation_step_length}: The standard deviation of the step lengths  (in meters).
 \item \code{Sinuosity}: The sinuosity of the track (dimensionless).
 \item \code{Straightness}: The straightness of the track (dimensionless).
+\item \code{Trackway_width}: Mean lateral separation between left and right footprints (in meters), measured perpendicular to the inferred trackway axis.
+\item \code{Pace_angulation}: Mean interior angle (in degrees) computed from alternating triplets (L–R–L or R–L–R).
 }
 
 The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).

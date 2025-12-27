@@ -190,21 +190,21 @@ Phone: +34 (9635) 44477
 # in the PaluxyRiver dataset
 s1 <- simulate_track(PaluxyRiver, nsim = 3, model = "Directed")
 simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
-#> 2025-12-27 20:56:00.850077 Iteration 1
+#> 2025-12-27 21:05:21.860368 Iteration 1
 #>  
 #> Frechet metric
 #>         Track_1   Track_2
 #> Track_1      NA 0.8806958
 #> Track_2      NA        NA
 #> ------------------------------------
-#> 2025-12-27 20:56:01.040742 Iteration 2
+#> 2025-12-27 21:05:22.057685 Iteration 2
 #>  
 #> Frechet metric
 #>         Track_1   Track_2
 #> Track_1      NA 0.7820993
 #> Track_2      NA        NA
 #> ------------------------------------
-#> 2025-12-27 20:56:01.25676 Iteration 3
+#> 2025-12-27 21:05:22.259676 Iteration 3
 #>  
 #> Frechet metric
 #>         Track_1  Track_2
@@ -254,21 +254,21 @@ simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 # in the PaluxyRiver dataset  using the "Centroid" superposition method
 s2 <- simulate_track(PaluxyRiver, nsim = 3, model = "Constrained")
 simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "Centroid")
-#> 2025-12-27 20:56:01.655815 Iteration 1
+#> 2025-12-27 21:05:22.687412 Iteration 1
 #>  
 #> Frechet metric
 #>         Track_1  Track_2
 #> Track_1      NA 1.555129
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-27 20:56:01.870507 Iteration 2
+#> 2025-12-27 21:05:22.887422 Iteration 2
 #>  
 #> Frechet metric
 #>         Track_1 Track_2
 #> Track_1      NA 2.54824
 #> Track_2      NA      NA
 #> ------------------------------------
-#> 2025-12-27 20:56:02.050792 Iteration 3
+#> 2025-12-27 21:05:23.06761 Iteration 3
 #>  
 #> Frechet metric
 #>         Track_1  Track_2
@@ -318,21 +318,21 @@ simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "Centro
 # in the PaluxyRiver dataset using the "Origin" superposition method
 s3 <- simulate_track(PaluxyRiver, nsim = 3, model = "Unconstrained")
 simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "Origin")
-#> 2025-12-27 20:56:02.453848 Iteration 1
+#> 2025-12-27 21:05:23.486938 Iteration 1
 #>  
 #> Frechet metric
 #>         Track_1  Track_2
 #> Track_1      NA 5.015942
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-27 20:56:02.495196 Iteration 2
+#> 2025-12-27 21:05:23.522287 Iteration 2
 #>  
 #> Frechet metric
 #>         Track_1 Track_2
 #> Track_1      NA      -1
 #> Track_2      NA      NA
 #> ------------------------------------
-#> 2025-12-27 20:56:02.543024 Iteration 3
+#> 2025-12-27 21:05:23.592273 Iteration 3
 #>  
 #> Frechet metric
 #>         Track_1  Track_2

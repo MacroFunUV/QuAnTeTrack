@@ -9,7 +9,7 @@ test_that("track_param correctly computes parameters for PaluxyRiver dataset", {
   expected_names <- c(
     "Turning_angles", "Mean_turning_angle", "Standard_deviation_turning_angle",
     "Distance", "Length", "Step_lengths", "Mean_step_length",
-    "Standard_deviation_step_length", "Sinuosity", "Straightness"
+    "Standard_deviation_step_length", "Sinuosity", "Straightness","Trackway_width","Pace_angulation"
   )
 
   for (i in seq_along(result)) {
@@ -29,7 +29,7 @@ test_that("track_param correctly computes parameters for MountTom dataset", {
   expected_names <- c(
     "Turning_angles", "Mean_turning_angle", "Standard_deviation_turning_angle",
     "Distance", "Length", "Step_lengths", "Mean_step_length",
-    "Standard_deviation_step_length", "Sinuosity", "Straightness"
+    "Standard_deviation_step_length", "Sinuosity", "Straightness","Trackway_width","Pace_angulation"
   )
 
   for (i in seq_along(result)) {
@@ -52,6 +52,8 @@ test_that("track_param returns correct data types", {
     expect_true(is.numeric(track$Standard_deviation_step_length))
     expect_true(is.numeric(track$Sinuosity))
     expect_true(is.numeric(track$Straightness))
+    expect_true(is.numeric(track$Trackway_width))
+    expect_true(is.numeric(track$Pace_angulation))
   }
 })
 
@@ -92,7 +94,7 @@ test_that("track_param handles single-track data correctly", {
   expected_names <- c(
     "Turning_angles", "Mean_turning_angle", "Standard_deviation_turning_angle",
     "Distance", "Length", "Step_lengths", "Mean_step_length",
-    "Standard_deviation_step_length", "Sinuosity", "Straightness"
+    "Standard_deviation_step_length", "Sinuosity", "Straightness","Trackway_width","Pace_angulation"
   )
 
   expect_named(result[[1]], expected_names)

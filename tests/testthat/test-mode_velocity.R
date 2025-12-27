@@ -7,7 +7,7 @@ test_that("mode_velocity classifies MountTom dataset correctly", {
   )
 
   # Simulate velocity data
-  V_mounttom <- velocity_from_stride_track(MountTom, H = H_mounttom)
+  V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 
   # Evaluate velocity trend
   result <- mode_velocity(V_mounttom)
@@ -32,7 +32,7 @@ test_that("mode_velocity classifies PaluxyRiver dataset correctly", {
   Method_paluxyriver <- c("A", "B")
 
   # Simulate velocity data
-  V_paluxyriver <- velocity_from_stride_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
+  V_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 
   # Evaluate velocity trend
   result <- mode_velocity(V_paluxyriver)

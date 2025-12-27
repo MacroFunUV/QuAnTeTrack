@@ -7,7 +7,7 @@ H_mounttom <- c(
 )
 
 # Calculate velocities using the default Method "A"
-V_mounttom <- velocity_from_stride_track(MountTom, H = H_mounttom)
+V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 
 # Hip heights for each track in the PaluxyRiver dataset
 H_paluxyriver <- c(3.472, 2.200)
@@ -16,7 +16,7 @@ H_paluxyriver <- c(3.472, 2.200)
 Method_paluxyriver <- c("A", "B")
 
 # Calculate velocities using specified methods
-V_paluxyriver <- velocity_from_stride_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
+V_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 
 ### **Begin Tests**
 test_that("test_velocity correctly performs ANOVA on MountTom dataset", {
@@ -135,7 +135,7 @@ test_that("test_velocity gives an error when there are not enough valid tracks",
 ### **Extra Tests for Plotting**
 test_that("test_velocity generates a boxplot with multiple tracks", {
   multi_track_data <- subset_track(MountTom, tracks = c(1, 2, 3, 4))
-  multi_track_vel <- velocity_from_stride_track(multi_track_data, H = rep(1.5, 4))
+  multi_track_vel <- velocity_track(multi_track_data, H = rep(1.5, 4))
 
   expect_silent(test_velocity(multi_track_data, trackvel = multi_track_vel, plot = TRUE))
 })

@@ -1,9 +1,6 @@
 #' Calculate velocities and relative stride lengths for tracks
 #'
-#' @description
-#' `r lifecycle::badge("deprecated")`
-#'
-#' \code{velocity_track()} calculates the velocities and relative stride lengths for each step in a series of tracks, based on the step length, height at the hip, and gravity acceleration.
+#' \code{velocity_track()} calculates the relative stride lengths and velocities for each step in a series of tracks, based on the step length, height at the hip, and gravity acceleration.
 #'
 #' @param data A \code{track} R object, which is a list consisting of two elements:
 #'    * \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
@@ -13,7 +10,22 @@
 #' @param method A character vector specifying the method to calculate velocities for each track. Method \code{"A"} follows the approach from Alexander (1976), while method \code{"B"} is based on Ruiz & Torices (2013). If \code{NULL}, method \code{"A"} will be used for all tracks.
 #'
 #' @details
-#' The \code{velocity_track()} function calculates velocities using two methods:
+#' The \code{velocity_track()} estimates speed from stride length using classical formulas.
+#'
+#' As shown by Prescott et al. (2025), such estimates may be misleading—
+#' particularly when tracks are produced on unconsolidated substrates,
+#' where actual speeds can be substantially lower than calculated.
+#' Moreover, equal stride lengths may correspond to different velocities,
+#' and conversely, different stride lengths can sometimes reflect similar
+#' velocities, depending on gait and substrate conditions.
+#' These values should therefore be treated with caution, both in this
+#' function and in subsequent functions that incorporate velocity estimates.
+#' By contrast, when trackways are formed on firmer or semi-consolidated
+#' surfaces, the formulas are more reliable and can provide useful estimates.
+#' Use is best regarded as comparative or historical unless the substrate
+#' context supports more confident interpretation.
+#'
+#' #' The \code{velocity_track()} function calculates velocities using two methods:
 #'
 #' **Method A**: Based on Alexander (1976), with the formula:
 #' \deqn{v = 0.25 \cdot \sqrt{G} \cdot S^{1.67} \cdot H^{-1.17}}{v = 0.25 * sqrt(G) * S^1.67 * H^-1.17}
@@ -65,6 +77,8 @@
 #' @references
 #' Alexander, R. M. (1976). Estimates of speeds of dinosaurs. Nature, 261(5556), 129-130.
 #'
+#' Prescott, T. L., Griffin, B. W., Demuth, O. E., Gatesy, S. M., Lallensack, J. N., & Falkingham, P. L. (2025). Speed from fossil trackways: calculations not validated by extant birds on compliant substrates. Biology Letters, 21(6), 20250191.
+#'
 #' Ruiz, J., & Torices, A. (2013). Humans running at stadiums and beaches and the accuracy of speed estimations from fossil trackways. Ichnos, 20(1), 31-35.
 #'
 #' Thulborn, R. A., & Wade, M. (1984). Dinosaur trackways in the Winton Formation (mid-Cretaceous) of Queensland. Memoirs of the Queensland Museum, 21(2), 413-517.
@@ -104,18 +118,10 @@
 #' @export
 
 velocity_track <- function(data,
-                           H, # height at the hip (m)
-                           G = NULL, # gravity acceleration (m/s^2)
-                           method = NULL # formula to calculate speed for each track
+                                       H, # height at the hip (m)
+                                       G = NULL, # gravity acceleration (m/s^2)
+                                       method = NULL # formula to calculate speed for each track
 ) {
-
-  # Deprecation warning
-  lifecycle::deprecate_warn(
-    when = "1.0.0",
-    what = "velocity_track()",
-    with = "velocity_from_stride_track()",
-    details = "See ?velocity_from_stride_track for full details and references."
-  )
 
   ## Set default values if arguments are NULL----
   if (is.null(G)) G <- 9.8 # Set default Gravity acceleration if 'G' is NULL
@@ -157,6 +163,7 @@ velocity_track <- function(data,
       stop("Error: Length of 'method' must match the number of tracks in 'data'.")
     }
   }
+
 
   ## Code----
 

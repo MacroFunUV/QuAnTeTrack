@@ -276,6 +276,7 @@ For users working with their own data, **replace** `system.file("extdata", "Palu
 PaluxyRiver <- tps_to_track(
   system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack"),
   scale = 0.004341493,
+  R.L.side = c("R", "L"),
   missing = FALSE,
   NAs = NULL
 )
@@ -285,6 +286,7 @@ PaluxyRiver <- tps_to_track(
 PaluxyRiver <- tps_to_track(
   system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack"),
   scale = 0.004341493,
+  R.L.side = c("R", "L"),
   missing = FALSE,
   NAs = NULL
 )
@@ -759,86 +761,60 @@ The flexibility and comprehensiveness of the **`test_direction()`** function mak
 Testing with **ANOVA** checks for differences in **mean directions** across tracks, assuming the data is normally distributed and variances are homogeneous. Post-hoc pairwise comparisons are conducted if significant differences are found.
 
 ```{r, eval=FALSE}
-test_direction(PaluxyRiver, analysis = "ANOVA")
+test_direction(PaluxyRiver, analysis = "Watson-Williams")
 ```
 
 ```{r include=FALSE}
-test_dir_paluxy_anova <- test_direction(PaluxyRiver, analysis = "ANOVA")
+test_dir_paluxy_WaWi <- test_direction(PaluxyRiver, analysis = "Watson-Williams")
 ```
 
 ```{r, echo=FALSE}
-print(test_dir_paluxy_anova)
+print(test_dir_paluxy_WaWi)
 ```
 
 
 ```{r, eval=FALSE}
-test_direction(MountTom, analysis = "ANOVA")
+test_direction(MountTom, analysis = "Watson-Williams")
 ```
 
 
 ```{r include=FALSE}
-test_dir_mount_anova <- test_direction(MountTom, analysis = "ANOVA")
+test_dir_mount_WaWi <- test_direction(MountTom, analysis = "Watson-Williams")
 ```
 
 ```{r, echo=FALSE}
-print(test_dir_mount_anova)
+print(test_dir_mount_WaWi)
 ```
 
 
 Testing with **Kruskal-Wallis** provides a non-parametric alternative for comparing **median directions** across tracks when the data does not meet the assumptions of ANOVA. Significant differences are further examined using Dunn’s test.
 
 ```{r, eval=FALSE}
-test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
+test_direction(PaluxyRiver, analysis = "Watson-Wheeler")
 ```
 
 ```{r include=FALSE}
-test_dir_paluxy_Kruskal <- test_direction(PaluxyRiver, analysis = "Kruskal-Wallis")
+test_dir_paluxy_WaWh <- test_direction(PaluxyRiver, analysis = "Watson-Wheeler")
 ```
 
 ```{r, echo=FALSE}
-print(test_dir_paluxy_Kruskal)
+print(test_dir_paluxy_WaWh)
 ```
 
 
 ```{r, eval=FALSE}
-test_direction(MountTom, analysis = "Kruskal-Wallis")
+test_direction(MountTom, analysis = "Watson-Wheeler")
 ```
 
 
 ```{r include=FALSE}
-test_dir_mount_Kruskal <- test_direction(MountTom, analysis = "Kruskal-Wallis")
+test_dir_mount_WaWh <- test_direction(MountTom, analysis = "Watson-Wheeler")
 ```
 
 ```{r, echo=FALSE}
-print(test_dir_mount_Kruskal)
+print(test_dir_mount_WaWh)
 ```
 
-
-Testing with **Generalized Linear Model (GLM)** offers a flexible approach for comparing **mean directions** even when data distribution assumptions are violated. Pairwise comparisons are computed using the `emmeans` package.
-
-```{r, eval=FALSE}
-test_direction(PaluxyRiver, analysis = "GLM")
-```
-
-```{r include=FALSE}
-test_dir_paluxy_GLM <- test_direction(PaluxyRiver, analysis = "GLM")
-```
-
-```{r, echo=FALSE}
-print(test_dir_paluxy_GLM)
-```
-
-```{r, eval=FALSE}
-test_direction(MountTom, analysis = "GLM")
-```
-
-```{r include=FALSE}
-test_dir_mount_GLM <- test_direction(MountTom, analysis = "GLM")
-```
-
-```{r, echo=FALSE}
-print(test_dir_mount_GLM)
-```
 
 ## **Simulating Tracks Using Different Movement Models**
 
@@ -1216,7 +1192,8 @@ Next, perform clustering using key variables related to movement behavior: **sin
 clustering_mounttom <- cluster_track(
   data = sbMountTom,
   veltrack = velocity_sbmounttom,
-  variables = c("Sinuosity", "Straightness", "Velocity", "TurnAng")
+  variables = c("Sinuosity", "Straightness", "Velocity", "TurnAng"),
+  analysis = "mclust"
 )
 ```
 
@@ -1224,7 +1201,8 @@ clustering_mounttom <- cluster_track(
 clustering_mounttom <- cluster_track(
   data = sbMountTom,
   veltrack = velocity_sbmounttom,
-  variables = c("Sinuosity", "Straightness", "Velocity", "TurnAng")
+  variables = c("Sinuosity", "Straightness", "Velocity", "TurnAng"),
+  analysis = "mclust"
 )
 ```
 

@@ -121,29 +121,23 @@
 #' @importFrom utils read.table
 #'
 #' @export
+
+
 tps_to_track <- function(file, scale = NULL, R.L.side, missing = FALSE, NAs = NULL) {
 
-  ## Errors and Warnings----
-
-  # 'scale' required and must be positive numeric(1)
+  ## ---------- Errors and Warnings ----------
   if (is.null(scale)) {
-    stop("The 'scale' argument is missing. Please provide the scale in pixels per meter.")
+    stop("The 'scale' argument is missing. Please provide the scale in meters per pixel.")
   }
   if (!is.numeric(scale) || length(scale) != 1 || scale <= 0) {
     stop("The 'scale' argument must be a single positive numeric value.")
   }
-
-  # 'missing' must be logical(1)
   if (!is.logical(missing) || length(missing) != 1) {
     stop("The 'missing' argument must be a single logical value: TRUE or FALSE.")
   }
-
-  # Warn if 'NAs' is provided but 'missing' is FALSE
   if (!missing && !is.null(NAs)) {
     warning("The 'NAs' argument will be ignored because 'missing' is set to FALSE.")
   }
-
-  # Validate 'NAs' if provided
   if (!is.null(NAs)) {
     if (!is.matrix(NAs) || ncol(NAs) != 2) {
       stop("The 'NAs' argument must be a matrix with two columns.")
@@ -152,8 +146,6 @@ tps_to_track <- function(file, scale = NULL, R.L.side, missing = FALSE, NAs = NU
       stop("The 'NAs' matrix must contain positive integers.")
     }
   }
-
-  # Validate 'R.L.side' basic presence and values
   if (missing(R.L.side) || is.null(R.L.side)) {
     stop("The 'R.L.side' argument is mandatory and must be provided.")
   }
@@ -161,69 +153,86 @@ tps_to_track <- function(file, scale = NULL, R.L.side, missing = FALSE, NAs = NU
     stop("The 'R.L.side' vector must contain only 'R' or 'L' values.")
   }
 
-  ## Code----
+  ## ---------- Read TPS ----------
+  a <- readLines(file, warn = FALSE)
 
-  # Read file lines
-  a <- readLines(file)
+  # Indices of key lines
+  LM     <- grep("^\\s*LM\\s*=\\s*", a)
+  ID.ind <- grep("^\\s*ID\\s*=\\s*", a)
 
-  # Identify LM and ID lines
-  LM <- grep("LM", a)
-  ID.ind <- grep("ID", a)
-
-  # Extract image names
-  images <- basename(gsub("(IMAGE=)(.*)", "\\2", a[ID.ind - 1]))
-
-  # Number of rows for each landmark set
-  nrows <- as.numeric(gsub("(LM=)([0-9]+)", "\\2", grep("LM", a, value = TRUE)))
-  l <- length(LM)
-
-  # Now we can validate length of R.L.side against number of tracks
-  if (length(R.L.side) != l) {
-    stop(paste0("Length of 'R.L.side' (", length(R.L.side),
-                ") must equal the number of tracks detected in the file (", l, ")."))
+  if (length(LM) == 0 || length(ID.ind) == 0) {
+    stop("Could not find required LM= or ID= lines in the TPS file.")
   }
 
-  # Build landmarks list
-  landmarks <- vector("list", l)
-  for (i in 1:l) {
-    landmarks[i] <- list(data.frame(
-      read.table(
-        file = file, header = FALSE, skip = LM[i],
-        nrows = nrows[i], col.names = c("X", "Y")
-      ),
-      IMAGE = images[i],
-      ID = read.table(
-        file = file, header = FALSE, skip = ID.ind[i] - 1,
-        nrows = 1, sep = "=", col.names = "ID"
-      )[2, ]
+  # Extract IMAGE from the line immediately before each ID line
+  # (common TPS convention: ... coordinates ... IMAGE=...  ID=...)
+  img_lines <- a[ID.ind - 1]
+  images <- trimws(sub("^.*?IMAGE\\s*=\\s*", "", img_lines), which = "both")
+
+  # Extract ID values from the ID lines
+  ids <- trimws(sub("^\\s*ID\\s*=\\s*", "", a[ID.ind]), which = "both")
+
+  # Number of rows (landmarks) for each block
+  nrows <- as.numeric(sub("^\\s*LM\\s*=\\s*([0-9]+).*", "\\1", a[LM]))
+  l <- length(LM)
+
+  # Validate side vector length
+  if (length(R.L.side) != l) {
+    stop(sprintf("Length of 'R.L.side' (%d) must equal the number of tracks detected (%d).",
+                 length(R.L.side), l))
+  }
+
+  # ---------- NEW: Drop an error if IMAGE or ID repeats ----------
+  dup_img <- unique(images[duplicated(images)])
+  dup_id  <- unique(ids[duplicated(ids)])
+
+  if (length(dup_img) > 0) {
+    stop(sprintf(
+      "Duplicate IMAGE names detected in TPS. IMAGE= must be unique per track.\nRepeated: %s",
+      paste(dup_img, collapse = ", ")
+    ))
+  }
+  if (length(dup_id) > 0) {
+    stop(sprintf(
+      "Duplicate ID values detected in TPS. ID= must be unique per track.\nRepeated: %s",
+      paste(dup_id, collapse = ", ")
     ))
   }
 
-  # Start with landmarks as working data_frame
+  ## ---------- Build landmarks list ----------
+  landmarks <- vector("list", l)
+  for (i in seq_len(l)) {
+    # read coordinates in block i
+    coords <- utils::read.table(file = file, header = FALSE, skip = LM[i],
+                                nrows = nrows[i], col.names = c("X", "Y"))
+    # attach metadata from parsed IMAGE/ID (single source of truth)
+    coords$IMAGE <- images[i]
+    coords$ID    <- ids[i]
+    landmarks[[i]] <- coords
+  }
+
   data_frame <- landmarks
 
-  ## Assign Side to ALL cases (mandatory R.L.side) ----
-  for (i in 1:length(data_frame)) {
+  ## ---------- Assign Side (mandatory R.L.side) ----------
+  for (i in seq_along(data_frame)) {
     nfp <- nrow(data_frame[[i]])
     idx <- seq_len(nfp)
     side_vec <- character(nfp)
     if (R.L.side[i] == "L") {
       side_vec[idx %% 2 != 0] <- "L"
       side_vec[idx %% 2 == 0] <- "R"
-    } else { # R
+    } else {
       side_vec[idx %% 2 != 0] <- "R"
       side_vec[idx %% 2 == 0] <- "L"
     }
     data_frame[[i]]$Side <- side_vec
   }
 
+  ## ---------- Handle missing footprints (optional) ----------
   if (missing) {
-    ## Inferring missing footprints ----
-
-    # Levels from NAs
     levelsnum <- as.numeric(levels(as.factor(NAs[, 1])))
 
-    # Include NAs rows
+    # Insert NA rows for missing positions
     for (i in levelsnum) {
       data_frame[[i]] <- berryFunctions::insertRows(
         data_frame[[i]],
@@ -234,12 +243,13 @@ tps_to_track <- function(file, scale = NULL, R.L.side, missing = FALSE, NAs = NU
 
     # Refill IMAGE and ID in inserted rows
     for (i in levelsnum) {
-      data_frame[[i]][c(NAs[which(NAs[, 1] == i), 2]), ]$IMAGE <- levels(as.factor(data_frame[[i]]$IMAGE))
-      data_frame[[i]][c(NAs[which(NAs[, 1] == i), 2]), ]$ID    <- levels(as.factor(data_frame[[i]]$ID))
+      idx_na <- c(NAs[which(NAs[, 1] == i), 2])
+      data_frame[[i]][idx_na, "IMAGE"] <- data_frame[[i]]$IMAGE[1]
+      data_frame[[i]][idx_na, "ID"]    <- data_frame[[i]]$ID[1]
     }
 
-    # Recompute Side in case of inserted rows (keep alternation)
-    for (i in 1:length(data_frame)) {
+    # Recompute Side (keep alternation starting from R.L.side[i])
+    for (i in seq_along(data_frame)) {
       nfp <- nrow(data_frame[[i]])
       idx <- seq_len(nfp)
       side_vec <- character(nfp)
@@ -253,104 +263,95 @@ tps_to_track <- function(file, scale = NULL, R.L.side, missing = FALSE, NAs = NU
       data_frame[[i]]$Side <- side_vec
     }
 
-    ### Calculating track width
+    # --- Track width estimation
     meanwidth <- numeric(length(data_frame))
-    for (j in 1:length(data_frame)) {
-      vectorwidth <- rep(NA_real_, max(0, nrow(data_frame[[j]]) - 2))
-      if (length(vectorwidth) > 0) {
-        for (i in 1:(nrow(data_frame[[j]]) - 2)) {
-          df <- data_frame[[j]][i:(i + 2), 1:2]
+    for (j in seq_along(data_frame)) {
+      if (nrow(data_frame[[j]]) > 2) {
+        vw <- rep(NA_real_, nrow(data_frame[[j]]) - 2)
+        for (k in seq_len(length(vw))) {
+          df <- data_frame[[j]][k:(k + 2), 1:2]
           x1 <- df[1, 1]; x2 <- df[2, 1]; x3 <- df[3, 1]
           y1 <- df[1, 2]; y2 <- df[2, 2]; y3 <- df[3, 2]
           Area <- 0.5 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2))
           Base <- dist(df[c(1, 3), c(1, 2)], method = "euclidean")
-          Height <- abs((Area * 2) / Base)
-          vectorwidth[i] <- Height
+          vw[k] <- abs((Area * 2) / Base)
         }
+        meanwidth[j] <- mean(vw, na.rm = TRUE)
+      } else {
+        meanwidth[j] <- NA_real_
       }
-      meanwidth[j] <- mean(vectorwidth[!is.na(vectorwidth)])
     }
 
-    ### Extrapolating missing footprints
-    for (i in 1:nrow(NAs)) {
-      trk <- NAs[i, 1]
-      pos <- NAs[i, 2]
-      x1 <- data_frame[[trk]][pos - 1, 1]
-      y1 <- data_frame[[trk]][pos - 1, 2]
-      x2 <- data_frame[[trk]][pos + 1, 1]
-      y2 <- data_frame[[trk]][pos + 1, 2]
-
+    # --- Extrapolate missing footprints
+    for (r in seq_len(nrow(NAs))) {
+      trk <- NAs[r, 1]
+      pos <- NAs[r, 2]
+      x1 <- data_frame[[trk]][pos - 1, 1]; y1 <- data_frame[[trk]][pos - 1, 2]
+      x2 <- data_frame[[trk]][pos + 1, 1]; y2 <- data_frame[[trk]][pos + 1, 2]
       dist_off <- if (data_frame[[trk]][pos, "Side"] == "R") -meanwidth[trk] else meanwidth[trk]
 
-      x3 <- (x1 + x2) / 2
-      y3 <- (y1 + y2) / 2
-
-      b <- x2 - x1
-      a <- y1 - y2
-      norm <- sqrt(a * a + b * b)
-      a <- a / norm
-      b <- b / norm
-
-      x4 <- x3 + a * dist_off
-      y4 <- y3 + b * dist_off
+      x3 <- (x1 + x2) / 2; y3 <- (y1 + y2) / 2
+      b <- x2 - x1; a <- y1 - y2
+      norm <- sqrt(a * a + b * b); a <- a / norm; b <- b / norm
+      x4 <- x3 + a * dist_off; y4 <- y3 + b * dist_off
 
       data_frame[[trk]][pos, 1] <- x4
       data_frame[[trk]][pos, 2] <- y4
     }
   }
 
-  ### Tracing medial tracks ----
+  ## ---------- Medial trajectories (midpoints) ----------
   landmarks2 <- data_frame
   landmarks3 <- vector("list", length(landmarks2))
 
-  for (i in 1:length(landmarks2)) {
-    # create container with same columns (now includes Side)
-    landmarks3[[i]] <- as.data.frame(matrix(ncol = ncol(landmarks2[[i]]),
-                                            nrow = (nrow(landmarks2[[i]]) - 1)))
-    colnames(landmarks3[[i]]) <- colnames(landmarks2[[i]])
-
-    # carry IMAGE, ID; set Side = "Medial"
-    landmarks3[[i]][, "IMAGE"] <- rep(landmarks2[[i]][1, "IMAGE"], nrow(landmarks3[[i]]))
-    landmarks3[[i]][, "ID"]    <- rep(landmarks2[[i]][1, "ID"],    nrow(landmarks3[[i]]))
-    landmarks3[[i]][, "Side"]  <- rep("Medial",                    nrow(landmarks3[[i]]))
-
-    # Keep the first five columns: X, Y, IMAGE, ID, Side
-    landmarks3[[i]] <- landmarks3[[i]][, c("X", "Y", "IMAGE", "ID", "Side")]
-
-    # midpoint X, Y
-    for (j in 1:nrow(landmarks3[[i]])) {
-      landmarks3[[i]][j, "X"] <- (landmarks2[[i]][j, "X"] + landmarks2[[i]][j + 1, "X"]) / 2
-      landmarks3[[i]][j, "Y"] <- (landmarks2[[i]][j, "Y"] + landmarks2[[i]][j + 1, "Y"]) / 2
+  for (i in seq_along(landmarks2)) {
+    if (nrow(landmarks2[[i]]) < 2) {
+      stop(sprintf("Track %d has fewer than 2 footprints after parsing; cannot compute trajectory.", i))
     }
-  }
 
-  # Scale and convert to trajectories
-  for (i in 1:length(landmarks3)) {
-    landmarks3[[i]][, c("X", "Y")] <- landmarks3[[i]][, c("X", "Y")] * scale
-    landmarks3[[i]] <- TrajFromCoords(landmarks3[[i]])
-  }
-  names(landmarks3) <- paste0("Track_", str_pad(1:length(LM), nchar(length(LM)), pad = "0"))
+    out <- as.data.frame(matrix(ncol = ncol(landmarks2[[i]]),
+                                nrow = (nrow(landmarks2[[i]]) - 1)))
+    colnames(out) <- colnames(landmarks2[[i]])
 
-  # Mark missing footprints
-  for (i in 1:length(data_frame)) {
-    data_frame[[i]]$missing <- rep("Actual", nrow(data_frame[[i]]))
+    out[, "IMAGE"] <- rep(landmarks2[[i]][1, "IMAGE"], nrow(out))
+    out[, "ID"]    <- rep(landmarks2[[i]][1, "ID"],    nrow(out))
+    out[, "Side"]  <- rep("Medial",                    nrow(out))
+
+    out <- out[, c("X", "Y", "IMAGE", "ID", "Side")]
+
+    for (j in seq_len(nrow(out))) {
+      out[j, "X"] <- (landmarks2[[i]][j, "X"] + landmarks2[[i]][j + 1, "X"]) / 2
+      out[j, "Y"] <- (landmarks2[[i]][j, "Y"] + landmarks2[[i]][j + 1, "Y"]) / 2
+    }
+
+    # scale midpoints
+    out[, c("X", "Y")] <- out[, c("X", "Y")] * scale
+    # convert to trajr object
+    out <- trajr::TrajFromCoords(out)
+
+    landmarks3[[i]] <- out
+  }
+  names(landmarks3) <- paste0("Track_", stringr::str_pad(seq_along(LM), nchar(length(LM)), pad = "0"))
+
+  ## ---------- Mark missing & scale footprints ----------
+  for (i in seq_along(data_frame)) {
+    data_frame[[i]]$missing <- "Actual"
   }
   if (missing) {
     levelsnum <- as.numeric(levels(as.factor(NAs[, 1])))
     for (i in levelsnum) {
-      data_frame[[i]][c(NAs[which(NAs[, 1] == i), 2]), ]$missing <- "Inferred"
+      idx_na <- c(NAs[which(NAs[, 1] == i), 2])
+      data_frame[[i]][idx_na, "missing"] <- "Inferred"
     }
   }
-
-  # Scale footprints X, Y
-  for (i in 1:length(data_frame)) {
+  for (i in seq_along(data_frame)) {
     data_frame[[i]]$X <- data_frame[[i]]$X * scale
     data_frame[[i]]$Y <- data_frame[[i]]$Y * scale
   }
 
-  # Return
+  ## ---------- Return ----------
   list(
     Trajectories = landmarks3,
-    Footprints = data_frame
+    Footprints   = data_frame
   )
 }

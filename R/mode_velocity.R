@@ -61,7 +61,7 @@
 #' )
 #'
 #' # Calculate velocities using the default Method "A"
-#' V_mounttom <- velocity_from_stride_track(MountTom, H = H_mounttom)
+#' V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 #'
 #' # Test for Steady, Acceleration, or Deceleration
 #' mode_velocity(V_mounttom)
@@ -75,7 +75,7 @@
 #' Method_paluxyriver <- c("A", "B")
 #'
 #' # Calculate velocities using specified methods
-#' V_paluxyriver <- velocity_from_stride_track(PaluxyRiver,
+#' V_paluxyriver <- velocity_track(PaluxyRiver,
 #'   H = H_paluxyriver,
 #'   method = Method_paluxyriver
 #' )
@@ -85,7 +85,7 @@
 #'
 #' @importFrom stringr str_pad
 #'
-#' @seealso \code{\link{tps_to_track}}, \code{\link{velocity_from_stride_track}}, \code{\link{plot_velocity}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{velocity_track}}, \code{\link{plot_velocity}}
 #'
 #' @export
 

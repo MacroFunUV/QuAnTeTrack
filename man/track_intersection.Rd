@@ -34,18 +34,27 @@ trajectories' origins.}
 }
 \value{
 A \code{track intersection} R object consisting of a list containing the following elements:
-\item{Intersection_metric}{A matrix of unique intersection counts between trajectories. Each entry
-represents the number of unique intersection points between the corresponding pair of trajectories.}
-\item{Intersection_metric_p_values}{(If \code{test = TRUE}) A matrix of \emph{p}-values associated with
-the intersection metrics, calculated through permutations of simulated trajectory origins. Each entry
-reflects the probability of observing an intersection count as extreme as the observed one,
+
+\item{Intersection_metric}{A numeric matrix of unique intersection counts between trajectories.
+Each entry represents the number of unique intersection points between the corresponding pair of trajectories.}
+
+\item{Intersection_metric_p_values}{(If \code{test = TRUE}) A numeric matrix of raw pairwise \emph{p}-values,
+computed by Monte Carlo tail tests according to \code{H1}, with the (+1) correction
+(Phipson & Smyth, 2010):
+\deqn{p = (1 + \#\{\text{extreme}\}) / (nsim + 1)}.
+Each entry reflects the probability of observing an intersection count as extreme as the observed one,
 given the null hypothesis of no difference.}
-\item{Intersection_metric_p_values_combined}{(If \code{test = TRUE}) A numeric value representing
-the combined \emph{p}-value for all intersections, indicating the overall significance of the
-intersection metrics across all pairs of trajectories.}
-\item{Intersection_metric_simulations}{(If \code{test = TRUE}) A list containing matrices of
-intersection counts for each simulation iteration, allowing for further inspection of the
-distribution of intersections across multiple randomized scenarios.}
+
+\item{Intersection_metric_p_values_BH}{(If \code{test = TRUE}) A numeric matrix of Benjamini–Hochberg (BH)
+adjusted \emph{p}-values controlling the false discovery rate (FDR), applied across the set of unique pairwise tests
+(Benjamini & Hochberg, 1995).}
+
+\item{Intersection_metric_p_values_combined}{(If \code{test = TRUE}) A single numeric value representing
+the combined \emph{p}-value across all intersections (based on the global statistic: the sum of pairwise intersections).
+This indicates the overall significance of the observed intersections relative to simulations.}
+
+\item{Intersection_metric_simulations}{(If \code{test = TRUE}) A list containing matrices of intersection counts
+for each simulation iteration, allowing for inspection of the distribution of intersections across randomized scenarios.}
 }
 \description{
 \code{track_intersection()} calculates the number of unique intersections between trajectories.
@@ -54,32 +63,46 @@ of the simulated trajectories' origins to compute \emph{p}-values. This allows f
 enabling users to evaluate the significance of the observed intersections in relation to simulated trajectories.
 }
 \details{
-The \code{track_intersection()} function is designed to calculate the number of unique intersections between trajectories
-and to evaluate their statistical significance through hypothesis testing based on simulated tracks. This process provides a
-robust framework for comparing observed intersections against those expected under random conditions, allowing users to test
-specific behavioral hypotheses related to the movement patterns of trackmakers.
+The \code{track_intersection()} function is designed to calculate the number of unique
+intersections between trajectories and to evaluate their statistical significance
+through hypothesis testing based on simulated tracks.
 
-Hypothesis testing is controlled by the \code{H1} argument, which defines the \strong{alternative hypothesis} to be evaluated.
-This argument is crucial for interpreting the statistical results, as it determines whether the function will test for
-\strong{reduced} or \strong{increased} intersection counts compared to simulated trajectories.
+Pairwise \emph{p}-values are computed with a Monte Carlo tail test according to the
+selected alternative hypothesis (\code{H1}), using the (+1) correction to avoid
+zero-values (see Phipson & Smyth, 2010):
+\deqn{p = (1 + \#\{\text{extreme}\}) / (nsim + 1)}
 
-The \code{H1} argument accepts two possible values:
+These raw \emph{p}-values are then adjusted for multiple comparisons across the set
+of unique pairwise tests using the Benjamini–Hochberg (BH) procedure for
+false discovery rate (FDR) control (Benjamini & Hochberg, 1995). Both the raw and the BH-adjusted \emph{p}-value
+matrices are returned in the output object, allowing users to inspect either
+uncorrected or corrected results. In addition, a global combined \emph{p}-value is
+provided, summarizing the overall deviation from the null across all pairs.
+
+This framework provides a robust means of comparing observed intersections
+against those expected under random conditions, and is intended for testing
+specific behavioral hypotheses related to trackmaker interactions.
+
+Hypothesis testing is controlled by the \code{H1} argument, which defines the
+\strong{alternative hypothesis}:
 \itemize{
-\item \code{"Lower"}: This option tests whether the observed intersections are significantly lower than those generated by simulations.
-This scenario corresponds to hypotheses involving \strong{coordinated or gregarious movement}, where animals moving in parallel
-or in a group (e.g., hunting packs or social gatherings) would produce \strong{fewer intersections} than expected under random conditions.
-\item \code{"Higher"}: This option tests whether the observed intersections are significantly higher than those generated by simulations.
-It applies to scenarios where \strong{predatory or chasing interactions} are likely, such as when one trackmaker follows or crosses
-the path of another. This behavior results in \strong{more intersections} than what would occur randomly.
+\item \code{"Lower"}: tests whether the observed intersections are significantly fewer
+than those generated by simulations. This scenario corresponds to hypotheses
+of \strong{coordinated or gregarious movement}, where parallel or group movement
+would result in fewer intersections than expected at random.
+\item \code{"Higher"}: tests whether the observed intersections are significantly greater
+than those generated by simulations. This scenario corresponds to hypotheses
+of \strong{predatory or chasing interactions}, where one trackmaker follows or
+crosses another, producing more intersections than expected at random.
 }
 
-The selection of the \code{H1} argument must be consistent with the behavioral hypothesis being tested. For example, use \code{"Lower"}
-when investigating group movement or cooperative behavior, and \code{"Higher"} when analyzing predatory or competitive interactions.
-The function will automatically adjust the calculation of \emph{p}-values to reflect the selected \code{H1}. If the argument is left
-\code{NULL}, an error will be triggered, indicating that users must explicitly specify the hypothesis to be tested.
+The choice of \code{H1} must match the biological hypothesis under investigation.
+If it is not explicitly specified when \code{test = TRUE}, an error will be raised.
 
-The interpretation of the \strong{combined \emph{p}-value} returned by the function is directly influenced by the choice of \code{H1}, as it determines
-whether the statistical comparison aims to detect a \strong{reduction} or an \strong{increase} in intersection counts compared to the simulated dataset.
+The interpretation of the \strong{combined global \emph{p}-value} returned by the function
+is directly influenced by the choice of \code{H1}, as it determines whether the test
+detects a reduction or an increase in intersection counts relative to the
+simulated dataset.
 
 In addition to hypothesis testing, the \code{track_intersection()} function offers several options for altering the initial positions
 of simulated tracks through the \code{origin.permutation} argument. The available options include:
@@ -116,26 +139,26 @@ behavioral dynamics underlying the observed trackways.
 # Example 1: Intersection metrics in the PaluxyRiver dataset.
 s1 <- simulate_track(PaluxyRiver, nsim = 5, model = "Directed")
 int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1,
-  origin.permutation = "None")
+origin.permutation = "None")
 print(int1)
 
 # Example 2: Using "Min.Box" origin permutation in PaluxyRiver dataset.
 s2 <- simulate_track(PaluxyRiver, nsim = 5, model = "Constrained")
 int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2,
-  origin.permutation = "Min.Box")
+origin.permutation = "Min.Box")
 print(int2)
 
 # Example 3: Using "Conv.Hull" origin permutation in PaluxyRiver dataset.
 s3 <- simulate_track(PaluxyRiver, nsim = 5, model = "Unconstrained")
 int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3,
-  origin.permutation = "Conv.Hull")
+origin.permutation = "Conv.Hull")
 print(int3)
 
 # Example 4: Using "Min.Box" origin permutation in MountTom subset.
 sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
 s4 <- simulate_track(sbMountTom, nsim = 5)
 int4 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s4,
-  origin.permutation = "Min.Box")
+origin.permutation = "Min.Box")
 print(int4)
 
 # Example 5: Customized origin permutation in MountTom subset.
@@ -143,25 +166,17 @@ sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16,
 s5 <- simulate_track(sbMountTom, nsim = 5)
 area_origin <- matrix(c(50, 5, 10, 5, 10, 20, 50, 20), ncol = 2, byrow = TRUE)
 int5 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s5,
-  origin.permutation = "Custom", custom.coord = area_origin)
+origin.permutation = "Custom", custom.coord = area_origin)
 print(int5)
 
 }
+\references{
+Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: a practical and powerful approach to multiple testing.
+Journal of the Royal statistical society: series B (Methodological), 57(1), 289-300.
+
+Phipson, B., & Smyth, G. K. (2010). Permutation P-values should never be zero: calculating exact P-values when permutations are randomly drawn.
+Statistical applications in genetics and molecular biology, 9(1).
+}
 \seealso{
 \code{\link{tps_to_track}}, \code{\link{simulate_track}}, \code{\link{simil_DTW_metric}}, \code{\link{simil_Frechet_metric}}
-}
-\author{
-Humberto G. Ferrón
-
-humberto.ferron@uv.es
-
-Macroevolution and Functional Morphology Research Group (www.macrofun.es)
-
-Cavanilles Institute of Biodiversity and Evolutionary Biology
-
-Calle Catedrático José Beltrán Martínez, nº 2
-
-46980 Paterna - Valencia - Spain
-
-Phone: +34 (9635) 44477
 }

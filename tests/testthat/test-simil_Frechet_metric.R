@@ -5,7 +5,8 @@ test_that("simil_Frechet_metric returns a valid similarity object for Directed m
   expect_type(result, "list")
   expect_true(all(c(
     "Frechet_distance_metric", "Frechet_distance_metric_p_values",
-    "Frechet_metric_p_values_combined", "Frechet_distance_metric_simulations"
+    "Frechet_distance_metric_p_values_BH", "Frechet_metric_p_values_combined",
+    "Frechet_distance_metric_simulations"
   ) %in% names(result)))
 })
 
@@ -16,7 +17,8 @@ test_that("simil_Frechet_metric returns a valid similarity object for Constraine
   expect_type(result, "list")
   expect_true(all(c(
     "Frechet_distance_metric", "Frechet_distance_metric_p_values",
-    "Frechet_metric_p_values_combined", "Frechet_distance_metric_simulations"
+    "Frechet_distance_metric_p_values_BH", "Frechet_metric_p_values_combined",
+    "Frechet_distance_metric_simulations"
   ) %in% names(result)))
 })
 
@@ -27,7 +29,8 @@ test_that("simil_Frechet_metric returns a valid similarity object for Unconstrai
   expect_type(result, "list")
   expect_true(all(c(
     "Frechet_distance_metric", "Frechet_distance_metric_p_values",
-    "Frechet_metric_p_values_combined", "Frechet_distance_metric_simulations"
+    "Frechet_distance_metric_p_values_BH", "Frechet_metric_p_values_combined",
+    "Frechet_distance_metric_simulations"
   ) %in% names(result)))
 })
 
@@ -39,7 +42,8 @@ test_that("simil_Frechet_metric returns a valid similarity object with Centroid 
   expect_type(result, "list")
   expect_true(all(c(
     "Frechet_distance_metric", "Frechet_distance_metric_p_values",
-    "Frechet_metric_p_values_combined", "Frechet_distance_metric_simulations"
+    "Frechet_distance_metric_p_values_BH", "Frechet_metric_p_values_combined",
+    "Frechet_distance_metric_simulations"
   ) %in% names(result)))
 })
 
@@ -51,7 +55,8 @@ test_that("simil_Frechet_metric returns a valid similarity object with Origin su
   expect_type(result, "list")
   expect_true(all(c(
     "Frechet_distance_metric", "Frechet_distance_metric_p_values",
-    "Frechet_metric_p_values_combined", "Frechet_distance_metric_simulations"
+    "Frechet_distance_metric_p_values_BH", "Frechet_metric_p_values_combined",
+    "Frechet_distance_metric_simulations"
   ) %in% names(result)))
 })
 

@@ -4,7 +4,18 @@
 \alias{cluster_track}
 \title{Cluster tracks based on movement parameters}
 \usage{
-cluster_track(data, veltrack, variables)
+cluster_track(
+  data,
+  veltrack,
+  variables,
+  analysis = c("hclust", "mclust"),
+  k = 2,
+  dist_method = "euclidean",
+  hclust_method = "complete",
+  transform = TRUE,
+  scale = TRUE,
+  max_clusters = NULL
+)
 }
 \arguments{
 \item{data}{A \code{track} R object, which is a list consisting of two elements:
@@ -15,35 +26,73 @@ cluster_track(data, veltrack, variables)
 
 \item{veltrack}{A \code{track velocity} R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.}
 
-\item{variables}{A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include: \code{"TurnAng"}, \code{"sdTurnAng"}, \code{"Distance"}, \code{"Length"}, \code{"StLength"}, \code{"sdStLength"}, \code{"Sinuosity"}, \code{"Straightness"}, \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"}.}
+\item{variables}{A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include:
+\code{"TurnAng"}, \code{"sdTurnAng"}, \code{"Distance"}, \code{"Length"}, \code{"StLength"}, \code{"sdStLength"},
+\code{"Sinuosity"}, \code{"Straightness"}, \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"},
+\code{"TrackWidth"}, \code{"PaceAng"}.}
+
+\item{analysis}{Character; clustering backend. One of \code{"hclust"} (default; distance-based hierarchical clustering)
+or \code{"mclust"} (model-based Gaussian mixtures).}
+
+\item{k}{Integer or \code{NULL}; number of clusters to cut the dendrogram when \code{analysis = "hclust"}.
+Default \code{2}. If \code{NULL}, no cut is made and \code{classification} is returned as \code{NULL}.}
+
+\item{dist_method}{Character; distance used when \code{analysis = "hclust"}.
+One of \code{"euclidean"} (default), \code{"maximum"}, \code{"manhattan"}, \code{"canberra"},
+\code{"binary"}, or \code{"minkowski"}.}
+
+\item{hclust_method}{Character; agglomeration method when \code{analysis = "hclust"}.
+One of  \code{"complete"} (default), \code{"ward.D"}, \code{"ward.D2"}, \code{"single"},
+\code{"average"} (= UPGMA), \code{"mcquitty"} (= WPGMA), \code{"median"} (= WPGMC), or \code{"centroid"} (= UPGMC).}
+
+\item{transform}{Logical; if \code{TRUE} (default), applies monotone transformations suited to variable support
+(e.g., log/logit) before clustering.}
+
+\item{scale}{Logical; if \code{TRUE} (default), z-transforms (centers and scales) the variables used in clustering.}
+
+\item{max_clusters}{Integer. Maximum number of clusters (mixture components) to consider when \code{analysis = "mclust"}.
+If \code{NULL} (default), uses \code{min(9, n)}, where \code{n} is the number of valid tracks (observations) entering the model.
+The minimum number of clusters considered by default is \code{1}.}
 }
 \value{
-A \code{track clustering} R object consisting of a list containing the following elements:
+A track clustering R object consisting of a list containing the following elements:
 \itemize{
-\item \code{matrix}: A data frame containing the movement parameters calculated for each track.
-\item \code{clust}: An \code{Mclust} object containing the results of the model-based clustering analysis. This object provides the optimal (according to BIC) mixture model estimation. The output components are:
+\item \code{matrix}: A data frame containing the movement parameters calculated for each track
+(original scale/units as produced by \code{track_param()} and \code{velocity_track()}).
+\item \code{clust}:
+\itemize{
+\item When \code{analysis = "hclust"}: a list with:
+\itemize{
+\item \code{hclust}: The \code{stats::hclust} object (dendrogram and merge history).
+\item \code{dist}: The \code{stats::dist} object used to fit \code{hclust}.
+\item \code{k}: The requested number of clusters used to cut the tree (if provided).
+\item \code{classification}: Cluster labels obtained by \code{stats::cutree(hclust, k)}; \code{NULL} if \code{k = NULL}.
+}
+\item When \code{analysis = "mclust"}: an \code{Mclust} object containing the results of the
+model-based clustering analysis (optimal model selected by BIC). Main components include:
 \itemize{
 \item \code{call}: The matched call.
-\item \code{data}: The input data matrix.
-\item \code{modelName}: A character string denoting the model at which the optimal BIC occurs.
-\item \code{n}: The number of observations in the data.
-\item \code{d}: The dimension of the data.
-\item \code{G}: The optimal number of mixture components.
-\item \code{BIC}: All BIC values.
-\item \code{loglik}: The log-likelihood corresponding to the optimal BIC.
-\item \code{df}: The number of estimated parameters.
+\item \code{data}: The input data matrix used by \code{Mclust}.
+\item \code{modelName}: The covariance model at which the optimal BIC occurs.
+\item \code{n}: Number of observations.
+\item \code{d}: Data dimensionality.
+\item \code{G}: Optimal number of mixture components.
+\item \code{BIC}: Matrix of BIC values for models and components considered.
+\item \code{loglik}: Log-likelihood for the selected model.
+\item \code{df}: Number of estimated parameters.
 \item \code{bic}: BIC value of the selected model.
 \item \code{icl}: ICL value of the selected model.
-\item \code{hypvol}: The hypervolume parameter for the noise component if required, otherwise set to NULL.
-\item \code{parameters}: A list with the following components:
+\item \code{hypvol}: Hypervolume parameter for the noise component (if applicable), otherwise \code{NULL}.
+\item \code{parameters}: List of fitted parameters, including:
 \itemize{
-\item \code{pro}: A vector whose k\eqn{^{th}} component is the mixing proportion for the k\eqn{^{th}} component of the mixture model. If missing, equal proportions are assumed.
-\item \code{mean}: The mean for each component. If there is more than one component, this is a matrix whose k\eqn{^{th}} column is the mean of the k\eqn{^{th}} component of the mixture model.
+\item \code{pro}: Mixing proportions (length \code{G}).
+\item \code{mean}: Component means (vector or matrix with columns as components).
+\item \code{variance}: List of variance parameters (structure depends on \code{modelName}).
 }
-\item \code{variance}: A list of variance parameters for the model. The components of this list depend on the model specification. See the help file for mclustVariance for details.
-\item \code{z}: A matrix whose i,k\eqn{^{th}} entry is the probability that observation i in the test data belongs to the k\eqn{^{th}} class.
-\item \code{classification}: The classification corresponding to z, i.e., map(z).
-\item \code{uncertainty}: The uncertainty associated with the classification.
+\item \code{z}: Matrix of posterior probabilities; entry \code{(i, k)} is P(observation \code{i} in class \code{k}).
+\item \code{classification}: Hard labels (MAP from \code{z}).
+\item \code{uncertainty}: Classification uncertainty for each observation.
+}
 }
 }
 }
@@ -51,104 +100,116 @@ A \code{track clustering} R object consisting of a list containing the following
 \code{cluster_track()} clusters trajectories based on various movement and velocity parameters calculated for each track.
 }
 \details{
-The \code{cluster_track()} function performs a model-based clustering analysis on track parameters using the \code{Mclust()} function from the \pkg{mclust} package.
+The \code{cluster_track()} function can perform distance-based hierarchical clustering via the \code{hclust()} function from the \pkg{stats} package (\code{analysis = "hclust"}, default) or model-based clustering via the \code{Mclust()} function from the \pkg{mclust} package
+(\code{analysis = "mclust"}).
 
 The function first filters out tracks with fewer than four steps, as these tracks may not provide reliable movement data.
-It then calculates various movement parameters for each remaining track, including turning angles, distances, lengths, sinuosity, straightness, and velocities.
+It then calculates various movement parameters for each remaining track, including turning angles, distances, lengths, sinuosity, straightness, velocities,
+and additional ichnological descriptors (trackway width, pace angulation).
 Finally, the selected movement parameters are used as input for clustering the tracks.
 
-If only one parameter is selected, the clustering is performed using equal variance (\code{"E"}) and variable variance (\code{"V"}) Gaussian models.
-If more than one parameter is selected, all Gaussian models available in \code{mclust.options("emModelNames")} are considered.
+When \code{analysis = "hclust"}: the function performs agglomerative hierarchical clustering
+on a pairwise dissimilarity matrix computed from the working feature matrix (which already reflects the
+internal expansion of circular variables to sine/cosine components, and any requested transformations and
+z-scaling).
+
+The algorithm starts with each track as its own cluster and iteratively merges the two closest clusters
+according to the chosen \code{hclust_method} (linkage criterion) until a single cluster remains. The full
+merge history is represented by a dendrogram that can be inspected and cut at any desired number of clusters.
+
+Advantages include being distribution-free, since the method does not assume Gaussianity or any parametric mixture form.
+It is also flexible, supporting multiple distance metrics, and highly interpretable, as the dendrogram reveals
+multiscale clustering structure. In addition, the number of clusters does not need to be fixed in advance,
+since it can be chosen a posteriori by cutting the tree. Disadvantages are that
+the greedy nature of the algorithm makes merges irreversible, so no reassignment
+is possible once clusters are combined. Results can also be sensitive to variable scaling, as well as the
+choice of distance metric and linkage method. Certain linkage strategies, such as \code{"median"} or
+\code{"centroid"}, may produce dendrogram inversions, and the \code{"ward.*"} methods require Euclidean
+geometry to preserve their variance-minimization interpretation.
+
+If \code{transform = TRUE} and/or \code{scale = TRUE}, the distance is computed on the
+transformed/scaled space. This is generally recommended so that variables on different scales do not dominate the
+distances. Missing values in the selected variables will cause \code{stats::dist()} to fail; ensure inputs are
+complete (or impute externally) before clustering.
+
+The argument \code{k} controls the number of clusters to cut the dendrogram. By default it is set to \code{2}.
+If \code{NULL}, no cut is made and \code{classification} is returned as \code{NULL}. Setting \code{k = 1}
+yields a single cluster containing all tracks.
+
+The argument \code{dist_method} specifies the distance metric used to build the dissimilarity matrix,
+passed to \code{stats::dist}. For a detailed explanation of distance metrics see \code{?dist}.
+
+The argument \code{hclust_method} specifies the agglomeration (linkage) method used for hierarchical clustering,
+passed to \code{stats::hclust}. For a detailed explanation of linkage procedures see \code{?hclust}.
+
+When \code{analysis = "mclust"}, clustering is performed using finite Gaussian mixture models
+via the \code{Mclust()} function from the \pkg{mclust} package.
+This approach assumes that the data are generated from a mixture of multivariate Gaussian distributions,
+and selects both the number of mixture components and the covariance parameterization by optimizing
+the Bayesian Information Criterion (BIC).
+
+Advantages include statistical rigor, automatic model selection, and the ability to capture ellipsoidal
+cluster shapes. Limitations are the reliance on distributional assumptions (normality, homoscedasticity
+depending on the model), potential sensitivity to outliers, and increased computational cost for
+high-dimensional data. These assumptions are partially mitigated by the variable transformations
+applied before clustering (e.g., log or logit transforms), which help approximate Gaussian-like
+distributions.
+
+If only one parameter is selected, the clustering is performed using equal variance ("E") and variable
+variance ("V") Gaussian models. If more than one parameter is selected, all covariance models available
+in \code{mclust.options("emModelNames")} are considered.
+
+The argument \code{max_clusters} controls the maximum number of clusters (mixture components) to be explored.
+If \code{NULL} (default), the maximum is set to \code{min(9, n)}, where \code{n} is the number of valid tracks
+(observations) entering the model. The minimum number of clusters considered by default is \code{1}.
 
 The following movement parameters can be included in the clustering:
 \itemize{
-\item \code{"TurnAng"}: Turning angles for the track, measured in degrees. This measures how much the direction of movement changes at each step.
-\item \code{"sdTurnAng"}: The standard deviation of the turning angles, indicating how variable the turning angles are across the track.
-\item \code{"Distance"}: The total distance covered by the track, calculated as the sum of the straight-line distances between consecutive points (in meters).
-\item \code{"Length"}: The overall length of the track, a straight-line distance between the starting and ending points (in meters).
-\item \code{"StLength"}: Step lengths for each step of the track, representing how far the object moved between two consecutive points (in meters).
-\item \code{"sdStLength"}: The standard deviation of the step lengths, showing how consistent the steps are in length.
-\item \code{"Sinuosity"}: A measure of the track's winding nature, calculated as the ratio of the actual track length to the straight-line distance (dimensionless).
-\item \code{"Straightness"}: The straightness of the track, calculated as the straight-line distance divided by the total path length (dimensionless).
-\item \code{"Velocity"}: The average velocity of the track, calculated as the total distance divided by the time elapsed between the first and last footprint (in meters per second).
-\item \code{"sdVelocity"}: The standard deviation of the velocity, indicating how much the velocity fluctuates throughout the track.
-\item \code{"MaxVelocity"}: The maximum velocity achieved during the track, identifying the fastest point (in meters per second).
-\item \code{"MinVelocity"}: The minimum velocity during the track, identifying the slowest point (in meters per second).
+\item \code{"TurnAng"}: Turning angles for the track, measured in degrees. Internally expanded to
+sine and cosine components (circular treatment) before analysis. This measures how much the
+direction of movement changes at each step.
+\item \code{"sdTurnAng"}: The circular standard deviation of the turning angles, in degrees.
+Internally expanded to sine and cosine components before analysis to respect angular geometry.
+\item \code{"Distance"}: The total distance covered by the track, calculated as the sum of the
+straight-line distances between consecutive points (meters).
+\item \code{"Length"}: The overall length of the track, a straight-line distance between the
+starting and ending points (meters).
+\item \code{"StLength"}: Step lengths for each step of the track, representing how far the object
+moved between two consecutive points (meters).
+\item \code{"sdStLength"}: The standard deviation of the step lengths, showing how consistent the
+steps are in length (meters).
+\item \code{"Sinuosity"}: A measure of the track's winding nature, calculated as the ratio of the
+actual track length to the straight-line distance (dimensionless).
+\item \code{"Straightness"}: The straightness of the track, calculated as the straight-line
+distance divided by the total path length (dimensionless).
+\item \code{"Velocity"}: The average velocity of the track, calculated as the total distance divided
+by the time elapsed between the first and last footprint (meters per second).
+\item \code{"sdVelocity"}: The standard deviation of the velocity, indicating how much the velocity
+fluctuates throughout the track (meters per second).
+\item \code{"MaxVelocity"}: The maximum velocity achieved during the track, identifying the fastest
+point (meters per second).
+\item \code{"MinVelocity"}: The minimum velocity during the track, identifying the slowest point
+(meters per second).
+\item \code{"TrackWidth"}: Trackway width, i.e., the lateral spacing between left and right
+footprint series (units consistent with input coordinates, typically meters).
+\item \code{"PaceAng"}: Pace angulation (degrees), a classical ichnological descriptor summarizing
+the angular relation of successive steps within a trackway.
 }
 
-The \code{cluster_track()} function has biological relevance in identifying groups of tracks with similar movement parameters,
-providing insights into ecological and behavioral patterns. By clustering tracks based on characteristics such as sinuosity,
-velocity, and turning angles, it allows detecting movement patterns associated with specific behaviors. This can help identify tracks
-potentially made by individuals moving together, which is useful for investigating hypotheses on gregarious behavior, predation
-strategies, or coordinated movement. Additionally, clustering serves as a preliminary step before similarity tests and
-simulations, refining track selection and improving hypothesis testing in movement ecology studies.
+The \code{cluster_track()} function has biological relevance in identifying groups of tracks with
+similar movement parameters, providing insights into ecological and behavioral patterns. By
+clustering tracks based on characteristics such as sinuosity, velocity, and turning angles (treated
+circularly via sine/cosine), it helps detect movement patterns associated with specific behaviors.
+This can reveal tracks potentially made by individuals moving together, useful for investigating
+hypotheses on gregarious behavior, predation strategies, or coordinated movement. Additionally,
+clustering serves as a preliminary step before similarity tests and simulations, refining track
+selection and improving hypothesis testing in movement ecology studies.
 }
 \section{Logo}{
 
 \if{html}{\figure{Logo.png}{options: width=30\%}}
 }
 
-\examples{
-# Example 1: Cluster MountTom tracks using TurnAng and Velocity
-H_mounttom <- c(
-  1.380, 1.404, 1.320, 1.736, 1.364, 1.432, 1.508, 1.768, 1.600,
-  1.848, 1.532, 1.532, 0.760, 1.532, 1.688, 1.620, 0.636, 1.784,
-  1.676, 1.872, 1.648, 1.760, 1.612
-) # Hip heights for MountTom tracks
-veltrack_MountTom <- velocity_from_stride_track(MountTom, H = H_mounttom)
-result1 <- cluster_track(MountTom, veltrack_MountTom,
-  variables = c("TurnAng", "Velocity")
-)
-result1$clust$classification
-
-# Example 2: Cluster MountTom tracks using Sinuosity and Step Length
-result2 <- cluster_track(MountTom, veltrack_MountTom,
-  variables = c("Sinuosity", "StLength")
-)
-plot(result2$clust)
-
-# Example 3: Cluster MountTom tracks using Maximum and Minimum Velocity
-result3 <- cluster_track(MountTom, veltrack_MountTom,
-  variables = c("MaxVelocity", "MinVelocity")
-)
-result3$clust$classification
-
-# Example 4: Cluster MountTom tracks using Straightness
-result4 <- cluster_track(MountTom, veltrack_MountTom, variables = "Straightness")
-result4$clust$classification
-
-# Example 5: Cluster PaluxyRiver tracks using Distance and Straightness
-H_paluxyriver <- c(3.472, 2.200) # Hip heights for PaluxyRiver tracks
-Method_paluxyriver <- c("A", "B") # Different methods for different tracks
-veltrack_PaluxyRiver <- velocity_from_stride_track(PaluxyRiver,
-  H = H_paluxyriver,
-  method = Method_paluxyriver
-)
-result5 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver,
-  variables = c("Distance", "Straightness")
-)
-result5$matrix
-result5$clust$classification
-
-# Example 6: Cluster PaluxyRiver tracks using Length and SD of Velocity
-result6 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver,
-  variables = c("Length", "sdVelocity")
-)
-plot(result6$clust)
-
-# Example 7: Cluster PaluxyRiver tracks using TurnAng and SD of TurnAng
-result7 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver,
-  variables = c("TurnAng", "sdTurnAng")
-)
-result7$clust$classification
-
-# Example 8: Cluster PaluxyRiver tracks using Sinuosity
-result8 <- cluster_track(PaluxyRiver, veltrack_PaluxyRiver,
-  variables = c("Sinuosity")
-)
-result8$clust$classification
-
-}
 \references{
 Alexander, R. M. (1976). Estimates of speeds of dinosaurs. Nature, 261(5556), 129-130.
 
@@ -157,7 +218,7 @@ Ruiz, J., & Torices, A. (2013). Humans running at stadiums and beaches and the a
 Scrucca L., Fop M., Murphy T. B., & Raftery A. E. (2016) mclust 5: clustering, classification and density estimation using Gaussian finite mixture models. The R Journal, 8(1), 289-317.
 }
 \seealso{
-\code{\link{track_param}}, \code{\link{velocity_from_stride_track}}, \code{\link[mclust]{Mclust}}
+\code{\link{track_param}}, \code{\link{velocity_track}}, \code{\link[mclust]{Mclust}}, \code{\link[stats]{hclust}}
 }
 \author{
 Humberto G. Ferrón

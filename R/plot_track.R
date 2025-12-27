@@ -18,6 +18,29 @@
 #' @param cex.l The size of the labels. Default is \code{3.88}.
 #' @param alpha.l The transparency of the labels. Default is \code{0.5}.
 #'
+#' @details
+#' The \code{plot_track()} function is designed as a diagnostic and exploratory tool.
+#' Its primary purpose is to display the raw spatial data (footprint coordinates and
+#' interpolated track trajectories) that have been digitized, so that users can
+#' visually confirm data integrity before conducting quantitative analyses. This
+#' includes checking whether footprints are in the correct order, whether tracks are
+#' oriented consistently, and whether interpolated trajectories align with the raw
+#' footprint data.
+#'
+#' Importantly, these plots are not intended to replace traditional ichnological
+#' illustrations. Hand-drawn maps and outlines often convey information that is not
+#' captured in raw coordinate plots, such as tridactyl morphology, manus/pes
+#' distinction, taxonomic attribution, or trackway orientation, and they frequently
+#' provide clearer and more communicative visual summaries of ichnological material.
+#'
+#' By contrast, \code{plot_track()} focuses on plotting digitized data as they are,
+#' without additional interpretation, stylization, or symbolic annotation. The goal is
+#' to offer a reproducible, data-driven representation that complements, rather than
+#' supplants, traditional methods. Users are encouraged to treat these plots as
+#' quality-control visualizations that help detect potential errors or inconsistencies
+#' in the raw data prior to downstream analyses, while continuing to rely on classical
+#' ichnological illustrations for detailed morphological and taxonomic interpretation.
+#'
 #' @return A \code{ggplot} object that displays the specified plot type, including tracks, footprints, or both, from \code{track} R objects. The \pkg{ggplot2} package is used for plotting.
 #'
 #' @section Logo:

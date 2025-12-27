@@ -22,11 +22,28 @@ simulated trajectories and calculates \emph{p}-values. Default is \code{FALSE}.}
 Options are \code{"None"}, \code{"Centroid"}, or \code{"Origin"}. Default is \code{"None"}.}
 }
 \value{
-A \code{track similarity} R object consisting ofa list containing the following elements:
-\item{Frechet_distance_metric}{A matrix containing the pairwise Frechet distances between trajectories.}
-\item{Frechet_distance_metric_p_values}{(If \code{test} is \code{TRUE)} A matrix containing the \emph{p}-values for the pairwise Frechet distances.}
-\item{Frechet_metric_p_values_combined}{(If \code{test} is \code{TRUE)} The overall \emph{p}-value for the combined Frechet distances.}
-\item{Frechet_distance_metric_simulations}{(If \code{test} is \code{TRUE)} A list of Frechet distance matrices from each simulated dataset.}
+A \code{track similarity} R object consisting of a list containing the following elements:
+
+\item{Frechet_distance_metric}{A numeric matrix of pairwise Fréchet distances
+between trajectories. Each entry represents the Fréchet distance between the corresponding pair of trajectories.}
+
+\item{Frechet_distance_metric_p_values}{(If \code{test = TRUE}) A numeric matrix of raw pairwise \emph{p}-values,
+computed by Monte Carlo tail tests with the (+1) correction
+(Phipson & Smyth, 2010):
+\deqn{p = (1 + \#\{\text{extreme}\}) / (nsim + 1)}.
+Each entry reflects the probability of observing a Fréchet distance as extreme as the observed one,
+given the null hypothesis of no difference.}
+
+\item{Frechet_distance_metric_p_values_BH}{(If \code{test = TRUE}) A numeric matrix of Benjamini–Hochberg (BH)
+adjusted \emph{p}-values controlling the false discovery rate (FDR), applied across the set of unique pairwise tests
+(Benjamini & Hochberg, 1995).}
+
+\item{Frechet_metric_p_values_combined}{(If \code{test = TRUE}) A single numeric value representing
+the combined \emph{p}-value across all Fréchet distances (based on the global statistic: the sum of pairwise distances).
+This indicates the overall significance of the observed Fréchet distances relative to simulations.}
+
+\item{Frechet_distance_metric_simulations}{(If \code{test = TRUE}) A list containing matrices of Fréchet distances
+for each simulation iteration, allowing for inspection of the distribution of Fréchet distances across randomized scenarios.}
 }
 \description{
 \code{simil_Frechet_metric()} computes similarity metrics between two or more trajectories using
@@ -64,6 +81,16 @@ before \code{Frechet()} is applied:
 If \code{test = TRUE}, the function can compute \emph{p}-values by comparing the observed Fréchet
 distances with those generated from a set of simulated trajectories. The \emph{p}-values
 are calculated for both individual trajectory pairs and for the entire set of trajectories.
+Pairwise \emph{p}-values are computed with a Monte Carlo tail test using the (+1) correction to avoid
+zero-values (see Phipson & Smyth, 2010):
+\deqn{p = (1 + \#\{\text{extreme}\}) / (nsim + 1)}
+
+These raw \emph{p}-values are then adjusted for multiple comparisons across the set
+of unique pairwise tests using the Benjamini–Hochberg (BH) procedure for
+false discovery rate (FDR) control (Benjamini & Hochberg, 1995). Both the raw and the BH-adjusted \emph{p}-value
+matrices are returned in the output object, allowing users to inspect either
+uncorrected or corrected results. In addition, a global combined \emph{p}-value is
+provided, summarizing the overall deviation from the null across all pairs.
 }
 \section{Logo}{
 
@@ -89,7 +116,13 @@ simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "Origin
 
 }
 \references{
+Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: a practical and powerful approach to multiple testing.
+Journal of the Royal statistical society: series B (Methodological), 57(1), 289-300.
+
 Cleasby, I. R., Wakefield, E. D., Morrissey, B. J., Bodey, T. W., Votier, S. C., Bearhop, S., & Hamer, K. C. (2019). Using time-series similarity measures to compare animal movement trajectories in ecology. Behavioral Ecology and Sociobiology, 73, 1-19.
+
+Phipson, B., & Smyth, G. K. (2010). Permutation P-values should never be zero: calculating exact P-values when permutations are randomly drawn.
+Statistical applications in genetics and molecular biology, 9(1).
 }
 \seealso{
 \code{\link{tps_to_track}}, \code{\link{simulate_track}}, \code{\link[SimilarityMeasures]{Frechet}}

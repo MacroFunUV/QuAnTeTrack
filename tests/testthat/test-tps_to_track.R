@@ -86,3 +86,68 @@ test_that("tps_to_track validates R.L.side length vs. number of tracks", {
     "Length of 'R.L.side'"
   )
 })
+
+# Duplicate IMAGE should error
+test_that("tps_to_track errors when IMAGE names are duplicated", {
+  # Build a minimal TPS with two tracks sharing the same IMAGE
+  tps_text <- c(
+    "LM=3",
+    "0 0",
+    "1 0",
+    "2 0",
+    "IMAGE=SameImage.png",
+    "ID=A",
+    "LM=3",
+    "0 1",
+    "1 1",
+    "2 1",
+    "IMAGE=SameImage.png",  # duplicate IMAGE
+    "ID=B"
+  )
+  tmp_tps <- tempfile(fileext = ".tps")
+  writeLines(tps_text, tmp_tps)
+
+  # Must pass two sides (R/L) for two tracks
+  expect_error(
+    tps_to_track(
+      tmp_tps,
+      scale = 0.01,
+      R.L.side = c("R", "L"),
+      missing = FALSE
+    ),
+    regexp = "Duplicate IMAGE names detected|IMAGE= must be unique",
+    fixed  = FALSE
+  )
+})
+
+# Duplicate ID should error
+test_that("tps_to_track errors when ID values are duplicated", {
+  # Build a minimal TPS with two tracks sharing the same ID
+  tps_text <- c(
+    "LM=3",
+    "0 0",
+    "1 0",
+    "2 0",
+    "IMAGE=Image1.png",
+    "ID=SameID",
+    "LM=3",
+    "0 1",
+    "1 1",
+    "2 1",
+    "IMAGE=Image2.png",
+    "ID=SameID"  # duplicate ID
+  )
+  tmp_tps <- tempfile(fileext = ".tps")
+  writeLines(tps_text, tmp_tps)
+
+  expect_error(
+    tps_to_track(
+      tmp_tps,
+      scale = 0.01,
+      R.L.side = c("L", "R"),
+      missing = FALSE
+    ),
+    regexp = "Duplicate ID values detected|ID= must be unique",
+    fixed  = FALSE
+  )
+})

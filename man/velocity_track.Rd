@@ -36,12 +36,25 @@ The parameters included are:
 }
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-
-\code{velocity_track()} calculates the velocities and relative stride lengths for each step in a series of tracks, based on the step length, height at the hip, and gravity acceleration.
+\code{velocity_track()} calculates the relative stride lengths and velocities for each step in a series of tracks, based on the step length, height at the hip, and gravity acceleration.
 }
 \details{
-The \code{velocity_track()} function calculates velocities using two methods:
+The \code{velocity_track()} estimates speed from stride length using classical formulas.
+
+As shown by Prescott et al. (2025), such estimates may be misleading—
+particularly when tracks are produced on unconsolidated substrates,
+where actual speeds can be substantially lower than calculated.
+Moreover, equal stride lengths may correspond to different velocities,
+and conversely, different stride lengths can sometimes reflect similar
+velocities, depending on gait and substrate conditions.
+These values should therefore be treated with caution, both in this
+function and in subsequent functions that incorporate velocity estimates.
+By contrast, when trackways are formed on firmer or semi-consolidated
+surfaces, the formulas are more reliable and can provide useful estimates.
+Use is best regarded as comparative or historical unless the substrate
+context supports more confident interpretation.
+
+#' The \code{velocity_track()} function calculates velocities using two methods:
 
 \strong{Method A}: Based on Alexander (1976), with the formula:
 \deqn{v = 0.25 \cdot \sqrt{G} \cdot S^{1.67} \cdot H^{-1.17}}{v = 0.25 * sqrt(G) * S^1.67 * H^-1.17}
@@ -108,6 +121,8 @@ velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 }
 \references{
 Alexander, R. M. (1976). Estimates of speeds of dinosaurs. Nature, 261(5556), 129-130.
+
+Prescott, T. L., Griffin, B. W., Demuth, O. E., Gatesy, S. M., Lallensack, J. N., & Falkingham, P. L. (2025). Speed from fossil trackways: calculations not validated by extant birds on compliant substrates. Biology Letters, 21(6), 20250191.
 
 Ruiz, J., & Torices, A. (2013). Humans running at stadiums and beaches and the accuracy of speed estimations from fossil trackways. Ichnos, 20(1), 31-35.
 

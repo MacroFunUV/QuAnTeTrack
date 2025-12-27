@@ -43,7 +43,7 @@
 #' )
 #'
 #' # Calculate velocities using the default Method "A"
-#' V_mounttom <- velocity_from_stride_track(MountTom, H = H_mounttom)
+#' V_mounttom <- velocity_track(MountTom, H = H_mounttom)
 #'
 #' # Plot trajectories colored by velocity
 #' plot1 <- plot_velocity(MountTom, V_mounttom, param = "V")
@@ -59,7 +59,7 @@
 #' Method_paluxyriver <- c("A", "B")
 #'
 #' # Calculate velocities using specified methods
-#' V_paluxyriver <- velocity_from_stride_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
+#' V_paluxyriver <- velocity_track(PaluxyRiver, H = H_paluxyriver, method = Method_paluxyriver)
 #'
 #' # Plot trajectories colored by relative stride length
 #' plot2 <- plot_velocity(PaluxyRiver, V_paluxyriver, param = "RSL")
@@ -100,7 +100,7 @@
 #' @importFrom ggplot2 theme_light
 #' @importFrom ggplot2 labs
 #'
-#' @seealso \code{\link{tps_to_track}}, \code{\link{velocity_from_stride_track}}, \code{\link[ggplot2]{scale_color_gradientn}}
+#' @seealso \code{\link{tps_to_track}}, \code{\link{velocity_track}}, \code{\link[ggplot2]{scale_color_gradientn}}
 #'
 #' @export
 

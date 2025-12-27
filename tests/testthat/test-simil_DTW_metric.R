@@ -5,7 +5,8 @@ test_that("simil_DTW_metric returns a valid similarity object for Directed model
   expect_type(result, "list")
   expect_true(all(c(
     "DTW_distance_metric", "DTW_distance_metric_p_values",
-    "DTW_metric_p_values_combined", "DTW_distance_metric_simulations"
+    "DTW_distance_metric_p_values_BH", "DTW_metric_p_values_combined",
+    "DTW_distance_metric_simulations"
   ) %in% names(result)))
 })
 
@@ -16,7 +17,8 @@ test_that("simil_DTW_metric returns a valid similarity object for Constrained mo
   expect_type(result, "list")
   expect_true(all(c(
     "DTW_distance_metric", "DTW_distance_metric_p_values",
-    "DTW_metric_p_values_combined", "DTW_distance_metric_simulations"
+    "DTW_distance_metric_p_values_BH", "DTW_metric_p_values_combined",
+    "DTW_distance_metric_simulations"
   ) %in% names(result)))
 })
 
@@ -27,7 +29,8 @@ test_that("simil_DTW_metric returns a valid similarity object for Unconstrained 
   expect_type(result, "list")
   expect_true(all(c(
     "DTW_distance_metric", "DTW_distance_metric_p_values",
-    "DTW_metric_p_values_combined", "DTW_distance_metric_simulations"
+    "DTW_distance_metric_p_values_BH", "DTW_metric_p_values_combined",
+    "DTW_distance_metric_simulations"
   ) %in% names(result)))
 })
 
@@ -39,7 +42,8 @@ test_that("simil_DTW_metric returns a valid similarity object with Centroid supe
   expect_type(result, "list")
   expect_true(all(c(
     "DTW_distance_metric", "DTW_distance_metric_p_values",
-    "DTW_metric_p_values_combined", "DTW_distance_metric_simulations"
+    "DTW_distance_metric_p_values_BH", "DTW_metric_p_values_combined",
+    "DTW_distance_metric_simulations"
   ) %in% names(result)))
 })
 
@@ -51,7 +55,8 @@ test_that("simil_DTW_metric returns a valid similarity object with Origin superp
   expect_type(result, "list")
   expect_true(all(c(
     "DTW_distance_metric", "DTW_distance_metric_p_values",
-    "DTW_metric_p_values_combined", "DTW_distance_metric_simulations"
+    "DTW_distance_metric_p_values_BH", "DTW_metric_p_values_combined",
+    "DTW_distance_metric_simulations"
   ) %in% names(result)))
 })
 

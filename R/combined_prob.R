@@ -13,13 +13,13 @@
 #' @details
 #' The \code{combined_prob()} function combines *p*-values derived from multiple similarity metric tests and intersection tests.
 #' It calculates the combined *p*-values by assessing the probability of observing the combined metrics across simulated datasets.
-#' This function is particularly useful for comparing multiple models and evaluating their collective performance in terms of *p*-values.
+#' Pairwise *p*-values use a Monte Carlo tail test with the (+1) correction and are FDR-adjusted with Benjamini–Hochberg (BH)
+#' across unique trajectory pairs.
 #'
 #' @return A list containing:
-#' \item{P_values (model names)}{A matrix of *p*-values for the combined metrics across all trajectories. Each entry represents
-#' the probability of observing the combined metrics between the corresponding pair of trajectories.}
-#' \item{P_values_combined (model names)}{A numeric value representing the overall probability of observing the combined metrics,
-#' across all pairs of trajectories.}
+#' \item{P_values}{A matrix of raw *p*-values for the combined metrics across all trajectories (pairwise).}
+#' \item{P_values_BH}{A matrix of BH-adjusted *p*-values for the combined metrics (pairwise).}
+#' \item{P_values_global}{A single numeric value: the overall probability of observing the combined metrics across all pairs of trajectories.}
 #'
 #' @section Logo:
 #' \if{html}{\figure{Logo.png}{options: width=30\%}}
@@ -67,93 +67,71 @@
 
 
 combined_prob <- function(data, metrics = NULL) {
-
-  ## Errors and Warnings----
-
-  # Check if 'data' is a list with at least two elements
-  if (!is.list(data) || length(data) < 2) {
-    stop("The 'data' argument must be a 'track' R object, which is a list consisting of two elements.")
-  }
-
-  # Check if the two elements of 'data' are lists
-  if (!is.list(data[[1]]) || !is.list(data[[2]])) {
+  ## ---- Checks ----
+  if (!is.list(data) || length(data) < 2)
+    stop("The 'data' argument must be a 'track' R object (list of two elements).")
+  if (!is.list(data[[1]]) || !is.list(data[[2]]))
     stop("The two elements of 'data' must be lists.")
-  }
+  if (is.null(metrics) || !is.list(metrics))
+    stop("'metrics' must be a list of track similarity or intersection metric objects.")
 
-  # Error: Check that 'metrics' is provided and is a list
-  if (is.null(metrics) || !is.list(metrics)) {
-    stop("'metrics' must be provided and should be a list of track similarity or intersection metrics.")
-  }
+  # Expect simulations in slot [[5]] for each metric object
+  nsim_lengths <- sapply(metrics, function(m) length(m[[5]]))
+  if (length(unique(nsim_lengths)) != 1)
+    stop("All metric objects must have the same number of simulations (looked in [[5]]).")
+  nsim <- nsim_lengths[1]
 
-  # Error: Ensure all elements in 'metrics' have the same number of simulations
-  nsim_lengths <- sapply(metrics, function(x) length(x[[4]]))
-  if (length(unique(nsim_lengths)) != 1) {
-    stop("All elements in 'metrics' must have the same number of simulations.")
-  }
+  trks   <- data[[1]]
+  n      <- length(trks)
+  pnames <- names(trks)
 
+  make_blank <- function() matrix(NA_real_, n, n, dimnames = list(pnames, pnames))
+  upper_idx  <- upper.tri(matrix(NA_real_, n, n), diag = FALSE)
 
-  ## Code----
-  data <- data[[1]]
-
-  Matrixsim <- data.frame(matrix(nrow = length(data), ncol = length(data)))
-  colnames(Matrixsim) <- names(data)
-  rownames(Matrixsim) <- names(data)
-
-  togetherlist <- Matrixsim
-  nsim <- length(metrics[[1]][[4]])
-
-  listc <- list()
-  for (j in 1:nsim) {
-    listb <- list()
-    for (i in 1:length(metrics)) {
-      for (c in 1:length(data)) {
-        for (r in 1:length(data)) {
-          if (c <= r) next
-          togetherlist[r, c] <- metrics[[i]][[1]][[r, c]] - metrics[[i]][[4]][[j]][[r, c]]
-        }
-        listb[[i]] <- togetherlist
-      }
+  # listc[[j]][[i]] will store (Observed - Sim_j) for metric i, simulation j
+  listc <- vector("list", nsim)
+  for (j in seq_len(nsim)) {
+    per_metric <- vector("list", length(metrics))
+    for (i in seq_along(metrics)) {
+      obs  <- as.matrix(metrics[[i]][[1]])       # observed matrix
+      simj <- as.matrix(metrics[[i]][[5]][[j]])  # j-th simulated matrix
+      diffs <- make_blank()
+      diffs[upper_idx] <- obs[upper_idx] - simj[upper_idx]
+      per_metric[[i]] <- diffs
     }
-    listc[[j]] <- listb
+    listc[[j]] <- per_metric
   }
 
-  togetherpvalues <- Matrixsim
-  togetherpvaluescombined <- c()
-
-  for (c in 1:length(data)) {
-    for (r in 1:length(data)) {
-      if (c <= r) next
-
-      vectorpos <- c()
-      for (j in 1:nsim) {
-        vector <- c()
-        for (i in 1:length(metrics)) {
-          vector[i] <- listc[[j]][[i]][[r, c]]
-        }
-        vectorpos[j] <- all(is.real.positive(vector))
-      }
-      togetherpvalues[[r, c]] <- length(which(vectorpos == TRUE)) / nsim
+  ## ---- Pairwise combined p-values (raw, +1 correction) ----
+  P_pair <- make_blank()
+  for (c in seq_len(n)) for (r in seq_len(n)) {
+    if (c <= r) next
+    hits <- logical(nsim)
+    for (j in seq_len(nsim)) {
+      v <- vapply(seq_along(metrics), function(i) listc[[j]][[i]][r, c], numeric(1))
+      hits[j] <- all(is.finite(v) & v > 0)
     }
+    P_pair[r, c] <- (1 + sum(hits)) / (nsim + 1)
   }
 
-  for (i in 1:nsim) {
-    positive <- do.call(rbind, listc[[i]])
-    positive <- positive[!is.na(positive)]
-    togetherpvaluescombined[i] <- all(is.real.positive(positive))
+  ## ---- BH correction ----
+  vals      <- P_pair[upper_idx]; keep <- is.finite(vals)
+  adj_vals  <- vals; adj_vals[keep] <- p.adjust(vals[keep], method = "BH")
+  P_pair_BH <- make_blank(); P_pair_BH[upper_idx] <- adj_vals
+
+  ## ---- Global combined p-value (scalar, +1 correction) ----
+  hits_global <- logical(nsim)
+  for (j in seq_len(nsim)) {
+    mats <- do.call(rbind, listc[[j]])
+    vv   <- as.numeric(mats); vv <- vv[is.finite(vv)]
+    hits_global[j] <- length(vv) > 0 && all(vv > 0)
   }
-  togetherpvaluescombined <- length(which(togetherpvaluescombined == TRUE)) / nsim
+  P_global <- (1 + sum(hits_global)) / (nsim + 1)
 
-  listpvalue <- list()
-  listpvalue[[1]] <- togetherpvalues
-  listpvalue[[2]] <- togetherpvaluescombined
-
-  nameslist <- c()
-  for (i in 1:length(metrics)) {
-    nameslist[i] <- names(metrics[[i]][1])
-  }
-  nameslist <- paste(nameslist, collapse = ", ")
-
-  names(listpvalue) <- c(paste("P_values (", nameslist, ")", sep = ""), paste("P_values_combined (", nameslist, ")", sep = ""))
-
-  return(listpvalue)
+  ## ---- Return ----
+  list(
+    P_values        = P_pair,
+    P_values_BH     = P_pair_BH,
+    P_values_global = P_global
+  )
 }

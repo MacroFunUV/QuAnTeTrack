@@ -18,10 +18,9 @@ based on the same number of simulations.}
 }
 \value{
 A list containing:
-\item{P_values (model names)}{A matrix of \emph{p}-values for the combined metrics across all trajectories. Each entry represents
-the probability of observing the combined metrics between the corresponding pair of trajectories.}
-\item{P_values_combined (model names)}{A numeric value representing the overall probability of observing the combined metrics,
-across all pairs of trajectories.}
+\item{P_values}{A matrix of raw \emph{p}-values for the combined metrics across all trajectories (pairwise).}
+\item{P_values_BH}{A matrix of BH-adjusted \emph{p}-values for the combined metrics (pairwise).}
+\item{P_values_global}{A single numeric value: the overall probability of observing the combined metrics across all pairs of trajectories.}
 }
 \description{
 \code{combined_prob()} calculates the combined probabilities of similarity and intersection metrics
@@ -31,7 +30,8 @@ the significance of combined metrics across various similarity assessments.
 \details{
 The \code{combined_prob()} function combines \emph{p}-values derived from multiple similarity metric tests and intersection tests.
 It calculates the combined \emph{p}-values by assessing the probability of observing the combined metrics across simulated datasets.
-This function is particularly useful for comparing multiple models and evaluating their collective performance in terms of \emph{p}-values.
+Pairwise \emph{p}-values use a Monte Carlo tail test with the (+1) correction and are FDR-adjusted with Benjamini–Hochberg (BH)
+across unique trajectory pairs.
 }
 \section{Logo}{
 

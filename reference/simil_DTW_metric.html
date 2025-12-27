@@ -13,7 +13,7 @@ testing with simulations to calculate p-values for the DTW distance metrics."></
 
     <a class="navbar-brand me-2" href="../index.html">QuAnTeTrack</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,6 +23,10 @@ testing with simulations to calculate p-values for the DTW distance metrics."></
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/QuAnTeTrack.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/best-practices-landmarking.html">Best Practices for Landmarking and Uncertainty Management in QuAnTeTrack</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -49,7 +53,7 @@ testing with simulations to calculate <em>p</em>-values for the DTW distance met
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">data</span>, test <span class="op">=</span> <span class="cn">NULL</span>, sim <span class="op">=</span> <span class="cn">NULL</span>, superposition <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">data</span>, test <span class="op">=</span> <span class="cn">FALSE</span>, sim <span class="op">=</span> <span class="cn">NULL</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -78,18 +82,36 @@ Options are <code>"None"</code>, <code>"Centroid"</code>, or <code>"Origin"</cod
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>track similarity</code> R object consisting ofa list containing the following elements:</p>
+    <p>A <code>track similarity</code> R object consisting of a list containing the following elements:</p>
 <dl><dt>DTW_distance_metric</dt>
-<dd><p>A matrix containing the pairwise DTW distances between trajectories.</p></dd>
+<dd><p>A numeric matrix of pairwise Dynamic Time Warping (DTW) distances
+between trajectories. Each entry represents the DTW distance between the corresponding pair of trajectories.</p></dd>
+
 
 <dt>DTW_distance_metric_p_values</dt>
-<dd><p>(If <code>test</code> is <code>TRUE</code>) A matrix containing the <em>p</em>-values for the pairwise DTW distances.</p></dd>
+<dd><p>(If <code>test = TRUE</code>) A numeric matrix of raw pairwise <em>p</em>-values,
+computed by Monte Carlo tail tests with the (+1) correction
+(Phipson &amp; Smyth, 2010):
+$$p = (1 + \#\{\text{extreme}\}) / (nsim + 1)$$.
+Each entry reflects the probability of observing a DTW distance as extreme as the observed one,
+given the null hypothesis of no difference.</p></dd>
+
+
+<dt>DTW_distance_metric_p_values_BH</dt>
+<dd><p>(If <code>test = TRUE</code>) A numeric matrix of Benjamini–Hochberg (BH)
+adjusted <em>p</em>-values controlling the false discovery rate (FDR), applied across the set of unique pairwise tests
+(Benjamini &amp; Hochberg, 1995).</p></dd>
+
 
 <dt>DTW_metric_p_values_combined</dt>
-<dd><p>(If <code>test</code> is <code>TRUE)</code> The overall <em>p</em>-value for the combined DTW distances.</p></dd>
+<dd><p>(If <code>test = TRUE</code>) A single numeric value representing
+the combined <em>p</em>-value across all DTW distances (based on the global statistic: the sum of pairwise distances).
+This indicates the overall significance of the observed DTW distances relative to simulations.</p></dd>
+
 
 <dt>DTW_distance_metric_simulations</dt>
-<dd><p>(If <code>test</code> is <code>TRUE)</code> A list of DTW distance matrices from each simulated dataset.</p></dd>
+<dd><p>(If <code>test = TRUE</code>) A list containing matrices of DTW distances
+for each simulation iteration, allowing for inspection of the distribution of DTW distances across randomized scenarios.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -117,7 +139,16 @@ before <code>DTW()</code> is applied:</p><ul><li><p><code>"None"</code>: No supe
 <li><p><code>"Origin"</code>: Trajectories are shifted to align based on their starting point.</p></li>
 </ul><p>If <code>test = TRUE</code>, the function can compute <em>p</em>-values by comparing the observed DTW
 distances with those generated from a set of simulated trajectories. The <em>p</em>-values
-are calculated for both individual trajectory pairs and for the entire set of trajectories.</p>
+are calculated for both individual trajectory pairs and for the entire set of trajectories.
+Pairwise <em>p</em>-values are computed with a Monte Carlo tail test using the (+1) correction to avoid
+zero-values (see Phipson &amp; Smyth, 2010):
+$$p = (1 + \#\{\text{extreme}\}) / (nsim + 1)$$</p>
+<p>These raw <em>p</em>-values are then adjusted for multiple comparisons across the set
+of unique pairwise tests using the Benjamini–Hochberg (BH) procedure for
+false discovery rate (FDR) control (Benjamini &amp; Hochberg, 1995). Both the raw and the BH-adjusted <em>p</em>-value
+matrices are returned in the output object, allowing users to inspect either
+uncorrected or corrected results. In addition, a global combined <em>p</em>-value is
+provided, summarizing the overall deviation from the null across all pairs.</p>
     </div>
     <div class="section level2">
     <h2 id="logo">Logo<a class="anchor" aria-label="anchor" href="#logo"></a></h2>
@@ -127,7 +158,11 @@ are calculated for both individual trajectory pairs and for the entire set of tr
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Cleasby, I. R., Wakefield, E. D., Morrissey, B. J., Bodey, T. W., Votier, S. C., Bearhop, S., &amp; Hamer, K. C. (2019). Using time-series similarity measures to compare animal movement trajectories in ecology. Behavioral Ecology and Sociobiology, 73, 1-19.</p>
+    <p>Benjamini, Y., &amp; Hochberg, Y. (1995). Controlling the false discovery rate: a practical and powerful approach to multiple testing.
+Journal of the Royal statistical society: series B (Methodological), 57(1), 289-300.</p>
+<p>Cleasby, I. R., Wakefield, E. D., Morrissey, B. J., Bodey, T. W., Votier, S. C., Bearhop, S., &amp; Hamer, K. C. (2019). Using time-series similarity measures to compare animal movement trajectories in ecology. Behavioral Ecology and Sociobiology, 73, 1-19.</p>
+<p>Phipson, B., &amp; Smyth, G. K. (2010). Permutation P-values should never be zero: calculating exact P-values when permutations are randomly drawn.
+Statistical applications in genetics and molecular biology, 9(1).</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -150,30 +185,44 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-in"><span><span class="co"># in the PaluxyRiver dataset</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Directed"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s1</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:12.828946 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.354546 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 17.58427</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:12.831187 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.357235 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 16.48403</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:12.833408 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.359819 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 24.70844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ANALYSIS COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 23.47722</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 23.47722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 23.47722       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_p_values</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1   Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA    0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_p_values_BH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA    0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_metric_p_values_combined</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6666667</span>
@@ -181,17 +230,17 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 30.72955</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 17.58427</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 23.34381</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 16.48403</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 16.36784</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 24.70844</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -200,29 +249,43 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-in"><span><span class="co"># in the PaluxyRiver dataset</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Constrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s2</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:12.847685 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.374164 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 252.5979</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:12.849917 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.376757 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 95.39256</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:12.852132 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.379285 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 170.2938</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ANALYSIS COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 23.47722</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 23.47722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 23.47722       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_p_values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA    0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_p_values_BH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA    0.25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_metric_p_values_combined</span>
@@ -230,18 +293,18 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 37.5479</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 252.5979</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 96.37455</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 95.39256</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 172.9115</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 170.2938</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -250,29 +313,43 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-in"><span><span class="co"># in the PaluxyRiver dataset</span></span></span>
 <span class="r-in"><span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Unconstrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s3</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:12.866672 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.394254 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 717.4026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:12.868921 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.396815 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 738.6735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:12.871114 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.399363 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 766.5934</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ANALYSIS COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 23.47722</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 23.47722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 23.47722       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_p_values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA    0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_p_values_BH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA    0.25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_metric_p_values_combined</span>
@@ -281,18 +358,18 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 110.3167</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 717.4026</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 818.0027</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 738.6735</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 468.311</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1  Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 766.5934</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -302,34 +379,106 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-in"><span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">sbMountTom</span>, nsim <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`model` is NULL. Defaulting to 'Unconstrained'.</span>
 <span class="r-in"><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s4</span>, superposition <span class="op">=</span> <span class="st">"Centroid"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:13.013493 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.532386 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 34.77507 40.83665 28.97181  7.98321 39.801883 40.97504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 33.15206 52.11918 20.13191 25.407164 18.04472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 37.95267 23.53295  8.399035 19.73591</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 24.44538 40.943513 49.13389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA 21.926868 23.58801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA        NA 11.16308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13  Track_15  Track_16  Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 39.12781 26.669164 15.953157 39.613209</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 40.79062 36.246694 21.116625 34.865976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 14.93785 20.189044 12.790502  5.126975</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 25.34226  9.750902 15.373086 33.302578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 24.07498 16.958717  8.490390 22.822048</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 20.46661 23.313536 12.973165 12.013410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 31.60224 30.167942 17.917873 23.002248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA 12.313347 12.653304 10.495460</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA  9.390416 16.660829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA 11.736856</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:13.069159 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.576416 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 12.45845 39.22490 66.70123 24.60561  8.035231 24.928465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 35.58791 59.53738 17.91867 12.662517 16.324110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 12.72239 18.52695 20.454961 24.738623</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 33.03691 42.737136 39.977566</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA 14.446761  4.820698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA        NA 17.287810</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15  Track_16  Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 31.623826 42.359709 28.294056 23.937678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 22.775928 38.565890 25.353980 17.303799</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 21.854177  4.311715  5.184952 17.583788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 34.014885 14.593099 19.033953 32.036203</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07  6.162870 22.039899 12.739054  1.269285</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 20.025424 23.749981 12.542857 13.868949</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09  7.600545 27.684611 17.961896  4.639764</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 25.246732 16.600928  6.335406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA  7.889243 21.107408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 12.047081</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:13.115807 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.662693 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 19.51285 38.94657 60.13078 40.02200 36.102832 35.892140</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 33.11222 45.74144 33.69174 27.286147 23.896833</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 17.33850  3.67163  5.953785 15.294390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 13.97407  8.426659 14.435758</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA  5.192675 14.030102</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA        NA  8.529183</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15  Track_16  Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01  5.477892 11.894416 29.161582 39.077199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 12.051650  6.148277 25.281876 35.845563</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 26.606883 22.020042  4.558738  7.450284</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 46.078995 37.863686 20.287013 28.371299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 28.137917 23.189137  7.140877 10.253712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 23.745531 18.512185  6.477767 11.670501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 24.559188 18.657639 12.677109 21.094087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA  7.365335 18.682095 27.305054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA 15.022130 23.319641</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA  5.848749</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ANALYSIS COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 7.155827 6.889059 7.146449 8.550492 9.358030 41.27125</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 7.367287 7.095034 8.511176 8.404712 44.46323</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 2.752378 5.017897 5.558007 23.61988</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 3.748965 5.898481 21.55969</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA 3.362680 27.87452</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA 27.11038</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_01  Track_02  Track_03  Track_04  Track_07  Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        NA  7.155827  6.889059  7.146449  8.550492  9.358030 41.27125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02  7.155827        NA  7.367287  7.095034  8.511176  8.404712 44.46323</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03  6.889059  7.367287        NA  2.752378  5.017897  5.558007 23.61988</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04  7.146449  7.095034  2.752378        NA  3.748965  5.898481 21.55969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07  8.550492  8.511176  5.017897  3.748965        NA  3.362680 27.87452</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08  9.358030  8.404712  5.558007  5.898481  3.362680        NA 27.11038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 41.271248 44.463229 23.619876 21.559693 27.874517 27.110379       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13 23.690795 26.769160 11.380548 10.754453 16.245880 16.011649 12.44577</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15 10.006241  8.652232  4.011654  2.107453  4.076379  5.869619 21.45921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16  8.956456  8.004512  6.187040  7.121107  5.378815  3.814577 36.64336</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18 11.561263  9.939214  4.835886  3.128265  5.173189  6.169448 21.46042</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13  Track_15  Track_16  Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 23.69080 10.006241  8.956456 11.561263</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 26.76916  8.652232  8.004512  9.939214</span>
@@ -339,34 +488,60 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 16.01165  5.869619  3.814577  6.169448</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 12.44577 21.459210 36.643358 21.460416</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA 11.406049 22.371414 11.843307</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA  7.547234  1.280341</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA  8.182026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15 11.40605        NA  7.547234  1.280341</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16 22.37141  7.547234        NA  8.182026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18 11.84331  1.280341  8.182026        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_p_values</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04 Track_07  Track_08  Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0 0.3333333        0 0.0000000 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0 0.0000000        0 0.3333333 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 0.0000000        0 0.0000000 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA        NA        0 0.0000000 0.3333333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA        NA       NA 0.0000000 0.3333333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA        NA       NA        NA 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA        NA       NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA        NA       NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA        NA       NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        NA       NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA        NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA     0.25     0.25     0.25     0.50     0.50     1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA     0.25     0.25     0.25     0.25     1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA     0.25     0.50     0.25     0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA     0.25     0.25     0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA     0.25     1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA     1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01     0.50     0.25     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02     0.75     0.50     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03     0.25     0.25     0.75     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04     0.25     0.25     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07     0.50     0.25     0.25     0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08     0.25     0.25     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09     0.50     0.50     1.00     0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA     0.50     1.00     0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA     0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_p_values_BH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01  Track_02  Track_03  Track_04  Track_07  Track_08  Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 0.4296875 0.4296875 0.4296875 0.6250000 0.6250000 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA        NA 0.4296875 0.4296875 0.4296875 0.4296875 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA        NA        NA 0.4296875 0.6250000 0.4296875 0.8418367</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA        NA        NA        NA 0.4296875 0.4296875 0.6250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA        NA        NA        NA        NA 0.4296875 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA        NA        NA        NA        NA        NA 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA        NA        NA        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        NA        NA        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA        NA        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15  Track_16  Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 0.0000000 0.0000000 0.0000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 1.0000000 0.3333333 0.0000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 0.0000000 0.0000000 0.0000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 0.3333333 0.0000000 0.0000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 0.0000000 0.0000000 0.0000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 0.6666667 0.6666667 0.0000000 0.3333333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 0.3333333 0.0000000 1.0000000 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 0.0000000 1.0000000 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA 0.3333333 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 0.6250000 0.4296875 0.4296875 0.4296875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 0.8418367 0.6250000 0.4296875 0.4296875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 0.4296875 0.4296875 0.8418367 0.4296875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 0.4296875 0.4296875 0.4296875 0.4296875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 0.6250000 0.4296875 0.4296875 0.6250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 0.4296875 0.4296875 0.4296875 0.4296875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 0.6250000 0.6250000 1.0000000 0.8418367</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 0.6250000 1.0000000 0.8418367</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA 0.4296875 0.4296875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 0.6250000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_metric_p_values_combined</span>
@@ -374,81 +549,81 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03 Track_04 Track_07 Track_08  Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 27.76773 16.606926 39.29551 34.81758 39.27462 24.444980</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA  7.964637 12.59047 36.42229 32.47174  5.471068</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA        NA 14.06870 21.77121 19.41190  5.336298</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA        NA       NA 43.52327 35.66142  9.254562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA        NA       NA       NA 14.87605 28.546630</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA        NA       NA       NA       NA 24.794765</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA        NA       NA       NA       NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA        NA       NA       NA       NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        NA       NA       NA       NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA        NA       NA       NA       NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA        NA       NA       NA       NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15  Track_16 Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 32.878500 40.968002 27.360404 36.53011</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 12.079593 38.061227 24.425339 22.78325</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 11.402170 24.027246 12.712601 14.57835</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04  8.698299 44.009864 28.935749 21.78974</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 28.508115  9.749711  8.591807 20.83021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 20.984687  9.973360  6.725304 10.39459</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09  9.555908 29.938502 18.188392 17.07310</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 28.319585 16.793482 11.96461</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA  7.971705 18.58816</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 10.28874</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 34.77507 40.83665 28.97181  7.98321 39.801883 40.97504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 33.15206 52.11918 20.13191 25.407164 18.04472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 37.95267 23.53295  8.399035 19.73591</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 24.44538 40.943513 49.13389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA 21.926868 23.58801</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA        NA 11.16308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13  Track_15  Track_16  Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 39.12781 26.669164 15.953157 39.613209</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 40.79062 36.246694 21.116625 34.865976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 14.93785 20.189044 12.790502  5.126975</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 25.34226  9.750902 15.373086 33.302578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 24.07498 16.958717  8.490390 22.822048</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 20.46661 23.313536 12.973165 12.013410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 31.60224 30.167942 17.917873 23.002248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA 12.313347 12.653304 10.495460</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA  9.390416 16.660829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA 11.736856</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07  Track_08  Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 58.69358 33.03430  6.856834 27.835432 38.510715 22.280089</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 23.63636 64.764154 29.616260  7.431294 40.451192</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 38.095991  6.072348 14.399450 14.364730</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA        NA 32.413664 44.411137 26.242018</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA        NA        NA 17.184381  8.938576</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA        NA        NA        NA 25.813877</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA        NA        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA        NA        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA        NA        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        NA        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA        NA        NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13  Track_15 Track_16  Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 43.67650 40.179740 13.04731 38.410844</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 21.00538  5.610299 25.11322 12.168317</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 25.14100 15.393681 11.88703 17.201362</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 49.57503 46.934297 17.69210 44.753436</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 27.69336 19.179222 10.76841 19.888639</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 12.15406  2.638546 12.74667  5.088981</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 33.87745 27.020710 12.13173 27.138809</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA 13.319691 17.11342  8.511120</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA 14.01889  5.358591</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA       NA 12.579536</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 12.45845 39.22490 66.70123 24.60561  8.035231 24.928465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 35.58791 59.53738 17.91867 12.662517 16.324110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 12.72239 18.52695 20.454961 24.738623</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 33.03691 42.737136 39.977566</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA 14.446761  4.820698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA        NA 17.287810</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15  Track_16  Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 31.623826 42.359709 28.294056 23.937678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 22.775928 38.565890 25.353980 17.303799</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 21.854177  4.311715  5.184952 17.583788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 34.014885 14.593099 19.033953 32.036203</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07  6.162870 22.039899 12.739054  1.269285</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 20.025424 23.749981 12.542857 13.868949</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09  7.600545 27.684611 17.961896  4.639764</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 25.246732 16.600928  6.335406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA  7.889243 21.107408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 12.047081</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07 Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA  59.8885 21.54234 42.93670 30.136750 39.56759 37.10054</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 33.66332 54.78223 29.710395 14.42452 29.01322</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 10.57934  6.471104 16.24989 27.19814</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA  8.979812 29.70083 52.52196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA        NA 12.21869 28.03700</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA        NA       NA 24.55548</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA        NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA        NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA        NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA        NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA        NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 19.51285 38.94657 60.13078 40.02200 36.102832 35.892140</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 33.11222 45.74144 33.69174 27.286147 23.896833</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 17.33850  3.67163  5.953785 15.294390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 13.97407  8.426659 14.435758</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA  5.192675 14.030102</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA        NA  8.529183</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15  Track_16  Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 46.819395 40.713488 28.706714 34.225126</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02  9.945081 13.081015 13.680003 20.576881</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 27.423297 17.713220 11.042673 21.341319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 50.107065 32.091865 24.549037 43.775684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 25.610937 13.777570  9.271004 21.369884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 15.400130  1.788868  4.739688 16.357925</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 18.446607 24.575370 16.822872  5.372652</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 14.864443 12.459303 11.686186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA  5.602034 16.339850</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 10.825538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01  5.477892 11.894416 29.161582 39.077199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 12.051650  6.148277 25.281876 35.845563</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 26.606883 22.020042  4.558738  7.450284</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 46.078995 37.863686 20.287013 28.371299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 28.137917 23.189137  7.140877 10.253712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 23.745531 18.512185  6.477767 11.670501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 24.559188 18.657639 12.677109 21.094087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA  7.365335 18.682095 27.305054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA 15.022130 23.319641</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA  5.848749</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -459,34 +634,106 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-in"><span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">sbMountTom</span>, nsim <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`model` is NULL. Defaulting to 'Unconstrained'.</span>
 <span class="r-in"><span><span class="fu">simil_DTW_metric</span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s5</span>, superposition <span class="op">=</span> <span class="st">"Origin"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:13.268369 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.798565 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08  Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 74.58195 78.91397 96.64398 70.79938 42.08277 35.468019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 63.99860 15.82293 23.15382 63.20830 70.717161</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 71.73955 34.28973 31.76544 44.275450</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 18.85089 78.35770 87.732235</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA 42.76890 50.107566</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA  9.465876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13  Track_15  Track_16  Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 93.33423 37.413138 52.051414 44.623207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 65.57425 64.313729 27.180051 64.332909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 14.28249 36.947737 17.754758 30.247222</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 69.93651 80.012922 30.825070 79.119289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 32.87243 46.118442  9.575422 42.182148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 46.37700  5.752637 23.576983  2.286923</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 58.16662  5.798243 33.668082 12.004624</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA 51.806516 18.002230 44.967019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA 25.658456  7.668531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA 23.322257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:13.31487 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.853914 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 54.23687 45.21874 49.44016 71.50794 66.200748 50.16937</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA  7.59947 12.07591 40.92355 35.146152 75.64967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 17.30699 24.03585 19.747136 53.78668</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 54.70680 48.159534 81.22320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA  4.641382 57.88723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA        NA 56.10677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13  Track_15 Track_16 Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 70.35715 38.246414 53.14282 26.44397</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 79.04307 59.444327 37.94523 16.21459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 54.32899 40.387821 20.39138 12.63175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 89.50376 65.038178 48.86099 14.16531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 52.78516 47.239386 11.03906 31.14017</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 49.82184 42.374859 11.26962 27.12250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 23.79028  5.888145 35.99928 42.43423</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA 22.474039 27.90860 47.60924</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA 25.48473 30.77810</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA       NA 21.73607</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA       NA       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-05-19 14:34:13.370226 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2025-12-27 20:55:58.898559 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03  Track_04 Track_07 Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 113.7108 75.852344 122.69581 77.46999 69.19479 43.15262</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA  8.193052  35.02683 19.17839 44.74527 69.97435</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA        NA  24.76149 14.27356 28.90253 43.40454</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA        NA        NA 47.01337 71.48320 65.05010</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA        NA        NA       NA 19.83662 51.52343</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA        NA        NA       NA       NA 52.01348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA        NA        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA        NA        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        NA        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA        NA        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA        NA        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15 Track_16  Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 89.950716 75.784943 37.31391 75.446867</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 26.529842 19.578187 42.36166 23.277897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 20.553526  9.494872 22.86946 16.753630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 58.201258 11.676309 58.04265 50.430771</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07  5.254308 23.198154 21.30381  5.295366</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 21.428358 36.170033 13.73617 15.205568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 62.329274 39.511223 31.33146 50.831737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 31.105605 26.59231  3.924337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA 25.54778 24.486652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA       NA 18.784094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA       NA        NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ANALYSIS COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03  Track_04  Track_07  Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 8.365556 8.140001 13.288601 17.963246 14.043056 80.66455</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 9.928547 13.870318 15.997694 11.986057 83.72110</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA  4.242441  9.250629  6.131319 46.49768</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA        NA  5.401950  3.172849 42.61717</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA        NA        NA  5.261381 51.73148</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA        NA        NA        NA 54.42241</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA        NA        NA        NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA        NA        NA        NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA        NA        NA        NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        NA        NA        NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA        NA        NA        NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_01  Track_02  Track_03  Track_04  Track_07  Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        NA  8.365556  8.140001 13.288601 17.963246 14.043056 80.66455</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02  8.365556        NA  9.928547 13.870318 15.997694 11.986057 83.72110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03  8.140001  9.928547        NA  4.242441  9.250629  6.131319 46.49768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 13.288601 13.870318  4.242441        NA  5.401950  3.172849 42.61717</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 17.963246 15.997694  9.250629  5.401950        NA  5.261381 51.73148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 14.043056 11.986057  6.131319  3.172849  5.261381        NA 54.42241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 80.664547 83.721098 46.497678 42.617174 51.731485 54.422412       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13 45.007884 47.197964 20.295656 19.901140 29.449500 27.328666 22.41087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15 18.730370 17.799527  7.910351  4.165947  2.944420  4.915326 41.82503</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16 14.932046  9.836672 10.158387  8.969975  6.952380  5.349900 68.97341</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18 22.179224 20.569492  9.928217  6.396727  5.167036  6.863688 42.96907</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13  Track_15  Track_16  Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 45.00788 18.730370 14.932046 22.179224</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 47.19796 17.799527  9.836672 20.569492</span>
@@ -496,117 +743,143 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 27.32867  4.915326  5.349900  6.863688</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 22.41087 41.825031 68.973412 42.969072</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA 20.579060 39.239001 21.761749</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA  8.572483  2.784293</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA 10.795457</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15 20.57906        NA  8.572483  2.784293</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16 39.23900  8.572483        NA 10.795457</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18 21.76175  2.784293 10.795457        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_p_values</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01  Track_02 Track_03 Track_04 Track_07  Track_08  Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 0.3333333        0        0        0 0.3333333 0.3333333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA        NA        0        0        0 0.0000000 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA        NA       NA        0        0 0.0000000 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA        NA       NA       NA        0 0.0000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA        NA       NA       NA       NA 0.3333333 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA        NA       NA       NA       NA        NA 1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA        NA       NA       NA       NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        NA       NA       NA       NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA       NA       NA       NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA       NA       NA       NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA       NA       NA       NA        NA        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15 Track_16  Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 0.3333333 0.0000000        0 0.3333333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 0.3333333 0.0000000        0 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 0.3333333 0.0000000        0 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 0.0000000 0.0000000        0 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 0.3333333 0.0000000        0 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 0.6666667 0.0000000        0 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 0.0000000 0.3333333        1 0.6666667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 0.3333333        1 0.3333333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA        0 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA       NA 0.3333333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA     0.25     0.25     0.25     0.25     0.25     1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA     0.75     0.50     0.25     0.25     1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA     0.25     0.25     0.25     0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA     0.25     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA     0.50     0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA     0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01     0.25     0.25     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02     0.50     0.25     0.25     0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03     0.50     0.25     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04     0.25     0.25     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07     0.50     0.25     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08     0.50     0.25     0.25     0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09     0.25     1.00     1.00     0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA     0.25     1.00     0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA     0.25     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA     0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_p_values_BH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01  Track_02  Track_03  Track_04  Track_07  Track_08  Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 0.3819444 0.3819444 0.3819444 0.3819444 0.3819444 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA        NA 0.8250000 0.6111111 0.3819444 0.3819444 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA        NA        NA 0.3819444 0.3819444 0.3819444 0.8250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA        NA        NA        NA 0.3819444 0.3819444 0.3819444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA        NA        NA        NA        NA 0.6111111 0.8250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA        NA        NA        NA        NA        NA 0.8250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA        NA        NA        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        NA        NA        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA        NA        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA        NA        NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15  Track_16  Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 0.3819444 0.3819444 0.3819444 0.3819444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 0.6111111 0.3819444 0.3819444 0.6111111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 0.6111111 0.3819444 0.3819444 0.3819444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 0.3819444 0.3819444 0.3819444 0.3819444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 0.6111111 0.3819444 0.3819444 0.3819444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 0.6111111 0.3819444 0.3819444 0.6111111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 0.3819444 1.0000000 1.0000000 0.8250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 0.3819444 1.0000000 0.6111111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA 0.3819444 0.3819444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA        NA 0.3819444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_metric_p_values_combined</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 30.34654 61.17894 57.39041 63.86482 22.24351 89.76501</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 64.40437 77.85452 44.09158 35.30704 76.16587</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 37.31680 43.05850 23.70804 40.52057</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 82.31857 19.40577 89.86573</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA 38.41663 30.84763</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA 47.40589</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15 Track_16  Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 66.901590 37.297644 50.65292 11.450625</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 72.650000 48.780689 45.52621 25.009096</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03  5.154424 19.075187 12.75656 29.247809</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 36.147189  8.839846 45.67071 31.136891</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 53.822234 45.067243 22.05078 35.290739</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 26.581234  9.282636 19.83560  7.458807</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 49.145878 48.420505 18.48658 47.853277</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 19.947516 17.61872 33.645858</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA 19.95537 16.053343</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA       NA 21.325683</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08  Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 74.58195 78.91397 96.64398 70.79938 42.08277 35.468019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 63.99860 15.82293 23.15382 63.20830 70.717161</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 71.73955 34.28973 31.76544 44.275450</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 18.85089 78.35770 87.732235</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA 42.76890 50.107566</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA  9.465876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13  Track_15  Track_16  Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 93.33423 37.413138 52.051414 44.623207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 65.57425 64.313729 27.180051 64.332909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 14.28249 36.947737 17.754758 30.247222</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 69.93651 80.012922 30.825070 79.119289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 32.87243 46.118442  9.575422 42.182148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 46.37700  5.752637 23.576983  2.286923</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 58.16662  5.798243 33.668082 12.004624</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA 51.806516 18.002230 44.967019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA 25.658456  7.668531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA        NA 23.322257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 4.860765 74.94096 88.57201 21.33641 18.423094 45.49924</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 67.06140 80.33960 17.99008 14.760807 39.76980</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 78.60816 37.99303 37.000399 36.39697</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 70.60049 64.933286 88.46726</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA  3.633356 15.52430</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA        NA 16.82532</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 54.23687 45.21874 49.44016 71.50794 66.200748 50.16937</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA  7.59947 12.07591 40.92355 35.146152 75.64967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 17.30699 24.03585 19.747136 53.78668</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 54.70680 48.159534 81.22320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA  4.641382 57.88723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA        NA 56.10677</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA        NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA        NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA        NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA        NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA        NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13 Track_15 Track_16 Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 14.082114 22.40024 47.04993 41.27621</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 12.544307 19.78054 40.14648 36.35104</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 52.042002 44.91634 19.62763 41.14927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 77.785730 43.18852 31.47510 21.05263</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07  7.760319 21.53307 22.86114 29.30752</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08  7.166999 18.53730 21.37563 26.30923</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 26.034415 36.38214 31.35557 42.33758</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 22.09544 30.69268 33.60780</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA       NA 19.79778 13.51471</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA       NA       NA 14.00335</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13  Track_15 Track_16 Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 70.35715 38.246414 53.14282 26.44397</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 79.04307 59.444327 37.94523 16.21459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 54.32899 40.387821 20.39138 12.63175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 89.50376 65.038178 48.86099 14.16531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 52.78516 47.239386 11.03906 31.14017</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 49.82184 42.374859 11.26962 27.12250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 23.79028  5.888145 35.99928 42.43423</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA 22.474039 27.90860 47.60924</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA        NA 25.48473 30.77810</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA        NA       NA 21.73607</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA        NA       NA       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $DTW_distance_metric_simulations[[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 35.99635 14.56888 42.93174 54.70509 13.49592 84.78659</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA 16.58853 71.48639 29.76541 30.44216 84.23506</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA 35.72677 25.26877 10.48571 50.56719</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA 74.97716 19.54464 71.75940</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA 32.17560 53.94281</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA 44.06968</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16  Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 89.72557 69.47827 53.28253 76.105919</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 76.99464 47.19972 42.48455 64.268346</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 50.92449 34.59122 22.98817 40.485779</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 95.86413 85.83591 56.94821 82.511621</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07 41.55532 14.28681 19.16697 32.372112</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 51.29674 39.63463 23.23001 40.633628</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 36.08344 51.92638 24.45454 31.659919</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA 31.33465 11.09801  3.171102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA 15.45749 23.781094</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA  6.569464</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02  Track_03  Track_04 Track_07 Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA 113.7108 75.852344 122.69581 77.46999 69.19479 43.15262</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA  8.193052  35.02683 19.17839 44.74527 69.97435</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA        NA  24.76149 14.27356 28.90253 43.40454</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA        NA        NA 47.01337 71.48320 65.05010</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA        NA        NA       NA 19.83662 51.52343</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA        NA        NA       NA       NA 52.01348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA        NA        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA        NA        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        NA        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA        NA        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA        NA        NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_13  Track_15 Track_16  Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01 89.950716 75.784943 37.31391 75.446867</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02 26.529842 19.578187 42.36166 23.277897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03 20.553526  9.494872 22.86946 16.753630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04 58.201258 11.676309 58.04265 50.430771</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07  5.254308 23.198154 21.30381  5.295366</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08 21.428358 36.170033 13.73617 15.205568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09 62.329274 39.511223 31.33146 50.831737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        NA 31.105605 26.59231  3.924337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        NA        NA 25.54778 24.486652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        NA        NA       NA 18.784094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        NA        NA       NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -621,7 +894,7 @@ are calculated for both individual trajectory pairs and for the entire set of tr
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

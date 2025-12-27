@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">QuAnTeTrack</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,6 +17,10 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/QuAnTeTrack.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/best-practices-landmarking.html">Best Practices for Landmarking and Uncertainty Management in QuAnTeTrack</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -66,46 +70,51 @@ The parameters included are:</p><ul><li><p><code>Turning_angles</code>: A vector
 <li><p><code>Standard_deviation_step_length</code>: The standard deviation of the step lengths  (in meters).</p></li>
 <li><p><code>Sinuosity</code>: The sinuosity of the track (dimensionless).</p></li>
 <li><p><code>Straightness</code>: The straightness of the track (dimensionless).</p></li>
+<li><p><code>Trackway_width</code>: Mean lateral separation between left and right footprints (in meters), measured perpendicular to the inferred trackway axis.</p></li>
+<li><p><code>Pace_angulation</code>: Mean interior angle (in degrees) computed from alternating triplets (L–R–L or R–L–R).</p></li>
 </ul><p>The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).</p>
-<p>Sinuosity is calculated according to Benhamou (2004), as defined in equation 8.
+<p>Circular mean of turning angles is computed as:</p>
+<p>$$\bar{θ} = atan2\left(\frac{1}{n}\sum_{i=1}^n \sin θ_i, \frac{1}{n}\sum_{i=1}^n \cos θ_i\right)$$</p>
+<p>where:</p><ul><li><p>\(θ_i\) is the \(i^{th}\) turning angle in radians.</p></li>
+<li><p>\(n\) is the total number of turning angles.</p></li>
+<li><p>\(\sin θ_i\), \(\cos θ_i\) are the sine and cosine components of each turning angle.</p></li>
+<li><p>\(atan2(y, x)\) is the two-argument arctangent that returns the angle in the correct quadrant.</p></li>
+</ul><p>Circular standard deviation of turning angles is computed as:</p>
+<p>$$s_c = \sqrt{-2 \ln(\bar R)}, \quad \bar R = \sqrt{\left(\frac{1}{n}\sum_{i=1}^n \cos θ_i\right)^2 + \left(\frac{1}{n}\sum_{i=1}^n \sin θ_i\right)^2}$$</p>
+<p>where:</p><ul><li><p>\(\bar R\) is the mean resultant length, measuring concentration of angles around the mean direction.</p></li>
+<li><p>\(n\) is the total number of turning angles.</p></li>
+<li><p>\(\cos θ_i\), \(\sin θ_i\) are the trigonometric components of each angle.</p></li>
+<li><p>\(s_c\) is the circular standard deviation in radians (converted to degrees in this function).</p></li>
+</ul><p>Sinuosity is calculated according to Benhamou (2004), as defined in equation 8.
 The formula used here is a refined version of the sinuosity index presented by Bovet &amp; Benhamou (1988),
 which is applicable to a broader range of turning angle distributions and does not require a constant step length.</p>
 <p>The sinuosity is computed using the formula:
 $$S = 2 \left[ p \left( \frac{1 + c}{1 - c} + b^2 \right) \right]^{-0.5}$$
-where:</p>
-<dl><dt>p</dt>
-<dd><p>is the mean step length (in meters),</p></dd>
-
-<dt>c</dt>
-<dd><p>is the mean cosine of turning angles (in radians), and</p></dd>
-
-<dt>b</dt>
-<dd><p>is the coefficient of variation of the step length (in meters).</p></dd>
-
-
-</dl><p>The straightness index is defined as the ratio D/L, where:</p>
-<dl><dt>D</dt>
-<dd><p>is the beeline distance between the first and last points in the trajectory (in meters), and</p></dd>
-
-<dt>L</dt>
-<dd><p>is the total path length traveled (in meters).</p></dd>
-
-
-</dl><p>Straightness index is based on the method described by Batschelet (1981). According to Benhamou (2004),
+where:</p><ul><li><p>\(p\) is the mean step length (in meters),</p></li>
+<li><p>\(c\) is the mean cosine of turning angles (in radians), and</p></li>
+<li><p>\(b\) is the coefficient of variation of the step length (in meters).</p></li>
+</ul><p>The straightness index is defined as the ratio D/L, where:</p><ul><li><p>\(D\) is the beeline distance between the first and last points in the trajectory (in meters), and</p></li>
+<li><p>\(L\) is the total path length traveled (in meters).</p></li>
+</ul><p>Straightness index is based on the method described by Batschelet (1981). According to Benhamou (2004),
 the straightness index serves as a reliable measure of the efficiency of a directed walk. However, it is not suitable
 for random trajectories, as the index for a random walk tends towards zero with increasing steps. Thus, it is recommended
 to use this measure to compare the tortuosity of random walks only if they consist of a similar number of steps.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function calculates various movement parameters for each track in the provided data.
-It uses the following helper functions from the <span class="pkg">trajr</span> (Animal Trajectory Analysis) package:</p><ul><li><p><code>TrajAngles()</code>: Calculates the turning angles of the track.</p></li>
+    <p>This function calculates various movement parameters for each track in the provided data.</p>
+<p>It uses the following helper functions:</p>
+<p>From the <span class="pkg">trajr</span> package:</p><ul><li><p><code>TrajAngles()</code>: Calculates the turning angles of the track.</p></li>
 <li><p><code>TrajDistance()</code>: Calculates the total distance covered by the track.</p></li>
 <li><p><code>TrajLength()</code>: Calculates the length of the track.</p></li>
 <li><p><code>TrajStepLengths()</code>: Calculates the step lengths of the track.</p></li>
 <li><p><code>TrajSinuosity2()</code>: Calculates the sinuosity of the track.</p></li>
 <li><p><code>TrajStraightness()</code>: Calculates the straightness of the track.</p></li>
-</ul></div>
+</ul><p>From the <span class="pkg">circular</span> package:</p><ul><li><p><code>circular()</code>: Converts raw angles (in radians) into a circular data type.</p></li>
+<li><p><code>mean.circular()</code>: Computes the circular mean of the turning angles.</p></li>
+<li><p><code>sd.circular()</code>: Computes the circular standard deviation of the turning angles.</p></li>
+</ul><p>The circular mean and circular standard deviation are returned in degrees in this function.</p>
+    </div>
     <div class="section level2">
     <h2 id="logo">Logo<a class="anchor" aria-label="anchor" href="#logo"></a></h2>
 
@@ -145,7 +154,7 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> [25] 94.50862 95.42060 96.01985 96.25904</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_1$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 85.16786</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 85.16105</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_1$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8.716076</span>
@@ -174,6 +183,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_1$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9888963</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_1$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3594178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_1$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 117.293</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_2$Turning_angles</span>
@@ -183,7 +198,7 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> [22]  84.97592 100.83397</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_2$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 82.86999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 82.85258</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_2$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7.941837</span>
@@ -212,6 +227,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_2$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9906128</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_2$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0876221</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_2$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 150.9086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2:</span></span></span>
@@ -221,7 +242,7 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 135.4170 134.9103 139.1806 134.1905 128.4984 139.7955 143.4536 137.0192</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_01$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 136.5581</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 136.5592</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_01$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4.46736</span>
@@ -248,13 +269,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_01$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9974524</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_01$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1898719</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_01$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 158.5226</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_02$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 132.9511 134.6430 134.4076 127.5257 121.4985 123.2012 131.3173 125.6057</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_02$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 128.8938</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 128.895</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_02$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5.148772</span>
@@ -281,13 +308,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_02$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9963766</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_02$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01763514</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_02$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 173.6657</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_03</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_03$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 133.8065 133.7811 130.2205 132.0604</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_03$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 132.4671</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 132.4672</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_03$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.706197</span>
@@ -313,13 +346,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_03$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9996494</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_03$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02343501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_03$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 174.5695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_04</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_04$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 125.9818 121.1350 125.1305 133.1314</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_04$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 126.3447</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 126.3425</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_04$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4.993546</span>
@@ -344,6 +383,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_04$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9971898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_04$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.005275705</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_04$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 172.6057</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_05</span>
@@ -377,6 +422,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_05$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_05$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08021087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_05$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 171.9506</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_06</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_06$Turning_angles</span>
@@ -409,13 +460,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_06$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9999948</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_06$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07225275</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_06$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 172.4928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_07$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 104.5351 109.8321 126.4855 123.7244 127.0905 126.5167</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_07$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 119.6974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 119.726</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_07$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9.906308</span>
@@ -441,13 +498,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_07$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9882929</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_07$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05675529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_07$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 164.9846</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_08</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_08$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 126.1992 120.6832 117.1547 122.0179 123.9117</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_08$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 121.9934</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 121.9937</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_08$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.409506</span>
@@ -473,13 +536,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_08$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9985792</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_08$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2059027</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_08$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 161.4382</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_09$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -26.79077 -20.88580 -20.77225 -18.85063</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_09$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -21.82486</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 338.1763</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_09$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.439774</span>
@@ -505,13 +574,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_09$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9986127</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_09$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.06713357</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_09$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 175.7803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_10$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -59.30028</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_10$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -59.30028</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 300.6997</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_10$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
@@ -537,13 +612,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_10$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_10$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04184679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_10$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 175.7884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_11$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -65.30517</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_11$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -65.30517</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 294.6948</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_11$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
@@ -568,6 +649,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_11$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_11$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04328632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_11$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 175.8993</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_12</span>
@@ -601,13 +688,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_12$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_12$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1129458</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_12$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 169.1812</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_13$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -134.4543 -139.9441 -128.1402 -116.2039</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_13$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -129.6857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 230.2982</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_13$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10.2</span>
@@ -632,6 +725,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_13$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9879729</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_13$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02941368</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_13$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 163.576</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_14</span>
@@ -665,13 +764,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_14$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9995445</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_14$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1346045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_14$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 164.6249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_15$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 114.2659 111.3107 118.9163 120.6646</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_15$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 116.2894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 116.2898</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_15$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4.278817</span>
@@ -697,13 +802,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_15$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9978623</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_15$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0005184741</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_15$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 171.2543</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_16$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 116.5651 122.1172 120.0741 121.6150 129.5226 129.5917 135.7970</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_16$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 125.0404</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 125.0358</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_16$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6.748851</span>
@@ -729,13 +840,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_16$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9941965</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_16$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1388154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_16$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 170.4862</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_17$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -131.2245</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_17$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -131.2245</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 228.7755</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_17$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
@@ -761,13 +878,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_17$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_17$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03340355</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_17$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 167.6087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_18$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 107.7676 110.0561 113.7495 110.8756</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_18$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 110.6122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 110.6121</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_18$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.470679</span>
@@ -792,6 +915,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_18$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9992637</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_18$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1359546</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_18$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 164.4785</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_19</span>
@@ -825,6 +954,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_19$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_19$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.00287917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_19$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 179.7727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_20$Turning_angles</span>
@@ -856,6 +991,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_20$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9994748</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_20$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.005588892</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_20$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 176.2159</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_21</span>
@@ -889,6 +1030,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_21$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9986075</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_21$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01064242</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_21$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 173.1296</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_22$Turning_angles</span>
@@ -921,13 +1068,19 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_22$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9971376</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_22$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2363052</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_22$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 149.1711</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_23$Turning_angles</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] -9.811257</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_23$Mean_turning_angle</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -9.811257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 350.1887</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_23$Standard_deviation_turning_angle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
@@ -953,6 +1106,12 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Track_23$Straightness</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_23$Trackway_width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1879773</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Track_23$Pace_angulation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 167.7341</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -966,7 +1125,7 @@ It uses the following helper functions from the <span class="pkg">trajr</span> (
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

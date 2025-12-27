@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">QuAnTeTrack</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,6 +17,10 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/QuAnTeTrack.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/best-practices-landmarking.html">Best Practices for Landmarking and Uncertainty Management in QuAnTeTrack</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -120,6 +124,28 @@
     <p>A <code>ggplot</code> object that displays the specified plot type, including tracks, footprints, or both, from <code>track</code> R objects. The <span class="pkg">ggplot2</span> package is used for plotting.</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The <code>plot_track()</code> function is designed as a diagnostic and exploratory tool.
+Its primary purpose is to display the raw spatial data (footprint coordinates and
+interpolated track trajectories) that have been digitized, so that users can
+visually confirm data integrity before conducting quantitative analyses. This
+includes checking whether footprints are in the correct order, whether tracks are
+oriented consistently, and whether interpolated trajectories align with the raw
+footprint data.</p>
+<p>Importantly, these plots are not intended to replace traditional ichnological
+illustrations. Hand-drawn maps and outlines often convey information that is not
+captured in raw coordinate plots, such as tridactyl morphology, manus/pes
+distinction, taxonomic attribution, or trackway orientation, and they frequently
+provide clearer and more communicative visual summaries of ichnological material.</p>
+<p>By contrast, <code>plot_track()</code> focuses on plotting digitized data as they are,
+without additional interpretation, stylization, or symbolic annotation. The goal is
+to offer a reproducible, data-driven representation that complements, rather than
+supplants, traditional methods. Users are encouraged to treat these plots as
+quality-control visualizations that help detect potential errors or inconsistencies
+in the raw data prior to downstream analyses, while continuing to rely on classical
+ichnological illustrations for detailed morphological and taxonomic interpretation.</p>
+    </div>
+    <div class="section level2">
     <h2 id="logo">Logo<a class="anchor" aria-label="anchor" href="#logo"></a></h2>
 
 
@@ -211,7 +237,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

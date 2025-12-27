@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">QuAnTeTrack</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,6 +17,10 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/QuAnTeTrack.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/best-practices-landmarking.html">Best Practices for Landmarking and Uncertainty Management in QuAnTeTrack</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -40,7 +44,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tps_to_track</span><span class="op">(</span><span class="va">file</span>, scale <span class="op">=</span> <span class="cn">NULL</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, NAs <span class="op">=</span> <span class="cn">NULL</span>, R.L.side <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tps_to_track</span><span class="op">(</span><span class="va">file</span>, scale <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">R.L.side</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, NAs <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -55,6 +59,12 @@
 <dd><p>A numeric value specifying the scale in meters per pixel.</p></dd>
 
 
+<dt id="arg-r-l-side">R.L.side<a class="anchor" aria-label="anchor" href="#arg-r-l-side"></a></dt>
+<dd><p>A character vector specifying the side of the first footprint of each track. The length of the vector must be equal to the total number of tracks in the sample.</p><ul><li><p><code>"L"</code>: first footprint corresponds to the left foot.</p></li>
+<li><p><code>"R"</code>: first footprint corresponds to the right foot.</p></li>
+</ul></dd>
+
+
 <dt id="arg-missing">missing<a class="anchor" aria-label="anchor" href="#arg-missing"></a></dt>
 <dd><p>A logical value indicating whether there are missing footprints in any track to be interpolated: <code>TRUE</code>, or <code>FALSE</code> (the default).</p></dd>
 
@@ -64,19 +74,13 @@
 The first column gives the number of the track containing missing footprints, and the second column gives the number of the footprint that is missing within this track.
 The number of rows is equal to the total number of missing footprints in the sample.</p></dd>
 
-
-<dt id="arg-r-l-side">R.L.side<a class="anchor" aria-label="anchor" href="#arg-r-l-side"></a></dt>
-<dd><p>A character vector specifying the side of the first footprint of each track.
-Only needed if <code>missing</code> is set to <code>TRUE</code>.
-The length of the vector must be equal to the total number of tracks in the sample.</p><ul><li><p><code>"L"</code>: first footprint corresponds to the left foot.</p></li>
-<li><p><code>"R"</code>: first footprint corresponds to the right foot.</p></li>
-</ul></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>track</code> R object, which is a list consisting of two elements:</p><ul><li><p><strong><code>Trajectories</code></strong>: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.</p></li>
-<li><p><strong><code>Footprints</code></strong>: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.</p></li>
+    <p>A <code>track</code> R object, which is a list consisting of two elements:</p><ul><li><p><strong><code>Trajectories</code></strong>: A list of trajectories (midpoints between consecutive footprints).
+Includes columns <code>X</code>, <code>Y</code>, <code>IMAGE</code>, <code>ID</code>, and <code>Side</code> (set to <code>"Medial"</code>).</p></li>
+<li><p><strong><code>Footprints</code></strong>: A list of data frames containing footprint coordinates and metadata,
+with a <code>Side</code> column (<code>"R"</code> or <code>"L"</code>) and a <code>missing</code> marker (<code>"Actual"</code> or <code>"Inferred"</code>).</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -116,51 +120,55 @@ Available at <a href="https://sbmorphometrics.org/" class="external-link">https:
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1: Tracks without missing footprints. Based on the Paluxy River</span></span></span>
-<span class="r-in"><span><span class="co"># dinosaur chase sequence (Farlow et al., 2011).</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1: Tracks without missing footprints.</span></span></span>
+<span class="r-in"><span><span class="co"># Based on the Paluxy River dinosaur chase sequence (Farlow et al., 2011).</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Load the example TPS file provided in the QuAnTeTrack package.</span></span></span>
-<span class="r-in"><span><span class="co"># This TPS data includes footprint coordinates for different tracks,</span></span></span>
-<span class="r-in"><span><span class="co"># along with associated metadata.</span></span></span>
 <span class="r-in"><span><span class="va">tpsPaluxyRiver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"PaluxyRiver.tps"</span>, package <span class="op">=</span> <span class="st">"QuAnTeTrack"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Call the tps_to_track function to convert the TPS data in the file</span></span></span>
-<span class="r-in"><span><span class="co"># into a track object. The 'scale' argument sets the scaling factor</span></span></span>
-<span class="r-in"><span><span class="co"># for the coordinates, and 'missing=FALSE' indicates that no landmarks</span></span></span>
-<span class="r-in"><span><span class="co"># are missing in the dataset.</span></span></span>
-<span class="r-in"><span><span class="fu">tps_to_track</span><span class="op">(</span><span class="va">tpsPaluxyRiver</span>, scale <span class="op">=</span> <span class="fl">0.004341493</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, NAs <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Convert the TPS data into a track object.</span></span></span>
+<span class="r-in"><span><span class="co"># The 'scale' argument sets the scaling factor,</span></span></span>
+<span class="r-in"><span><span class="co"># 'R.L.side' specifies the starting side for each track,</span></span></span>
+<span class="r-in"><span><span class="co"># and 'missing = FALSE' indicates no footprints are missing.</span></span></span>
+<span class="r-in"><span><span class="fu">tps_to_track</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">tpsPaluxyRiver</span>,</span></span>
+<span class="r-in"><span>  scale <span class="op">=</span> <span class="fl">0.004341493</span>,</span></span>
+<span class="r-in"><span>  R.L.side <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R"</span>, <span class="st">"L"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  missing <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span>  NAs <span class="op">=</span> <span class="cn">NULL</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            x         y        IMAGE ID time displacementTime</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.7554198  1.026763 Sauropod.png  0 0.00             0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.8313959  1.680158 Sauropod.png  0 0.02             0.02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.9703237  2.292308 Sauropod.png  0 0.04             0.04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.0680073  2.850190 Sauropod.png  0 0.06             0.06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.1656909  3.375511 Sauropod.png  0 0.08             0.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.3176431  3.929051 Sauropod.png  0 0.10             0.10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.4934736  4.532519 Sauropod.png  0 0.12             0.12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.6606211  5.112108 Sauropod.png  0 0.14             0.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.8234271  5.663478 Sauropod.png  0 0.16             0.16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.9970868  6.219189 Sauropod.png  0 0.18             0.18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2.0795751  6.655509 Sauropod.png  0 0.20             0.20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2.1012826  7.120049 Sauropod.png  0 0.22             0.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2.1642343  7.701809 Sauropod.png  0 0.24             0.24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2.2402104  8.290081 Sauropod.png  0 0.26             0.26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.3009913  8.854475 Sauropod.png  0 0.28             0.28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.3747967  9.384137 Sauropod.png  0 0.30             0.30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2.4898462  9.933336 Sauropod.png  0 0.32             0.32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2.5983836 10.543316 Sauropod.png  0 0.34             0.34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2.6548230 11.146783 Sauropod.png  0 0.36             0.36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2.6743597 11.824056 Sauropod.png  0 0.38             0.38</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.6396277 12.429694 Sauropod.png  0 0.40             0.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.5636516 12.955015 Sauropod.png  0 0.42             0.42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2.4985292 13.417384 Sauropod.png  0 0.44             0.44</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2.4268946 13.949217 Sauropod.png  0 0.46             0.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2.3530892 14.589587 Sauropod.png  0 0.48             0.48</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 2.3053328 15.195226 Sauropod.png  0 0.50             0.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 2.2488934 15.790010 Sauropod.png  0 0.52             0.52</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 2.1859417 16.386965 Sauropod.png  0 0.54             0.54</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 2.1121363 17.059897 Sauropod.png  0 0.56             0.56</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            x         y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.7554198  1.026763 Sauropod.png  0 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.8313959  1.680158 Sauropod.png  0 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.9703237  2.292308 Sauropod.png  0 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.0680073  2.850190 Sauropod.png  0 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.1656909  3.375511 Sauropod.png  0 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.3176431  3.929051 Sauropod.png  0 Medial 0.10             0.10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.4934736  4.532519 Sauropod.png  0 Medial 0.12             0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.6606211  5.112108 Sauropod.png  0 Medial 0.14             0.14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.8234271  5.663478 Sauropod.png  0 Medial 0.16             0.16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.9970868  6.219189 Sauropod.png  0 Medial 0.18             0.18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2.0795751  6.655509 Sauropod.png  0 Medial 0.20             0.20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2.1012826  7.120049 Sauropod.png  0 Medial 0.22             0.22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2.1642343  7.701809 Sauropod.png  0 Medial 0.24             0.24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2.2402104  8.290081 Sauropod.png  0 Medial 0.26             0.26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.3009913  8.854475 Sauropod.png  0 Medial 0.28             0.28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.3747967  9.384137 Sauropod.png  0 Medial 0.30             0.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2.4898462  9.933336 Sauropod.png  0 Medial 0.32             0.32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2.5983836 10.543316 Sauropod.png  0 Medial 0.34             0.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2.6548230 11.146783 Sauropod.png  0 Medial 0.36             0.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2.6743597 11.824056 Sauropod.png  0 Medial 0.38             0.38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.6396277 12.429694 Sauropod.png  0 Medial 0.40             0.40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.5636516 12.955015 Sauropod.png  0 Medial 0.42             0.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2.4985292 13.417384 Sauropod.png  0 Medial 0.44             0.44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2.4268946 13.949217 Sauropod.png  0 Medial 0.46             0.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2.3530892 14.589587 Sauropod.png  0 Medial 0.48             0.48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 2.3053328 15.195226 Sauropod.png  0 Medial 0.50             0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 2.2488934 15.790010 Sauropod.png  0 Medial 0.52             0.52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 2.1859417 16.386965 Sauropod.png  0 Medial 0.54             0.54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 2.1121363 17.059897 Sauropod.png  0 Medial 0.56             0.56</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   polar           displacement</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.7554198+ 1.026763i  0.00000000+0.0000000i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.8313959+ 1.680158i  0.07597613+0.6533947i</span>
@@ -193,31 +201,31 @@ Available at <a href="https://sbmorphometrics.org/" class="external-link">https:
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29 2.1121363+17.059897i -0.07380538+0.6729314i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            x         y        IMAGE ID time displacementTime</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.3646854  1.693182 Theropod.png  1 0.00             0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.4927595  2.279284 Theropod.png  1 0.02             0.02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.5730771  2.891434 Theropod.png  1 0.04             0.04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.7206878  3.564366 Theropod.png  1 0.06             0.06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.9095428  4.213419 Theropod.png  1 0.08             0.08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.0897147  4.884180 Theropod.png  1 0.10             0.10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.2959357  5.546257 Theropod.png  1 0.12             0.12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.4652539  6.171432 Theropod.png  1 0.14             0.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.5564252  6.742339 Theropod.png  1 0.16             0.16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.6150354  7.304562 Theropod.png  1 0.18             0.18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.6736456  7.899347 Theropod.png  1 0.20             0.20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 1.7452802  8.494131 Theropod.png  1 0.22             0.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 1.8690127  9.043330 Theropod.png  1 0.24             0.24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2.0752337  9.724944 Theropod.png  1 0.26             0.26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.1208193 10.591072 Theropod.png  1 0.28             0.28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.2597471 11.277028 Theropod.png  1 0.30             0.30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2.2467226 11.832739 Theropod.png  1 0.32             0.32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2.1729172 12.405816 Theropod.png  1 0.34             0.34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2.1186486 12.994089 Theropod.png  1 0.36             0.36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2.0969411 13.667020 Theropod.png  1 0.38             0.38</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.1989662 14.368171 Theropod.png  1 0.40             0.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.3292110 15.112737 Theropod.png  1 0.42             0.42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2.3986749 15.902889 Theropod.png  1 0.44             0.44</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2.2445519 16.708236 Theropod.png  1 0.46             0.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            x         y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.3646854  1.693182 Theropod.png  1 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.4927595  2.279284 Theropod.png  1 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.5730771  2.891434 Theropod.png  1 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.7206878  3.564366 Theropod.png  1 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.9095428  4.213419 Theropod.png  1 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.0897147  4.884180 Theropod.png  1 Medial 0.10             0.10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.2959357  5.546257 Theropod.png  1 Medial 0.12             0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.4652539  6.171432 Theropod.png  1 Medial 0.14             0.14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.5564252  6.742339 Theropod.png  1 Medial 0.16             0.16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.6150354  7.304562 Theropod.png  1 Medial 0.18             0.18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.6736456  7.899347 Theropod.png  1 Medial 0.20             0.20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 1.7452802  8.494131 Theropod.png  1 Medial 0.22             0.22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 1.8690127  9.043330 Theropod.png  1 Medial 0.24             0.24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2.0752337  9.724944 Theropod.png  1 Medial 0.26             0.26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.1208193 10.591072 Theropod.png  1 Medial 0.28             0.28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.2597471 11.277028 Theropod.png  1 Medial 0.30             0.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2.2467226 11.832739 Theropod.png  1 Medial 0.32             0.32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2.1729172 12.405816 Theropod.png  1 Medial 0.34             0.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2.1186486 12.994089 Theropod.png  1 Medial 0.36             0.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2.0969411 13.667020 Theropod.png  1 Medial 0.38             0.38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.1989662 14.368171 Theropod.png  1 Medial 0.40             0.40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.3292110 15.112737 Theropod.png  1 Medial 0.42             0.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2.3986749 15.902889 Theropod.png  1 Medial 0.44             0.44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2.2445519 16.708236 Theropod.png  1 Medial 0.46             0.46</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   polar           displacement</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.3646854+ 1.693182i  0.00000000+0.0000000i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.4927595+ 2.279284i  0.12807404+0.5861016i</span>
@@ -247,382 +255,380 @@ Available at <a href="https://sbmorphometrics.org/" class="external-link">https:
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Footprints</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Footprints[[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            X         Y        IMAGE ID missing</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.9160550  0.633858 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.5947845  1.419668 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.0680073  1.940647 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.8726401  2.643969 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.2633745  3.056411 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.0680073  3.694611 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.5672790  4.163492 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.4196682  4.901546 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.9015739  5.322670 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.7452802  6.004285 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2.2488934  6.434093 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 1.9102569  6.876925 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2.2923083  7.363172 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2.0361602  8.040445 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.4442606  8.539717 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.1577220  9.169233 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2.5918713  9.599041 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2.3878212 10.267631 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2.8089460 10.819001 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2.5007000 11.474566 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.8480194 12.173546 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.4312361 12.685843 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2.6960672 13.224188 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2.3009913 13.610581 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2.5527979 14.287853 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 2.1533805 14.891321 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 2.4572850 15.499130 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 2.0405017 16.080890 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 2.3313817 16.693041 Sauropod.png  0  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 1.8928909 17.426753 Sauropod.png  0  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            X         Y        IMAGE ID Side missing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.9160550  0.633858 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.5947845  1.419668 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.0680073  1.940647 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.8726401  2.643969 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.2633745  3.056411 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.0680073  3.694611 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.5672790  4.163492 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.4196682  4.901546 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.9015739  5.322670 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.7452802  6.004285 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2.2488934  6.434093 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 1.9102569  6.876925 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2.2923083  7.363172 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2.0361602  8.040445 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.4442606  8.539717 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.1577220  9.169233 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2.5918713  9.599041 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2.3878212 10.267631 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2.8089460 10.819001 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2.5007000 11.474566 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.8480194 12.173546 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.4312361 12.685843 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2.6960672 13.224188 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2.3009913 13.610581 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2.5527979 14.287853 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 2.1533805 14.891321 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 2.4572850 15.499130 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 2.0405017 16.080890 Sauropod.png  0    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 2.3313817 16.693041 Sauropod.png  0    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 1.8928909 17.426753 Sauropod.png  0    L  Actual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Footprints[[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            X         Y        IMAGE ID missing</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.1866842  1.376253 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.5426866  2.010111 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.4428323  2.548456 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.7033219  3.234412 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.7380538  3.894319 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.0810318  4.532519 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.0983977  5.235841 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.4934736  5.856674 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.4370342  6.486191 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.6758163  6.998487 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.5542545  7.610637 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 1.7930366  8.188056 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 1.6975238  8.800206 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2.0405017  9.286454 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.1099656 10.163435 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.1316731 11.018709 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2.3878212 11.535347 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2.1056241 12.130131 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2.2402104 12.681501 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 1.9970868 13.306676 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.1967955 14.027364 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.2011370 14.708978 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2.4572850 15.516496 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2.3400647 16.289282 Theropod.png  1  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2.1490390 17.127190 Theropod.png  1  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            X         Y        IMAGE ID Side missing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.1866842  1.376253 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.5426866  2.010111 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.4428323  2.548456 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.7033219  3.234412 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.7380538  3.894319 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.0810318  4.532519 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.0983977  5.235841 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.4934736  5.856674 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.4370342  6.486191 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.6758163  6.998487 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.5542545  7.610637 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 1.7930366  8.188056 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 1.6975238  8.800206 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2.0405017  9.286454 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2.1099656 10.163435 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2.1316731 11.018709 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2.3878212 11.535347 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2.1056241 12.130131 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2.2402104 12.681501 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 1.9970868 13.306676 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2.1967955 14.027364 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2.2011370 14.708978 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2.4572850 15.516496 Theropod.png  1    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2.3400647 16.289282 Theropod.png  1    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2.1490390 17.127190 Theropod.png  1    L  Actual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example 2: Tracks with missing footprints. Based on dinosaur tracks from</span></span></span>
-<span class="r-in"><span><span class="co"># the Mount Tom (Ostrom, 1972).</span></span></span>
+<span class="r-in"><span><span class="co"># Example 2: Tracks with missing footprints.</span></span></span>
+<span class="r-in"><span><span class="co"># Based on dinosaur tracks from Mount Tom (Ostrom, 1972).</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Load the example TPS file provided in the QuAnTeTrack package.</span></span></span>
-<span class="r-in"><span><span class="co"># This TPS data includes footprint coordinates for different tracks,</span></span></span>
-<span class="r-in"><span><span class="co"># along with associated metadata.</span></span></span>
+<span class="r-in"><span><span class="co"># Load the example TPS file.</span></span></span>
 <span class="r-in"><span><span class="va">tpsMountTom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"MountTom.tps"</span>, package <span class="op">=</span> <span class="st">"QuAnTeTrack"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Define a matrix representing the footprints that are missing from the dataset.</span></span></span>
-<span class="r-in"><span><span class="co"># In this example, the matrix 'NAs' specifies that footprint 7 is missing in track 3.</span></span></span>
-<span class="r-in"><span><span class="va">NAs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">3</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Define a matrix representing the missing footprints.</span></span></span>
+<span class="r-in"><span><span class="co"># Here, footprint 7 is missing in track 3.</span></span></span>
+<span class="r-in"><span><span class="va">NAs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">1</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Call the tps_to_track function, which will convert the TPS data in the file</span></span></span>
-<span class="r-in"><span><span class="co"># to a track object. The 'scale' argument sets the scaling factor for the coordinates,</span></span></span>
-<span class="r-in"><span><span class="co"># 'missing' specifies whether missing footprints should be handled, 'NAs' provides</span></span></span>
-<span class="r-in"><span><span class="co"># the missing footprints matrix, and 'R.L.side' specifies which side (Right or Left)</span></span></span>
-<span class="r-in"><span><span class="co"># is the first footprint of each track.</span></span></span>
-<span class="r-in"><span><span class="fu">tps_to_track</span><span class="op">(</span><span class="va">tpsMountTom</span>,</span></span>
-<span class="r-in"><span>  scale <span class="op">=</span> <span class="fl">0.004411765</span>, missing <span class="op">=</span> <span class="cn">TRUE</span>, NAs <span class="op">=</span> <span class="va">NAs</span>,</span></span>
+<span class="r-in"><span><span class="co"># Convert the TPS data into a track object.</span></span></span>
+<span class="r-in"><span><span class="co"># The 'missing = TRUE' flag activates interpolation for missing footprints,</span></span></span>
+<span class="r-in"><span><span class="co"># 'NAs' specifies which footprints are missing,</span></span></span>
+<span class="r-in"><span><span class="co"># and 'R.L.side' indicates the starting side for each track.</span></span></span>
+<span class="r-in"><span><span class="fu">tps_to_track</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">tpsMountTom</span>,</span></span>
+<span class="r-in"><span>  scale <span class="op">=</span> <span class="fl">0.004411765</span>,</span></span>
 <span class="r-in"><span>  R.L.side <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"L"</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"L"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>, <span class="st">"L"</span>, <span class="st">"R"</span>, <span class="st">"R"</span>,</span></span>
 <span class="r-in"><span>    <span class="st">"R"</span>, <span class="st">"R"</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  missing <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  NAs <span class="op">=</span> <span class="va">NAs</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 40.67868 15.50294 Track 1.png  0 0.00             0.00 40.67868+15.50294i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 39.91544 16.25515 Track 1.png  0 0.02             0.02 39.91544+16.25515i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 39.21177 16.96103 Track 1.png  0 0.04             0.04 39.21177+16.96103i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 38.45074 17.61838 Track 1.png  0 0.06             0.06 38.45074+17.61838i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 37.75809 18.33088 Track 1.png  0 0.08             0.08 37.75809+18.33088i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 37.14927 19.09632 Track 1.png  0 0.10             0.10 37.14927+19.09632i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 36.43677 19.69853 Track 1.png  0 0.12             0.12 36.43677+19.69853i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 35.74633 20.21030 Track 1.png  0 0.14             0.14 35.74633+20.21030i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9 35.03383 20.87427 Track 1.png  0 0.16             0.16 35.03383+20.87427i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.7632353+0.7522059i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.7036765+0.7058824i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.7610295+0.6573530i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.6926471+0.7125000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -0.6088236+0.7654412i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -0.7125000+0.6022059i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 -0.6904412+0.5117647i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9 -0.7125000+0.6639706i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 40.67868 15.50294 Track 1.png  0 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 39.91544 16.25515 Track 1.png  0 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 39.21177 16.96103 Track 1.png  0 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 38.45074 17.61838 Track 1.png  0 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 37.75809 18.33088 Track 1.png  0 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 37.14927 19.09632 Track 1.png  0 Medial 0.10             0.10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 36.43677 19.69853 Track 1.png  0 Medial 0.12             0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 35.74633 20.21030 Track 1.png  0 Medial 0.14             0.14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9 35.03383 20.87427 Track 1.png  0 Medial 0.16             0.16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 40.67868+15.50294i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 39.91544+16.25515i -0.7632353+0.7522059i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 39.21177+16.96103i -0.7036765+0.7058824i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 38.45074+17.61838i -0.7610295+0.6573530i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 37.75809+18.33088i -0.6926471+0.7125000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 37.14927+19.09632i -0.6088236+0.7654412i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 36.43677+19.69853i -0.7125000+0.6022059i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 35.74633+20.21030i -0.6904412+0.5117647i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9 35.03383+20.87427i -0.7125000+0.6639706i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 39.18971 14.90735 Track 2.png  1 0.00             0.00 39.18971+14.90735i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 38.56544 15.57794 Track 2.png  1 0.02             0.02 38.56544+15.57794i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 37.86177 16.29044 Track 2.png  1 0.04             0.04 37.86177+16.29044i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 37.12280 17.04485 Track 2.png  1 0.06             0.06 37.12280+17.04485i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 36.46544 17.90074 Track 2.png  1 0.08             0.08 36.46544+17.90074i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 35.83015 18.93750 Track 2.png  1 0.10             0.10 35.83015+18.93750i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 35.24118 19.83750 Track 2.png  1 0.12             0.12 35.24118+19.83750i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 34.58383 20.58530 Track 2.png  1 0.14             0.14 34.58383+20.58530i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9 33.95515 21.46324 Track 2.png  1 0.16             0.16 33.95515+21.46324i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.6242647+0.6705883i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.7036765+0.7125000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.7389706+0.7544118i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.6573530+0.8558824i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -0.6352942+1.0367648i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -0.5889706+0.9000001i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 -0.6573530+0.7477942i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9 -0.6286765+0.8779412i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 39.18971 14.90735 Track 2.png  1 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 38.56544 15.57794 Track 2.png  1 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 37.86177 16.29044 Track 2.png  1 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 37.12280 17.04485 Track 2.png  1 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 36.46544 17.90074 Track 2.png  1 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 35.83015 18.93750 Track 2.png  1 Medial 0.10             0.10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 35.24118 19.83750 Track 2.png  1 Medial 0.12             0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 34.58383 20.58530 Track 2.png  1 Medial 0.14             0.14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9 33.95515 21.46324 Track 2.png  1 Medial 0.16             0.16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 39.18971+14.90735i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 38.56544+15.57794i -0.6242647+0.6705883i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 37.86177+16.29044i -0.7036765+0.7125000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 37.12280+17.04485i -0.7389706+0.7544118i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 36.46544+17.90074i -0.6573530+0.8558824i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 35.83015+18.93750i -0.6352942+1.0367648i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 35.24118+19.83750i -0.5889706+0.9000001i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 34.58383+20.58530i -0.6573530+0.7477942i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9 33.95515+21.46324i -0.6286765+0.8779412i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 38.10441 15.55147 Track 3.png  2 0.00             0.00 38.10441+15.55147i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 37.27500 16.41618 Track 3.png  2 0.02             0.02 37.27500+16.41618i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 36.36177 17.36912 Track 3.png  2 0.04             0.04 36.36177+17.36912i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 35.45515 18.44118 Track 3.png  2 0.06             0.06 35.45515+18.44118i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 34.68088 19.29927 Track 3.png  2 0.08             0.08 34.68088+19.29927i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.8294118+0.8647059i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.9132354+0.9529412i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.9066177+1.0720589i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.7742648+0.8580883i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 38.10441 15.55147 Track 3.png  2 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 37.27500 16.41618 Track 3.png  2 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 36.36177 17.36912 Track 3.png  2 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 35.45515 18.44118 Track 3.png  2 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 34.68088 19.29927 Track 3.png  2 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 38.10441+15.55147i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 37.27500+16.41618i -0.8294118+0.8647059i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 36.36177+17.36912i -0.9132354+0.9529412i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 35.45515+18.44118i -0.9066177+1.0720589i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 34.68088+19.29927i -0.7742648+0.8580883i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 35.58088 16.01250 Track 4.png  3 0.00             0.00 35.58088+16.01250i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 34.86177 17.00294 Track 4.png  3 0.02             0.02 34.86177+17.00294i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 34.27280 17.97794 Track 4.png  3 0.04             0.04 34.27280+17.97794i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 33.67059 18.83382 Track 4.png  3 0.06             0.06 33.67059+18.83382i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 32.91838 19.63677 Track 4.png  3 0.08             0.08 32.91838+19.63677i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.7191177+0.9904412i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.5889706+0.9750001i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.6022059+0.8558824i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.7522059+0.8029412i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 35.58088 16.01250 Track 4.png  3 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 34.86177 17.00294 Track 4.png  3 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 34.27280 17.97794 Track 4.png  3 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 33.67059 18.83382 Track 4.png  3 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 32.91838 19.63677 Track 4.png  3 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 35.58088+16.01250i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 34.86177+17.00294i -0.7191177+0.9904412i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 34.27280+17.97794i -0.5889706+0.9750001i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 33.67059+18.83382i -0.6022059+0.8558824i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 32.91838+19.63677i -0.7522059+0.8029412i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 32.28750 14.39559 Track 5.png  4 0.00             0.00 32.28750+14.39559i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 31.60368 15.31544 Track 5.png  4 0.02             0.02 31.60368+15.31544i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.6838236+0.919853i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 32.28750 14.39559 Track 5.png  4 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 31.60368 15.31544 Track 5.png  4 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar         displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 32.28750+14.39559i  0.0000000+0.000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 31.60368+15.31544i -0.6838236+0.919853i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 30.91324 14.48382 Track 6.png  5 0.00             0.00 30.91324+14.48382i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30.16544 15.26691 Track 6.png  5 0.02             0.02 30.16544+15.26691i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.38235 16.07647 Track 6.png  5 0.04             0.04 29.38235+16.07647i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.7477942+0.7830883i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.7830883+0.8095589i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 30.91324 14.48382 Track 6.png  5 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30.16544 15.26691 Track 6.png  5 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.38235 16.07647 Track 6.png  5 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 30.91324+14.48382i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30.16544+15.26691i -0.7477942+0.7830883i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 29.38235+16.07647i -0.7830883+0.8095589i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 31.20221 14.97574 Track 7.png  6 0.00             0.00 31.20221+14.97574i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30.99062 15.79181 Track 7.png  6 0.02             0.02 30.99062+15.79181i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 30.74798 16.46461 Track 7.png  6 0.04             0.04 30.74798+16.46461i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 30.24706 17.14191 Track 7.png  6 0.06             0.06 30.24706+17.14191i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 29.68015 17.99118 Track 7.png  6 0.08             0.08 29.68015+17.99118i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 29.05809 18.81397 Track 7.png  6 0.10             0.10 29.05809+18.81397i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 28.50441 19.56177 Track 7.png  6 0.12             0.12 28.50441+19.56177i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.2115858+0.8160783i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.2426471+0.6727942i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.5009143+0.6773041i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.5669118+0.8492648i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -0.6220589+0.8227942i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -0.5536765+0.7477942i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 31.20221 14.97574 Track 7.png  6 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30.78088 16.09632 Track 7.png  6 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 30.24706 17.14191 Track 7.png  6 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 29.68015 17.99118 Track 7.png  6 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 29.05809 18.81397 Track 7.png  6 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 28.50441 19.56177 Track 7.png  6 Medial 0.10             0.10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 31.20221+14.97574i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30.78088+16.09632i -0.4213236+1.1205883i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 30.24706+17.14191i -0.5338236+1.0455883i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 29.68015+17.99118i -0.5669118+0.8492648i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 29.05809+18.81397i -0.6220589+0.8227942i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 28.50441+19.56177i -0.5536765+0.7477942i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 28.89485 15.10809 Track 8.png  7 0.00             0.00 28.89485+15.10809i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 28.16030 16.11177 Track 8.png  7 0.02             0.02 28.16030+16.11177i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 27.52941 17.17500 Track 8.png  7 0.04             0.04 27.52941+17.17500i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 27.00441 18.19853 Track 8.png  7 0.06             0.06 27.00441+18.19853i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 26.43750 19.10515 Track 8.png  7 0.08             0.08 26.43750+19.10515i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 25.73162 20.15515 Track 8.png  7 0.10             0.10 25.73162+20.15515i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.7345589+1.0036765i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.6308824+1.0632354i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.5250000+1.0235295i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.5669118+0.9066177i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -0.7058824+1.0500001i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 28.89485 15.10809 Track 8.png  7 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 28.16030 16.11177 Track 8.png  7 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 27.52941 17.17500 Track 8.png  7 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 27.00441 18.19853 Track 8.png  7 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 26.43750 19.10515 Track 8.png  7 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 25.73162 20.15515 Track 8.png  7 Medial 0.10             0.10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 28.89485+15.10809i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 28.16030+16.11177i -0.7345589+1.0036765i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 27.52941+17.17500i -0.6308824+1.0632354i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 27.00441+18.19853i -0.5250000+1.0235295i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 26.43750+19.10515i -0.5669118+0.9066177i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 25.73162+20.15515i -0.7058824+1.0500001i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 29.19706 17.09118 Track 9.png  8 0.00             0.00 29.19706+17.09118i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30.53824 16.41397 Track 9.png  8 0.02             0.02 30.53824+16.41397i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 31.87941 15.90221 Track 9.png  8 0.04             0.04 31.87941+15.90221i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 33.15883 15.41691 Track 9.png  8 0.06             0.06 33.15883+15.41691i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 34.25074 15.04412 Track 9.png  8 0.08             0.08 34.25074+15.04412i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.341177-0.6772059i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1.341177-0.5117647i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1.279412-0.4852941i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.091912-0.3727941i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y       IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 29.19706 17.09118 Track 9.png  8 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30.53824 16.41397 Track 9.png  8 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 31.87941 15.90221 Track 9.png  8 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 33.15883 15.41691 Track 9.png  8 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 34.25074 15.04412 Track 9.png  8 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar        displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 29.19706+17.09118i 0.000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30.53824+16.41397i 1.341177-0.6772059i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 31.87941+15.90221i 1.341177-0.5117647i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 33.15883+15.41691i 1.279412-0.4852941i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 34.25074+15.04412i 1.091912-0.3727941i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 24.15000 16.14485 Track 10.png  9 0.00             0.00 24.15000+16.14485i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 24.73677 15.15662 Track 10.png  9 0.02             0.02 24.73677+15.15662i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5867647-0.9882354i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 24.15000 16.14485 Track 10.png  9 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 24.73677 15.15662 Track 10.png  9 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar         displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 24.15000+16.14485i 0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 24.73677+15.15662i 0.5867647-0.9882354i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 23.13309 16.49118 Track 11.png 10 0.00             0.00 23.13309+16.49118i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 23.63824 15.39265 Track 11.png 10 0.02             0.02 23.63824+15.39265i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.0000000+0.000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5051471-1.098529i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 23.13309 16.49118 Track 11.png 10 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 23.63824 15.39265 Track 11.png 10 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar        displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 23.13309+16.49118i 0.0000000+0.000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 23.63824+15.39265i 0.5051471-1.098529i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 23.42206 14.58750 Track 12.png 11 0.00             0.00 23.42206+14.58750i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 22.98750 15.70809 Track 12.png 11 0.02             0.02 22.98750+15.70809i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.4345589+1.120588i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 23.42206 14.58750 Track 12.png 11 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 22.98750 15.70809 Track 12.png 11 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar         displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 23.42206+14.58750i  0.0000000+0.000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 22.98750+15.70809i -0.4345589+1.120588i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 14.57868 9.652942 Track 13.png 12 0.00             0.00 14.57868+9.652942i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 14.23456 9.302207 Track 13.png 12 0.02             0.02 14.23456+9.302207i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 13.88824 9.011030 Track 13.png 12 0.04             0.04 13.88824+9.011030i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 13.63015 8.682354 Track 13.png 12 0.06             0.06 13.63015+8.682354i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 13.42280 8.261030 Track 13.png 12 0.08             0.08 13.42280+8.261030i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.3441177-0.3507353i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.3463236-0.2911765i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.2580883-0.3286765i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.2073530-0.4213236i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 14.57868 9.652942 Track 13.png 12 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 14.23456 9.302207 Track 13.png 12 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 13.88824 9.011030 Track 13.png 12 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 13.63015 8.682354 Track 13.png 12 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 13.42280 8.261030 Track 13.png 12 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 14.57868+9.652942i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 14.23456+9.302207i -0.3441177-0.3507353i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 13.88824+9.011030i -0.3463236-0.2911765i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 13.63015+8.682354i -0.2580883-0.3286765i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 13.42280+8.261030i -0.2073530-0.4213236i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 19.77574 7.859559 Track 14.png 13 0.00             0.00 19.77574+7.859559i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.51103 8.876471 Track 14.png 13 0.02             0.02 19.51103+8.876471i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 19.32794 9.807354 Track 14.png 13 0.04             0.04 19.32794+9.807354i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.2647059+1.0169118i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.1830882+0.9308824i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 19.77574 7.859559 Track 14.png 13 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.51103 8.876471 Track 14.png 13 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 19.32794 9.807354 Track 14.png 13 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 19.77574+7.859559i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 19.51103+8.876471i -0.2647059+1.0169118i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 19.32794+9.807354i -0.1830882+0.9308824i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x         y        IMAGE ID time displacementTime               polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 17.24780  9.004412 Track 15.png 14 0.00             0.00 17.24780+ 9.004412i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 16.81324  9.968383 Track 15.png 14 0.02             0.02 16.81324+ 9.968383i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 16.37868 11.082354 Track 15.png 14 0.04             0.04 16.37868+11.082354i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 15.82059 12.092648 Track 15.png 14 0.06             0.06 15.82059+12.092648i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 15.22941 13.089707 Track 15.png 14 0.08             0.08 15.22941+13.089707i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.4345589+0.9639707i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.4345589+1.1139707i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.5580883+1.0102942i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.5911765+0.9970589i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x         y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 17.24780  9.004412 Track 15.png 14 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 16.81324  9.968383 Track 15.png 14 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 16.37868 11.082354 Track 15.png 14 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 15.82059 12.092648 Track 15.png 14 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 15.22941 13.089707 Track 15.png 14 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 17.24780+ 9.004412i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 16.81324+ 9.968383i -0.4345589+0.9639707i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 16.37868+11.082354i -0.4345589+1.1139707i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 15.82059+12.092648i -0.5580883+1.0102942i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 15.22941+13.089707i -0.5911765+0.9970589i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x         y        IMAGE ID time displacementTime               polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 16.21103  7.497795 Track 16.png 15 0.00             0.00 16.21103+ 7.497795i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 15.80515  8.309559 Track 16.png 15 0.02             0.02 15.80515+ 8.309559i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 15.29559  9.121324 Track 16.png 15 0.04             0.04 15.29559+ 9.121324i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 14.77059 10.027942 Track 16.png 15 0.06             0.06 14.77059+10.027942i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 14.19485 10.963236 Track 16.png 15 0.08             0.08 14.19485+10.963236i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 13.53971 11.757354 Track 16.png 15 0.10             0.10 13.53971+11.757354i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 12.86471 12.573530 Track 16.png 15 0.12             0.12 12.86471+12.573530i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 12.14118 13.277207 Track 16.png 15 0.14             0.14 12.14118+13.277207i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.4058824+0.8117648i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.5095589+0.8117648i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.5250000+0.9066177i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.5757353+0.9352942i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 -0.6551471+0.7941177i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 -0.6750000+0.8161765i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 -0.7235295+0.7036765i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x         y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 16.21103  7.497795 Track 16.png 15 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 15.80515  8.309559 Track 16.png 15 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 15.29559  9.121324 Track 16.png 15 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 14.77059 10.027942 Track 16.png 15 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 14.19485 10.963236 Track 16.png 15 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 13.53971 11.757354 Track 16.png 15 Medial 0.10             0.10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 12.86471 12.573530 Track 16.png 15 Medial 0.12             0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 12.14118 13.277207 Track 16.png 15 Medial 0.14             0.14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 16.21103+ 7.497795i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 15.80515+ 8.309559i -0.4058824+0.8117648i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 15.29559+ 9.121324i -0.5095589+0.8117648i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 14.77059+10.027942i -0.5250000+0.9066177i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 14.19485+10.963236i -0.5757353+0.9352942i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 13.53971+11.757354i -0.6551471+0.7941177i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 12.86471+12.573530i -0.6750000+0.8161765i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 12.14118+13.277207i -0.7235295+0.7036765i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 10.37427 12.34412 Track 17.png 16 0.00             0.00 10.37427+12.34412i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 10.17132 12.11250 Track 17.png 16 0.02             0.02 10.17132+12.11250i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.2029412-0.2316177i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 10.37427 12.34412 Track 17.png 16 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 10.17132 12.11250 Track 17.png 16 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 10.37427+12.34412i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 10.17132+12.11250i -0.2029412-0.2316177i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x         y        IMAGE ID time displacementTime               polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 13.24191  8.069118 Track 18.png 17 0.00             0.00 13.24191+ 8.069118i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 12.85809  9.266912 Track 18.png 17 0.02             0.02 12.85809+ 9.266912i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 12.45221 10.378677 Track 18.png 17 0.04             0.04 12.45221+10.378677i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 11.94265 11.536765 Track 18.png 17 0.06             0.06 11.94265+11.536765i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 11.56324 12.531618 Track 18.png 17 0.08             0.08 11.56324+12.531618i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.3838236+1.197794i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.4058824+1.111765i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 -0.5095589+1.158088i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 -0.3794118+0.994853i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x         y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 13.24191  8.069118 Track 18.png 17 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 12.85809  9.266912 Track 18.png 17 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 12.45221 10.378677 Track 18.png 17 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 11.94265 11.536765 Track 18.png 17 Medial 0.06             0.06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 11.56324 12.531618 Track 18.png 17 Medial 0.08             0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 polar         displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 13.24191+ 8.069118i  0.0000000+0.000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 12.85809+ 9.266912i -0.3838236+1.197794i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 12.45221+10.378677i -0.4058824+1.111765i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 11.94265+11.536765i -0.5095589+1.158088i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 11.56324+12.531618i -0.3794118+0.994853i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 9.443383 5.647059 Track 19.png 18 0.00             0.00 9.443383+5.647059i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 8.887501 7.030148 Track 19.png 18 0.02             0.02 8.887501+7.030148i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.5558824+1.383088i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 9.443383 5.647059 Track 19.png 18 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 8.887501 7.030148 Track 19.png 18 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar         displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 9.443383+5.647059i  0.0000000+0.000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 8.887501+7.030148i -0.5558824+1.383088i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x         y        IMAGE ID time displacementTime               polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 7.058824  8.338236 Track 20.png 19 0.00             0.00 7.058824+ 8.338236i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 6.761030  9.505148 Track 20.png 19 0.02             0.02 6.761030+ 9.505148i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 6.421324 10.548530 Track 20.png 19 0.04             0.04 6.421324+10.548530i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.2977941+1.166912i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.3397059+1.043382i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x         y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 7.058824  8.338236 Track 20.png 19 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 6.761030  9.505148 Track 20.png 19 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 6.421324 10.548530 Track 20.png 19 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 polar         displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 7.058824+ 8.338236i  0.0000000+0.000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 6.761030+ 9.505148i -0.2977941+1.166912i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 6.421324+10.548530i -0.3397059+1.043382i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 4.008089 6.498530 Track 21.png 20 0.00             0.00 4.008089+6.498530i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 3.127941 7.217648 Track 21.png 20 0.02             0.02 3.127941+7.217648i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2.289706 8.064706 Track 21.png 20 0.04             0.04 2.289706+8.064706i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.8801471+0.7191177i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.8382353+0.8470589i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 4.008089 6.498530 Track 21.png 20 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 3.127941 7.217648 Track 21.png 20 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2.289706 8.064706 Track 21.png 20 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 4.008089+6.498530i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 3.127941+7.217648i -0.8801471+0.7191177i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2.289706+8.064706i -0.8382353+0.8470589i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID time displacementTime              polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 5.272059 6.134559 Track 22.png 21 0.00             0.00 5.272059+6.134559i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 4.883824 6.853677 Track 22.png 21 0.02             0.02 4.883824+6.853677i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 4.552941 7.780148 Track 22.png 21 0.04             0.04 4.552941+7.780148i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -0.3882353+0.7191177i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.3308824+0.9264706i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          x        y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 5.272059 6.134559 Track 22.png 21 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 4.883824 6.853677 Track 22.png 21 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 4.552941 7.780148 Track 22.png 21 Medial 0.04             0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                polar          displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 5.272059+6.134559i  0.0000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 4.883824+6.853677i -0.3882353+0.7191177i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 4.552941+7.780148i -0.3308824+0.9264706i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Trajectories$Track_23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           x        y        IMAGE ID time displacementTime               polar</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.529412 12.59779 Track 23.png 22 0.00             0.00  9.529412+12.59779i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 11.289707 12.29338 Track 23.png 22 0.02             0.02 11.289707+12.29338i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          displacement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.000000+0.0000000i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.760294-0.3044118i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           x        y        IMAGE ID   Side time displacementTime</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.529412 12.59779 Track 23.png 22 Medial 0.00             0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 11.289707 12.29338 Track 23.png 22 Medial 0.02             0.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 polar        displacement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9.529412+12.59779i 0.000000+0.0000000i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 11.289707+12.29338i 1.760294-0.3044118i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Footprints</span>
@@ -653,13 +659,15 @@ Available at <a href="https://sbmorphometrics.org/" class="external-link">https:
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 33.70588 21.95294 Track 2.png  1    R  Actual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Footprints[[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          X        Y       IMAGE ID Side missing</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 38.51912 15.05294 Track 3.png  2    L  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 37.68971 16.05000 Track 3.png  2    R  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 36.86030 16.78235 Track 3.png  2    L  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 35.86324 17.95588 Track 3.png  2    R  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 35.04706 18.92647 Track 3.png  2    L  Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 34.31471 19.67206 Track 3.png  2    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           X        Y       IMAGE   ID Side  missing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  38.51912 15.05294 Track 3.png    2    L   Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  37.68971 16.05000 Track 3.png    2    R   Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  36.86030 16.78235 Track 3.png    2    L   Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  35.86324 17.95588 Track 3.png    2    R   Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  35.04706 18.92647 Track 3.png    2    L   Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  34.31471 19.67206 Track 3.png    2    R   Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NA       NA       NA Track 3.png    2    L Inferred</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        NA       NA        &lt;NA&gt; &lt;NA&gt;    R   Actual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Footprints[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          X        Y       IMAGE ID Side missing</span>
@@ -684,15 +692,14 @@ Available at <a href="https://sbmorphometrics.org/" class="external-link">https:
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 29.01618 16.50441 Track 6.png  5    R  Actual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Footprints[[7]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          X        Y       IMAGE ID Side  missing</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 31.38088 14.52794 Track 7.png  6    R   Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 31.02353 15.42353 Track 7.png  6    L   Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 30.95771 16.16010 Track 7.png  6    R Inferred</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 30.53824 16.76912 Track 7.png  6    L   Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 29.95588 17.51471 Track 7.png  6    R   Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 29.40441 18.46765 Track 7.png  6    L   Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 28.71177 19.16030 Track 7.png  6    R   Actual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 28.29706 19.96324 Track 7.png  6    L   Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          X        Y       IMAGE ID Side missing</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 31.38088 14.52794 Track 7.png  6    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 31.02353 15.42353 Track 7.png  6    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 30.53824 16.76912 Track 7.png  6    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 29.95588 17.51471 Track 7.png  6    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 29.40441 18.46765 Track 7.png  6    R  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 28.71177 19.16030 Track 7.png  6    L  Actual</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 28.29706 19.96324 Track 7.png  6    R  Actual</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Footprints[[8]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          X        Y       IMAGE ID Side missing</span>
@@ -829,7 +836,7 @@ Available at <a href="https://sbmorphometrics.org/" class="external-link">https:
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

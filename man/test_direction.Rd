@@ -23,7 +23,7 @@ test_direction(
 
 \item{permutation}{Logical or \code{NULL}. For \code{"Watson-Wheeler"} only, whether to compute a permutation (Monte-Carlo) \emph{p}-value. If \code{NULL} (default), the function automatically switches to permutation when some groups have \eqn{n < 10} or ties are detected; otherwise honors the user choice.}
 
-\item{B}{Integer. Number of permutations for the Watson–Wheeler permutation \emph{p}-value (default \code{1000}).}
+\item{B}{Integer. Number of permutations for the Watson-Wheeler permutation \emph{p}-value (default \code{1000}).}
 
 \item{seed}{Optional integer seed for reproducibility when using permutation (default \code{NULL}).}
 }
@@ -31,12 +31,12 @@ test_direction(
 A list with the results of the statistical analysis and diagnostic tests:
 \itemize{
 \item \code{assumption_results}: A list with per-track Rayleigh test results (statistic and \emph{p}-value), estimated \eqn{\kappa} by track, and summary diagnostics (\code{kappa_range}, \code{kappa_ratio}).
-\item \code{global_test}: Result of the selected k-sample circular test (Watson–Williams or Watson–Wheeler). If permutation was used for Watson–Wheeler, the object is an \code{"htest"} with the permutation \emph{p}-value and the method labeled as \code{"Watson-Wheeler (permutation, B=...)"}.
+\item \code{global_test}: Result of the selected k-sample circular test (Watson-Williams or Watson-Wheeler). If permutation was used for Watson-Wheeler, the object is an \code{"htest"} with the permutation \emph{p}-value and the method labeled as \code{"Watson-Wheeler (permutation, B=...)"}.
 \item \code{pairwise}: Data frame of pairwise comparisons (test statistic, raw \emph{p}-value, and Holm-adjusted \emph{p}-value) when more than two tracks are present.
 }
 }
 \description{
-\code{test_direction()} assesses differences in mean direction across tracks using a selected circular statistical test. It provides two options: the parametric Watson–Williams test (default), which assumes that directions follow a von Mises distribution and that dispersion is homogeneous across tracks—these assumptions are automatically checked before testing—and the non-parametric Watson–Wheeler test, which does not require these assumptions. For datasets with more than two tracks, the function also performs pairwise comparisons to identify which tracks differ significantly in mean direction.
+\code{test_direction()} assesses differences in mean direction across tracks using a selected circular statistical test. It provides two options: the parametric Watson-Williams test (default), which assumes that directions follow a von Mises distribution and that dispersion is homogeneous across tracks—these assumptions are automatically checked before testing—and the non-parametric Watson-Wheeler test, which does not require these assumptions. For datasets with more than two tracks, the function also performs pairwise comparisons to identify which tracks differ significantly in mean direction.
 }
 \details{
 The \code{test_direction()} function performs circular data analyses using functions primarily from the \pkg{circular} package. Estimation of the concentration parameter (\eqn{\kappa}) relies on the \code{est.kappa()} function of the \pkg{CircStats} package. It includes:
@@ -44,16 +44,16 @@ The \code{test_direction()} function performs circular data analyses using funct
 \item \strong{Condition Testing:}
 \itemize{
 \item \strong{Non-uniformity within tracks:} Rayleigh test on step directions within each track.
-\item \strong{Similarity of concentrations:} Per-track concentration \eqn{(\kappa)} is estimated via \code{est.kappa}. Large heterogeneity (e.g., \eqn{\max(\kappa)/\min(\kappa) > 2}) or unstable estimates will trigger a warning, since the Watson–Williams test assumes approximately similar concentration across tracks.
+\item \strong{Similarity of concentrations:} Per-track concentration \eqn{(\kappa)} is estimated via \code{est.kappa}. Large heterogeneity (e.g., \eqn{\max(\kappa)/\min(\kappa) > 2}) or unstable estimates will trigger a warning, since the Watson-Williams test assumes approximately similar concentration across tracks.
 }
 \item \strong{Statistical Analysis:}
 \itemize{
-\item \strong{Watson–Williams (default):} Parametric comparison of mean directions across tracks (assumes von Mises and similar concentration).
-\item \strong{Watson–Wheeler:} Non-parametric k-sample test for differences in direction. When some groups have \eqn{n < 10} or when there are ties (identical angles), the asymptotic chi-squared \emph{p}-value can be unreliable. To address this, the function can compute a permutation (Monte-Carlo) \emph{p}-value for the same Watson–Wheeler statistic (W). If \code{permutation = NULL} (default), this permutation \emph{p}-value is used automatically under small samples or ties; otherwise, the user's choice is respected. A tiny internal jitter (in radians) is applied to angles only when ties are detected to stabilize the test; this is not exposed as an argument.
+\item \strong{Watson-Williams (default):} Parametric comparison of mean directions across tracks (assumes von Mises and similar concentration).
+\item \strong{Watson-Wheeler:} Non-parametric k-sample test for differences in direction. When some groups have \eqn{n < 10} or when there are ties (identical angles), the asymptotic chi-squared \emph{p}-value can be unreliable. To address this, the function can compute a permutation (Monte-Carlo) \emph{p}-value for the same Watson-Wheeler statistic (W). If \code{permutation = NULL} (default), this permutation \emph{p}-value is used automatically under small samples or ties; otherwise, the user's choice is respected. A tiny internal jitter (in radians) is applied to angles only when ties are detected to stabilize the test; this is not exposed as an argument.
 }
-\item \strong{Permutation (Monte-Carlo) p-values:} For the Watson–Wheeler test, when group sizes are small (\eqn{n < 10}) or when ties are present, the default chi-squared \emph{p}-value can be unreliable. In these cases, the function can compute a permutation (Monte-Carlo) \emph{p}-value. This is done by repeatedly shuffling group labels, recalculating the Watson–Wheeler statistic each time, and comparing the observed value to the resulting null distribution. The \emph{p}-value is then the proportion of permuted statistics at least as extreme as the observed one. This approach provides a more accurate significance level for small or tied samples.
+\item \strong{Permutation (Monte-Carlo) p-values:} For the Watson-Wheeler test, when group sizes are small (\eqn{n < 10}) or when ties are present, the default chi-squared \emph{p}-value can be unreliable. In these cases, the function can compute a permutation (Monte-Carlo) \emph{p}-value. This is done by repeatedly shuffling group labels, recalculating the Watson-Wheeler statistic each time, and comparing the observed value to the resulting null distribution. The \emph{p}-value is then the proportion of permuted statistics at least as extreme as the observed one. This approach provides a more accurate significance level for small or tied samples.
 \itemize{
-\item \strong{Pairwise comparisons:} For datasets with more than two tracks, pairwise tests are performed using the same family as the selected global test. \emph{P}-values are adjusted using Holm’s method. For Watson–Wheeler, permutation \emph{p}-values are used pairwise whenever applicable by the same rule (small n or ties, or when \code{permutation = TRUE}).
+\item \strong{Pairwise comparisons:} For datasets with more than two tracks, pairwise tests are performed using the same family as the selected global test. \emph{P}-values are adjusted using Holm's method. For Watson-Wheeler, permutation \emph{p}-values are used pairwise whenever applicable by the same rule (small n or ties, or when \code{permutation = TRUE}).
 }
 \item \strong{Direction Measurement:}
 \itemize{
@@ -67,10 +67,10 @@ The \code{test_direction()} function performs circular data analyses using funct
 }
 
 \examples{
-# Example 1: Parametric Circular Test (Watson–Williams) for Differences in Direction Means with Pairwise Comparisons in MountTom dataset
+# Example 1: Parametric Circular Test (Watson-Williams) for Differences in Direction Means with Pairwise Comparisons in MountTom dataset
 test_direction(MountTom, analysis = "Watson-Williams")
 
-# Example 2: Non-Parametric Circular Test (Watson–Wheeler) with automatic permutation under small n/ties
+# Example 2: Non-Parametric Circular Test (Watson-Wheeler) with automatic permutation under small n/ties
 test_direction(MountTom, analysis = "Watson-Wheeler",
                permutation = TRUE, B = 10, seed = 42)
 

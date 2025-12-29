@@ -1,13 +1,13 @@
 #' Test for differences in direction means with pairwise comparisons
 #'
-#' \code{test_direction()} assesses differences in mean direction across tracks using a selected circular statistical test. It provides two options: the parametric Watson–Williams test (default), which assumes that directions follow a von Mises distribution and that dispersion is homogeneous across tracks—these assumptions are automatically checked before testing—and the non-parametric Watson–Wheeler test, which does not require these assumptions. For datasets with more than two tracks, the function also performs pairwise comparisons to identify which tracks differ significantly in mean direction.
+#' \code{test_direction()} assesses differences in mean direction across tracks using a selected circular statistical test. It provides two options: the parametric Watson-Williams test (default), which assumes that directions follow a von Mises distribution and that dispersion is homogeneous across tracks—these assumptions are automatically checked before testing—and the non-parametric Watson-Wheeler test, which does not require these assumptions. For datasets with more than two tracks, the function also performs pairwise comparisons to identify which tracks differ significantly in mean direction.
 #'
 #' @param data A \code{track} R object, which is a list consisting of two elements:
 #'    * \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
 #'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #' @param analysis A character string specifying the type of circular analysis: \code{"Watson-Williams"} (default; parametric, assumes von Mises and similar concentration) or \code{"Watson-Wheeler"} (non-parametric).
 #' @param permutation Logical or \code{NULL}. For \code{"Watson-Wheeler"} only, whether to compute a permutation (Monte-Carlo) *p*-value. If \code{NULL} (default), the function automatically switches to permutation when some groups have \eqn{n < 10} or ties are detected; otherwise honors the user choice.
-#' @param B Integer. Number of permutations for the Watson–Wheeler permutation *p*-value (default \code{1000}).
+#' @param B Integer. Number of permutations for the Watson-Wheeler permutation *p*-value (default \code{1000}).
 #' @param seed Optional integer seed for reproducibility when using permutation (default \code{NULL}).
 #'
 #' @details
@@ -15,20 +15,20 @@
 #'
 #' - **Condition Testing:**
 #'   - **Non-uniformity within tracks:** Rayleigh test on step directions within each track.
-#'   - **Similarity of concentrations:** Per-track concentration \eqn{(\kappa)} is estimated via \code{est.kappa}. Large heterogeneity (e.g., \eqn{\max(\kappa)/\min(\kappa) > 2}) or unstable estimates will trigger a warning, since the Watson–Williams test assumes approximately similar concentration across tracks.
+#'   - **Similarity of concentrations:** Per-track concentration \eqn{(\kappa)} is estimated via \code{est.kappa}. Large heterogeneity (e.g., \eqn{\max(\kappa)/\min(\kappa) > 2}) or unstable estimates will trigger a warning, since the Watson-Williams test assumes approximately similar concentration across tracks.
 #'
 #' - **Statistical Analysis:**
-#'   - **Watson–Williams (default):** Parametric comparison of mean directions across tracks (assumes von Mises and similar concentration).
-#'   - **Watson–Wheeler:** Non-parametric k-sample test for differences in direction. When some groups have \eqn{n < 10} or when there are ties (identical angles), the asymptotic chi-squared *p*-value can be unreliable. To address this, the function can compute a permutation (Monte-Carlo) *p*-value for the same Watson–Wheeler statistic (W). If \code{permutation = NULL} (default), this permutation *p*-value is used automatically under small samples or ties; otherwise, the user's choice is respected. A tiny internal jitter (in radians) is applied to angles only when ties are detected to stabilize the test; this is not exposed as an argument.
-#' - **Permutation (Monte-Carlo) p-values:** For the Watson–Wheeler test, when group sizes are small (\eqn{n < 10}) or when ties are present, the default chi-squared *p*-value can be unreliable. In these cases, the function can compute a permutation (Monte-Carlo) *p*-value. This is done by repeatedly shuffling group labels, recalculating the Watson–Wheeler statistic each time, and comparing the observed value to the resulting null distribution. The *p*-value is then the proportion of permuted statistics at least as extreme as the observed one. This approach provides a more accurate significance level for small or tied samples.
-#'   - **Pairwise comparisons:** For datasets with more than two tracks, pairwise tests are performed using the same family as the selected global test. *P*-values are adjusted using Holm’s method. For Watson–Wheeler, permutation *p*-values are used pairwise whenever applicable by the same rule (small n or ties, or when \code{permutation = TRUE}).
+#'   - **Watson-Williams (default):** Parametric comparison of mean directions across tracks (assumes von Mises and similar concentration).
+#'   - **Watson-Wheeler:** Non-parametric k-sample test for differences in direction. When some groups have \eqn{n < 10} or when there are ties (identical angles), the asymptotic chi-squared *p*-value can be unreliable. To address this, the function can compute a permutation (Monte-Carlo) *p*-value for the same Watson-Wheeler statistic (W). If \code{permutation = NULL} (default), this permutation *p*-value is used automatically under small samples or ties; otherwise, the user's choice is respected. A tiny internal jitter (in radians) is applied to angles only when ties are detected to stabilize the test; this is not exposed as an argument.
+#' - **Permutation (Monte-Carlo) p-values:** For the Watson-Wheeler test, when group sizes are small (\eqn{n < 10}) or when ties are present, the default chi-squared *p*-value can be unreliable. In these cases, the function can compute a permutation (Monte-Carlo) *p*-value. This is done by repeatedly shuffling group labels, recalculating the Watson-Wheeler statistic each time, and comparing the observed value to the resulting null distribution. The *p*-value is then the proportion of permuted statistics at least as extreme as the observed one. This approach provides a more accurate significance level for small or tied samples.
+#'   - **Pairwise comparisons:** For datasets with more than two tracks, pairwise tests are performed using the same family as the selected global test. *P*-values are adjusted using Holm's method. For Watson-Wheeler, permutation *p*-values are used pairwise whenever applicable by the same rule (small n or ties, or when \code{permutation = TRUE}).
 #'
 #' - **Direction Measurement:**
 #'   - The direction is measured in degrees. The reference direction, or 0 degrees, is considered to be along the positive x-axis. Angles are measured counterclockwise from the positive x-axis, with 0 degrees pointing directly along this axis.
 #'
 #' @return A list with the results of the statistical analysis and diagnostic tests:
 #'   - \code{assumption_results}: A list with per-track Rayleigh test results (statistic and *p*-value), estimated \eqn{\kappa} by track, and summary diagnostics (\code{kappa_range}, \code{kappa_ratio}).
-#'   - \code{global_test}: Result of the selected k-sample circular test (Watson–Williams or Watson–Wheeler). If permutation was used for Watson–Wheeler, the object is an \code{"htest"} with the permutation *p*-value and the method labeled as \code{"Watson-Wheeler (permutation, B=...)"}.
+#'   - \code{global_test}: Result of the selected k-sample circular test (Watson-Williams or Watson-Wheeler). If permutation was used for Watson-Wheeler, the object is an \code{"htest"} with the permutation *p*-value and the method labeled as \code{"Watson-Wheeler (permutation, B=...)"}.
 #'   - \code{pairwise}: Data frame of pairwise comparisons (test statistic, raw *p*-value, and Holm-adjusted *p*-value) when more than two tracks are present.
 #'
 #' @section Logo:
@@ -43,10 +43,10 @@
 #' @author Phone: +34 (9635) 44477
 #'
 #' @examples
-#' # Example 1: Parametric Circular Test (Watson–Williams) for Differences in Direction Means with Pairwise Comparisons in MountTom dataset
+#' # Example 1: Parametric Circular Test (Watson-Williams) for Differences in Direction Means with Pairwise Comparisons in MountTom dataset
 #' test_direction(MountTom, analysis = "Watson-Williams")
 #'
-#' # Example 2: Non-Parametric Circular Test (Watson–Wheeler) with automatic permutation under small n/ties
+#' # Example 2: Non-Parametric Circular Test (Watson-Wheeler) with automatic permutation under small n/ties
 #' test_direction(MountTom, analysis = "Watson-Wheeler",
 #'                permutation = TRUE, B = 10, seed = 42)
 #'
@@ -190,9 +190,9 @@ test_direction <- function(data, analysis = NULL,
     warning("One or more tracks show near-uniform directions (Rayleigh p > 0.05). Parametric assumptions (von Mises) may be questionable; consider 'Watson-Wheeler'.")
   }
   if (any(is.na(kappas))) {
-    warning("Some tracks have unstable concentration (kappa) estimates; Watson–Williams assumptions may not hold. Consider using 'Watson-Wheeler'.")
+    warning("Some tracks have unstable concentration (kappa) estimates; Watson-Williams assumptions may not hold. Consider using 'Watson-Wheeler'.")
   } else if (is.finite(kappa_ratio) && kappa_ratio > 2) {
-    warning("Estimated concentration (kappa) appears heterogeneous across tracks (ratio > 2). Watson–Williams assumes similar concentration; consider 'Watson-Wheeler'.")
+    warning("Estimated concentration (kappa) appears heterogeneous across tracks (ratio > 2). Watson-Williams assumes similar concentration; consider 'Watson-Wheeler'.")
   }
 
   results <- list(assumption_results = assumption_results)
@@ -242,9 +242,9 @@ test_direction <- function(data, analysis = NULL,
     use_perm <- if (is.null(permutation)) (small_group || has_ties) else isTRUE(permutation)
 
     if (use_perm) {
-      if (small_group) warning("Using permutation p-value for Watson–Wheeler because some groups have n < 10.")
+      if (small_group) warning("Using permutation p-value for Watson-Wheeler because some groups have n < 10.")
       if (has_ties && is.null(permutation))
-        warning("Ties detected. Using permutation p-value for Watson–Wheeler.")
+        warning("Ties detected. Using permutation p-value for Watson-Wheeler.")
       ww_perm <- .ww_permutation(circ_list_j, B = B, seed = seed)
       results$global_test <- structure(list(statistic = ww_perm$statistic,
                                             p.value   = ww_perm$p_value,

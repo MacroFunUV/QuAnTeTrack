@@ -62,25 +62,25 @@ The reference direction, or 0 degrees, is considered to be along the positive x-
 
 Circular mean of turning angles is computed as:
 
-\deqn{\bar{θ} = atan2\left(\frac{1}{n}\sum_{i=1}^n \sin θ_i, \frac{1}{n}\sum_{i=1}^n \cos θ_i\right)}
+\deqn{\bar{\theta} = atan2\left(\frac{1}{n}\sum_{i=1}^n \sin \theta_i, \frac{1}{n}\sum_{i=1}^n \cos \theta_i\right)}
 
 where:
 \describe{
-\item{\eqn{θ_i}}{ is the \eqn{i^{th}} turning angle in radians.}
+\item{\eqn{\theta_i}}{ is the \eqn{i^{th}} turning angle in radians.}
 \item{\eqn{n}}{ is the total number of turning angles.}
-\item{\eqn{\sin θ_i}, \eqn{\cos θ_i}}{ are the sine and cosine components of each turning angle.}
+\item{\eqn{\sin \theta_i}, \eqn{\cos \theta_i}}{ are the sine and cosine components of each turning angle.}
 \item{\eqn{atan2(y, x)}}{ is the two-argument arctangent that returns the angle in the correct quadrant.}
 }
 
 Circular standard deviation of turning angles is computed as:
 
-\deqn{s_c = \sqrt{-2 \ln(\bar R)}, \quad \bar R = \sqrt{\left(\frac{1}{n}\sum_{i=1}^n \cos θ_i\right)^2 + \left(\frac{1}{n}\sum_{i=1}^n \sin θ_i\right)^2}}
+\deqn{s_c = \sqrt{-2 \ln(\bar R)}, \quad \bar R = \sqrt{\left(\frac{1}{n}\sum_{i=1}^n \cos \theta_i\right)^2 + \left(\frac{1}{n}\sum_{i=1}^n \sin \theta_i\right)^2}}
 
 where:
 \describe{
-\item{\eqn{\bar R}}{ is the mean resultant length, measuring concentration of angles around the mean direction.}
+\item{\bar R}{ is the mean resultant length, measuring concentration of angles around the mean direction.}
 \item{\eqn{n}}{ is the total number of turning angles.}
-\item{\eqn{\cos θ_i}, \eqn{\sin θ_i}}{ are the trigonometric components of each angle.}
+\item{\eqn{\cos \theta_i}, \eqn{\sin \theta_i}}{ are the trigonometric components of each angle.}
 \item{\eqn{s_c}}{ is the circular standard deviation in radians (converted to degrees in this function).}
 }
 

@@ -184,6 +184,7 @@
 #'
 #' @importFrom lme4 lmer VarCorr lmerControl
 #' @importFrom MuMIn r.squaredGLMM
+#' @importFrom stats as.formula sigma
 #' @seealso \code{\link{tps_to_track}}, \code{\link{track_param}}
 #' @export
 observer_error_partitioning <- function(data,

@@ -62,7 +62,7 @@ The reference direction, or 0 degrees, is considered to be along the positive x-
 
 Circular mean of turning angles is computed as:
 
-\deqn{\bar{\theta} = atan2\left(\frac{1}{n}\sum_{i=1}^n \sin \theta_i, \frac{1}{n}\sum_{i=1}^n \cos \theta_i\right)}
+\deqn{\overline{\theta} = atan2\left(\frac{1}{n}\sum_{i=1}^n \sin \theta_i, \frac{1}{n}\sum_{i=1}^n \cos \theta_i\right)}
 
 where:
 \describe{
@@ -74,7 +74,7 @@ where:
 
 Circular standard deviation of turning angles is computed as:
 
-\deqn{s_c = \sqrt{-2 \ln(\bar R)}, \quad \bar R = \sqrt{\left(\frac{1}{n}\sum_{i=1}^n \cos \theta_i\right)^2 + \left(\frac{1}{n}\sum_{i=1}^n \sin \theta_i\right)^2}}
+\deqn{s_c = \sqrt{-2 \ln(\overline{R})}, \quad \overline{R} = \sqrt{\left(\frac{1}{n}\sum_{i=1}^n \cos \theta_i\right)^2 + \left(\frac{1}{n}\sum_{i=1}^n \sin \theta_i\right)^2}}
 
 where:
 \describe{

@@ -43,10 +43,12 @@
 #' @author Phone: +34 (9635) 44477
 #'
 #' @examples
-#' # Example 1: Parametric Circular Test (Watson-Williams) for Differences in Direction Means with Pairwise Comparisons in MountTom dataset
+#' # Example 1: Parametric Circular Test (Watson-Williams) for Differences in
+#' # Direction Means with Pairwise Comparisons in MountTom dataset
 #' test_direction(MountTom, analysis = "Watson-Williams")
 #'
-#' # Example 2: Non-Parametric Circular Test (Watson-Wheeler) with automatic permutation under small n/ties
+#' # Example 2: Non-Parametric Circular Test (Watson-Wheeler) with automatic
+#' # permutation under small n/ties
 #' test_direction(MountTom, analysis = "Watson-Wheeler",
 #'                permutation = TRUE, B = 10, seed = 42)
 #'

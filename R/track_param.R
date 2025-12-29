@@ -25,7 +25,7 @@
 #'
 #' The circular mean and circular standard deviation are returned in degrees in this function.
 #'
-#' The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).
+#' The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).
 #'
 #' Circular mean of turning angles is computed as:
 #'
@@ -36,7 +36,7 @@
 #'   \item{\eqn{\theta_i}}{ is the \eqn{i^{th}} turning angle in radians.}
 #'   \item{\eqn{n}}{ is the total number of turning angles.}
 #'   \item{\eqn{\sin \theta_i}, \eqn{\cos \theta_i}}{ are the sine and cosine components of each turning angle.}
-#'   \item{\eqn{atan2(y, x)}}{ is the two-argument arctangent that returns the angle in the correct quadrant.}
+#' \item{\eqn{\mathrm{atan2}(y,x)}}{ is the two-argument arctangent that returns the angle in the correct quadrant.}
 #' }
 #'
 #' Circular standard deviation of turning angles is computed as:

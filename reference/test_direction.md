@@ -2,10 +2,10 @@
 
 `test_direction()` assesses differences in mean direction across tracks
 using a selected circular statistical test. It provides two options: the
-parametric Watson–Williams test (default), which assumes that directions
+parametric Watson-Williams test (default), which assumes that directions
 follow a von Mises distribution and that dispersion is homogeneous
 across tracks—these assumptions are automatically checked before
-testing—and the non-parametric Watson–Wheeler test, which does not
+testing—and the non-parametric Watson-Wheeler test, which does not
 require these assumptions. For datasets with more than two tracks, the
 function also performs pairwise comparisons to identify which tracks
 differ significantly in mean direction.
@@ -50,7 +50,7 @@ test_direction(
 
 - B:
 
-  Integer. Number of permutations for the Watson–Wheeler permutation
+  Integer. Number of permutations for the Watson-Wheeler permutation
   *p*-value (default `1000`).
 
 - seed:
@@ -68,8 +68,8 @@ tests:
   diagnostics (`kappa_range`, `kappa_ratio`).
 
 - `global_test`: Result of the selected k-sample circular test
-  (Watson–Williams or Watson–Wheeler). If permutation was used for
-  Watson–Wheeler, the object is an `"htest"` with the permutation
+  (Watson-Williams or Watson-Wheeler). If permutation was used for
+  Watson-Wheeler, the object is an `"htest"` with the permutation
   *p*-value and the method labeled as
   `"Watson-Wheeler (permutation, B=...)"`.
 
@@ -92,32 +92,32 @@ function of the CircStats package. It includes:
   - **Similarity of concentrations:** Per-track concentration
     \\(\kappa)\\ is estimated via `est.kappa`. Large heterogeneity
     (e.g., \\\max(\kappa)/\min(\kappa) \> 2\\) or unstable estimates
-    will trigger a warning, since the Watson–Williams test assumes
+    will trigger a warning, since the Watson-Williams test assumes
     approximately similar concentration across tracks.
 
 - **Statistical Analysis:**
 
-  - **Watson–Williams (default):** Parametric comparison of mean
+  - **Watson-Williams (default):** Parametric comparison of mean
     directions across tracks (assumes von Mises and similar
     concentration).
 
-  - **Watson–Wheeler:** Non-parametric k-sample test for differences in
+  - **Watson-Wheeler:** Non-parametric k-sample test for differences in
     direction. When some groups have \\n \< 10\\ or when there are ties
     (identical angles), the asymptotic chi-squared *p*-value can be
     unreliable. To address this, the function can compute a permutation
-    (Monte-Carlo) *p*-value for the same Watson–Wheeler statistic (W).
+    (Monte-Carlo) *p*-value for the same Watson-Wheeler statistic (W).
     If `permutation = NULL` (default), this permutation *p*-value is
     used automatically under small samples or ties; otherwise, the
     user's choice is respected. A tiny internal jitter (in radians) is
     applied to angles only when ties are detected to stabilize the test;
     this is not exposed as an argument.
 
-- **Permutation (Monte-Carlo) p-values:** For the Watson–Wheeler test,
+- **Permutation (Monte-Carlo) p-values:** For the Watson-Wheeler test,
   when group sizes are small (\\n \< 10\\) or when ties are present, the
   default chi-squared *p*-value can be unreliable. In these cases, the
   function can compute a permutation (Monte-Carlo) *p*-value. This is
   done by repeatedly shuffling group labels, recalculating the
-  Watson–Wheeler statistic each time, and comparing the observed value
+  Watson-Wheeler statistic each time, and comparing the observed value
   to the resulting null distribution. The *p*-value is then the
   proportion of permuted statistics at least as extreme as the observed
   one. This approach provides a more accurate significance level for
@@ -125,8 +125,8 @@ function of the CircStats package. It includes:
 
   - **Pairwise comparisons:** For datasets with more than two tracks,
     pairwise tests are performed using the same family as the selected
-    global test. *P*-values are adjusted using Holm’s method. For
-    Watson–Wheeler, permutation *p*-values are used pairwise whenever
+    global test. *P*-values are adjusted using Holm's method. For
+    Watson-Wheeler, permutation *p*-values are used pairwise whenever
     applicable by the same rule (small n or ties, or when
     `permutation = TRUE`).
 
@@ -166,10 +166,10 @@ Phone: +34 (9635) 44477
 ## Examples
 
 ``` r
-# Example 1: Parametric Circular Test (Watson–Williams) for Differences in Direction Means with Pairwise Comparisons in MountTom dataset
+# Example 1: Parametric Circular Test (Watson-Williams) for Differences in Direction Means with Pairwise Comparisons in MountTom dataset
 test_direction(MountTom, analysis = "Watson-Williams")
 #> Warning: The following tracks were removed from the analysis due to having 3 or fewer footprints: Track 05, Track 06, Track 10, Track 11, Track 12, Track 14, Track 17, Track 19, Track 20, Track 21, Track 22, Track 23.
-#> Warning: Estimated concentration (kappa) appears heterogeneous across tracks (ratio > 2). Watson–Williams assumes similar concentration; consider 'Watson-Wheeler'.
+#> Warning: Estimated concentration (kappa) appears heterogeneous across tracks (ratio > 2). Watson-Williams assumes similar concentration; consider 'Watson-Wheeler'.
 #> $assumption_results
 #> $assumption_results$rayleigh
 #>          statistic     p_value
@@ -279,12 +279,12 @@ test_direction(MountTom, analysis = "Watson-Williams")
 #> 55 Track 16 Track 18 3.637189e-03 0.9529912151 Watson-Williams 1.00000000
 #> 
 
-# Example 2: Non-Parametric Circular Test (Watson–Wheeler) with automatic permutation under small n/ties
+# Example 2: Non-Parametric Circular Test (Watson-Wheeler) with automatic permutation under small n/ties
 test_direction(MountTom, analysis = "Watson-Wheeler",
                permutation = TRUE, B = 10, seed = 42)
 #> Warning: The following tracks were removed from the analysis due to having 3 or fewer footprints: Track 05, Track 06, Track 10, Track 11, Track 12, Track 14, Track 17, Track 19, Track 20, Track 21, Track 22, Track 23.
-#> Warning: Estimated concentration (kappa) appears heterogeneous across tracks (ratio > 2). Watson–Williams assumes similar concentration; consider 'Watson-Wheeler'.
-#> Warning: Using permutation p-value for Watson–Wheeler because some groups have n < 10.
+#> Warning: Estimated concentration (kappa) appears heterogeneous across tracks (ratio > 2). Watson-Williams assumes similar concentration; consider 'Watson-Wheeler'.
+#> Warning: Using permutation p-value for Watson-Wheeler because some groups have n < 10.
 #> $assumption_results
 #> $assumption_results$rayleigh
 #>          statistic     p_value
@@ -472,7 +472,7 @@ test_direction(PaluxyRiver, analysis = "Watson-Wheeler",
 # Example 4: Keep asymptotic p-values (even if small n or ties), but warn
 test_direction(MountTom, analysis = "Watson-Wheeler", permutation = FALSE)
 #> Warning: The following tracks were removed from the analysis due to having 3 or fewer footprints: Track 05, Track 06, Track 10, Track 11, Track 12, Track 14, Track 17, Track 19, Track 20, Track 21, Track 22, Track 23.
-#> Warning: Estimated concentration (kappa) appears heterogeneous across tracks (ratio > 2). Watson–Williams assumes similar concentration; consider 'Watson-Wheeler'.
+#> Warning: Estimated concentration (kappa) appears heterogeneous across tracks (ratio > 2). Watson-Williams assumes similar concentration; consider 'Watson-Wheeler'.
 #> $assumption_results
 #> $assumption_results$rayleigh
 #>          statistic     p_value

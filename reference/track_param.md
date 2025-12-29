@@ -119,12 +119,12 @@ methods for analyzing circular data, refer to Batschelet (1981).
 
 Circular mean of turning angles is computed as:
 
-\$\$\bar{θ} = atan2\left(\frac{1}{n}\sum\_{i=1}^n \sin θ_i,
-\frac{1}{n}\sum\_{i=1}^n \cos θ_i\right)\$\$
+\$\$\bar{\theta} = atan2\left(\frac{1}{n}\sum\_{i=1}^n \sin \theta_i,
+\frac{1}{n}\sum\_{i=1}^n \cos \theta_i\right)\$\$
 
 where:
 
-- \\θ_i\\:
+- \\\theta_i\\:
 
   is the \\i^{th}\\ turning angle in radians.
 
@@ -132,7 +132,7 @@ where:
 
   is the total number of turning angles.
 
-- \\\sin θ_i\\, \\\cos θ_i\\:
+- \\\sin \theta_i\\, \\\cos \theta_i\\:
 
   are the sine and cosine components of each turning angle.
 
@@ -144,12 +144,12 @@ where:
 Circular standard deviation of turning angles is computed as:
 
 \$\$s_c = \sqrt{-2 \ln(\bar R)}, \quad \bar R =
-\sqrt{\left(\frac{1}{n}\sum\_{i=1}^n \cos θ_i\right)^2 +
-\left(\frac{1}{n}\sum\_{i=1}^n \sin θ_i\right)^2}\$\$
+\sqrt{\left(\frac{1}{n}\sum\_{i=1}^n \cos \theta_i\right)^2 +
+\left(\frac{1}{n}\sum\_{i=1}^n \sin \theta_i\right)^2}\$\$
 
 where:
 
-- \\\bar R\\:
+- R:
 
   is the mean resultant length, measuring concentration of angles around
   the mean direction.
@@ -158,7 +158,7 @@ where:
 
   is the total number of turning angles.
 
-- \\\cos θ_i\\, \\\sin θ_i\\:
+- \\\cos \theta_i\\, \\\sin \theta_i\\:
 
   are the trigonometric components of each angle.
 

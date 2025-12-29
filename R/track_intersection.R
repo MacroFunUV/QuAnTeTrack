@@ -104,7 +104,7 @@
 #' for each simulation iteration, allowing for inspection of the distribution of intersections across randomized scenarios.}
 #'
 #' @section Logo:
-#' \if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=120}}
 #'
 #' @references
 #' Benjamini, Y., & Hochberg, Y. (1995). Controlling the false discovery rate: a practical and powerful approach to multiple testing.

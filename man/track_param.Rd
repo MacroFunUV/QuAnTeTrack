@@ -110,7 +110,7 @@ to use this measure to compare the tortuosity of random walks only if they consi
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

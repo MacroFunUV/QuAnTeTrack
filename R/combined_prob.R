@@ -22,7 +22,7 @@
 #' \item{P_values_global}{A single numeric value: the overall probability of observing the combined metrics across all pairs of trajectories.}
 #'
 #' @section Logo:
-#' \if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=120}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es

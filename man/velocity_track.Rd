@@ -87,7 +87,7 @@ Based on Thulborn & Wade (1984), it is possible to identify the gaits of track-m
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

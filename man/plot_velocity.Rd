@@ -48,7 +48,7 @@ The color gradient for the parameter is applied using \code{scale_color_gradient
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

@@ -40,7 +40,7 @@
 #'   - If a trajectory has fewer than 3 steps, the entry contains the message "Less than three steps."
 #'
 #' @section Logo:
-#' \if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=120}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es

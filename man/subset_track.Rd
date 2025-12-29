@@ -27,7 +27,7 @@ It allows users to focus on a specific subset of tracks for further analysis or 
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

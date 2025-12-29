@@ -35,7 +35,7 @@ across unique trajectory pairs.
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

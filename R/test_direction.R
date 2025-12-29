@@ -32,7 +32,7 @@
 #'   - \code{pairwise}: Data frame of pairwise comparisons (test statistic, raw *p*-value, and Holm-adjusted *p*-value) when more than two tracks are present.
 #'
 #' @section Logo:
-#' \if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=120}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es

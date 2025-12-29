@@ -71,7 +71,7 @@ The \code{NISTdegTOradian()} function from the \pkg{NISTunits} package is used t
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

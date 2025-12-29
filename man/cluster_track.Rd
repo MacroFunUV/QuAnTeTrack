@@ -207,7 +207,7 @@ selection and improving hypothesis testing in movement ecology studies.
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \references{

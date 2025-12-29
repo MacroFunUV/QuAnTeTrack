@@ -97,7 +97,7 @@ provided, summarizing the overall deviation from the null across all pairs.
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

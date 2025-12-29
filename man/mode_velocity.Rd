@@ -62,7 +62,7 @@ The \code{mode_velocity()} function performs the following operations:
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

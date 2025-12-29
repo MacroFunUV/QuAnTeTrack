@@ -48,7 +48,7 @@ This interpolation is based on adjacent footprints and the provided side informa
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

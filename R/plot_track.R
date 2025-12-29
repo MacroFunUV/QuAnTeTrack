@@ -44,7 +44,7 @@
 #' @return A \code{ggplot} object that displays the specified plot type, including tracks, footprints, or both, from \code{track} R objects. The \pkg{ggplot2} package is used for plotting.
 #'
 #' @section Logo:
-#' \if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=120}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es

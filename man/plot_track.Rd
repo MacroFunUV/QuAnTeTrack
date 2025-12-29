@@ -82,7 +82,7 @@ ichnological illustrations for detailed morphological and taxonomic interpretati
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

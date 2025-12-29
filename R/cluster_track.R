@@ -183,7 +183,7 @@
 #'           - \code{uncertainty}: Classification uncertainty for each observation.
 #'
 #' @section Logo:
-#' \if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=120}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es

@@ -13,7 +13,7 @@
 #' @return A \code{track} R object that contains only the specified subset of tracks. The structure of the returned object mirrors the input structure but includes only the selected tracks.
 #'
 #' @section Logo:
-#' \if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=120}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es

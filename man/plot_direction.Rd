@@ -59,7 +59,7 @@ on the y-axis for finer control over the appearance of the polar plots.
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

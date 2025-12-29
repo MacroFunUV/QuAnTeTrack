@@ -31,7 +31,7 @@
 #'      with a \code{Side} column (\code{"R"} or \code{"L"}) and a \code{missing} marker (\code{"Actual"} or \code{"Inferred"}).
 #'
 #' @section Logo:
-#' \if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=120}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es

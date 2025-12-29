@@ -33,7 +33,7 @@
 #'   - \code{plot} (If \code{plot} is \code{TRUE}): A boxplot of velocities by track is generated and displayed.
 #'
 #' @section Logo:
-#' \if{html}{\figure{Logo.png}{options: width=30\%}}
+#' \if{html}{\figure{Logo.png}{options: width=120}}
 #'
 #' @author Humberto G. Ferrón
 #' @author humberto.ferron@uv.es

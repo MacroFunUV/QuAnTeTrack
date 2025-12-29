@@ -125,7 +125,7 @@ percent, and the conditional \eqn{R^2_c}.
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

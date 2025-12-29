@@ -51,7 +51,7 @@ The function uses \pkg{ggplot2} to create a plot with the following components:
 }
 \section{Logo}{
 
-\if{html}{\figure{Logo.png}{options: width=30\%}}
+\if{html}{\figure{Logo.png}{options: width=120}}
 }
 
 \examples{

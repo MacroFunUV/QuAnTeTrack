@@ -78,7 +78,7 @@ Circular standard deviation of turning angles is computed as:
 
 where:
 \describe{
-\item{\bar R}{ is the mean resultant length, measuring concentration of angles around the mean direction.}
+\item{\eqn{\overline{R}}}{ is the mean resultant length, measuring concentration of angles around the mean direction.}
 \item{\eqn{n}}{ is the total number of turning angles.}
 \item{\eqn{\cos \theta_i}, \eqn{\sin \theta_i}}{ are the trigonometric components of each angle.}
 \item{\eqn{s_c}}{ is the circular standard deviation in radians (converted to degrees in this function).}

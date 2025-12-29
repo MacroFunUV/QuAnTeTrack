@@ -16,20 +16,47 @@ track_param(data)
 \value{
 A list of lists, where each sublist contains the computed parameters for a corresponding track.
 The parameters included are:
-\itemize{
-\item \code{Turning_angles}: A vector of turning angles for the track (in degrees).
-\item \code{Mean_turning_angle}: The mean of the turning angles (in degrees).
-\item \code{Standard_deviation_turning_angle}: The standard deviation of the turning angles (in degrees).
-\item \code{Distance}: The total distance covered by the track (in meters).
-\item \code{Length}: The length of the track  (in meters).
-\item \code{Step_lengths}: A vector of step lengths for the track  (in meters).
-\item \code{Mean_step_length}: The mean of the step lengths  (in meters).
-\item \code{Standard_deviation_step_length}: The standard deviation of the step lengths  (in meters).
-\item \code{Sinuosity}: The sinuosity of the track (dimensionless).
-\item \code{Straightness}: The straightness of the track (dimensionless).
-\item \code{Trackway_width}: Mean lateral separation between left and right footprints (in meters), measured perpendicular to the inferred trackway axis.
-\item \code{Pace_angulation}: Mean interior angle (in degrees) computed from alternating triplets (L–R–L or R–L–R).
+\describe{
+\item{\code{Turning_angles}}{A vector of turning angles for the track (in degrees).}
+\item{\code{Mean_turning_angle}}{The mean of the turning angles (in degrees).}
+\item{\code{Standard_deviation_turning_angle}}{The standard deviation of the turning angles (in degrees).}
+\item{\code{Distance}}{The total distance covered by the track (in meters).}
+\item{\code{Length}}{The length of the track  (in meters).}
+\item{\code{Step_lengths}}{A vector of step lengths for the track  (in meters).}
+\item{\code{Mean_step_length}}{The mean of the step lengths  (in meters).}
+\item{\code{Standard_deviation_step_length}}{The standard deviation of the step lengths  (in meters).}
+\item{\code{Sinuosity}}{The sinuosity of the track (dimensionless).}
+\item{\code{Straightness}}{The straightness of the track (dimensionless).}
+\item{\code{Trackway_width}}{Mean lateral separation between left and right footprints (in meters), measured perpendicular to the inferred trackway axis.}
+\item{\code{Pace_angulation}}{Mean interior angle (in degrees) computed from alternating triplets (L–R–L or R–L–R).}
 }
+}
+\description{
+\code{track_param()} is a function to compute and print various parameters of tracks from a list of track data.
+}
+\details{
+This function calculates various movement parameters for each track in the provided data.
+
+It uses the following helper functions:
+
+From the \pkg{trajr} package:
+\itemize{
+\item \code{TrajAngles()}: Calculates the turning angles of the track.
+\item \code{TrajDistance()}: Calculates the total distance covered by the track.
+\item \code{TrajLength()}: Calculates the length of the track.
+\item \code{TrajStepLengths()}: Calculates the step lengths of the track.
+\item \code{TrajSinuosity2()}: Calculates the sinuosity of the track.
+\item \code{TrajStraightness()}: Calculates the straightness of the track.
+}
+
+From the \pkg{circular} package:
+\itemize{
+\item \code{circular()}: Converts raw angles (in radians) into a circular data type.
+\item \code{mean.circular()}: Computes the circular mean of the turning angles.
+\item \code{sd.circular()}: Computes the circular standard deviation of the turning angles.
+}
+
+The circular mean and circular standard deviation are returned in degrees in this function.
 
 The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).
 
@@ -80,33 +107,6 @@ Straightness index is based on the method described by Batschelet (1981). Accord
 the straightness index serves as a reliable measure of the efficiency of a directed walk. However, it is not suitable
 for random trajectories, as the index for a random walk tends towards zero with increasing steps. Thus, it is recommended
 to use this measure to compare the tortuosity of random walks only if they consist of a similar number of steps.
-}
-\description{
-\code{track_param()} is a function to compute and print various parameters of tracks from a list of track data.
-}
-\details{
-This function calculates various movement parameters for each track in the provided data.
-
-It uses the following helper functions:
-
-From the \pkg{trajr} package:
-\itemize{
-\item \code{TrajAngles()}: Calculates the turning angles of the track.
-\item \code{TrajDistance()}: Calculates the total distance covered by the track.
-\item \code{TrajLength()}: Calculates the length of the track.
-\item \code{TrajStepLengths()}: Calculates the step lengths of the track.
-\item \code{TrajSinuosity2()}: Calculates the sinuosity of the track.
-\item \code{TrajStraightness()}: Calculates the straightness of the track.
-}
-
-From the \pkg{circular} package:
-\itemize{
-\item \code{circular()}: Converts raw angles (in radians) into a circular data type.
-\item \code{mean.circular()}: Computes the circular mean of the turning angles.
-\item \code{sd.circular()}: Computes the circular standard deviation of the turning angles.
-}
-
-The circular mean and circular standard deviation are returned in degrees in this function.
 }
 \section{Logo}{
 

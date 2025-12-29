@@ -25,24 +25,9 @@
 #'
 #' The circular mean and circular standard deviation are returned in degrees in this function.
 #'
-#' @return A list of lists, where each sublist contains the computed parameters for a corresponding track.
-#' The parameters included are:
-#'    * \code{Turning_angles}: A vector of turning angles for the track (in degrees).
-#'    * \code{Mean_turning_angle}: The mean of the turning angles (in degrees).
-#'    * \code{Standard_deviation_turning_angle}: The standard deviation of the turning angles (in degrees).
-#'    * \code{Distance}: The total distance covered by the track (in meters).
-#'    * \code{Length}: The length of the track  (in meters).
-#'    * \code{Step_lengths}: A vector of step lengths for the track  (in meters).
-#'    * \code{Mean_step_length}: The mean of the step lengths  (in meters).
-#'    * \code{Standard_deviation_step_length}: The standard deviation of the step lengths  (in meters).
-#'    * \code{Sinuosity}: The sinuosity of the track (dimensionless).
-#'    * \code{Straightness}: The straightness of the track (dimensionless).
-#'    * \code{Trackway_width}: Mean lateral separation between left and right footprints (in meters), measured perpendicular to the inferred trackway axis.
-#'    * \code{Pace_angulation}: Mean interior angle (in degrees) computed from alternating triplets (L–R–L or R–L–R).
+#' The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).
 #'
-#' @return The reference direction, or 0 degrees, is considered to be along the positive x-axis. This means that angles are measured counterclockwise from the positive x-axis, with 0 degrees (or 0 degrees) pointing directly along this axis. For a detailed explanation and appropriate methods for analyzing circular data, refer to Batschelet (1981).
-#'
-#' @return Circular mean of turning angles is computed as:
+#' Circular mean of turning angles is computed as:
 #'
 #' \deqn{\bar{θ} = atan2\left(\frac{1}{n}\sum_{i=1}^n \sin θ_i, \frac{1}{n}\sum_{i=1}^n \cos θ_i\right)}
 #'
@@ -54,7 +39,7 @@
 #'   \item{\eqn{atan2(y, x)}}{ is the two-argument arctangent that returns the angle in the correct quadrant.}
 #' }
 #'
-#' @return Circular standard deviation of turning angles is computed as:
+#' Circular standard deviation of turning angles is computed as:
 #'
 #' \deqn{s_c = \sqrt{-2 \ln(\bar R)}, \quad \bar R = \sqrt{\left(\frac{1}{n}\sum_{i=1}^n \cos θ_i\right)^2 + \left(\frac{1}{n}\sum_{i=1}^n \sin θ_i\right)^2}}
 #'
@@ -66,7 +51,7 @@
 #'   \item{\eqn{s_c}}{ is the circular standard deviation in radians (converted to degrees in this function).}
 #' }
 #'
-#' @return Sinuosity is calculated according to Benhamou (2004), as defined in equation 8.
+#' Sinuosity is calculated according to Benhamou (2004), as defined in equation 8.
 #' The formula used here is a refined version of the sinuosity index presented by Bovet & Benhamou (1988),
 #' which is applicable to a broader range of turning angle distributions and does not require a constant step length.
 #'
@@ -79,7 +64,7 @@
 #' \item{\eqn{b}}{ is the coefficient of variation of the step length (in meters).}
 #' }
 #'
-#' @return The straightness index is defined as the ratio D/L, where:
+#' The straightness index is defined as the ratio D/L, where:
 #' \itemize{
 #' \item{\eqn{D}}{ is the beeline distance between the first and last points in the trajectory (in meters), and}
 #' \item{\eqn{L}}{ is the total path length traveled (in meters).}
@@ -89,6 +74,23 @@
 #' the straightness index serves as a reliable measure of the efficiency of a directed walk. However, it is not suitable
 #' for random trajectories, as the index for a random walk tends towards zero with increasing steps. Thus, it is recommended
 #' to use this measure to compare the tortuosity of random walks only if they consist of a similar number of steps.
+#'
+#' @return A list of lists, where each sublist contains the computed parameters for a corresponding track.
+#' The parameters included are:
+#' \describe{
+#'   \item{\code{Turning_angles}}{A vector of turning angles for the track (in degrees).}
+#'   \item{\code{Mean_turning_angle}}{The mean of the turning angles (in degrees).}
+#'   \item{\code{Standard_deviation_turning_angle}}{The standard deviation of the turning angles (in degrees).}
+#'   \item{\code{Distance}}{The total distance covered by the track (in meters).}
+#'   \item{\code{Length}}{The length of the track  (in meters).}
+#'   \item{\code{Step_lengths}}{A vector of step lengths for the track  (in meters).}
+#'   \item{\code{Mean_step_length}}{The mean of the step lengths  (in meters).}
+#'   \item{\code{Standard_deviation_step_length}}{The standard deviation of the step lengths  (in meters).}
+#'   \item{\code{Sinuosity}}{The sinuosity of the track (dimensionless).}
+#'   \item{\code{Straightness}}{The straightness of the track (dimensionless).}
+#'   \item{\code{Trackway_width}}{Mean lateral separation between left and right footprints (in meters), measured perpendicular to the inferred trackway axis.}
+#'   \item{\code{Pace_angulation}}{Mean interior angle (in degrees) computed from alternating triplets (L–R–L or R–L–R).}
+#' }
 #'
 #' @section Logo:
 #' \if{html}{\figure{Logo.png}{options: width=30\%}}
@@ -128,6 +130,7 @@
 #' @seealso \code{\link{tps_to_track}}
 #'
 #' @export
+
 track_param <- function(data) {
   ## Errors and Warnings----
 

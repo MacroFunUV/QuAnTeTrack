@@ -93,21 +93,21 @@ Phone: +34 (9635) 44477
 # Example 1: "Directed" model and similarity metrics.
 s1 <- simulate_track(PaluxyRiver, nsim = 3, model = "Directed")
 DTW1 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
-#> 2025-12-29 10:33:39.021147 Iteration 1
+#> 2025-12-29 11:23:57.685944 Iteration 1
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 12.98785
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 10:33:39.024048 Iteration 2
+#> 2025-12-29 11:23:57.689261 Iteration 2
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 18.28923
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 10:33:39.026805 Iteration 3
+#> 2025-12-29 11:23:57.692105 Iteration 3
 #>  
 #> DTW metric
 #>         Track_1  Track_2
@@ -118,21 +118,21 @@ DTW1 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "No
 #> ------------------------------------
 #>  
 Frechet1 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
-#> 2025-12-29 10:33:39.398265 Iteration 1
+#> 2025-12-29 11:23:58.069974 Iteration 1
 #>  
 #> Frechet metric
 #>         Track_1   Track_2
 #> Track_1      NA 0.7781548
 #> Track_2      NA        NA
 #> ------------------------------------
-#> 2025-12-29 10:33:39.571878 Iteration 2
+#> 2025-12-29 11:23:58.247756 Iteration 2
 #>  
 #> Frechet metric
 #>         Track_1   Track_2
 #> Track_1      NA 0.7738161
 #> Track_2      NA        NA
 #> ------------------------------------
-#> 2025-12-29 10:33:39.747309 Iteration 3
+#> 2025-12-29 11:23:58.42944 Iteration 3
 #>  
 #> Frechet metric
 #>         Track_1   Track_2
@@ -144,15 +144,15 @@ Frechet1 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superpositi
 #>  
 int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1,
   origin.permutation = "None")
-#> 2025-12-29 10:33:39.771739 Iteration 1
+#> 2025-12-29 11:23:58.453495 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2025-12-29 10:33:39.783231 Iteration 2
+#> 2025-12-29 11:23:58.464903 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2025-12-29 10:33:39.794568 Iteration 3
+#> 2025-12-29 11:23:58.47622 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -178,21 +178,21 @@ combined_prob(PaluxyRiver, metrics = list(DTW1, Frechet1, int1))
 s2 <- simulate_track(PaluxyRiver, nsim = 3, model = "Constrained")
 DTW2 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2,
   superposition = "None")
-#> 2025-12-29 10:33:39.809498 Iteration 1
+#> 2025-12-29 11:23:58.491605 Iteration 1
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 121.1052
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 10:33:39.812204 Iteration 2
+#> 2025-12-29 11:23:58.494447 Iteration 2
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 62.28218
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 10:33:39.814945 Iteration 3
+#> 2025-12-29 11:23:58.497169 Iteration 3
 #>  
 #> DTW metric
 #>         Track_1  Track_2
@@ -204,21 +204,21 @@ DTW2 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2,
 #>  
 Frechet2 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2,
   superposition = "None")
-#> 2025-12-29 10:33:40.146167 Iteration 1
+#> 2025-12-29 11:23:58.839349 Iteration 1
 #>  
 #> Frechet metric
 #>         Track_1  Track_2
 #> Track_1      NA 3.765697
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 10:33:40.302659 Iteration 2
+#> 2025-12-29 11:23:58.997771 Iteration 2
 #>  
 #> Frechet metric
 #>         Track_1  Track_2
 #> Track_1      NA 3.752331
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 10:33:40.688451 Iteration 3
+#> 2025-12-29 11:23:59.177081 Iteration 3
 #>  
 #> Frechet metric
 #>         Track_1   Track_2
@@ -230,30 +230,30 @@ Frechet2 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2,
 #>  
 int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2,
   origin.permutation = "Min.Box")
-#> 2025-12-29 10:33:41.130892 Permutation 1
+#> 2025-12-29 11:23:59.836796 Permutation 1
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2025-12-29 10:33:41.638718 Permutation 2
+#> 2025-12-29 11:23:59.960293 Permutation 2
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2025-12-29 10:33:41.749759 Permutation 3
+#> 2025-12-29 11:24:00.06168 Permutation 3
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
 #> PERMUTATION COMPLETED
 #> ------------------------------------
 #>  
-#> 2025-12-29 10:33:41.761427 Iteration 1
+#> 2025-12-29 11:24:00.073466 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2025-12-29 10:33:41.772388 Iteration 2
+#> 2025-12-29 11:24:00.084442 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2025-12-29 10:33:41.783285 Iteration 3
+#> 2025-12-29 11:24:00.095422 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -279,21 +279,21 @@ combined_prob(PaluxyRiver, metrics = list(DTW2, Frechet2, int2))
 s3 <- simulate_track(PaluxyRiver, nsim = 3, model = "Unconstrained")
 DTW3 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3,
   superposition = "None")
-#> 2025-12-29 10:33:41.797695 Iteration 1
+#> 2025-12-29 11:24:00.110239 Iteration 1
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 647.6714
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 10:33:41.800331 Iteration 2
+#> 2025-12-29 11:24:00.11295 Iteration 2
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 265.3258
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 10:33:41.802933 Iteration 3
+#> 2025-12-29 11:24:00.1157 Iteration 3
 #>  
 #> DTW metric
 #>         Track_1  Track_2
@@ -305,21 +305,21 @@ DTW3 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3,
 #>  
 Frechet3 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3,
   superposition = "None")
-#> 2025-12-29 10:33:42.004485 Iteration 1
+#> 2025-12-29 11:24:00.322226 Iteration 1
 #>  
 #> Frechet metric
 #>         Track_1  Track_2
 #> Track_1      NA 24.93024
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 10:33:42.143853 Iteration 2
+#> 2025-12-29 11:24:00.463603 Iteration 2
 #>  
 #> Frechet metric
 #>         Track_1  Track_2
 #> Track_1      NA 10.06423
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 10:33:42.2982 Iteration 3
+#> 2025-12-29 11:24:00.620392 Iteration 3
 #>  
 #> Frechet metric
 #>         Track_1  Track_2
@@ -331,30 +331,30 @@ Frechet3 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3,
 #>  
 int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3,
   origin.permutation = "Conv.Hull")
-#> 2025-12-29 10:33:42.500549 Permutation 1
+#> 2025-12-29 11:24:00.996057 Permutation 1
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
-#> 2025-12-29 10:33:42.846445 Permutation 2
+#> 2025-12-29 11:24:01.142825 Permutation 2
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
-#> 2025-12-29 10:33:42.939487 Permutation 3
+#> 2025-12-29 11:24:01.235668 Permutation 3
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
 #> PERMUTATION COMPLETED
 #> ------------------------------------
 #>  
-#> 2025-12-29 10:33:42.951417 Iteration 1
+#> 2025-12-29 11:24:01.247718 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2025-12-29 10:33:42.962336 Iteration 2
+#> 2025-12-29 11:24:01.258719 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2025-12-29 10:33:42.973139 Iteration 3
+#> 2025-12-29 11:24:01.269727 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------

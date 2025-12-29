@@ -124,15 +124,22 @@ Circular mean of turning angles is computed as:
 
 where:
 
-- \\θ_i\\ is the \\i^{th}\\ turning angle in radians.
+- \\θ_i\\:
 
-- \\n\\ is the total number of turning angles.
+  is the \\i^{th}\\ turning angle in radians.
 
-- \\\sin θ_i\\, \\\cos θ_i\\ are the sine and cosine components of each
-  turning angle.
+- \\n\\:
 
-- \\atan2(y, x)\\ is the two-argument arctangent that returns the angle
-  in the correct quadrant.
+  is the total number of turning angles.
+
+- \\\sin θ_i\\, \\\cos θ_i\\:
+
+  are the sine and cosine components of each turning angle.
+
+- \\atan2(y, x)\\:
+
+  is the two-argument arctangent that returns the angle in the correct
+  quadrant.
 
 Circular standard deviation of turning angles is computed as:
 
@@ -142,16 +149,23 @@ Circular standard deviation of turning angles is computed as:
 
 where:
 
-- \\\bar R\\ is the mean resultant length, measuring concentration of
-  angles around the mean direction.
+- \\\bar R\\:
 
-- \\n\\ is the total number of turning angles.
+  is the mean resultant length, measuring concentration of angles around
+  the mean direction.
 
-- \\\cos θ_i\\, \\\sin θ_i\\ are the trigonometric components of each
-  angle.
+- \\n\\:
 
-- \\s_c\\ is the circular standard deviation in radians (converted to
-  degrees in this function).
+  is the total number of turning angles.
+
+- \\\cos θ_i\\, \\\sin θ_i\\:
+
+  are the trigonometric components of each angle.
+
+- \\s_c\\:
+
+  is the circular standard deviation in radians (converted to degrees in
+  this function).
 
 Sinuosity is calculated according to Benhamou (2004), as defined in
 equation 8. The formula used here is a refined version of the sinuosity
@@ -162,18 +176,28 @@ constant step length.
 The sinuosity is computed using the formula: \$\$S = 2 \left\[ p \left(
 \frac{1 + c}{1 - c} + b^2 \right) \right\]^{-0.5}\$\$ where:
 
-- \\p\\ is the mean step length (in meters),
+- \\p\\:
 
-- \\c\\ is the mean cosine of turning angles (in radians), and
+  is the mean step length (in meters),
 
-- \\b\\ is the coefficient of variation of the step length (in meters).
+- \\c\\:
+
+  is the mean cosine of turning angles (in radians), and
+
+- \\b\\:
+
+  is the coefficient of variation of the step length (in meters).
 
 The straightness index is defined as the ratio D/L, where:
 
-- \\D\\ is the beeline distance between the first and last points in the
+- \\D\\:
+
+  is the beeline distance between the first and last points in the
   trajectory (in meters), and
 
-- \\L\\ is the total path length traveled (in meters).
+- \\L\\:
+
+  is the total path length traveled (in meters).
 
 Straightness index is based on the method described by Batschelet
 (1981). According to Benhamou (2004), the straightness index serves as a

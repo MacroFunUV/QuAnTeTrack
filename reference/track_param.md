@@ -27,35 +27,89 @@ track_param(data)
 A list of lists, where each sublist contains the computed parameters for
 a corresponding track. The parameters included are:
 
-- `Turning_angles`: A vector of turning angles for the track (in
-  degrees).
+- `Turning_angles`:
 
-- `Mean_turning_angle`: The mean of the turning angles (in degrees).
+  A vector of turning angles for the track (in degrees).
 
-- `Standard_deviation_turning_angle`: The standard deviation of the
-  turning angles (in degrees).
+- `Mean_turning_angle`:
 
-- `Distance`: The total distance covered by the track (in meters).
+  The mean of the turning angles (in degrees).
 
-- `Length`: The length of the track (in meters).
+- `Standard_deviation_turning_angle`:
 
-- `Step_lengths`: A vector of step lengths for the track (in meters).
+  The standard deviation of the turning angles (in degrees).
 
-- `Mean_step_length`: The mean of the step lengths (in meters).
+- `Distance`:
 
-- `Standard_deviation_step_length`: The standard deviation of the step
-  lengths (in meters).
+  The total distance covered by the track (in meters).
 
-- `Sinuosity`: The sinuosity of the track (dimensionless).
+- `Length`:
 
-- `Straightness`: The straightness of the track (dimensionless).
+  The length of the track (in meters).
 
-- `Trackway_width`: Mean lateral separation between left and right
-  footprints (in meters), measured perpendicular to the inferred
-  trackway axis.
+- `Step_lengths`:
 
-- `Pace_angulation`: Mean interior angle (in degrees) computed from
-  alternating triplets (L–R–L or R–L–R).
+  A vector of step lengths for the track (in meters).
+
+- `Mean_step_length`:
+
+  The mean of the step lengths (in meters).
+
+- `Standard_deviation_step_length`:
+
+  The standard deviation of the step lengths (in meters).
+
+- `Sinuosity`:
+
+  The sinuosity of the track (dimensionless).
+
+- `Straightness`:
+
+  The straightness of the track (dimensionless).
+
+- `Trackway_width`:
+
+  Mean lateral separation between left and right footprints (in meters),
+  measured perpendicular to the inferred trackway axis.
+
+- `Pace_angulation`:
+
+  Mean interior angle (in degrees) computed from alternating triplets
+  (L–R–L or R–L–R).
+
+## Details
+
+This function calculates various movement parameters for each track in
+the provided data.
+
+It uses the following helper functions:
+
+From the trajr package:
+
+- `TrajAngles()`: Calculates the turning angles of the track.
+
+- `TrajDistance()`: Calculates the total distance covered by the track.
+
+- `TrajLength()`: Calculates the length of the track.
+
+- `TrajStepLengths()`: Calculates the step lengths of the track.
+
+- `TrajSinuosity2()`: Calculates the sinuosity of the track.
+
+- `TrajStraightness()`: Calculates the straightness of the track.
+
+From the circular package:
+
+- `circular()`: Converts raw angles (in radians) into a circular data
+  type.
+
+- `mean.circular()`: Computes the circular mean of the turning angles.
+
+- `sd.circular()`: Computes the circular standard deviation of the
+  turning angles.
+
+The circular mean and circular standard deviation are returned in
+degrees in this function.
 
 The reference direction, or 0 degrees, is considered to be along the
 positive x-axis. This means that angles are measured counterclockwise
@@ -128,40 +182,6 @@ not suitable for random trajectories, as the index for a random walk
 tends towards zero with increasing steps. Thus, it is recommended to use
 this measure to compare the tortuosity of random walks only if they
 consist of a similar number of steps.
-
-## Details
-
-This function calculates various movement parameters for each track in
-the provided data.
-
-It uses the following helper functions:
-
-From the trajr package:
-
-- `TrajAngles()`: Calculates the turning angles of the track.
-
-- `TrajDistance()`: Calculates the total distance covered by the track.
-
-- `TrajLength()`: Calculates the length of the track.
-
-- `TrajStepLengths()`: Calculates the step lengths of the track.
-
-- `TrajSinuosity2()`: Calculates the sinuosity of the track.
-
-- `TrajStraightness()`: Calculates the straightness of the track.
-
-From the circular package:
-
-- `circular()`: Converts raw angles (in radians) into a circular data
-  type.
-
-- `mean.circular()`: Computes the circular mean of the turning angles.
-
-- `sd.circular()`: Computes the circular standard deviation of the
-  turning angles.
-
-The circular mean and circular standard deviation are returned in
-degrees in this function.
 
 ## Logo
 

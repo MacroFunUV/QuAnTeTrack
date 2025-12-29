@@ -166,7 +166,8 @@ Phone: +34 (9635) 44477
 ## Examples
 
 ``` r
-# Example 1: Parametric Circular Test (Watson-Williams) for Differences in Direction Means with Pairwise Comparisons in MountTom dataset
+# Example 1: Parametric Circular Test (Watson-Williams) for Differences in
+# Direction Means with Pairwise Comparisons in MountTom dataset
 test_direction(MountTom, analysis = "Watson-Williams")
 #> Warning: The following tracks were removed from the analysis due to having 3 or fewer footprints: Track 05, Track 06, Track 10, Track 11, Track 12, Track 14, Track 17, Track 19, Track 20, Track 21, Track 22, Track 23.
 #> Warning: Estimated concentration (kappa) appears heterogeneous across tracks (ratio > 2). Watson-Williams assumes similar concentration; consider 'Watson-Wheeler'.
@@ -279,7 +280,8 @@ test_direction(MountTom, analysis = "Watson-Williams")
 #> 55 Track 16 Track 18 3.637189e-03 0.9529912151 Watson-Williams 1.00000000
 #> 
 
-# Example 2: Non-Parametric Circular Test (Watson-Wheeler) with automatic permutation under small n/ties
+# Example 2: Non-Parametric Circular Test (Watson-Wheeler) with automatic
+# permutation under small n/ties
 test_direction(MountTom, analysis = "Watson-Wheeler",
                permutation = TRUE, B = 10, seed = 42)
 #> Warning: The following tracks were removed from the analysis due to having 3 or fewer footprints: Track 05, Track 06, Track 10, Track 11, Track 12, Track 14, Track 17, Track 19, Track 20, Track 21, Track 22, Track 23.

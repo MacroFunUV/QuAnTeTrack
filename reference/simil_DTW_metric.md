@@ -197,21 +197,21 @@ Phone: +34 (9635) 44477
 # in the PaluxyRiver dataset
 s1 <- simulate_track(PaluxyRiver, nsim = 3, model = "Directed")
 simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
-#> 2025-12-29 22:52:18.110612 Iteration 1
+#> 2025-12-29 23:15:38.441995 Iteration 1
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 17.58427
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 22:52:18.11384 Iteration 2
+#> 2025-12-29 23:15:38.444784 Iteration 2
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 16.48403
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 22:52:18.116971 Iteration 3
+#> 2025-12-29 23:15:38.447416 Iteration 3
 #>  
 #> DTW metric
 #>         Track_1  Track_2
@@ -261,21 +261,21 @@ simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 # in the PaluxyRiver dataset
 s2 <- simulate_track(PaluxyRiver, nsim = 3, model = "Constrained")
 simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
-#> 2025-12-29 22:52:18.135305 Iteration 1
+#> 2025-12-29 23:15:38.463222 Iteration 1
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 252.5979
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 22:52:18.138008 Iteration 2
+#> 2025-12-29 23:15:38.466031 Iteration 2
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 95.39256
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 22:52:18.140693 Iteration 3
+#> 2025-12-29 23:15:38.468695 Iteration 3
 #>  
 #> DTW metric
 #>         Track_1  Track_2
@@ -325,21 +325,21 @@ simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
 # in the PaluxyRiver dataset
 s3 <- simulate_track(PaluxyRiver, nsim = 3, model = "Unconstrained")
 simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None")
-#> 2025-12-29 22:52:18.156869 Iteration 1
+#> 2025-12-29 23:15:38.484208 Iteration 1
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 717.4026
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 22:52:18.159562 Iteration 2
+#> 2025-12-29 23:15:38.48689 Iteration 2
 #>  
 #> DTW metric
 #>         Track_1  Track_2
 #> Track_1      NA 738.6735
 #> Track_2      NA       NA
 #> ------------------------------------
-#> 2025-12-29 22:52:18.162234 Iteration 3
+#> 2025-12-29 23:15:38.489525 Iteration 3
 #>  
 #> DTW metric
 #>         Track_1  Track_2
@@ -391,7 +391,7 @@ sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16,
 s4 <- simulate_track(sbMountTom, nsim = 3)
 #> Warning: `model` is NULL. Defaulting to 'Unconstrained'.
 simil_DTW_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid")
-#> 2025-12-29 22:52:18.29563 Iteration 1
+#> 2025-12-29 23:15:38.626829 Iteration 1
 #>  
 #> DTW metric
 #>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08 Track_09
@@ -419,7 +419,7 @@ simil_DTW_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid")
 #> Track_16       NA        NA        NA 11.736856
 #> Track_18       NA        NA        NA        NA
 #> ------------------------------------
-#> 2025-12-29 22:52:18.342214 Iteration 2
+#> 2025-12-29 23:15:38.673233 Iteration 2
 #>  
 #> DTW metric
 #>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09
@@ -447,7 +447,7 @@ simil_DTW_metric(sbMountTom, test = TRUE, sim = s4, superposition = "Centroid")
 #> Track_16        NA        NA        NA 12.047081
 #> Track_18        NA        NA        NA        NA
 #> ------------------------------------
-#> 2025-12-29 22:52:18.389295 Iteration 3
+#> 2025-12-29 23:15:38.719369 Iteration 3
 #>  
 #> DTW metric
 #>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08  Track_09
@@ -646,7 +646,7 @@ sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16,
 s5 <- simulate_track(sbMountTom, nsim = 3)
 #> Warning: `model` is NULL. Defaulting to 'Unconstrained'.
 simil_DTW_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
-#> 2025-12-29 22:52:18.544463 Iteration 1
+#> 2025-12-29 23:15:38.86796 Iteration 1
 #>  
 #> DTW metric
 #>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08  Track_09
@@ -674,7 +674,7 @@ simil_DTW_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
 #> Track_16       NA        NA        NA 23.322257
 #> Track_18       NA        NA        NA        NA
 #> ------------------------------------
-#> 2025-12-29 22:52:18.591321 Iteration 2
+#> 2025-12-29 23:15:38.913939 Iteration 2
 #>  
 #> DTW metric
 #>          Track_01 Track_02 Track_03 Track_04 Track_07  Track_08 Track_09
@@ -702,7 +702,7 @@ simil_DTW_metric(sbMountTom, test = TRUE, sim = s5, superposition = "Origin")
 #> Track_16       NA        NA       NA 21.73607
 #> Track_18       NA        NA       NA       NA
 #> ------------------------------------
-#> 2025-12-29 22:52:18.638144 Iteration 3
+#> 2025-12-29 23:15:38.965872 Iteration 3
 #>  
 #> DTW metric
 #>          Track_01 Track_02  Track_03  Track_04 Track_07 Track_08 Track_09

@@ -119,8 +119,8 @@ methods for analyzing circular data, refer to Batschelet (1981).
 
 Circular mean of turning angles is computed as:
 
-\$\$\bar{\theta} = atan2\left(\frac{1}{n}\sum\_{i=1}^n \sin \theta_i,
-\frac{1}{n}\sum\_{i=1}^n \cos \theta_i\right)\$\$
+\$\$\overline{\theta} = atan2\left(\frac{1}{n}\sum\_{i=1}^n \sin
+\theta_i, \frac{1}{n}\sum\_{i=1}^n \cos \theta_i\right)\$\$
 
 where:
 
@@ -143,7 +143,7 @@ where:
 
 Circular standard deviation of turning angles is computed as:
 
-\$\$s_c = \sqrt{-2 \ln(\bar R)}, \quad \bar R =
+\$\$s_c = \sqrt{-2 \ln(\overline{R})}, \quad \overline{R} =
 \sqrt{\left(\frac{1}{n}\sum\_{i=1}^n \cos \theta_i\right)^2 +
 \left(\frac{1}{n}\sum\_{i=1}^n \sin \theta_i\right)^2}\$\$
 

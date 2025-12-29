@@ -65,7 +65,7 @@ Circular mean of turning angles is computed as:
 \deqn{\bar{θ} = atan2\left(\frac{1}{n}\sum_{i=1}^n \sin θ_i, \frac{1}{n}\sum_{i=1}^n \cos θ_i\right)}
 
 where:
-\itemize{
+\describe{
 \item{\eqn{θ_i}}{ is the \eqn{i^{th}} turning angle in radians.}
 \item{\eqn{n}}{ is the total number of turning angles.}
 \item{\eqn{\sin θ_i}, \eqn{\cos θ_i}}{ are the sine and cosine components of each turning angle.}
@@ -77,7 +77,7 @@ Circular standard deviation of turning angles is computed as:
 \deqn{s_c = \sqrt{-2 \ln(\bar R)}, \quad \bar R = \sqrt{\left(\frac{1}{n}\sum_{i=1}^n \cos θ_i\right)^2 + \left(\frac{1}{n}\sum_{i=1}^n \sin θ_i\right)^2}}
 
 where:
-\itemize{
+\describe{
 \item{\eqn{\bar R}}{ is the mean resultant length, measuring concentration of angles around the mean direction.}
 \item{\eqn{n}}{ is the total number of turning angles.}
 \item{\eqn{\cos θ_i}, \eqn{\sin θ_i}}{ are the trigonometric components of each angle.}
@@ -91,14 +91,14 @@ which is applicable to a broader range of turning angle distributions and does n
 The sinuosity is computed using the formula:
 \deqn{S = 2 \left[ p \left( \frac{1 + c}{1 - c} + b^2 \right) \right]^{-0.5}}
 where:
-\itemize{
+\describe{
 \item{\eqn{p}}{ is the mean step length (in meters),}
 \item{\eqn{c}}{ is the mean cosine of turning angles (in radians), and}
 \item{\eqn{b}}{ is the coefficient of variation of the step length (in meters).}
 }
 
 The straightness index is defined as the ratio D/L, where:
-\itemize{
+\describe{
 \item{\eqn{D}}{ is the beeline distance between the first and last points in the trajectory (in meters), and}
 \item{\eqn{L}}{ is the total path length traveled (in meters).}
 }

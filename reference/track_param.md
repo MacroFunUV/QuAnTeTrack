@@ -149,7 +149,7 @@ Circular standard deviation of turning angles is computed as:
 
 where:
 
-- R:
+- \\\overline{R}\\:
 
   is the mean resultant length, measuring concentration of angles around
   the mean direction.

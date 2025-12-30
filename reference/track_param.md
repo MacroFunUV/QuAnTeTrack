@@ -113,9 +113,9 @@ degrees in this function.
 
 The reference direction, or 0 degrees, is considered to be along the
 positive x-axis. This means that angles are measured counterclockwise
-from the positive x-axis, with 0 degrees (or 0 degrees) pointing
-directly along this axis. For a detailed explanation and appropriate
-methods for analyzing circular data, refer to Batschelet (1981).
+from the positive x-axis, with 0 degrees pointing directly along this
+axis. For a detailed explanation and appropriate methods for analyzing
+circular data, refer to Batschelet (1981).
 
 Circular mean of turning angles is computed as:
 
@@ -136,7 +136,7 @@ where:
 
   are the sine and cosine components of each turning angle.
 
-- \\atan2(y, x)\\:
+- \\\mathrm{atan2}(y,x)\\:
 
   is the two-argument arctangent that returns the angle in the correct
   quadrant.

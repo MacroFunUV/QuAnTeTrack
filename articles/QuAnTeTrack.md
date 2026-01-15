@@ -52,19 +52,34 @@ library(QuAnTeTrack)
 This command will make all the functions from **QuAnTeTrack** available
 for use. You are now ready to begin your trackway analysis!
 
+## **Terminology**
+
+The terminology used throughout **QuAnTeTrack** follows standardized
+definitions for tetrapod track and trackway analysis. All anatomical,
+ichnological, and trackway-related terms adhere to the nomenclature and
+definitions proposed in the *Glossary of Tetrapod Tracks* published by
+*Lallensack et al. (2025)*.
+
+By adopting this reference framework, **QuAnTeTrack** ensures
+terminological consistency with current ichnological standards and
+facilitates comparability across studies. Users are encouraged to
+consult the glossary for detailed definitions.
+
 ## **Overview of the Analytical Workflow in QuAnTeTrack**
 
 The **QuAnTeTrack** package (**Qu**antitative **An**alysis of
 **Te**trapod **Track**ways) provides a structured and comprehensive
 workflow for analyzing trackway data, facilitating the assessment of
 paleoecological and paleoethological hypotheses. The workflow integrates
-various functions for data digitization, loading, exploratory analysis,
-statistical testing, simulation, similarity assessment, intersection
-detection, and clustering. This pipeline aims to help researchers
-reconstruct, compare, and interpret movement patterns and behavioral
-dynamics of trackmakers.
+functions for loading data, observer and anatomical error
+quantification, exploratory analysis, statistical testing, simulation,
+similarity assessment, intersection detection, and clustering. This
+pipeline aims to help researchers reconstruct, compare, and interpret
+movement patterns and behavioral dynamics of trackmakers.
 
-### **1. Data Digitization and Preprocessing**
+### **1. Input Data**
+
+#### **1.1 Data Digitization and Preprocessing**
 
 The first step involves **digitizing the trackway data** using the **TPS
 software suite**, particularly:
@@ -78,7 +93,7 @@ The digitization process should ensure that the footprints are
 consistently recorded across all tracks. This process is essential for
 converting raw images into structured data for further analysis.
 
-### **2. Loading Data with `tps_to_track()`**
+#### **1.2 Loading Data with `tps_to_track()`**
 
 Once digitized, the data is loaded into **QuAnTeTrack** using the
 [`tps_to_track()`](https://macrofunuv.github.io/QuAnTeTrack/reference/tps_to_track.md)
@@ -96,13 +111,40 @@ The resulting **`track` R objects** contain:
   footprints.  
 - **Footprints:** Original digitized points and metadata for each track.
 
-Additionally, if the dataset is extensive, users can utilize the
+If the dataset is extensive, users can utilize the
 **[`subset_track()`](https://macrofunuv.github.io/QuAnTeTrack/reference/subset_track.md)**
-function to isolate specific tracks for focused analysis. This step
-helps avoid computational overhead and allows customized analyses of
-selected trajectories.
+function to isolate specific tracks for focused analysis.
 
-### **3. Exploratory Analysis of Track Parameters**
+#### **1.3 Quantification of Potential Sampling Biases**
+
+Before downstream analyses, **QuAnTeTrack** provides dedicated tools to
+quantify uncertainty arising from the human sampling process and
+anatomical ambiguity.
+
+- **Observer-related uncertainty
+  ([`observer_error_partitioning()`](https://macrofunuv.github.io/QuAnTeTrack/reference/observer_error_partitioning.md))**:  
+  Partitions the variance of trackway parameters into components
+  attributable to biological differences among tracks, inter-observer
+  variability, and intra-observer (replicate) variability using
+  replicated digitizations and mixed-effects models. This analysis
+  allows users to assess reproducibility, identify robust parameters,
+  and evaluate the reliability of measurements prior to hypothesis
+  testing.
+
+- **Anatomical uncertainty
+  ([`anatomical_error_partitioning()`](https://macrofunuv.github.io/QuAnTeTrack/reference/anatomical_error_partitioning.md))**:  
+  Quantifies the sensitivity of trackway parameters to landmark
+  placement uncertainty using Monte Carlo simulations. By perturbing
+  footprint landmarks within user-defined spatial tolerances, this
+  function estimates the relative contribution of anatomical or
+  taphonomic uncertainty versus genuine biological signal.
+
+Together, these tools enable an explicit audit of data quality and help
+determine which metrics are robust enough for further interpretation.
+
+### **2. Descriptive and Kinematic Information**
+
+#### **2.1 Exploratory Analysis of Track Parameters**
 
 Before testing specific hypotheses, users should perform an initial
 exploration of the data. This includes:
@@ -110,148 +152,112 @@ exploration of the data. This includes:
 - **Visual Inspection of Tracks
   ([`plot_track()`](https://macrofunuv.github.io/QuAnTeTrack/reference/plot_track.md))**:  
   Generates visualizations of trackways and footprints to inspect their
-  overall structure. The function offers various modes:
-
-  - Plotting only footprints
-  - Plotting only tracks
-  - Plotting both footprints and tracks
+  overall structure.
 
 - **Parameter Calculation
   ([`track_param()`](https://macrofunuv.github.io/QuAnTeTrack/reference/track_param.md))**:  
-  Calculates essential movement parameters, including:
-
-  - Step lengths
-  - Turning angles
-  - Total distance and track length
-  - Sinuosity
-  - Straightness
+  Calculates essential movement parameters, including step lengths,
+  turning angles, total distance, track length, sinuosity, and
+  straightness.
 
 - **Velocity Calculation
   ([`velocity_track()`](https://macrofunuv.github.io/QuAnTeTrack/reference/velocity_track.md))**:  
-  Estimates velocities and relative stride lengths for each track,
-  applying formulas based on empirical studies. This step is crucial for
-  understanding speed dynamics and comparing them across different
-  trackmakers or scenarios.
+  Estimates velocities and relative stride lengths for each track based
+  on empirical formulations.
 
 - **Visualization of Velocity Patterns
   ([`plot_velocity()`](https://macrofunuv.github.io/QuAnTeTrack/reference/plot_velocity.md))**:  
-  Provides a detailed view of how velocity or relative stride length
-  changes along each track. This visualization is essential for
-  identifying patterns of acceleration, deceleration, or steady
-  movement.
+  Examines how velocity or relative stride length varies along each
+  track.
 
 - **Direction Analysis
   ([`plot_direction()`](https://macrofunuv.github.io/QuAnTeTrack/reference/plot_direction.md))**:  
-  Provides various visualization options to explore trackway
-  directionality:
+  Provides multiple visualization options (boxplots, polar histograms,
+  faceted plots) to explore trackway directionality.
 
-  - Boxplots of step directions
-  - Polar histograms of step directions and average directions
-  - Faceted plots for comparing multiple tracks
+These tools allow users to identify general patterns, trends, and
+potential anomalies prior to formal statistical analyses.
 
-These functions help identify general patterns and irregularities in the
-data before proceeding with formal statistical testing.
-
-### **4. Testing Directional and Velocity Patterns**
+#### **2.2 Testing Directional and Velocity Patterns**
 
 To assess whether tracks exhibit distinct movement patterns, the
 following statistical tests can be applied:
 
 - **Testing Velocity
-  ([`test_velocity()`](https://macrofunuv.github.io/QuAnTeTrack/reference/test_velocity.md))**:
-  - Compares mean velocities across tracks using ANOVA, Kruskal-Wallis,
-    or GLM.
-  - Performs pairwise comparisons if necessary.
-  - Provides visualizations of velocity distributions across different
-    tracks.
+  ([`test_velocity()`](https://macrofunuv.github.io/QuAnTeTrack/reference/test_velocity.md))**:  
+  Compares mean velocities across tracks using ANOVA, Kruskal–Wallis, or
+  GLM approaches.
+
 - **Movement Mode Analysis
-  ([`mode_velocity()`](https://macrofunuv.github.io/QuAnTeTrack/reference/mode_velocity.md))**:
-  - Applies Spearman’s rank correlation to detect trends of
-    **acceleration**, **deceleration**, or **steady movement** along
-    each track.
+  ([`mode_velocity()`](https://macrofunuv.github.io/QuAnTeTrack/reference/mode_velocity.md))**:  
+  Uses Spearman’s rank correlation to detect acceleration, deceleration,
+  or steady movement along tracks.
+
 - **Testing Direction
-  ([`test_direction()`](https://macrofunuv.github.io/QuAnTeTrack/reference/test_direction.md))**:
-  - Compares mean directions across tracks using ANOVA, Kruskal-Wallis,
-    or GLM.  
-  - Performs pairwise comparisons if necessary.
+  ([`test_direction()`](https://macrofunuv.github.io/QuAnTeTrack/reference/test_direction.md))**:  
+  Compares mean directions across tracks using appropriate statistical
+  models.
 
-These statistical tests allow researchers to rigorously compare and
-quantify movement characteristics, providing a foundation for hypothesis
-testing.
+### **3. Testing (Palaeo)Ethological Hypotheses**
 
-### **5. Simulation-Based Hypothesis Testing (`simulate_track()`)**
+QuAnTeTrack tests paleoecological and paleoethological hypotheses by
+comparing observed fossil trackways with null expectations generated
+from simulated, independent movement. Under coordinated or sequential
+movement (e.g., pursuit, queuing or herding), trajectories are expected
+to show higher covariation and characteristic intersection patterns than
+predicted by chance. QuAnTeTrack quantifies these patterns using
+trajectory similarity metrics and intersection analyses, and evaluates
+them against Monte Carlo–derived null distributions generated under
+movement scenarios with increasing environmental constraints. This
+framework allows researchers to distinguish genuine behavioral
+coordination from patterns imposed by environmental structure.
+
+#### **3.1 Simulation-Based Hypothesis Testing (`simulate_track()`)**
 
 The
 [`simulate_track()`](https://macrofunuv.github.io/QuAnTeTrack/reference/simulate_track.md)
-function generates **simulated trajectories** based on different
-movement models to test specific hypotheses. Three models are available:
+function generates simulated trajectories under different models that
+represent **different levels of constraint on movement**, while assuming
+independence among trackmakers. These models define alternative null
+scenarios against which observed trackways are evaluated::
 
-- **Directed Model:** Represents highly constrained, purposeful movement
-  along a consistent direction.  
-- **Constrained Model:** Generates correlated random walks, suitable for
-  partially directed movement.  
-- **Unconstrained Model:** Represents fully random exploratory movement.
+- **Directed model**
+- **Constrained model**
+- **Unconstrained model**
 
-These models can be **informed by geological data** (e.g.,
-sedimentology, paleogeomorphology, etc.) to test the influence of
-environmental constraints on movement. For example, natural barriers or
-features inferred from geological evidence may restrict the range of
-simulated paths.
+Simulations can incorporate geological or environmental constraints and
+are visually compared with empirical tracks using
+[`plot_sim()`](https://macrofunuv.github.io/QuAnTeTrack/reference/plot_sim.md).
 
-The
-[`plot_sim()`](https://macrofunuv.github.io/QuAnTeTrack/reference/plot_sim.md)
-function overlays simulated tracks on the actual trajectories, allowing
-users to visually assess how well different models replicate observed
-track patterns. This visual comparison is essential for evaluating the
-realism of simulated tracks.
+#### **3.2 Comparing Simulated and Empirical Tracks**
 
-### **6. Comparing Simulated and Empirical Tracks**
-
-The **QuAnTeTrack** package offers several functions aimed at comparing
-similarity and intersection metrics between two or more actual tracks.
-These metrics are then evaluated against simulated datasets to determine
-the probability of observing such similarity or intersection counts
-under scenarios of independent (non-coordinated) movement.
+Similarity and interaction among tracks are assessed using:
 
 - **Dynamic Time Warping
-  ([`simil_DTW_metric()`](https://macrofunuv.github.io/QuAnTeTrack/reference/simil_DTW_metric.md))**:  
-  Compares trajectories based on the optimal alignment of points,
-  allowing for variable path lengths.
+  ([`simil_DTW_metric()`](https://macrofunuv.github.io/QuAnTeTrack/reference/simil_DTW_metric.md))**
+- **Fréchet distance
+  ([`simil_Frechet_metric()`](https://macrofunuv.github.io/QuAnTeTrack/reference/simil_Frechet_metric.md))**
+- **Track intersections
+  ([`track_intersection()`](https://macrofunuv.github.io/QuAnTeTrack/reference/track_intersection.md))**
 
-- **Fréchet Distance
-  ([`simil_Frechet_metric()`](https://macrofunuv.github.io/QuAnTeTrack/reference/simil_Frechet_metric.md))**:  
-  Measures similarity by comparing the overall shape of trajectories,
-  focusing on global rather than local alignment.
+Observed values are evaluated against simulated expectations to infer
+coordinated or independent movement.
 
-- **Track Intersections
-  ([`track_intersection()`](https://macrofunuv.github.io/QuAnTeTrack/reference/track_intersection.md))**:  
-  Identifies and counts unique intersections between tracks, which can
-  indicate interaction or coordinated movement.
-
-### **7. Combining Probability Metrics (`combined_prob()`)**
+#### **3.3 Combining Probability Metrics (`combined_prob()`)**
 
 The
 [`combined_prob()`](https://macrofunuv.github.io/QuAnTeTrack/reference/combined_prob.md)
-function integrates *p*-values from multiple similarity metrics and
-intersection tests to provide a more robust assessment of observed
-patterns. This approach offers an overall measure of significance,
-enhancing the reliability of the results by accounting for different
-aspects of similarity and interaction.
+function integrates *p*-values from multiple metrics into a single
+global probability, providing a more robust assessment of trackway
+interactions.
 
-### **8. Clustering Analysis (`cluster_track()`)**
+#### **3.4 Clustering Analysis (`cluster_track()`)**
 
 The
 [`cluster_track()`](https://macrofunuv.github.io/QuAnTeTrack/reference/cluster_track.md)
-function is an optional but powerful step that can be applied **before
-formal statistical testing**. It clusters tracks based on calculated
-movement parameters, identifying groups of tracks with similar
-behaviors. The clustering process:
-
-- Facilitates targeted testing of specific behavioral hypotheses (e.g.,
-  gregarious movement).
-- Helps filter relevant datasets before applying similarity metrics.
-- Informs the selection of appropriate simulation models by identifying
-  common movement characteristics.
+function groups tracks based on movement parameters and can be applied
+prior to formal testing to identify behavioral groupings and guide
+hypothesis-driven analyses.
 
 ## **Raw Data Format**
 
@@ -22101,6 +22107,9 @@ scope of comparisons.
   Dinosaur Valley State Park, Somervell County, Texas. *In Proceedings
   of the V International Symposium about Dinosaur Palaeontology and
   their Environment* (pp. 41-69). Burgos: Salas de los Infantes.  
+- **Lallensack, J. N., Leonardi, G., & Falkingham, P. L. (2025).**
+  Glossary of tetrapod tracks. *Palaeontologia Electronica*, 28(1),
+  1-105. DOI: <https://doi.org/10.26879/1389>.  
 - **Ostrom, J. H. (1972).** Were some dinosaurs gregarious?
   *Palaeogeography, Palaeoclimatology, Palaeoecology*, 11(4), 287-301.
   DOI: <https://doi.org/10.1016/0031-0182(72)90049-1>.  

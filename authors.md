@@ -10,14 +10,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/MacroFunUV/QuAnTeTrack/blob/master/DESCRIPTION)
 
-Ferrón H (2025). *QuAnTeTrack: Quantitative Analysis of Tetrapod
+Ferrón H (2026). *QuAnTeTrack: Quantitative Analysis of Tetrapod
 Trackways*. R package version 1.0.0,
 <https://github.com/MacroFunUV/QuAnTeTrack>.
 
     @Manual{,
       title = {QuAnTeTrack: Quantitative Analysis of Tetrapod Trackways},
       author = {Humberto G Ferrón},
-      year = {2025},
+      year = {2026},
       note = {R package version 1.0.0},
       url = {https://github.com/MacroFunUV/QuAnTeTrack},
     }

@@ -161,6 +161,20 @@ begin your trackway analysis!</p>
 </div>
 </div>
 <div class="section level2">
+<h2 id="terminology">
+<strong>Terminology</strong><a class="anchor" aria-label="anchor" href="#terminology"></a>
+</h2>
+<p>The terminology used throughout <strong>QuAnTeTrack</strong> follows
+standardized definitions for tetrapod track and trackway analysis. All
+anatomical, ichnological, and trackway-related terms adhere to the
+nomenclature and definitions proposed in the <em>Glossary of Tetrapod
+Tracks</em> published by <em>Lallensack et al. (2025)</em>.</p>
+<p>By adopting this reference framework, <strong>QuAnTeTrack</strong>
+ensures terminological consistency with current ichnological standards
+and facilitates comparability across studies. Users are encouraged to
+consult the glossary for detailed definitions.</p>
+</div>
+<div class="section level2">
 <h2 id="overview-of-the-analytical-workflow-in-quantetrack">
 <strong>Overview of the Analytical Workflow in
 QuAnTeTrack</strong><a class="anchor" aria-label="anchor" href="#overview-of-the-analytical-workflow-in-quantetrack"></a>
@@ -170,16 +184,20 @@ QuAnTeTrack</strong><a class="anchor" aria-label="anchor" href="#overview-of-the
 <strong>Te</strong>trapod <strong>Track</strong>ways) provides a
 structured and comprehensive workflow for analyzing trackway data,
 facilitating the assessment of paleoecological and paleoethological
-hypotheses. The workflow integrates various functions for data
-digitization, loading, exploratory analysis, statistical testing,
-simulation, similarity assessment, intersection detection, and
+hypotheses. The workflow integrates functions for loading data, observer
+and anatomical error quantification, exploratory analysis, statistical
+testing, simulation, similarity assessment, intersection detection, and
 clustering. This pipeline aims to help researchers reconstruct, compare,
 and interpret movement patterns and behavioral dynamics of
 trackmakers.</p>
 <div class="section level3">
-<h3 id="data-digitization-and-preprocessing">
-<strong>1. Data Digitization and Preprocessing</strong><a class="anchor" aria-label="anchor" href="#data-digitization-and-preprocessing"></a>
+<h3 id="input-data">
+<strong>1. Input Data</strong><a class="anchor" aria-label="anchor" href="#input-data"></a>
 </h3>
+<div class="section level4">
+<h4 id="data-digitization-and-preprocessing">
+<strong>1.1 Data Digitization and Preprocessing</strong><a class="anchor" aria-label="anchor" href="#data-digitization-and-preprocessing"></a>
+</h4>
 <p>The first step involves <strong>digitizing the trackway data</strong>
 using the <strong>TPS software suite</strong>, particularly:</p>
 <ul>
@@ -195,11 +213,11 @@ footprint coordinates from trackways.</li>
 consistently recorded across all tracks. This process is essential for
 converting raw images into structured data for further analysis.</p>
 </div>
-<div class="section level3">
-<h3 id="loading-data-with-tps_to_track">
-<strong>2. Loading Data with
+<div class="section level4">
+<h4 id="loading-data-with-tps_to_track">
+<strong>1.2 Loading Data with
 <code>tps_to_track()</code></strong><a class="anchor" aria-label="anchor" href="#loading-data-with-tps_to_track"></a>
-</h3>
+</h4>
 <p>Once digitized, the data is loaded into <strong>QuAnTeTrack</strong>
 using the <code><a href="../reference/tps_to_track.html">tps_to_track()</a></code> function. This function:</p>
 <ul>
@@ -222,196 +240,167 @@ midpoints between footprints.<br>
 <strong>Footprints:</strong> Original digitized points and metadata
 for each track.</li>
 </ul>
-<p>Additionally, if the dataset is extensive, users can utilize the
+<p>If the dataset is extensive, users can utilize the
 <strong><code><a href="../reference/subset_track.html">subset_track()</a></code></strong> function to isolate
-specific tracks for focused analysis. This step helps avoid
-computational overhead and allows customized analyses of selected
-trajectories.</p>
+specific tracks for focused analysis.</p>
+</div>
+<div class="section level4">
+<h4 id="quantification-of-potential-sampling-biases">
+<strong>1.3 Quantification of Potential Sampling
+Biases</strong><a class="anchor" aria-label="anchor" href="#quantification-of-potential-sampling-biases"></a>
+</h4>
+<p>Before downstream analyses, <strong>QuAnTeTrack</strong> provides
+dedicated tools to quantify uncertainty arising from the human sampling
+process and anatomical ambiguity.</p>
+<ul>
+<li><p><strong>Observer-related uncertainty
+(<code><a href="../reference/observer_error_partitioning.html">observer_error_partitioning()</a></code>)</strong>:<br>
+Partitions the variance of trackway parameters into components
+attributable to biological differences among tracks, inter-observer
+variability, and intra-observer (replicate) variability using replicated
+digitizations and mixed-effects models. This analysis allows users to
+assess reproducibility, identify robust parameters, and evaluate the
+reliability of measurements prior to hypothesis testing.</p></li>
+<li><p><strong>Anatomical uncertainty
+(<code><a href="../reference/anatomical_error_partitioning.html">anatomical_error_partitioning()</a></code>)</strong>:<br>
+Quantifies the sensitivity of trackway parameters to landmark placement
+uncertainty using Monte Carlo simulations. By perturbing footprint
+landmarks within user-defined spatial tolerances, this function
+estimates the relative contribution of anatomical or taphonomic
+uncertainty versus genuine biological signal.</p></li>
+</ul>
+<p>Together, these tools enable an explicit audit of data quality and
+help determine which metrics are robust enough for further
+interpretation.</p>
+</div>
 </div>
 <div class="section level3">
-<h3 id="exploratory-analysis-of-track-parameters">
-<strong>3. Exploratory Analysis of Track Parameters</strong><a class="anchor" aria-label="anchor" href="#exploratory-analysis-of-track-parameters"></a>
+<h3 id="descriptive-and-kinematic-information">
+<strong>2. Descriptive and Kinematic Information</strong><a class="anchor" aria-label="anchor" href="#descriptive-and-kinematic-information"></a>
 </h3>
+<div class="section level4">
+<h4 id="exploratory-analysis-of-track-parameters">
+<strong>2.1 Exploratory Analysis of Track Parameters</strong><a class="anchor" aria-label="anchor" href="#exploratory-analysis-of-track-parameters"></a>
+</h4>
 <p>Before testing specific hypotheses, users should perform an initial
 exploration of the data. This includes:</p>
 <ul>
-<li>
-<p><strong>Visual Inspection of Tracks
+<li><p><strong>Visual Inspection of Tracks
 (<code><a href="../reference/plot_track.html">plot_track()</a></code>)</strong>:<br>
 Generates visualizations of trackways and footprints to inspect their
-overall structure. The function offers various modes:</p>
-<ul>
-<li>Plotting only footprints</li>
-<li>Plotting only tracks</li>
-<li>Plotting both footprints and tracks</li>
-</ul>
-</li>
-<li>
-<p><strong>Parameter Calculation
+overall structure.</p></li>
+<li><p><strong>Parameter Calculation
 (<code><a href="../reference/track_param.html">track_param()</a></code>)</strong>:<br>
-Calculates essential movement parameters, including:</p>
-<ul>
-<li>Step lengths</li>
-<li>Turning angles</li>
-<li>Total distance and track length</li>
-<li>Sinuosity</li>
-<li>Straightness</li>
-</ul>
-</li>
+Calculates essential movement parameters, including step lengths,
+turning angles, total distance, track length, sinuosity, and
+straightness.</p></li>
 <li><p><strong>Velocity Calculation
 (<code><a href="../reference/velocity_track.html">velocity_track()</a></code>)</strong>:<br>
-Estimates velocities and relative stride lengths for each track,
-applying formulas based on empirical studies. This step is crucial for
-understanding speed dynamics and comparing them across different
-trackmakers or scenarios.</p></li>
+Estimates velocities and relative stride lengths for each track based on
+empirical formulations.</p></li>
 <li><p><strong>Visualization of Velocity Patterns
 (<code><a href="../reference/plot_velocity.html">plot_velocity()</a></code>)</strong>:<br>
-Provides a detailed view of how velocity or relative stride length
-changes along each track. This visualization is essential for
-identifying patterns of acceleration, deceleration, or steady
-movement.</p></li>
-<li>
-<p><strong>Direction Analysis
+Examines how velocity or relative stride length varies along each
+track.</p></li>
+<li><p><strong>Direction Analysis
 (<code><a href="../reference/plot_direction.html">plot_direction()</a></code>)</strong>:<br>
-Provides various visualization options to explore trackway
-directionality:</p>
-<ul>
-<li>Boxplots of step directions</li>
-<li>Polar histograms of step directions and average directions</li>
-<li>Faceted plots for comparing multiple tracks</li>
+Provides multiple visualization options (boxplots, polar histograms,
+faceted plots) to explore trackway directionality.</p></li>
 </ul>
-</li>
-</ul>
-<p>These functions help identify general patterns and irregularities in
-the data before proceeding with formal statistical testing.</p>
+<p>These tools allow users to identify general patterns, trends, and
+potential anomalies prior to formal statistical analyses.</p>
 </div>
-<div class="section level3">
-<h3 id="testing-directional-and-velocity-patterns">
-<strong>4. Testing Directional and Velocity Patterns</strong><a class="anchor" aria-label="anchor" href="#testing-directional-and-velocity-patterns"></a>
-</h3>
+<div class="section level4">
+<h4 id="testing-directional-and-velocity-patterns">
+<strong>2.2 Testing Directional and Velocity Patterns</strong><a class="anchor" aria-label="anchor" href="#testing-directional-and-velocity-patterns"></a>
+</h4>
 <p>To assess whether tracks exhibit distinct movement patterns, the
 following statistical tests can be applied:</p>
 <ul>
-<li>
-<strong>Testing Velocity (<code><a href="../reference/test_velocity.html">test_velocity()</a></code>)</strong>:
-<ul>
-<li>Compares mean velocities across tracks using ANOVA, Kruskal-Wallis,
-or GLM.</li>
-<li>Performs pairwise comparisons if necessary.</li>
-<li>Provides visualizations of velocity distributions across different
-tracks.</li>
+<li><p><strong>Testing Velocity
+(<code><a href="../reference/test_velocity.html">test_velocity()</a></code>)</strong>:<br>
+Compares mean velocities across tracks using ANOVA, Kruskal–Wallis, or
+GLM approaches.</p></li>
+<li><p><strong>Movement Mode Analysis
+(<code><a href="../reference/mode_velocity.html">mode_velocity()</a></code>)</strong>:<br>
+Uses Spearman’s rank correlation to detect acceleration, deceleration,
+or steady movement along tracks.</p></li>
+<li><p><strong>Testing Direction
+(<code><a href="../reference/test_direction.html">test_direction()</a></code>)</strong>:<br>
+Compares mean directions across tracks using appropriate statistical
+models.</p></li>
 </ul>
-</li>
-<li>
-<strong>Movement Mode Analysis
-(<code><a href="../reference/mode_velocity.html">mode_velocity()</a></code>)</strong>:
-<ul>
-<li>Applies Spearman’s rank correlation to detect trends of
-<strong>acceleration</strong>, <strong>deceleration</strong>, or
-<strong>steady movement</strong> along each track.</li>
-</ul>
-</li>
-<li>
-<strong>Testing Direction (<code><a href="../reference/test_direction.html">test_direction()</a></code>)</strong>:
-<ul>
-<li>Compares mean directions across tracks using ANOVA, Kruskal-Wallis,
-or GLM.<br>
-</li>
-<li>Performs pairwise comparisons if necessary.</li>
-</ul>
-</li>
-</ul>
-<p>These statistical tests allow researchers to rigorously compare and
-quantify movement characteristics, providing a foundation for hypothesis
-testing.</p>
+</div>
 </div>
 <div class="section level3">
-<h3 id="simulation-based-hypothesis-testing-simulate_track">
-<strong>5. Simulation-Based Hypothesis Testing
+<h3 id="testing-palaeoethological-hypotheses">
+<strong>3. Testing (Palaeo)Ethological Hypotheses</strong><a class="anchor" aria-label="anchor" href="#testing-palaeoethological-hypotheses"></a>
+</h3>
+<p>QuAnTeTrack tests paleoecological and paleoethological hypotheses by
+comparing observed fossil trackways with null expectations generated
+from simulated, independent movement. Under coordinated or sequential
+movement (e.g., pursuit, queuing or herding), trajectories are expected
+to show higher covariation and characteristic intersection patterns than
+predicted by chance. QuAnTeTrack quantifies these patterns using
+trajectory similarity metrics and intersection analyses, and evaluates
+them against Monte Carlo–derived null distributions generated under
+movement scenarios with increasing environmental constraints. This
+framework allows researchers to distinguish genuine behavioral
+coordination from patterns imposed by environmental structure.</p>
+<div class="section level4">
+<h4 id="simulation-based-hypothesis-testing-simulate_track">
+<strong>3.1 Simulation-Based Hypothesis Testing
 (<code>simulate_track()</code>)</strong><a class="anchor" aria-label="anchor" href="#simulation-based-hypothesis-testing-simulate_track"></a>
-</h3>
-<p>The <code><a href="../reference/simulate_track.html">simulate_track()</a></code> function generates
-<strong>simulated trajectories</strong> based on different movement
-models to test specific hypotheses. Three models are available:</p>
+</h4>
+<p>The <code><a href="../reference/simulate_track.html">simulate_track()</a></code> function generates simulated
+trajectories under different models that represent <strong>different
+levels of constraint on movement</strong>, while assuming independence
+among trackmakers. These models define alternative null scenarios
+against which observed trackways are evaluated::</p>
 <ul>
-<li>
-<strong>Directed Model:</strong> Represents highly constrained,
-purposeful movement along a consistent direction.<br>
-</li>
-<li>
-<strong>Constrained Model:</strong> Generates correlated random
-walks, suitable for partially directed movement.<br>
-</li>
-<li>
-<strong>Unconstrained Model:</strong> Represents fully random
-exploratory movement.</li>
+<li><strong>Directed model</strong></li>
+<li><strong>Constrained model</strong></li>
+<li><strong>Unconstrained model</strong></li>
 </ul>
-<p>These models can be <strong>informed by geological data</strong>
-(e.g., sedimentology, paleogeomorphology, etc.) to test the influence of
-environmental constraints on movement. For example, natural barriers or
-features inferred from geological evidence may restrict the range of
-simulated paths.</p>
-<p>The <code><a href="../reference/plot_sim.html">plot_sim()</a></code> function overlays simulated tracks on the
-actual trajectories, allowing users to visually assess how well
-different models replicate observed track patterns. This visual
-comparison is essential for evaluating the realism of simulated
-tracks.</p>
+<p>Simulations can incorporate geological or environmental constraints
+and are visually compared with empirical tracks using
+<code><a href="../reference/plot_sim.html">plot_sim()</a></code>.</p>
 </div>
-<div class="section level3">
-<h3 id="comparing-simulated-and-empirical-tracks">
-<strong>6. Comparing Simulated and Empirical Tracks</strong><a class="anchor" aria-label="anchor" href="#comparing-simulated-and-empirical-tracks"></a>
-</h3>
-<p>The <strong>QuAnTeTrack</strong> package offers several functions
-aimed at comparing similarity and intersection metrics between two or
-more actual tracks. These metrics are then evaluated against simulated
-datasets to determine the probability of observing such similarity or
-intersection counts under scenarios of independent (non-coordinated)
-movement.</p>
+<div class="section level4">
+<h4 id="comparing-simulated-and-empirical-tracks">
+<strong>3.2 Comparing Simulated and Empirical Tracks</strong><a class="anchor" aria-label="anchor" href="#comparing-simulated-and-empirical-tracks"></a>
+</h4>
+<p>Similarity and interaction among tracks are assessed using:</p>
 <ul>
-<li><p><strong>Dynamic Time Warping
-(<code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code>)</strong>:<br>
-Compares trajectories based on the optimal alignment of points, allowing
-for variable path lengths.</p></li>
-<li><p><strong>Fréchet Distance
-(<code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code>)</strong>:<br>
-Measures similarity by comparing the overall shape of trajectories,
-focusing on global rather than local alignment.</p></li>
-<li><p><strong>Track Intersections
-(<code><a href="../reference/track_intersection.html">track_intersection()</a></code>)</strong>:<br>
-Identifies and counts unique intersections between tracks, which can
-indicate interaction or coordinated movement.</p></li>
+<li><strong>Dynamic Time Warping
+(<code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code>)</strong></li>
+<li><strong>Fréchet distance
+(<code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code>)</strong></li>
+<li><strong>Track intersections
+(<code><a href="../reference/track_intersection.html">track_intersection()</a></code>)</strong></li>
 </ul>
+<p>Observed values are evaluated against simulated expectations to infer
+coordinated or independent movement.</p>
 </div>
-<div class="section level3">
-<h3 id="combining-probability-metrics-combined_prob">
-<strong>7. Combining Probability Metrics
+<div class="section level4">
+<h4 id="combining-probability-metrics-combined_prob">
+<strong>3.3 Combining Probability Metrics
 (<code>combined_prob()</code>)</strong><a class="anchor" aria-label="anchor" href="#combining-probability-metrics-combined_prob"></a>
-</h3>
+</h4>
 <p>The <code><a href="../reference/combined_prob.html">combined_prob()</a></code> function integrates
-<em>p</em>-values from multiple similarity metrics and intersection
-tests to provide a more robust assessment of observed patterns. This
-approach offers an overall measure of significance, enhancing the
-reliability of the results by accounting for different aspects of
-similarity and interaction.</p>
+<em>p</em>-values from multiple metrics into a single global
+probability, providing a more robust assessment of trackway
+interactions.</p>
 </div>
-<div class="section level3">
-<h3 id="clustering-analysis-cluster_track">
-<strong>8. Clustering Analysis
+<div class="section level4">
+<h4 id="clustering-analysis-cluster_track">
+<strong>3.4 Clustering Analysis
 (<code>cluster_track()</code>)</strong><a class="anchor" aria-label="anchor" href="#clustering-analysis-cluster_track"></a>
-</h3>
-<p>The <code><a href="../reference/cluster_track.html">cluster_track()</a></code> function is an optional but powerful
-step that can be applied <strong>before formal statistical
-testing</strong>. It clusters tracks based on calculated movement
-parameters, identifying groups of tracks with similar behaviors. The
-clustering process:</p>
-<ul>
-<li>Facilitates targeted testing of specific behavioral hypotheses
-(e.g., gregarious movement).</li>
-<li>Helps filter relevant datasets before applying similarity
-metrics.</li>
-<li>Informs the selection of appropriate simulation models by
-identifying common movement characteristics.</li>
-</ul>
+</h4>
+<p>The <code><a href="../reference/cluster_track.html">cluster_track()</a></code> function groups tracks based on
+movement parameters and can be applied prior to formal testing to
+identify behavioral groupings and guide hypothesis-driven analyses.</p>
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -22271,6 +22260,11 @@ Lower Cretaceous), Dinosaur Valley State Park, Somervell County, Texas.
 <em>In Proceedings of the V International Symposium about Dinosaur
 Palaeontology and their Environment</em> (pp. 41-69). Burgos: Salas de
 los Infantes.<br>
+</li>
+<li>
+<strong>Lallensack, J. N., Leonardi, G., &amp; Falkingham, P. L.
+(2025).</strong> Glossary of tetrapod tracks. <em>Palaeontologia
+Electronica</em>, 28(1), 1-105. DOI: <a href="https://doi.org/10.26879/1389" class="external-link">https://doi.org/10.26879/1389</a>.<br>
 </li>
 <li>
 <strong>Ostrom, J. H. (1972).</strong> Were some dinosaurs

@@ -4,7 +4,7 @@
 \alias{track_param}
 \title{Print track parameters}
 \usage{
-track_param(data)
+track_param(data, gauge_size = NA)
 }
 \arguments{
 \item{data}{A \code{track} R object, which is a list consisting of two elements:
@@ -12,6 +12,9 @@ track_param(data)
 \item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
 \item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 }}
+
+\item{gauge_size}{Numeric. Pes/manus length (or width) used to compute Gauge as \code{Trackway_width / gauge_size}.
+If \code{NULL} or \code{NA}, Gauge is returned as \code{NA}.}
 }
 \value{
 A list of lists, where each sublist contains the computed parameters for a corresponding track.
@@ -20,19 +23,31 @@ The parameters included are:
 \item{\code{Turning_angles}}{A vector of turning angles for the track (in degrees).}
 \item{\code{Mean_turning_angle}}{The mean of the turning angles (in degrees).}
 \item{\code{Standard_deviation_turning_angle}}{The standard deviation of the turning angles (in degrees).}
+
 \item{\code{Distance}}{The total distance covered by the track (in meters).}
 \item{\code{Length}}{The length of the track  (in meters).}
+
 \item{\code{Step_lengths}}{A vector of step lengths for the track  (in meters).}
 \item{\code{Mean_step_length}}{The mean of the step lengths  (in meters).}
 \item{\code{Standard_deviation_step_length}}{The standard deviation of the step lengths  (in meters).}
+
+\item{\code{Stride_length}}{A vector of stride lengths (in meters), computed as distances between consecutive footprints of the same side (L–L and R–R), in footprint order.}
+\item{\code{Mean_stride_length}}{Mean stride length (in meters). Computed as \code{Mean_step_length * 2}.}
+
+\item{\code{Pace_length}}{A vector of pace lengths (in meters), computed as distances between consecutive contralateral footprints (L–R or R–L) in footprint order.}
+\item{\code{Mean_pace_length}}{Mean pace length (in meters).}
+
 \item{\code{Sinuosity}}{The sinuosity of the track (dimensionless).}
 \item{\code{Straightness}}{The straightness of the track (dimensionless).}
+
 \item{\code{Trackway_width}}{Mean lateral separation between left and right footprints (in meters), measured perpendicular to the inferred trackway axis.}
+\item{\code{Gauge}}{Trackway gauge (dimensionless), computed as \code{Trackway_width / gauge_size}.}
 \item{\code{Pace_angulation}}{Mean interior angle (in degrees) computed from alternating triplets (L–R–L or R–L–R).}
+\item{\code{Step_angle}}{Mean step angle (in degrees), computed as the mean angle between each pace segment and the inferred stride/trackway axis.}
 }
 }
 \description{
-\code{track_param()} is a function to compute and print various parameters of tracks from a list of track data.
+\code{track_param()} is a function to compute and print various parameters of trackways.
 }
 \details{
 This function calculates various movement parameters for each track in the provided data.

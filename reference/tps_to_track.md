@@ -1,7 +1,7 @@
-# Transform a \*.tps file into a `track` R object
+# Transform a \*.tps file into a `trackway` R object
 
 `tps_to_track()` reads a \*.tps file containing footprint coordinates of
-one or several tracks and transforms it into a `track` R object.
+one or several trackways and transforms it into a `trackway` R object.
 
 ## Usage
 
@@ -13,7 +13,7 @@ tps_to_track(file, scale = NULL, R.L.side, missing = FALSE, NAs = NULL)
 
 - file:
 
-  A \*.tps file containing (x,y) coordinates of footprints in tracks.
+  A \*.tps file containing (x,y) coordinates of footprints in trackways.
 
 - scale:
 
@@ -21,9 +21,9 @@ tps_to_track(file, scale = NULL, R.L.side, missing = FALSE, NAs = NULL)
 
 - R.L.side:
 
-  A character vector specifying the side of the first footprint of each
-  track. The length of the vector must be equal to the total number of
-  tracks in the sample.
+  A character vector specifying the laterality of the first footprint of
+  each trackway. The length of the vector must be equal to the total
+  number of trackways in the sample.
 
   - `"L"`: first footprint corresponds to the left foot.
 
@@ -32,34 +32,36 @@ tps_to_track(file, scale = NULL, R.L.side, missing = FALSE, NAs = NULL)
 - missing:
 
   A logical value indicating whether there are missing footprints in any
-  track to be interpolated: `TRUE`, or `FALSE` (the default).
+  trackway to be interpolated: `TRUE`, or `FALSE` (the default).
 
 - NAs:
 
   A matrix with two columns indicating which missing footprints will be
-  interpolated. The first column gives the number of the track
+  interpolated. The first column gives the number of the trackway
   containing missing footprints, and the second column gives the number
-  of the footprint that is missing within this track. The number of rows
-  is equal to the total number of missing footprints in the sample.
+  of the footprint that is missing within this trackway. The number of
+  rows is equal to the total number of missing footprints in the sample.
 
 ## Value
 
-A `track` R object, which is a list consisting of two elements:
+A `trackway` R object, which is a list consisting of two elements:
 
-- **`Trajectories`**: A list of trajectories (midpoints between
-  consecutive footprints). Includes columns `X`, `Y`, `IMAGE`, `ID`, and
-  `Side` (set to `"Medial"`).
+- **`Trajectories`**: A list of trajectories representing trackway
+  midlines, interpolated by connecting the midpoints of successive
+  left–right footprint pairs (i.e., footprints linked by pace lines).
+  Includes columns `X`, `Y`, `IMAGE`, `ID`, and `Side` (set to
+  `"Medial"`).
 
 - **`Footprints`**: A list of data frames containing footprint
-  coordinates and metadata, with a `Side` column (`"R"` or `"L"`) and a
-  `missing` marker (`"Actual"` or `"Inferred"`).
+  coordinates and associated metadata, with a `Side` column (`"R"` or
+  `"L"`) and a `missing` marker (`"Actual"` or `"Inferred"`).
 
 ## Details
 
 It is highly recommended that the \*.tps file is built using the TPS
-software (Rohlf 2008, 2009). Tracks with a different number of
+software (Rohlf 2008, 2009). Trackways with a different number of
 footprints (i.e., landmarks) are allowed. This function transforms the
-coordinates of the footprints of each track into a set of trajectory
+coordinates of the footprints of each trackway into a set of trajectory
 coordinates. Each point of the trajectory is calculated as:
 \$\$Point_i(x,y)= (Footprint_i(x,y) + Footprint\_{i+1}(x,y)/2\$\$
 
@@ -67,8 +69,13 @@ The number of points of the resulting trajectory is \\n\_{footprints} -
 1\\.
 
 If `missing` is set to `TRUE`, missing footprints can be interpolated.
-This interpolation is based on adjacent footprints and the provided side
-information.
+The interpolated footprint is then placed at the midpoint between the
+two adjacent footprints and shifted laterally along the direction
+perpendicular to their connecting segment. The magnitude of this lateral
+shift is estimated from the mean trackway width of the corresponding
+trackway, and its sign is determined by the inferred anatomical side
+(left or right) of the missing footprint. Inferred footprints are
+flagged as such in the output.
 
 ## Logo
 
@@ -114,15 +121,15 @@ Phone: +34 (9635) 44477
 ## Examples
 
 ``` r
-# Example 1: Tracks without missing footprints.
+# Example 1: Trackways without missing footprints.
 # Based on the Paluxy River dinosaur chase sequence (Farlow et al., 2011).
 
 # Load the example TPS file provided in the QuAnTeTrack package.
 tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
 
-# Convert the TPS data into a track object.
+# Convert the TPS data into a trackway object.
 # The 'scale' argument sets the scaling factor,
-# 'R.L.side' specifies the starting side for each track,
+# 'R.L.side' specifies the starting side for each trackway,
 # and 'missing = FALSE' indicates no footprints are missing.
 tps_to_track(
   tpsPaluxyRiver,
@@ -132,7 +139,7 @@ tps_to_track(
   NAs = NULL
 )
 #> $Trajectories
-#> $Trajectories$Track_1
+#> $Trajectories$Trackway_1
 #>            x         y        IMAGE ID   Side time displacementTime
 #> 1  0.7554198  1.026763 Sauropod.png  0 Medial 0.00             0.00
 #> 2  0.8313959  1.680158 Sauropod.png  0 Medial 0.02             0.02
@@ -194,7 +201,7 @@ tps_to_track(
 #> 28 2.1859417+16.386965i -0.06295165+0.5969553i
 #> 29 2.1121363+17.059897i -0.07380538+0.6729314i
 #> 
-#> $Trajectories$Track_2
+#> $Trajectories$Trackway_2
 #>            x         y        IMAGE ID   Side time displacementTime
 #> 1  0.3646854  1.693182 Theropod.png  1 Medial 0.00             0.00
 #> 2  0.4927595  2.279284 Theropod.png  1 Medial 0.02             0.02
@@ -312,20 +319,20 @@ tps_to_track(
 #> 
 
 
-# Example 2: Tracks with missing footprints.
-# Based on dinosaur tracks from Mount Tom (Ostrom, 1972).
+# Example 2: Trackways with missing footprints.
+# Based on dinosaur trackways from Mount Tom (Ostrom, 1972).
 
 # Load the example TPS file.
 tpsMountTom <- system.file("extdata", "MountTom.tps", package = "QuAnTeTrack")
 
 # Define a matrix representing the missing footprints.
-# Here, footprint 7 is missing in track 3.
+# Here, footprint 7 is missing in trackway 3.
 NAs <- matrix(c(3, 7), nrow = 1, ncol = 2)
 
-# Convert the TPS data into a track object.
+# Convert the TPS data into a trackway object.
 # The 'missing = TRUE' flag activates interpolation for missing footprints,
 # 'NAs' specifies which footprints are missing,
-# and 'R.L.side' indicates the starting side for each track.
+# and 'R.L.side' indicates the starting side for each trackway.
 tps_to_track(
   tpsMountTom,
   scale = 0.004411765,
@@ -338,7 +345,7 @@ tps_to_track(
   NAs = NAs
 )
 #> $Trajectories
-#> $Trajectories$Track_01
+#> $Trajectories$Trackway_01
 #>          x        y       IMAGE ID   Side time displacementTime
 #> 1 40.67868 15.50294 Track 1.png  0 Medial 0.00             0.00
 #> 2 39.91544 16.25515 Track 1.png  0 Medial 0.02             0.02
@@ -360,7 +367,7 @@ tps_to_track(
 #> 8 35.74633+20.21030i -0.6904412+0.5117647i
 #> 9 35.03383+20.87427i -0.7125000+0.6639706i
 #> 
-#> $Trajectories$Track_02
+#> $Trajectories$Trackway_02
 #>          x        y       IMAGE ID   Side time displacementTime
 #> 1 39.18971 14.90735 Track 2.png  1 Medial 0.00             0.00
 #> 2 38.56544 15.57794 Track 2.png  1 Medial 0.02             0.02
@@ -382,7 +389,7 @@ tps_to_track(
 #> 8 34.58383+20.58530i -0.6573530+0.7477942i
 #> 9 33.95515+21.46324i -0.6286765+0.8779412i
 #> 
-#> $Trajectories$Track_03
+#> $Trajectories$Trackway_03
 #>          x        y       IMAGE ID   Side time displacementTime
 #> 1 38.10441 15.55147 Track 3.png  2 Medial 0.00             0.00
 #> 2 37.27500 16.41618 Track 3.png  2 Medial 0.02             0.02
@@ -396,7 +403,7 @@ tps_to_track(
 #> 4 35.45515+18.44118i -0.9066177+1.0720589i
 #> 5 34.68088+19.29927i -0.7742648+0.8580883i
 #> 
-#> $Trajectories$Track_04
+#> $Trajectories$Trackway_04
 #>          x        y       IMAGE ID   Side time displacementTime
 #> 1 35.58088 16.01250 Track 4.png  3 Medial 0.00             0.00
 #> 2 34.86177 17.00294 Track 4.png  3 Medial 0.02             0.02
@@ -410,7 +417,7 @@ tps_to_track(
 #> 4 33.67059+18.83382i -0.6022059+0.8558824i
 #> 5 32.91838+19.63677i -0.7522059+0.8029412i
 #> 
-#> $Trajectories$Track_05
+#> $Trajectories$Trackway_05
 #>          x        y       IMAGE ID   Side time displacementTime
 #> 1 32.28750 14.39559 Track 5.png  4 Medial 0.00             0.00
 #> 2 31.60368 15.31544 Track 5.png  4 Medial 0.02             0.02
@@ -418,7 +425,7 @@ tps_to_track(
 #> 1 32.28750+14.39559i  0.0000000+0.000000i
 #> 2 31.60368+15.31544i -0.6838236+0.919853i
 #> 
-#> $Trajectories$Track_06
+#> $Trajectories$Trackway_06
 #>          x        y       IMAGE ID   Side time displacementTime
 #> 1 30.91324 14.48382 Track 6.png  5 Medial 0.00             0.00
 #> 2 30.16544 15.26691 Track 6.png  5 Medial 0.02             0.02
@@ -428,7 +435,7 @@ tps_to_track(
 #> 2 30.16544+15.26691i -0.7477942+0.7830883i
 #> 3 29.38235+16.07647i -0.7830883+0.8095589i
 #> 
-#> $Trajectories$Track_07
+#> $Trajectories$Trackway_07
 #>          x        y       IMAGE ID   Side time displacementTime
 #> 1 31.20221 14.97574 Track 7.png  6 Medial 0.00             0.00
 #> 2 30.78088 16.09632 Track 7.png  6 Medial 0.02             0.02
@@ -444,7 +451,7 @@ tps_to_track(
 #> 5 29.05809+18.81397i -0.6220589+0.8227942i
 #> 6 28.50441+19.56177i -0.5536765+0.7477942i
 #> 
-#> $Trajectories$Track_08
+#> $Trajectories$Trackway_08
 #>          x        y       IMAGE ID   Side time displacementTime
 #> 1 28.89485 15.10809 Track 8.png  7 Medial 0.00             0.00
 #> 2 28.16030 16.11177 Track 8.png  7 Medial 0.02             0.02
@@ -460,7 +467,7 @@ tps_to_track(
 #> 5 26.43750+19.10515i -0.5669118+0.9066177i
 #> 6 25.73162+20.15515i -0.7058824+1.0500001i
 #> 
-#> $Trajectories$Track_09
+#> $Trajectories$Trackway_09
 #>          x        y       IMAGE ID   Side time displacementTime
 #> 1 29.19706 17.09118 Track 9.png  8 Medial 0.00             0.00
 #> 2 30.53824 16.41397 Track 9.png  8 Medial 0.02             0.02
@@ -474,7 +481,7 @@ tps_to_track(
 #> 4 33.15883+15.41691i 1.279412-0.4852941i
 #> 5 34.25074+15.04412i 1.091912-0.3727941i
 #> 
-#> $Trajectories$Track_10
+#> $Trajectories$Trackway_10
 #>          x        y        IMAGE ID   Side time displacementTime
 #> 1 24.15000 16.14485 Track 10.png  9 Medial 0.00             0.00
 #> 2 24.73677 15.15662 Track 10.png  9 Medial 0.02             0.02
@@ -482,7 +489,7 @@ tps_to_track(
 #> 1 24.15000+16.14485i 0.0000000+0.0000000i
 #> 2 24.73677+15.15662i 0.5867647-0.9882354i
 #> 
-#> $Trajectories$Track_11
+#> $Trajectories$Trackway_11
 #>          x        y        IMAGE ID   Side time displacementTime
 #> 1 23.13309 16.49118 Track 11.png 10 Medial 0.00             0.00
 #> 2 23.63824 15.39265 Track 11.png 10 Medial 0.02             0.02
@@ -490,7 +497,7 @@ tps_to_track(
 #> 1 23.13309+16.49118i 0.0000000+0.000000i
 #> 2 23.63824+15.39265i 0.5051471-1.098529i
 #> 
-#> $Trajectories$Track_12
+#> $Trajectories$Trackway_12
 #>          x        y        IMAGE ID   Side time displacementTime
 #> 1 23.42206 14.58750 Track 12.png 11 Medial 0.00             0.00
 #> 2 22.98750 15.70809 Track 12.png 11 Medial 0.02             0.02
@@ -498,7 +505,7 @@ tps_to_track(
 #> 1 23.42206+14.58750i  0.0000000+0.000000i
 #> 2 22.98750+15.70809i -0.4345589+1.120588i
 #> 
-#> $Trajectories$Track_13
+#> $Trajectories$Trackway_13
 #>          x        y        IMAGE ID   Side time displacementTime
 #> 1 14.57868 9.652942 Track 13.png 12 Medial 0.00             0.00
 #> 2 14.23456 9.302207 Track 13.png 12 Medial 0.02             0.02
@@ -512,7 +519,7 @@ tps_to_track(
 #> 4 13.63015+8.682354i -0.2580883-0.3286765i
 #> 5 13.42280+8.261030i -0.2073530-0.4213236i
 #> 
-#> $Trajectories$Track_14
+#> $Trajectories$Trackway_14
 #>          x        y        IMAGE ID   Side time displacementTime
 #> 1 19.77574 7.859559 Track 14.png 13 Medial 0.00             0.00
 #> 2 19.51103 8.876471 Track 14.png 13 Medial 0.02             0.02
@@ -522,7 +529,7 @@ tps_to_track(
 #> 2 19.51103+8.876471i -0.2647059+1.0169118i
 #> 3 19.32794+9.807354i -0.1830882+0.9308824i
 #> 
-#> $Trajectories$Track_15
+#> $Trajectories$Trackway_15
 #>          x         y        IMAGE ID   Side time displacementTime
 #> 1 17.24780  9.004412 Track 15.png 14 Medial 0.00             0.00
 #> 2 16.81324  9.968383 Track 15.png 14 Medial 0.02             0.02
@@ -536,7 +543,7 @@ tps_to_track(
 #> 4 15.82059+12.092648i -0.5580883+1.0102942i
 #> 5 15.22941+13.089707i -0.5911765+0.9970589i
 #> 
-#> $Trajectories$Track_16
+#> $Trajectories$Trackway_16
 #>          x         y        IMAGE ID   Side time displacementTime
 #> 1 16.21103  7.497795 Track 16.png 15 Medial 0.00             0.00
 #> 2 15.80515  8.309559 Track 16.png 15 Medial 0.02             0.02
@@ -556,7 +563,7 @@ tps_to_track(
 #> 7 12.86471+12.573530i -0.6750000+0.8161765i
 #> 8 12.14118+13.277207i -0.7235295+0.7036765i
 #> 
-#> $Trajectories$Track_17
+#> $Trajectories$Trackway_17
 #>          x        y        IMAGE ID   Side time displacementTime
 #> 1 10.37427 12.34412 Track 17.png 16 Medial 0.00             0.00
 #> 2 10.17132 12.11250 Track 17.png 16 Medial 0.02             0.02
@@ -564,7 +571,7 @@ tps_to_track(
 #> 1 10.37427+12.34412i  0.0000000+0.0000000i
 #> 2 10.17132+12.11250i -0.2029412-0.2316177i
 #> 
-#> $Trajectories$Track_18
+#> $Trajectories$Trackway_18
 #>          x         y        IMAGE ID   Side time displacementTime
 #> 1 13.24191  8.069118 Track 18.png 17 Medial 0.00             0.00
 #> 2 12.85809  9.266912 Track 18.png 17 Medial 0.02             0.02
@@ -578,7 +585,7 @@ tps_to_track(
 #> 4 11.94265+11.536765i -0.5095589+1.158088i
 #> 5 11.56324+12.531618i -0.3794118+0.994853i
 #> 
-#> $Trajectories$Track_19
+#> $Trajectories$Trackway_19
 #>          x        y        IMAGE ID   Side time displacementTime
 #> 1 9.443383 5.647059 Track 19.png 18 Medial 0.00             0.00
 #> 2 8.887501 7.030148 Track 19.png 18 Medial 0.02             0.02
@@ -586,7 +593,7 @@ tps_to_track(
 #> 1 9.443383+5.647059i  0.0000000+0.000000i
 #> 2 8.887501+7.030148i -0.5558824+1.383088i
 #> 
-#> $Trajectories$Track_20
+#> $Trajectories$Trackway_20
 #>          x         y        IMAGE ID   Side time displacementTime
 #> 1 7.058824  8.338236 Track 20.png 19 Medial 0.00             0.00
 #> 2 6.761030  9.505148 Track 20.png 19 Medial 0.02             0.02
@@ -596,7 +603,7 @@ tps_to_track(
 #> 2 6.761030+ 9.505148i -0.2977941+1.166912i
 #> 3 6.421324+10.548530i -0.3397059+1.043382i
 #> 
-#> $Trajectories$Track_21
+#> $Trajectories$Trackway_21
 #>          x        y        IMAGE ID   Side time displacementTime
 #> 1 4.008089 6.498530 Track 21.png 20 Medial 0.00             0.00
 #> 2 3.127941 7.217648 Track 21.png 20 Medial 0.02             0.02
@@ -606,7 +613,7 @@ tps_to_track(
 #> 2 3.127941+7.217648i -0.8801471+0.7191177i
 #> 3 2.289706+8.064706i -0.8382353+0.8470589i
 #> 
-#> $Trajectories$Track_22
+#> $Trajectories$Trackway_22
 #>          x        y        IMAGE ID   Side time displacementTime
 #> 1 5.272059 6.134559 Track 22.png 21 Medial 0.00             0.00
 #> 2 4.883824 6.853677 Track 22.png 21 Medial 0.02             0.02
@@ -616,7 +623,7 @@ tps_to_track(
 #> 2 4.883824+6.853677i -0.3882353+0.7191177i
 #> 3 4.552941+7.780148i -0.3308824+0.9264706i
 #> 
-#> $Trajectories$Track_23
+#> $Trajectories$Trackway_23
 #>           x        y        IMAGE ID   Side time displacementTime
 #> 1  9.529412 12.59779 Track 23.png 22 Medial 0.00             0.00
 #> 2 11.289707 12.29338 Track 23.png 22 Medial 0.02             0.02

@@ -235,17 +235,9 @@ must align one row per replicate in the same order.</p>
 <span class="r-in"><span><span class="va">res_full</span> <span class="op">&lt;-</span> <span class="fu">observer_error_partitioning</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trks</span>,</span></span>
 <span class="r-in"><span>                                        metadata <span class="op">=</span> <span class="va">md</span>,</span></span>
 <span class="r-in"><span>                                        variables <span class="op">=</span> <span class="va">vars</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in lme4::lFormula(formula = fm, data = dat, REML = TRUE, control = structure(list(    optimizer = "bobyqa", restart_edge = TRUE, boundary.tol = 1e-05,     calc.derivs = NULL, use.last.params = FALSE, checkControl = list(        autoscale = NULL, check.nobs.vs.rankZ = "ignore", check.nobs.vs.nlev = "stop",         check.nlev.gtreq.5 = "ignore", check.nlev.gtr.1 = "stop",         check.nobs.vs.nRE = "stop", check.rankX = "message+drop.cols",         check.scaleX = "warning", check.formula.LHS = "stop"),     checkConv = list(check.conv.nobsmax = 10000, check.conv.nparmax = 10,         check.conv.grad = list(action = "warning", tol = 0.002,             relTol = NULL), check.conv.singular = list(action = "ignore",             tol = 1e-04), check.conv.hess = list(action = "warning",             tol = 1e-06)), optCtrl = list(maxfun = 1e+05)), class = c("lmerControl", "merControl"))):</span> 0 (non-NA) cases</span>
 <span class="r-in"><span><span class="va">res_full</span><span class="op">$</span><span class="va">qc</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       variable        SNR SNR_rating top_component top_percent      R2_c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Distance 14362.3060     strong         track    99.99304 0.9999304</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Straightness   158.6878     strong         track    99.37378 0.9937378</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      TurnAng  3642.6814     strong         track    99.97256 0.9997673</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      PaceAng   314.5134     strong         track    99.68306 0.9990678</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   observer_estimable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                yes</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'res_full' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: Intra-only, single observer; residual = intra-observer</span></span></span>
 <span class="r-in"><span><span class="va">md_intra</span> <span class="op">&lt;-</span> <span class="va">md</span></span></span>
@@ -253,17 +245,9 @@ must align one row per replicate in the same order.</p>
 <span class="r-in"><span><span class="va">res_intra</span> <span class="op">&lt;-</span> <span class="fu">observer_error_partitioning</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trks</span>,</span></span>
 <span class="r-in"><span>                                         metadata <span class="op">=</span> <span class="va">md_intra</span>,</span></span>
 <span class="r-in"><span>                                         variables <span class="op">=</span> <span class="va">vars</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in lme4::lFormula(formula = fm, data = dat, REML = TRUE, control = structure(list(    optimizer = "bobyqa", restart_edge = TRUE, boundary.tol = 1e-05,     calc.derivs = NULL, use.last.params = FALSE, checkControl = list(        autoscale = NULL, check.nobs.vs.rankZ = "ignore", check.nobs.vs.nlev = "stop",         check.nlev.gtreq.5 = "ignore", check.nlev.gtr.1 = "stop",         check.nobs.vs.nRE = "stop", check.rankX = "message+drop.cols",         check.scaleX = "warning", check.formula.LHS = "stop"),     checkConv = list(check.conv.nobsmax = 10000, check.conv.nparmax = 10,         check.conv.grad = list(action = "warning", tol = 0.002,             relTol = NULL), check.conv.singular = list(action = "ignore",             tol = 1e-04), check.conv.hess = list(action = "warning",             tol = 1e-06)), optCtrl = list(maxfun = 1e+05)), class = c("lmerControl", "merControl"))):</span> 0 (non-NA) cases</span>
 <span class="r-in"><span><span class="va">res_intra</span><span class="op">$</span><span class="va">qc</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       variable        SNR SNR_rating top_component top_percent      R2_c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Distance 14362.5544     strong         track    99.99304 0.9999304</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Straightness   158.6867     strong         track    99.37377 0.9937377</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      TurnAng  3643.9188     strong         track    99.97256 0.9997582</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      PaceAng   314.5132     strong         track    99.68306 0.9990678</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   observer_estimable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       no (1 level)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       no (1 level)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       no (1 level)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       no (1 level)</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'res_intra' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: Inter-only, single replicate; estimates inter-observer</span></span></span>
 <span class="r-in"><span><span class="va">md_inter</span> <span class="op">&lt;-</span> <span class="va">md</span></span></span>
@@ -271,17 +255,9 @@ must align one row per replicate in the same order.</p>
 <span class="r-in"><span><span class="va">res_inter</span> <span class="op">&lt;-</span> <span class="fu">observer_error_partitioning</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trks</span>,</span></span>
 <span class="r-in"><span>                                         metadata <span class="op">=</span> <span class="va">md_inter</span>,</span></span>
 <span class="r-in"><span>                                         variables <span class="op">=</span> <span class="va">vars</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in lme4::lFormula(formula = fm, data = dat, REML = TRUE, control = structure(list(    optimizer = "bobyqa", restart_edge = TRUE, boundary.tol = 1e-05,     calc.derivs = NULL, use.last.params = FALSE, checkControl = list(        autoscale = NULL, check.nobs.vs.rankZ = "ignore", check.nobs.vs.nlev = "stop",         check.nlev.gtreq.5 = "ignore", check.nlev.gtr.1 = "stop",         check.nobs.vs.nRE = "stop", check.rankX = "message+drop.cols",         check.scaleX = "warning", check.formula.LHS = "stop"),     checkConv = list(check.conv.nobsmax = 10000, check.conv.nparmax = 10,         check.conv.grad = list(action = "warning", tol = 0.002,             relTol = NULL), check.conv.singular = list(action = "ignore",             tol = 1e-04), check.conv.hess = list(action = "warning",             tol = 1e-06)), optCtrl = list(maxfun = 1e+05)), class = c("lmerControl", "merControl"))):</span> 0 (non-NA) cases</span>
 <span class="r-in"><span><span class="va">res_inter</span><span class="op">$</span><span class="va">qc</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       variable        SNR SNR_rating top_component top_percent      R2_c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     Distance 14362.3060     strong         track    99.99304 0.9999304</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Straightness   158.6878     strong         track    99.37378 0.9937378</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      TurnAng  3642.6814     strong         track    99.97256 0.9997673</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      PaceAng   314.5134     strong         track    99.68306 0.9990678</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   observer_estimable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                yes</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'res_inter' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 4: Circular metrics only (angles via sine–cosine embedding)</span></span></span>
 <span class="r-in"><span><span class="va">res_ang</span> <span class="op">&lt;-</span> <span class="fu">observer_error_partitioning</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trks</span>,</span></span>

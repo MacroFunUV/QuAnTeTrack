@@ -50,7 +50,8 @@
 <span>  hclust_method <span class="op">=</span> <span class="st">"complete"</span>,</span>
 <span>  transform <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  scale <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  max_clusters <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  max_clusters <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  gauge_size <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -70,9 +71,10 @@
 
 <dt id="arg-variables">variables<a class="anchor" aria-label="anchor" href="#arg-variables"></a></dt>
 <dd><p>A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include:
-<code>"TurnAng"</code>, <code>"sdTurnAng"</code>, <code>"Distance"</code>, <code>"Length"</code>, <code>"StLength"</code>, <code>"sdStLength"</code>,
-<code>"Sinuosity"</code>, <code>"Straightness"</code>, <code>"Velocity"</code>, <code>"sdVelocity"</code>, <code>"MaxVelocity"</code>, <code>"MinVelocity"</code>,
-<code>"TrackWidth"</code>, <code>"PaceAng"</code>.</p></dd>
+<code>"TurnAng"</code>, <code>"sdTurnAng"</code>, <code>"PathLen"</code>, <code>"BeelineLen"</code>, <code>"StLength"</code>, <code>"sdStLength"</code>,
+<code>"StrideLen"</code>, <code>"PaceLen"</code>, <code>"Sinuosity"</code>, <code>"Straightness"</code>,
+<code>"TrackWidth"</code>, <code>"Gauge"</code>, <code>"PaceAng"</code>, <code>"StepAng"</code>,
+<code>"Velocity"</code>, <code>"sdVelocity"</code>, <code>"MaxVelocity"</code>, <code>"MinVelocity"</code>.</p></dd>
 
 
 <dt id="arg-analysis">analysis<a class="anchor" aria-label="anchor" href="#arg-analysis"></a></dt>
@@ -110,6 +112,12 @@ One of  <code>"complete"</code> (default), <code>"ward.D"</code>, <code>"ward.D2
 <dd><p>Integer. Maximum number of clusters (mixture components) to consider when <code>analysis = "mclust"</code>.
 If <code>NULL</code> (default), uses <code>min(9, n)</code>, where <code>n</code> is the number of valid tracks (observations) entering the model.
 The minimum number of clusters considered by default is <code>1</code>.</p></dd>
+
+
+<dt id="arg-gauge-size">gauge_size<a class="anchor" aria-label="anchor" href="#arg-gauge-size"></a></dt>
+<dd><p>Numeric. Pes/manus length (or width) used to compute Gauge as <code>TrackWidth / gauge_size</code>.
+If <code>NULL</code> or <code>NA</code>, Gauge is returned as <code>NA</code>. If <code>"Gauge"</code> is included in <code>variables</code>,
+<code>gauge_size</code> must be a single positive numeric value.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -149,8 +157,10 @@ model-based clustering analysis (optimal model selected by BIC). Main components
     <p>The <code>cluster_track()</code> function can perform distance-based hierarchical clustering via the <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust()</a></code> function from the <span class="pkg">stats</span> package (<code>analysis = "hclust"</code>, default) or model-based clustering via the <code>Mclust()</code> function from the <span class="pkg">mclust</span> package
 (<code>analysis = "mclust"</code>).</p>
 <p>The function first filters out tracks with fewer than four steps, as these tracks may not provide reliable movement data.
-It then calculates various movement parameters for each remaining track, including turning angles, distances, lengths, sinuosity, straightness, velocities,
-and additional ichnological descriptors (trackway width, pace angulation).
+It then computes movement/trackway parameters via
+<code><a href="track_param.html">track_param()</a></code> (turning angles; path and beeline lengths; step/stride/pace; sinuosity/straightness; and
+footprint-based metrics such as trackway width, gauge, pace angulation and step angle) and combines them with
+velocity descriptors from <code>veltrack</code>. The selected variables are then used for clustering.
 Finally, the selected movement parameters are used as input for clustering the tracks.</p>
 <p>When <code>analysis = "hclust"</code>: the function performs agglomerative hierarchical clustering
 on a pairwise dissimilarity matrix computed from the working feature matrix (which already reflects the
@@ -201,18 +211,26 @@ sine and cosine components (circular treatment) before analysis. This measures h
 direction of movement changes at each step.</p></li>
 <li><p><code>"sdTurnAng"</code>: The circular standard deviation of the turning angles, in degrees.
 Internally expanded to sine and cosine components before analysis to respect angular geometry.</p></li>
-<li><p><code>"Distance"</code>: The total distance covered by the track, calculated as the sum of the
-straight-line distances between consecutive points (meters).</p></li>
-<li><p><code>"Length"</code>: The overall length of the track, a straight-line distance between the
-starting and ending points (meters).</p></li>
-<li><p><code>"StLength"</code>: Step lengths for each step of the track, representing how far the object
-moved between two consecutive points (meters).</p></li>
-<li><p><code>"sdStLength"</code>: The standard deviation of the step lengths, showing how consistent the
-steps are in length (meters).</p></li>
-<li><p><code>"Sinuosity"</code>: A measure of the track's winding nature, calculated as the ratio of the
-actual track length to the straight-line distance (dimensionless).</p></li>
-<li><p><code>"Straightness"</code>: The straightness of the track, calculated as the straight-line
-distance divided by the total path length (dimensionless).</p></li>
+<li><p><code>"PathLen"</code>: Total path length (meters), computed as the sum of distances between consecutive
+trajectory points.</p></li>
+<li><p><code>"BeelineLen"</code>: Straight-line distance (meters) between the first and last points of the trajectory.</p></li>
+<li><p><code>"StLength"</code>: Mean step length for each step of the track (meters), representing how far the object
+moved between two consecutive trajectory points.</p></li>
+<li><p><code>"sdStLength"</code>: The standard deviation of the step lengths (meters), showing how consistent the
+steps are in length.</p></li>
+<li><p><code>"StrideLen"</code>: Mean stride length (meters). In the current implementation this is computed as
+<code>Mean_step_length * 2</code>.</p></li>
+<li><p><code>"PaceLen"</code>: Mean pace length (meters), computed as the mean distance between consecutive
+contralateral footprints (L–R or R–L) in footprint order.</p></li>
+<li><p><code>"Sinuosity"</code>: A measure of the track's winding nature (dimensionless).</p></li>
+<li><p><code>"Straightness"</code>: The straightness of the track (dimensionless).</p></li>
+<li><p><code>"TrackWidth"</code>: Trackway width, i.e., the lateral spacing between left and right
+footprint series (units consistent with input coordinates, typically meters).</p></li>
+<li><p><code>"Gauge"</code>: Trackway gauge (dimensionless), computed as <code>TrackWidth / gauge_size</code>.</p></li>
+<li><p><code>"PaceAng"</code>: Pace angulation (degrees), a classical ichnological descriptor summarizing
+the angular relation of successive steps within a trackway.</p></li>
+<li><p><code>"StepAng"</code>: Mean step angle (degrees), computed as the mean angle between each pace segment
+and the inferred stride/trackway axis estimated by PCA.</p></li>
 <li><p><code>"Velocity"</code>: The average velocity of the track, calculated as the total distance divided
 by the time elapsed between the first and last footprint (meters per second).</p></li>
 <li><p><code>"sdVelocity"</code>: The standard deviation of the velocity, indicating how much the velocity
@@ -221,10 +239,6 @@ fluctuates throughout the track (meters per second).</p></li>
 point (meters per second).</p></li>
 <li><p><code>"MinVelocity"</code>: The minimum velocity during the track, identifying the slowest point
 (meters per second).</p></li>
-<li><p><code>"TrackWidth"</code>: Trackway width, i.e., the lateral spacing between left and right
-footprint series (units consistent with input coordinates, typically meters).</p></li>
-<li><p><code>"PaceAng"</code>: Pace angulation (degrees), a classical ichnological descriptor summarizing
-the angular relation of successive steps within a trackway.</p></li>
 </ul><p>The <code>cluster_track()</code> function has biological relevance in identifying groups of tracks with
 similar movement parameters, providing insights into ecological and behavioral patterns. By
 clustering tracks based on characteristics such as sinuosity, velocity, and turning angles (treated

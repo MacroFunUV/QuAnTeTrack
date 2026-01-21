@@ -206,15 +206,9 @@ ep_small <- anatomical_error_partitioning(
   variables    = c("Distance", "Straightness", "TurnAng"),
   n_sim        = 10
 )
+#> Error in if ((Var_anatomical + Var_res) > 0) Var_bio/(Var_anatomical +     Var_res) else NA_real_: missing value where TRUE/FALSE needed
 ep_small$qc
-#>       variable        SNR SNR_rating top_component top_percent      R2_c
-#> 1     Distance 2734.80404     strong         track    99.96345 0.9996345
-#> 2 Straightness   22.61413     strong         track    95.76525 0.9576525
-#> 3      TurnAng 1471.30665     strong         track    99.93208 0.9993208
-#>                observer_estimable
-#> 1 no (anatomical-only, sim-based)
-#> 2 no (anatomical-only, sim-based)
-#> 3 no (anatomical-only, sim-based)
+#> Error: object 'ep_small' not found
 
 # Example 2: PaluxyRiver, larger jitter (8 cm) to see SNR drop
 # Inflate anatomical uncertainty; SNR should typically decrease.
@@ -225,15 +219,9 @@ ep_large <- anatomical_error_partitioning(
   variables    = c("Distance", "Straightness", "TurnAng"),
   n_sim        = 10
 )
+#> Error in if ((Var_anatomical + Var_res) > 0) Var_bio/(Var_anatomical +     Var_res) else NA_real_: missing value where TRUE/FALSE needed
 ep_large$qc
-#>       variable        SNR SNR_rating top_component top_percent      R2_c
-#> 1     Distance 165.040390     strong         track    99.39774 0.9939774
-#> 2 Straightness   2.187696     strong         track    68.62938 0.6862938
-#> 3      TurnAng  90.802197     strong         track    98.91070 0.9891070
-#>                observer_estimable
-#> 1 no (anatomical-only, sim-based)
-#> 2 no (anatomical-only, sim-based)
-#> 3 no (anatomical-only, sim-based)
+#> Error: object 'ep_large' not found
 
 # Example 3: MountTom subset + Gaussian jitter (3 cm, truncated at ±3 SD)
 # Demonstrates alternative noise model and a reduced dataset.

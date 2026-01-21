@@ -1,15 +1,15 @@
-# Plot tracks and footprints
+# Plot trajectories and footprints
 
-`plot_track()` visualizes track and footprint data in various ways,
-allowing for the plotting of trajectories, footprints, or both combined,
-with customizable aesthetics.
+`plot_track()` visualizes trajectory and footprint data from codetrack R
+objects in various ways, allowing for the plotting of trajectories,
+footprints, or both combined, with customizable aesthetics.
 
 ## Usage
 
 ``` r
 plot_track(
   data,
-  plot = "FootprintsTracks",
+  plot = "FootprintsTrajectories",
   colours = NULL,
   cex.f = NULL,
   shape.f = NULL,
@@ -20,7 +20,10 @@ plot_track(
   labels = NULL,
   box.p = NULL,
   cex.l = NULL,
-  alpha.l = NULL
+  alpha.l = NULL,
+  arrow.t = FALSE,
+  arrow.size = 0.15,
+  seq.foot = FALSE
 )
 ```
 
@@ -28,58 +31,64 @@ plot_track(
 
 - data:
 
-  A `track` R object, which is a list consisting of two elements:
+  A `trackway` R object, which is a list consisting of two elements:
 
-  - **`Trajectories`**: A list of interpolated trajectories, where each
-    trajectory is a series of midpoints between consecutive footprints.
+  - **`Trajectories`**: A list of trajectories representing trackway
+    midlines, interpolated by connecting the midpoints of successive
+    left–right footprint pairs (i.e., footprints linked by pace lines).
+    Includes columns `X`, `Y`, `IMAGE`, `ID`, and `Side` (set to
+    `"Medial"`).
 
   - **`Footprints`**: A list of data frames containing footprint
-    coordinates, metadata (e.g., image reference, ID), and a marker
-    indicating whether the footprint is actual or inferred.
+    coordinates and associated metadata, with a `Side` column (`"R"` or
+    `"L"`) and a `missing` marker (`"Actual"` or `"Inferred"`).
 
 - plot:
 
-  Type of plot to generate. Options are `"FootprintsTracks"` (default),
-  `"Tracks"`, or `"Footprints"`. Determines what elements are included
-  in the plot.
+  Type of plot to generate. Options are `"FootprintsTrajectories"`
+  (default), `"Trajectories"`, or `"Footprints"`. Determines what
+  elements are included in the plot.
 
 - colours:
 
-  A vector of colors to be used for different tracks. If `NULL`,
+  A vector of colors to be used for different trajectories If `NULL`,
   defaults to black. The length of this vector should match the number
-  of tracks in the data.
+  of trackways in the data.
 
 - cex.f:
 
-  The size of the footprint points. Default is `2.5`.
+  The size of the points representing footprints. Default is `2.5`. If
+  `seq.foot = TRUE`, this controls the text size of footprint sequence
+  numbers.
 
 - shape.f:
 
-  A vector of shapes to be used for footprints in different tracks. If
-  `NULL`, defaults to `19` (solid circle). The length of this vector
-  should match the number of tracks in the data.
+  A vector of shapes to be used for representing footprints in different
+  trackways. If `NULL`, defaults to `19` (solid circle). The length of
+  this vector should match the number of trackways in the data.
 
 - alpha.f:
 
-  The transparency of the footprint points. Default is `0.5`.
+  The transparency of the points representing footprints. Default is
+  `0.5`.
 
 - cex.t:
 
-  The size of the track lines. Default is `0.5`.
+  The thickness of the trajectory lines. Default is `0.5`.
 
 - alpha.t:
 
-  The transparency of the track lines. Default is `1`.
+  The transparency of the trajectory lines. Default is `1`.
 
 - plot.labels:
 
-  Logical indicating whether to add labels to each track. Default is
+  Logical indicating whether to add labels to each trackway. Default is
   `FALSE`.
 
 - labels:
 
-  A vector of labels for each track. If `NULL`, labels are automatically
-  generated from track names.
+  A vector of labels for each trackway. If `NULL`, labels are
+  automatically generated from trackway names.
 
 - box.p:
 
@@ -94,22 +103,39 @@ plot_track(
 
   The transparency of the labels. Default is `0.5`.
 
+- arrow.t:
+
+  Logical indicating whether to add an arrowhead at the end of each
+  trajectory to verify direction. Default is `FALSE`.
+
+- arrow.size:
+
+  Numeric controlling the arrowhead size (in inches, passed to
+  [`grid::unit()`](https://rdrr.io/r/grid/unit.html)). Default is
+  `0.15`.
+
+- seq.foot:
+
+  Logical indicating whether to display the footprint sequence numbers
+  instead of footprint points. Default is `FALSE`. This is useful to
+  verify that footprints are in the correct order along each trackway.
+  When `TRUE`, the size of the numbers is controlled by `cex.f`.
+
 ## Value
 
 A `ggplot` object that displays the specified plot type, including
-tracks, footprints, or both, from `track` R objects. The ggplot2 package
-is used for plotting.
+trajectories, footprints, or both, from `trackway` R objects. The
+ggplot2 package is used for plotting.
 
 ## Details
 
 The `plot_track()` function is designed as a diagnostic and exploratory
 tool. Its primary purpose is to display the raw spatial data (footprint
-coordinates and interpolated track trajectories) that have been
-digitized, so that users can visually confirm data integrity before
-conducting quantitative analyses. This includes checking whether
-footprints are in the correct order, whether tracks are oriented
-consistently, and whether interpolated trajectories align with the raw
-footprint data.
+coordinates and interpolated trajectories) that have been digitized, so
+that users can visually confirm data integrity before conducting
+quantitative analyses. This includes checking whether footprints are in
+the correct order, whether trackways are oriented consistently, and
+whether interpolated trajectories align with the raw footprint data.
 
 Importantly, these plots are not intended to replace traditional
 ichnological illustrations. Hand-drawn maps and outlines often convey
@@ -164,15 +190,15 @@ plot_track(MountTom)
 plot_track(PaluxyRiver)
 
 
-# Example 3: Plot Tracks Only - MountTom Dataset
-plot_track(MountTom, plot = "Tracks")
+# Example 3: Plot Trajectories Only - MountTom Dataset
+plot_track(MountTom, plot = "Trajectories")
 
 
 # Example 4: Plot Footprints Only - PaluxyRiver Dataset
 plot_track(PaluxyRiver, plot = "Footprints")
 
 
-# Example 5: Custom Colors for Tracks - MountTom Dataset
+# Example 5: Custom Colors for Trajectories - MountTom Dataset
 custom_colors <- c(
   "#008000", "#0000FF", "#FF0000", "#800080", "#FFA500", "#FFC0CB", "#FFFF00",
   "#00FFFF", "#A52A2A", "#FF00FF", "#808080", "#000000", "#006400", "#00008B",
@@ -182,11 +208,11 @@ custom_colors <- c(
 plot_track(MountTom, colours = custom_colors)
 
 
-# Example 6: Larger Footprints and Track Lines - PaluxyRiver Dataset
+# Example 6: Larger Footprints and wider Trajectories Lines - PaluxyRiver Dataset
 plot_track(PaluxyRiver, cex.f = 5, cex.t = 2)
 
 
-# Example 7: Semi-Transparent Footprints and Tracks - MountTom Dataset
+# Example 7: Semi-Transparent Footprints and Trajectories - MountTom Dataset
 plot_track(MountTom, alpha.f = 0.5, alpha.t = 0.5)
 
 
@@ -194,8 +220,8 @@ plot_track(MountTom, alpha.f = 0.5, alpha.t = 0.5)
 plot_track(PaluxyRiver, shape.f = c(16, 17))
 
 
-# Example 9: Plot with Labels for Tracks - MountTom Dataset
-labels <- paste("Track", seq_along(MountTom[[1]]))
+# Example 9: Plot with Labels for Trajectories - MountTom Dataset
+labels <- paste("Trackway", seq_along(MountTom[[1]]))
 plot_track(MountTom, plot.labels = TRUE, labels = labels, cex.l = 4, box.p = 0.3, alpha.l = 0.7)
 
 
@@ -203,14 +229,22 @@ plot_track(MountTom, plot.labels = TRUE, labels = labels, cex.l = 4, box.p = 0.3
 plot_track(PaluxyRiver, plot = "Footprints", colours = c("purple", "orange"), shape.f = c(15, 18))
 
 
-# Example 11: Larger Line Size & Custom Colors for Tracks Only - MountTom Dataset
-plot_track(MountTom, plot = "Tracks", cex.t = 1.5, colours = custom_colors)
+# Example 11: Wider Line Size & Custom Colors for Trajectories Only - MountTom Dataset
+plot_track(MountTom, plot = "Trajectories", cex.t = 1.5, colours = custom_colors)
 
 
-# Example 12: Black Footprints and Tracks with Labels - PaluxyRiver Dataset
+# Example 12: Black Footprints and Trajectories with Labels - PaluxyRiver Dataset
 plot_track(PaluxyRiver,
   colours = NULL, shape.f = c(16, 16), plot.labels = TRUE,
   labels = c("Saurpod", "Theropod"), cex.l = 2, alpha.l = 0.5
 )
+
+
+# Example 13: Add arrowheads to show trajectory direction
+plot_track(MountTom, plot = "Trajectories", arrow.t = TRUE, arrow.size = 0.2)
+
+
+# Example 14: Show footprint sequence numbers (quality control)
+plot_track(MountTom, plot = "Footprints", seq.foot = TRUE)
 
 ```

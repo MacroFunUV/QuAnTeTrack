@@ -45,13 +45,15 @@ a corresponding track. The parameters included are:
 
   The standard deviation of the turning angles (in degrees).
 
-- `Distance`:
+- `Path_length`:
 
-  The total distance covered by the track (in meters).
+  Total path length (in meters), computed as the sum of distances
+  between consecutive trajectory points.
 
-- `Length`:
+- `Beeline_length`:
 
-  The length of the track (in meters).
+  Straight-line distance (in meters) between the first and last points
+  of the trajectory.
 
 - `Step_lengths`:
 
@@ -298,10 +300,10 @@ track_param(PaluxyRiver)
 #> [[1]]$Standard_deviation_turning_angle
 #> [1] 8.716076
 #> 
-#> [[1]]$Distance
+#> [[1]]$Beeline_length
 #> [1] 16.09043
 #> 
-#> [[1]]$Length
+#> [[1]]$Path_length
 #> [1] 16.2711
 #> 
 #> [[1]]$Step_lengths
@@ -367,10 +369,10 @@ track_param(PaluxyRiver)
 #> [[2]]$Standard_deviation_turning_angle
 #> [1] 7.941837
 #> 
-#> [[2]]$Distance
+#> [[2]]$Beeline_length
 #> [1] 15.13227
 #> 
-#> [[2]]$Length
+#> [[2]]$Path_length
 #> [1] 15.27567
 #> 
 #> [[2]]$Step_lengths
@@ -434,10 +436,10 @@ track_param(MountTom)
 #> [[1]]$Standard_deviation_turning_angle
 #> [1] 4.46736
 #> 
-#> [[1]]$Distance
+#> [[1]]$Beeline_length
 #> [1] 7.792014
 #> 
-#> [[1]]$Length
+#> [[1]]$Path_length
 #> [1] 7.811916
 #> 
 #> [[1]]$Step_lengths
@@ -492,10 +494,10 @@ track_param(MountTom)
 #> [[2]]$Standard_deviation_turning_angle
 #> [1] 5.148772
 #> 
-#> [[2]]$Distance
+#> [[2]]$Beeline_length
 #> [1] 8.389291
 #> 
-#> [[2]]$Length
+#> [[2]]$Path_length
 #> [1] 8.419799
 #> 
 #> [[2]]$Step_lengths
@@ -550,10 +552,10 @@ track_param(MountTom)
 #> [[3]]$Standard_deviation_turning_angle
 #> [1] 1.706197
 #> 
-#> [[3]]$Distance
+#> [[3]]$Beeline_length
 #> [1] 5.076073
 #> 
-#> [[3]]$Length
+#> [[3]]$Path_length
 #> [1] 5.077853
 #> 
 #> [[3]]$Step_lengths
@@ -606,10 +608,10 @@ track_param(MountTom)
 #> [[4]]$Standard_deviation_turning_angle
 #> [1] 4.993546
 #> 
-#> [[4]]$Distance
+#> [[4]]$Beeline_length
 #> [1] 4.497133
 #> 
-#> [[4]]$Length
+#> [[4]]$Path_length
 #> [1] 4.509806
 #> 
 #> [[4]]$Step_lengths
@@ -662,10 +664,10 @@ track_param(MountTom)
 #> [[5]]$Standard_deviation_turning_angle
 #> [1] NA
 #> 
-#> [[5]]$Distance
+#> [[5]]$Beeline_length
 #> [1] 1.146187
 #> 
-#> [[5]]$Length
+#> [[5]]$Path_length
 #> [1] 1.146187
 #> 
 #> [[5]]$Step_lengths
@@ -718,10 +720,10 @@ track_param(MountTom)
 #> [[6]]$Standard_deviation_turning_angle
 #> [1] 0.2605755
 #> 
-#> [[6]]$Distance
+#> [[6]]$Beeline_length
 #> [1] 2.209101
 #> 
-#> [[6]]$Length
+#> [[6]]$Path_length
 #> [1] 2.209112
 #> 
 #> [[6]]$Step_lengths
@@ -774,10 +776,10 @@ track_param(MountTom)
 #> [[7]]$Standard_deviation_turning_angle
 #> [1] 9.906308
 #> 
-#> [[7]]$Distance
+#> [[7]]$Beeline_length
 #> [1] 5.320692
 #> 
-#> [[7]]$Length
+#> [[7]]$Path_length
 #> [1] 5.38372
 #> 
 #> [[7]]$Step_lengths
@@ -830,10 +832,10 @@ track_param(MountTom)
 #> [[8]]$Standard_deviation_turning_angle
 #> [1] 3.409506
 #> 
-#> [[8]]$Distance
+#> [[8]]$Beeline_length
 #> [1] 5.956414
 #> 
-#> [[8]]$Length
+#> [[8]]$Path_length
 #> [1] 5.964889
 #> 
 #> [[8]]$Step_lengths
@@ -886,10 +888,10 @@ track_param(MountTom)
 #> [[9]]$Standard_deviation_turning_angle
 #> [1] 3.439774
 #> 
-#> [[9]]$Distance
+#> [[9]]$Beeline_length
 #> [1] 5.452531
 #> 
-#> [[9]]$Length
+#> [[9]]$Path_length
 #> [1] 5.460107
 #> 
 #> [[9]]$Step_lengths
@@ -942,10 +944,10 @@ track_param(MountTom)
 #> [[10]]$Standard_deviation_turning_angle
 #> [1] NA
 #> 
-#> [[10]]$Distance
+#> [[10]]$Beeline_length
 #> [1] 1.149305
 #> 
-#> [[10]]$Length
+#> [[10]]$Path_length
 #> [1] 1.149305
 #> 
 #> [[10]]$Step_lengths
@@ -998,10 +1000,10 @@ track_param(MountTom)
 #> [[11]]$Standard_deviation_turning_angle
 #> [1] NA
 #> 
-#> [[11]]$Distance
+#> [[11]]$Beeline_length
 #> [1] 1.209107
 #> 
-#> [[11]]$Length
+#> [[11]]$Path_length
 #> [1] 1.209107
 #> 
 #> [[11]]$Step_lengths
@@ -1054,10 +1056,10 @@ track_param(MountTom)
 #> [[12]]$Standard_deviation_turning_angle
 #> [1] NA
 #> 
-#> [[12]]$Distance
+#> [[12]]$Beeline_length
 #> [1] 1.201898
 #> 
-#> [[12]]$Length
+#> [[12]]$Path_length
 #> [1] 1.201898
 #> 
 #> [[12]]$Step_lengths
@@ -1110,10 +1112,10 @@ track_param(MountTom)
 #> [[13]]$Standard_deviation_turning_angle
 #> [1] 10.2
 #> 
-#> [[13]]$Distance
+#> [[13]]$Beeline_length
 #> [1] 1.809277
 #> 
-#> [[13]]$Length
+#> [[13]]$Path_length
 #> [1] 1.831302
 #> 
 #> [[13]]$Step_lengths
@@ -1166,10 +1168,10 @@ track_param(MountTom)
 #> [[14]]$Standard_deviation_turning_angle
 #> [1] 2.449041
 #> 
-#> [[14]]$Distance
+#> [[14]]$Beeline_length
 #> [1] 1.998605
 #> 
-#> [[14]]$Length
+#> [[14]]$Path_length
 #> [1] 1.999516
 #> 
 #> [[14]]$Step_lengths
@@ -1222,10 +1224,10 @@ track_param(MountTom)
 #> [[15]]$Standard_deviation_turning_angle
 #> [1] 4.278817
 #> 
-#> [[15]]$Distance
+#> [[15]]$Beeline_length
 #> [1] 4.556698
 #> 
-#> [[15]]$Length
+#> [[15]]$Path_length
 #> [1] 4.56646
 #> 
 #> [[15]]$Step_lengths
@@ -1278,10 +1280,10 @@ track_param(MountTom)
 #> [[16]]$Standard_deviation_turning_angle
 #> [1] 6.748851
 #> 
-#> [[16]]$Distance
+#> [[16]]$Beeline_length
 #> [1] 7.068614
 #> 
-#> [[16]]$Length
+#> [[16]]$Path_length
 #> [1] 7.109877
 #> 
 #> [[16]]$Step_lengths
@@ -1335,10 +1337,10 @@ track_param(MountTom)
 #> [[17]]$Standard_deviation_turning_angle
 #> [1] NA
 #> 
-#> [[17]]$Distance
+#> [[17]]$Beeline_length
 #> [1] 0.3079478
 #> 
-#> [[17]]$Length
+#> [[17]]$Path_length
 #> [1] 0.3079478
 #> 
 #> [[17]]$Step_lengths
@@ -1391,10 +1393,10 @@ track_param(MountTom)
 #> [[18]]$Standard_deviation_turning_angle
 #> [1] 2.470679
 #> 
-#> [[18]]$Distance
+#> [[18]]$Beeline_length
 #> [1] 4.767794
 #> 
-#> [[18]]$Length
+#> [[18]]$Path_length
 #> [1] 4.771307
 #> 
 #> [[18]]$Step_lengths
@@ -1447,10 +1449,10 @@ track_param(MountTom)
 #> [[19]]$Standard_deviation_turning_angle
 #> [1] NA
 #> 
-#> [[19]]$Distance
+#> [[19]]$Beeline_length
 #> [1] 1.490617
 #> 
-#> [[19]]$Length
+#> [[19]]$Path_length
 #> [1] 1.490617
 #> 
 #> [[19]]$Step_lengths
@@ -1503,10 +1505,10 @@ track_param(MountTom)
 #> [[20]]$Standard_deviation_turning_angle
 #> [1] 2.629063
 #> 
-#> [[20]]$Distance
+#> [[20]]$Beeline_length
 #> [1] 2.300393
 #> 
-#> [[20]]$Length
+#> [[20]]$Path_length
 #> [1] 2.301602
 #> 
 #> [[20]]$Step_lengths
@@ -1559,10 +1561,10 @@ track_param(MountTom)
 #> [[21]]$Standard_deviation_turning_angle
 #> [1] 4.277776
 #> 
-#> [[21]]$Distance
+#> [[21]]$Beeline_length
 #> [1] 2.325026
 #> 
-#> [[21]]$Length
+#> [[21]]$Path_length
 #> [1] 2.328268
 #> 
 #> [[21]]$Step_lengths
@@ -1615,10 +1617,10 @@ track_param(MountTom)
 #> [[22]]$Standard_deviation_turning_angle
 #> [1] 6.158744
 #> 
-#> [[22]]$Distance
+#> [[22]]$Beeline_length
 #> [1] 1.795854
 #> 
-#> [[22]]$Length
+#> [[22]]$Path_length
 #> [1] 1.801009
 #> 
 #> [[22]]$Step_lengths
@@ -1671,10 +1673,10 @@ track_param(MountTom)
 #> [[23]]$Standard_deviation_turning_angle
 #> [1] NA
 #> 
-#> [[23]]$Distance
+#> [[23]]$Beeline_length
 #> [1] 1.786422
 #> 
-#> [[23]]$Length
+#> [[23]]$Path_length
 #> [1] 1.786422
 #> 
 #> [[23]]$Step_lengths

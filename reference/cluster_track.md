@@ -16,7 +16,8 @@ cluster_track(
   hclust_method = "complete",
   transform = TRUE,
   scale = TRUE,
-  max_clusters = NULL
+  max_clusters = NULL,
+  gauge_size = NA
 )
 ```
 
@@ -42,9 +43,10 @@ cluster_track(
 
   A character vector specifying the movement parameters to be used in
   the clustering analysis. Valid parameter names include: `"TurnAng"`,
-  `"sdTurnAng"`, `"Distance"`, `"Length"`, `"StLength"`, `"sdStLength"`,
-  `"Sinuosity"`, `"Straightness"`, `"Velocity"`, `"sdVelocity"`,
-  `"MaxVelocity"`, `"MinVelocity"`, `"TrackWidth"`, `"PaceAng"`.
+  `"sdTurnAng"`, `"PathLen"`, `"BeelineLen"`, `"StLength"`,
+  `"sdStLength"`, `"StrideLen"`, `"PaceLen"`, `"Sinuosity"`,
+  `"Straightness"`, `"TrackWidth"`, `"Gauge"`, `"PaceAng"`, `"StepAng"`,
+  `"Velocity"`, `"sdVelocity"`, `"MaxVelocity"`, `"MinVelocity"`.
 
 - analysis:
 
@@ -87,6 +89,13 @@ cluster_track(
   when `analysis = "mclust"`. If `NULL` (default), uses `min(9, n)`,
   where `n` is the number of valid tracks (observations) entering the
   model. The minimum number of clusters considered by default is `1`.
+
+- gauge_size:
+
+  Numeric. Pes/manus length (or width) used to compute Gauge as
+  `TrackWidth / gauge_size`. If `NULL` or `NA`, Gauge is returned as
+  `NA`. If `"Gauge"` is included in `variables`, `gauge_size` must be a
+  single positive numeric value.
 
 ## Value
 
@@ -171,12 +180,15 @@ model-based clustering via the `Mclust()` function from the mclust
 package (`analysis = "mclust"`).
 
 The function first filters out tracks with fewer than four steps, as
-these tracks may not provide reliable movement data. It then calculates
-various movement parameters for each remaining track, including turning
-angles, distances, lengths, sinuosity, straightness, velocities, and
-additional ichnological descriptors (trackway width, pace angulation).
-Finally, the selected movement parameters are used as input for
-clustering the tracks.
+these tracks may not provide reliable movement data. It then computes
+movement/trackway parameters via
+[`track_param()`](https://macrofunuv.github.io/QuAnTeTrack/reference/track_param.md)
+(turning angles; path and beeline lengths; step/stride/pace;
+sinuosity/straightness; and footprint-based metrics such as trackway
+width, gauge, pace angulation and step angle) and combines them with
+velocity descriptors from `veltrack`. The selected variables are then
+used for clustering. Finally, the selected movement parameters are used
+as input for clustering the tracks.
 
 When `analysis = "hclust"`: the function performs agglomerative
 hierarchical clustering on a pairwise dissimilarity matrix computed from
@@ -266,26 +278,45 @@ The following movement parameters can be included in the clustering:
   in degrees. Internally expanded to sine and cosine components before
   analysis to respect angular geometry.
 
-- `"Distance"`: The total distance covered by the track, calculated as
-  the sum of the straight-line distances between consecutive points
-  (meters).
+- `"PathLen"`: Total path length (meters), computed as the sum of
+  distances between consecutive trajectory points.
 
-- `"Length"`: The overall length of the track, a straight-line distance
-  between the starting and ending points (meters).
+- `"BeelineLen"`: Straight-line distance (meters) between the first and
+  last points of the trajectory.
 
-- `"StLength"`: Step lengths for each step of the track, representing
-  how far the object moved between two consecutive points (meters).
+- `"StLength"`: Mean step length for each step of the track (meters),
+  representing how far the object moved between two consecutive
+  trajectory points.
 
-- `"sdStLength"`: The standard deviation of the step lengths, showing
-  how consistent the steps are in length (meters).
+- `"sdStLength"`: The standard deviation of the step lengths (meters),
+  showing how consistent the steps are in length.
 
-- `"Sinuosity"`: A measure of the track's winding nature, calculated as
-  the ratio of the actual track length to the straight-line distance
+- `"StrideLen"`: Mean stride length (meters). In the current
+  implementation this is computed as `Mean_step_length * 2`.
+
+- `"PaceLen"`: Mean pace length (meters), computed as the mean distance
+  between consecutive contralateral footprints (L–R or R–L) in footprint
+  order.
+
+- `"Sinuosity"`: A measure of the track's winding nature
   (dimensionless).
 
-- `"Straightness"`: The straightness of the track, calculated as the
-  straight-line distance divided by the total path length
-  (dimensionless).
+- `"Straightness"`: The straightness of the track (dimensionless).
+
+- `"TrackWidth"`: Trackway width, i.e., the lateral spacing between left
+  and right footprint series (units consistent with input coordinates,
+  typically meters).
+
+- `"Gauge"`: Trackway gauge (dimensionless), computed as
+  `TrackWidth / gauge_size`.
+
+- `"PaceAng"`: Pace angulation (degrees), a classical ichnological
+  descriptor summarizing the angular relation of successive steps within
+  a trackway.
+
+- `"StepAng"`: Mean step angle (degrees), computed as the mean angle
+  between each pace segment and the inferred stride/trackway axis
+  estimated by PCA.
 
 - `"Velocity"`: The average velocity of the track, calculated as the
   total distance divided by the time elapsed between the first and last
@@ -299,14 +330,6 @@ The following movement parameters can be included in the clustering:
 
 - `"MinVelocity"`: The minimum velocity during the track, identifying
   the slowest point (meters per second).
-
-- `"TrackWidth"`: Trackway width, i.e., the lateral spacing between left
-  and right footprint series (units consistent with input coordinates,
-  typically meters).
-
-- `"PaceAng"`: Pace angulation (degrees), a classical ichnological
-  descriptor summarizing the angular relation of successive steps within
-  a trackway.
 
 The `cluster_track()` function has biological relevance in identifying
 groups of tracks with similar movement parameters, providing insights

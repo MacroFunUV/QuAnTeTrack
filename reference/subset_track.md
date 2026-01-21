@@ -1,7 +1,7 @@
-# Subset tracks
+# Subset trackways
 
-`subset_track()` is a function that subsets tracks from a list of track
-data based on the specified indices.
+`subset_track()` is a function that subsets trackways from a `trackway`
+R object based on the specified indices.
 
 ## Usage
 
@@ -13,33 +13,36 @@ subset_track(data, tracks = NULL)
 
 - data:
 
-  A `track` R object, which is a list consisting of two elements:
+  A `trackway` R object, which is a list consisting of two elements:
 
-  - **`Trajectories`**: A list of interpolated trajectories, where each
-    trajectory is a series of midpoints between consecutive footprints.
+  - **`Trajectories`**: A list of trajectories representing trackway
+    midlines, interpolated by connecting the midpoints of successive
+    left–right footprint pairs (i.e., footprints linked by pace lines).
+    Includes columns `X`, `Y`, `IMAGE`, `ID`, and `Side` (set to
+    `"Medial"`).
 
   - **`Footprints`**: A list of data frames containing footprint
-    coordinates, metadata (e.g., image reference, ID), and a marker
-    indicating whether the footprint is actual or inferred.
+    coordinates and associated metadata, with a `Side` column (`"R"` or
+    `"L"`) and a `missing` marker (`"Actual"` or `"Inferred"`).
 
 - tracks:
 
-  A numeric vector specifying the indices of tracks to subset. The
-  default is to include all tracks.
+  A numeric vector specifying the indices of trackways to subset. The
+  default is to include all trackways.
 
 ## Value
 
-A `track` R object that contains only the specified subset of tracks.
-The structure of the returned object mirrors the input structure but
-includes only the selected tracks.
+A `trackway` R object that contains only the specified subset of
+trackways. The structure of the returned object mirrors the input
+structure but includes only the selected trackways.
 
 ## Details
 
 This function subsets both the **`Trajectories`** and **`Footprints`**
 elements of the input data based on the provided vector of indices. It
-allows users to focus on a specific subset of tracks for further
+allows users to focus on a specific subset of trackways for further
 analysis or visualization, particularly when working with large datasets
-containing numerous tracks.
+containing numerous trackways.
 
 ## Logo
 
@@ -69,9 +72,9 @@ Phone: +34 (9635) 44477
 ## Examples
 
 ``` r
-# Example 1: Subset the first three tracks of MountTom dataset.
+# Example 1: Subset the first three trackways of MountTom dataset.
 subset_data <- subset_track(MountTom, tracks = c(1:3))
 
-# Example 2:  Subset the tracks at indices 5, 7, and 10.
+# Example 2:  Subset the trackways at indices 5, 7, and 10.
 subset_data <- subset_track(MountTom, tracks = c(5, 7, 10))
 ```

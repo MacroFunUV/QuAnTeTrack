@@ -228,17 +228,9 @@ vars <- c("Distance","Straightness","TurnAng","PaceAng")
 res_full <- observer_error_partitioning(data = trks,
                                         metadata = md,
                                         variables = vars)
+#> Error in lme4::lFormula(formula = fm, data = dat, REML = TRUE, control = structure(list(    optimizer = "bobyqa", restart_edge = TRUE, boundary.tol = 1e-05,     calc.derivs = NULL, use.last.params = FALSE, checkControl = list(        autoscale = NULL, check.nobs.vs.rankZ = "ignore", check.nobs.vs.nlev = "stop",         check.nlev.gtreq.5 = "ignore", check.nlev.gtr.1 = "stop",         check.nobs.vs.nRE = "stop", check.rankX = "message+drop.cols",         check.scaleX = "warning", check.formula.LHS = "stop"),     checkConv = list(check.conv.nobsmax = 10000, check.conv.nparmax = 10,         check.conv.grad = list(action = "warning", tol = 0.002,             relTol = NULL), check.conv.singular = list(action = "ignore",             tol = 1e-04), check.conv.hess = list(action = "warning",             tol = 1e-06)), optCtrl = list(maxfun = 1e+05)), class = c("lmerControl", "merControl"))): 0 (non-NA) cases
 res_full$qc
-#>       variable        SNR SNR_rating top_component top_percent      R2_c
-#> 1     Distance 14362.3060     strong         track    99.99304 0.9999304
-#> 2 Straightness   158.6878     strong         track    99.37378 0.9937378
-#> 3      TurnAng  3642.6814     strong         track    99.97256 0.9997673
-#> 4      PaceAng   314.5134     strong         track    99.68306 0.9990678
-#>   observer_estimable
-#> 1                yes
-#> 2                yes
-#> 3                yes
-#> 4                yes
+#> Error: object 'res_full' not found
 
 # Example 2: Intra-only, single observer; residual = intra-observer
 md_intra <- md
@@ -246,17 +238,9 @@ md_intra$observer <- "obs1"
 res_intra <- observer_error_partitioning(data = trks,
                                          metadata = md_intra,
                                          variables = vars)
+#> Error in lme4::lFormula(formula = fm, data = dat, REML = TRUE, control = structure(list(    optimizer = "bobyqa", restart_edge = TRUE, boundary.tol = 1e-05,     calc.derivs = NULL, use.last.params = FALSE, checkControl = list(        autoscale = NULL, check.nobs.vs.rankZ = "ignore", check.nobs.vs.nlev = "stop",         check.nlev.gtreq.5 = "ignore", check.nlev.gtr.1 = "stop",         check.nobs.vs.nRE = "stop", check.rankX = "message+drop.cols",         check.scaleX = "warning", check.formula.LHS = "stop"),     checkConv = list(check.conv.nobsmax = 10000, check.conv.nparmax = 10,         check.conv.grad = list(action = "warning", tol = 0.002,             relTol = NULL), check.conv.singular = list(action = "ignore",             tol = 1e-04), check.conv.hess = list(action = "warning",             tol = 1e-06)), optCtrl = list(maxfun = 1e+05)), class = c("lmerControl", "merControl"))): 0 (non-NA) cases
 res_intra$qc
-#>       variable        SNR SNR_rating top_component top_percent      R2_c
-#> 1     Distance 14362.5544     strong         track    99.99304 0.9999304
-#> 2 Straightness   158.6867     strong         track    99.37377 0.9937377
-#> 3      TurnAng  3643.9188     strong         track    99.97256 0.9997582
-#> 4      PaceAng   314.5132     strong         track    99.68306 0.9990678
-#>   observer_estimable
-#> 1       no (1 level)
-#> 2       no (1 level)
-#> 3       no (1 level)
-#> 4       no (1 level)
+#> Error: object 'res_intra' not found
 
 # Example 3: Inter-only, single replicate; estimates inter-observer
 md_inter <- md
@@ -264,17 +248,9 @@ md_inter$replica <- 1L
 res_inter <- observer_error_partitioning(data = trks,
                                          metadata = md_inter,
                                          variables = vars)
+#> Error in lme4::lFormula(formula = fm, data = dat, REML = TRUE, control = structure(list(    optimizer = "bobyqa", restart_edge = TRUE, boundary.tol = 1e-05,     calc.derivs = NULL, use.last.params = FALSE, checkControl = list(        autoscale = NULL, check.nobs.vs.rankZ = "ignore", check.nobs.vs.nlev = "stop",         check.nlev.gtreq.5 = "ignore", check.nlev.gtr.1 = "stop",         check.nobs.vs.nRE = "stop", check.rankX = "message+drop.cols",         check.scaleX = "warning", check.formula.LHS = "stop"),     checkConv = list(check.conv.nobsmax = 10000, check.conv.nparmax = 10,         check.conv.grad = list(action = "warning", tol = 0.002,             relTol = NULL), check.conv.singular = list(action = "ignore",             tol = 1e-04), check.conv.hess = list(action = "warning",             tol = 1e-06)), optCtrl = list(maxfun = 1e+05)), class = c("lmerControl", "merControl"))): 0 (non-NA) cases
 res_inter$qc
-#>       variable        SNR SNR_rating top_component top_percent      R2_c
-#> 1     Distance 14362.3060     strong         track    99.99304 0.9999304
-#> 2 Straightness   158.6878     strong         track    99.37378 0.9937378
-#> 3      TurnAng  3642.6814     strong         track    99.97256 0.9997673
-#> 4      PaceAng   314.5134     strong         track    99.68306 0.9990678
-#>   observer_estimable
-#> 1                yes
-#> 2                yes
-#> 3                yes
-#> 4                yes
+#> Error: object 'res_inter' not found
 
 # Example 4: Circular metrics only (angles via sine–cosine embedding)
 res_ang <- observer_error_partitioning(data = trks,

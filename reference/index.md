@@ -31,7 +31,7 @@
   : Plot Simulated Tracks
 
 - [`plot_track()`](https://macrofunuv.github.io/QuAnTeTrack/reference/plot_track.md)
-  : Plot tracks and footprints
+  : Plot trajectories and footprints
 
 - [`plot_velocity()`](https://macrofunuv.github.io/QuAnTeTrack/reference/plot_velocity.md)
   : Plot trajectories colored by velocity or relative stride length
@@ -46,7 +46,7 @@
   : Simulate tracks using different models
 
 - [`subset_track()`](https://macrofunuv.github.io/QuAnTeTrack/reference/subset_track.md)
-  : Subset tracks
+  : Subset trackways
 
 - [`test_direction()`](https://macrofunuv.github.io/QuAnTeTrack/reference/test_direction.md)
   : Test for differences in direction means with pairwise comparisons
@@ -57,7 +57,7 @@
 - [`tps_to_track()`](https://macrofunuv.github.io/QuAnTeTrack/reference/tps_to_track.md)
   :
 
-  Transform a \*.tps file into a `track` R object
+  Transform a \*.tps file into a `trackway` R object
 
 - [`track_intersection()`](https://macrofunuv.github.io/QuAnTeTrack/reference/track_intersection.md)
   : Calculate intersection metrics in tracks

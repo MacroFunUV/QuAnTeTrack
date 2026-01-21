@@ -1,34 +1,44 @@
-#' Transform a *.tps file into a \code{track} R object
+#' Transform a *.tps file into a \code{trackway} R object
 #'
-#' \code{tps_to_track()} reads a *.tps file containing footprint coordinates of one or several tracks and transforms it into a \code{track} R object.
+#' \code{tps_to_track()} reads a *.tps file containing footprint coordinates of one or several trackways and transforms it into a \code{trackway} R object.
 #'
-#' @param file A *.tps file containing (x,y) coordinates of footprints in tracks.
+#' @param file A *.tps file containing (x,y) coordinates of footprints in trackways.
 #' @param scale A numeric value specifying the scale in meters per pixel.
-#' @param R.L.side A character vector specifying the side of the first footprint of each track. The length of the vector must be equal to the total number of tracks in the sample.
+#' @param R.L.side A character vector specifying the laterality of the first footprint of each trackway. The length of the vector must be equal to the total number of trackways in the sample.
 #' \itemize{
 #'   \item \code{"L"}: first footprint corresponds to the left foot.
 #'   \item \code{"R"}: first footprint corresponds to the right foot.
 #' }
-#' @param missing A logical value indicating whether there are missing footprints in any track to be interpolated: \code{TRUE}, or \code{FALSE} (the default).
+#' @param missing A logical value indicating whether there are missing footprints in any trackway to be interpolated: \code{TRUE}, or \code{FALSE} (the default).
 #' @param NAs A matrix with two columns indicating which missing footprints will be interpolated.
-#'           The first column gives the number of the track containing missing footprints, and the second column gives the number of the footprint that is missing within this track.
+#'           The first column gives the number of the trackway containing missing footprints, and the second column gives the number of the footprint that is missing within this trackway.
 #'           The number of rows is equal to the total number of missing footprints in the sample.
 #'
 #' @details It is highly recommended that the *.tps file is built using the TPS software (Rohlf 2008, 2009).
-#'          Tracks with a different number of footprints (i.e., landmarks) are allowed.
-#'          This function transforms the coordinates of the footprints of each track into a set of trajectory coordinates.
+#'          Trackways with a different number of footprints (i.e., landmarks) are allowed.
+#'          This function transforms the coordinates of the footprints of each trackway into a set of trajectory coordinates.
 #'          Each point of the trajectory is calculated as: \deqn{Point_i(x,y)= (Footprint_i(x,y) + Footprint_{i+1}(x,y)/2}
 #'
 #' @details The number of points of the resulting trajectory is \eqn{n_{footprints} - 1}.
 #'
 #' @details If \code{missing} is set to \code{TRUE}, missing footprints can be interpolated.
-#'          This interpolation is based on adjacent footprints and the provided side information.
+#'           The interpolated footprint is then placed at the midpoint between the two adjacent
+#'          footprints and shifted laterally along the direction perpendicular to their connecting
+#'          segment. The magnitude of this lateral shift is estimated from the mean trackway width
+#'          of the corresponding trackway, and its sign is determined by the inferred anatomical
+#'          side (left or right) of the missing footprint. Inferred footprints are flagged as such
+#'          in the output.
 #'
-#' @return A \code{track} R object, which is a list consisting of two elements:
-#'    * \strong{\code{Trajectories}}: A list of trajectories (midpoints between consecutive footprints).
-#'      Includes columns \code{X}, \code{Y}, \code{IMAGE}, \code{ID}, and \code{Side} (set to \code{"Medial"}).
-#'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates and metadata,
-#'      with a \code{Side} column (\code{"R"} or \code{"L"}) and a \code{missing} marker (\code{"Actual"} or \code{"Inferred"}).
+#' @return A \code{trackway} R object, which is a list consisting of two elements:
+#'
+#'    * \strong{\code{Trajectories}}: A list of trajectories representing trackway midlines,
+#'      interpolated by connecting the midpoints of successive left–right footprint pairs
+#'      (i.e., footprints linked by pace lines). Includes columns \code{X}, \code{Y},
+#'      \code{IMAGE}, \code{ID}, and \code{Side} (set to \code{"Medial"}).
+#'
+#'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates
+#'      and associated metadata, with a \code{Side} column (\code{"R"} or \code{"L"})
+#'      and a \code{missing} marker (\code{"Actual"} or \code{"Inferred"}).
 #'
 #' @section Logo:
 #' \if{html}{\figure{Logo.png}{options: width=120}}
@@ -42,15 +52,15 @@
 #' @author Phone: +34 (9635) 44477
 #'
 #' @examples
-#' # Example 1: Tracks without missing footprints.
+#' # Example 1: Trackways without missing footprints.
 #' # Based on the Paluxy River dinosaur chase sequence (Farlow et al., 2011).
 #'
 #' # Load the example TPS file provided in the QuAnTeTrack package.
 #' tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
 #'
-#' # Convert the TPS data into a track object.
+#' # Convert the TPS data into a trackway object.
 #' # The 'scale' argument sets the scaling factor,
-#' # 'R.L.side' specifies the starting side for each track,
+#' # 'R.L.side' specifies the starting side for each trackway,
 #' # and 'missing = FALSE' indicates no footprints are missing.
 #' tps_to_track(
 #'   tpsPaluxyRiver,
@@ -61,20 +71,20 @@
 #' )
 #'
 #'
-#' # Example 2: Tracks with missing footprints.
-#' # Based on dinosaur tracks from Mount Tom (Ostrom, 1972).
+#' # Example 2: Trackways with missing footprints.
+#' # Based on dinosaur trackways from Mount Tom (Ostrom, 1972).
 #'
 #' # Load the example TPS file.
 #' tpsMountTom <- system.file("extdata", "MountTom.tps", package = "QuAnTeTrack")
 #'
 #' # Define a matrix representing the missing footprints.
-#' # Here, footprint 7 is missing in track 3.
+#' # Here, footprint 7 is missing in trackway 3.
 #' NAs <- matrix(c(3, 7), nrow = 1, ncol = 2)
 #'
-#' # Convert the TPS data into a track object.
+#' # Convert the TPS data into a trackway object.
 #' # The 'missing = TRUE' flag activates interpolation for missing footprints,
 #' # 'NAs' specifies which footprints are missing,
-#' # and 'R.L.side' indicates the starting side for each track.
+#' # and 'R.L.side' indicates the starting side for each trackway.
 #' tps_to_track(
 #'   tpsMountTom,
 #'   scale = 0.004411765,
@@ -178,7 +188,7 @@ tps_to_track <- function(file, scale = NULL, R.L.side, missing = FALSE, NAs = NU
 
   # Validate side vector length
   if (length(R.L.side) != l) {
-    stop(sprintf("Length of 'R.L.side' (%d) must equal the number of tracks detected (%d).",
+    stop(sprintf("Length of 'R.L.side' (%d) must equal the number of trackways detected (%d).",
                  length(R.L.side), l))
   }
 
@@ -188,13 +198,13 @@ tps_to_track <- function(file, scale = NULL, R.L.side, missing = FALSE, NAs = NU
 
   if (length(dup_img) > 0) {
     stop(sprintf(
-      "Duplicate IMAGE names detected in TPS. IMAGE= must be unique per track.\nRepeated: %s",
+      "Duplicate IMAGE names detected in TPS. IMAGE= must be unique per trackway.\nRepeated: %s",
       paste(dup_img, collapse = ", ")
     ))
   }
   if (length(dup_id) > 0) {
     stop(sprintf(
-      "Duplicate ID values detected in TPS. ID= must be unique per track.\nRepeated: %s",
+      "Duplicate ID values detected in TPS. ID= must be unique per trackway.\nRepeated: %s",
       paste(dup_id, collapse = ", ")
     ))
   }
@@ -263,7 +273,7 @@ tps_to_track <- function(file, scale = NULL, R.L.side, missing = FALSE, NAs = NU
       data_frame[[i]]$Side <- side_vec
     }
 
-    # --- Track width estimation
+    # --- Trackway width estimation
     meanwidth <- numeric(length(data_frame))
     for (j in seq_along(data_frame)) {
       if (nrow(data_frame[[j]]) > 2) {
@@ -306,7 +316,7 @@ tps_to_track <- function(file, scale = NULL, R.L.side, missing = FALSE, NAs = NU
 
   for (i in seq_along(landmarks2)) {
     if (nrow(landmarks2[[i]]) < 2) {
-      stop(sprintf("Track %d has fewer than 2 footprints after parsing; cannot compute trajectory.", i))
+      stop(sprintf("Trackway %d has fewer than 2 footprints after parsing; cannot compute trajectory.", i))
     }
 
     out <- as.data.frame(matrix(ncol = ncol(landmarks2[[i]]),
@@ -331,7 +341,7 @@ tps_to_track <- function(file, scale = NULL, R.L.side, missing = FALSE, NAs = NU
 
     landmarks3[[i]] <- out
   }
-  names(landmarks3) <- paste0("Track_", stringr::str_pad(seq_along(LM), nchar(length(LM)), pad = "0"))
+  names(landmarks3) <- paste0("Trackway_", stringr::str_pad(seq_along(LM), nchar(length(LM)), pad = "0"))
 
   ## ---------- Mark missing & scale footprints ----------
   for (i in seq_along(data_frame)) {

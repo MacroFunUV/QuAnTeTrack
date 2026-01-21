@@ -7,9 +7,10 @@
 #'    * \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
 #' @param veltrack A \code{track velocity} R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.
 #' @param variables A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include:
-#'   \code{"TurnAng"}, \code{"sdTurnAng"}, \code{"Distance"}, \code{"Length"}, \code{"StLength"}, \code{"sdStLength"},
-#'   \code{"Sinuosity"}, \code{"Straightness"}, \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"},
-#'   \code{"TrackWidth"}, \code{"PaceAng"}.
+#'   \code{"TurnAng"}, \code{"sdTurnAng"}, \code{"PathLen"}, \code{"BeelineLen"}, \code{"StLength"}, \code{"sdStLength"},
+#'   \code{"StrideLen"}, \code{"PaceLen"}, \code{"Sinuosity"}, \code{"Straightness"},
+#'   \code{"TrackWidth"}, \code{"Gauge"}, \code{"PaceAng"}, \code{"StepAng"},
+#'   \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"}.
 #' @param analysis Character; clustering backend. One of \code{"hclust"} (default; distance-based hierarchical clustering)
 #'   or \code{"mclust"} (model-based Gaussian mixtures).
 #' @param k Integer or \code{NULL}; number of clusters to cut the dendrogram when \code{analysis = "hclust"}.
@@ -26,14 +27,19 @@
 #' @param max_clusters Integer. Maximum number of clusters (mixture components) to consider when \code{analysis = "mclust"}.
 #'   If \code{NULL} (default), uses \code{min(9, n)}, where \code{n} is the number of valid tracks (observations) entering the model.
 #'   The minimum number of clusters considered by default is \code{1}.
+#' @param gauge_size Numeric. Pes/manus length (or width) used to compute Gauge as \code{TrackWidth / gauge_size}.
+#' If \code{NULL} or \code{NA}, Gauge is returned as \code{NA}. If \code{"Gauge"} is included in \code{variables},
+#' \code{gauge_size} must be a single positive numeric value.
 #'
 #' @details
 #' The \code{cluster_track()} function can perform distance-based hierarchical clustering via the \code{hclust()} function from the \pkg{stats} package (\code{analysis = "hclust"}, default) or model-based clustering via the \code{Mclust()} function from the \pkg{mclust} package
 #' (\code{analysis = "mclust"}).
 #'
 #' The function first filters out tracks with fewer than four steps, as these tracks may not provide reliable movement data.
-#' It then calculates various movement parameters for each remaining track, including turning angles, distances, lengths, sinuosity, straightness, velocities,
-#' and additional ichnological descriptors (trackway width, pace angulation).
+#' It then computes movement/trackway parameters via
+#' \code{track_param()} (turning angles; path and beeline lengths; step/stride/pace; sinuosity/straightness; and
+#' footprint-based metrics such as trackway width, gauge, pace angulation and step angle) and combines them with
+#' velocity descriptors from \code{veltrack}. The selected variables are then used for clustering.
 #' Finally, the selected movement parameters are used as input for clustering the tracks.
 #'
 #' @details
@@ -55,7 +61,6 @@
 #' choice of distance metric and linkage method. Certain linkage strategies, such as \code{"median"} or
 #' \code{"centroid"}, may produce dendrogram inversions, and the \code{"ward.*"} methods require Euclidean
 #' geometry to preserve their variance-minimization interpretation.
-
 #'
 #' If \code{transform = TRUE} and/or \code{scale = TRUE}, the distance is computed on the
 #' transformed/scaled space. This is generally recommended so that variables on different scales do not dominate the
@@ -102,23 +107,37 @@
 #'   * \code{"sdTurnAng"}: The circular standard deviation of the turning angles, in degrees.
 #'     Internally expanded to sine and cosine components before analysis to respect angular geometry.
 #'
-#'   * \code{"Distance"}: The total distance covered by the track, calculated as the sum of the
-#'     straight-line distances between consecutive points (meters).
+#'   * \code{"PathLen"}: Total path length (meters), computed as the sum of distances between consecutive
+#'     trajectory points.
 #'
-#'   * \code{"Length"}: The overall length of the track, a straight-line distance between the
-#'     starting and ending points (meters).
+#'   * \code{"BeelineLen"}: Straight-line distance (meters) between the first and last points of the trajectory.
 #'
-#'   * \code{"StLength"}: Step lengths for each step of the track, representing how far the object
-#'     moved between two consecutive points (meters).
+#'   * \code{"StLength"}: Mean step length for each step of the track (meters), representing how far the object
+#'     moved between two consecutive trajectory points.
 #'
-#'   * \code{"sdStLength"}: The standard deviation of the step lengths, showing how consistent the
-#'     steps are in length (meters).
+#'   * \code{"sdStLength"}: The standard deviation of the step lengths (meters), showing how consistent the
+#'     steps are in length.
 #'
-#'   * \code{"Sinuosity"}: A measure of the track's winding nature, calculated as the ratio of the
-#'     actual track length to the straight-line distance (dimensionless).
+#'   * \code{"StrideLen"}: Mean stride length (meters). In the current implementation this is computed as
+#'     \code{Mean_step_length * 2}.
 #'
-#'   * \code{"Straightness"}: The straightness of the track, calculated as the straight-line
-#'     distance divided by the total path length (dimensionless).
+#'   * \code{"PaceLen"}: Mean pace length (meters), computed as the mean distance between consecutive
+#'     contralateral footprints (L–R or R–L) in footprint order.
+#'
+#'   * \code{"Sinuosity"}: A measure of the track's winding nature (dimensionless).
+#'
+#'   * \code{"Straightness"}: The straightness of the track (dimensionless).
+#'
+#'   * \code{"TrackWidth"}: Trackway width, i.e., the lateral spacing between left and right
+#'     footprint series (units consistent with input coordinates, typically meters).
+#'
+#'   * \code{"Gauge"}: Trackway gauge (dimensionless), computed as \code{TrackWidth / gauge_size}.
+#'
+#'   * \code{"PaceAng"}: Pace angulation (degrees), a classical ichnological descriptor summarizing
+#'     the angular relation of successive steps within a trackway.
+#'
+#'   * \code{"StepAng"}: Mean step angle (degrees), computed as the mean angle between each pace segment
+#'     and the inferred stride/trackway axis estimated by PCA.
 #'
 #'   * \code{"Velocity"}: The average velocity of the track, calculated as the total distance divided
 #'     by the time elapsed between the first and last footprint (meters per second).
@@ -131,12 +150,6 @@
 #'
 #'   * \code{"MinVelocity"}: The minimum velocity during the track, identifying the slowest point
 #'     (meters per second).
-#'
-#'   * \code{"TrackWidth"}: Trackway width, i.e., the lateral spacing between left and right
-#'     footprint series (units consistent with input coordinates, typically meters).
-#'
-#'   * \code{"PaceAng"}: Pace angulation (degrees), a classical ichnological descriptor summarizing
-#'     the angular relation of successive steps within a trackway.
 #'
 #' The \code{cluster_track()} function has biological relevance in identifying groups of tracks with
 #' similar movement parameters, providing insights into ecological and behavioral patterns. By
@@ -216,7 +229,8 @@ cluster_track <- function(
     dist_method = "euclidean",
     hclust_method = "complete",
     transform = TRUE, scale = TRUE,
-    max_clusters = NULL
+    max_clusters = NULL,
+    gauge_size = NA
 ) {
 
   analysis <- match.arg(analysis)
@@ -236,6 +250,16 @@ cluster_track <- function(
     stop("Error: No tracks available for clustering. Please check the input data.")
   }
 
+  # Gauge requirement
+  if ("Gauge" %in% variables) {
+    if (is.null(gauge_size) || is.na(gauge_size)) {
+      stop("Error: 'gauge_size' must be provided when 'Gauge' is included in 'variables'.")
+    }
+    if (!is.numeric(gauge_size) || length(gauge_size) != 1L || is.na(gauge_size) || gauge_size <= 0) {
+      stop("Error: 'gauge_size' must be a single positive numeric value when 'Gauge' is included in 'variables'.")
+    }
+  }
+
   # Identify tracks with fewer than 4 steps
   short <- sapply(data[[1]], function(track) nrow(track) < 4)
   if (any(short)) {
@@ -253,35 +277,47 @@ cluster_track <- function(
   data <- subset_track(data, valid_indices)
   veltrack <- veltrack[valid_indices]
 
-  # Compute parameters
-  data_param <- track_param(data)
+  # Compute parameters (incl. Gauge if gauge_size is provided)
+  data_param <- track_param(data, gauge_size = gauge_size)
 
-  # Create results matrix (original-scale summary, incl. new vars)
-  matrix <- data.frame(matrix(nrow = length(data[[1]]), ncol = 14))
+  # Create results matrix (original-scale summary, incl. new vars; ordered as in track_param)
+  matrix <- data.frame(matrix(nrow = length(data[[1]]), ncol = 18))
   colnames(matrix) <- c(
-    "TurnAng", "sdTurnAng", "Distance", "Length", "StLength", "sdStLength",
-    "Sinuosity", "Straightness", "Velocity", "sdVelocity",
-    "MaxVelocity", "MinVelocity", "TrackWidth", "PaceAng"
+    "TurnAng", "sdTurnAng",
+    "PathLen", "BeelineLen",
+    "StLength", "sdStLength",
+    "StrideLen", "PaceLen",
+    "Sinuosity", "Straightness",
+    "TrackWidth", "Gauge", "PaceAng", "StepAng",
+    "Velocity", "sdVelocity", "MaxVelocity", "MinVelocity"
   )
   rownames(matrix) <- paste0("Track ", valid_indices)
 
   for (i in 1:length(data[[1]])) {
-    matrix[i, "TurnAng"]        <- data_param[[i]]$Mean_turning_angle               # degrees (circular mean)
-    matrix[i, "sdTurnAng"]      <- data_param[[i]]$Standard_deviation_turning_angle # degrees (circular sd)
-    matrix[i, "Distance"]       <- data_param[[i]]$Distance
-    matrix[i, "Length"]         <- data_param[[i]]$Length
-    matrix[i, "StLength"]       <- data_param[[i]]$Mean_step_length
-    matrix[i, "sdStLength"]     <- data_param[[i]]$Standard_deviation_step_length
-    matrix[i, "Sinuosity"]      <- data_param[[i]]$Sinuosity
-    matrix[i, "Straightness"]   <- data_param[[i]]$Straightness
-    matrix[i, "Velocity"]       <- veltrack[[i]]$Mean_velocity
-    matrix[i, "sdVelocity"]     <- veltrack[[i]]$Standard_deviation_velocity
-    matrix[i, "MaxVelocity"]    <- veltrack[[i]]$Maximum_velocity
-    matrix[i, "MinVelocity"]    <- veltrack[[i]]$Minimum_velocity
-    tw <- data_param[[i]]$TrackWidth
-    pa <- data_param[[i]]$PaceAng
-    matrix[i, "TrackWidth"] <- if (is.null(tw)) NA_real_ else tw
-    matrix[i, "PaceAng"]    <- if (is.null(pa)) NA_real_ else pa
+    matrix[i, "TurnAng"]      <- data_param[[i]]$Mean_turning_angle                # degrees (circular mean)
+    matrix[i, "sdTurnAng"]    <- data_param[[i]]$Standard_deviation_turning_angle  # degrees (circular sd)
+
+    matrix[i, "PathLen"]      <- data_param[[i]]$Path_length
+    matrix[i, "BeelineLen"]   <- data_param[[i]]$Beeline_length
+
+    matrix[i, "StLength"]     <- data_param[[i]]$Mean_step_length
+    matrix[i, "sdStLength"]   <- data_param[[i]]$Standard_deviation_step_length
+
+    matrix[i, "StrideLen"]    <- data_param[[i]]$Mean_stride_length
+    matrix[i, "PaceLen"]      <- data_param[[i]]$Mean_pace_length
+
+    matrix[i, "Sinuosity"]    <- data_param[[i]]$Sinuosity
+    matrix[i, "Straightness"] <- data_param[[i]]$Straightness
+
+    matrix[i, "TrackWidth"]   <- data_param[[i]]$Trackway_width
+    matrix[i, "Gauge"]        <- data_param[[i]]$Gauge
+    matrix[i, "PaceAng"]      <- data_param[[i]]$Pace_angulation
+    matrix[i, "StepAng"]      <- data_param[[i]]$Step_angle
+
+    matrix[i, "Velocity"]     <- veltrack[[i]]$Mean_velocity
+    matrix[i, "sdVelocity"]   <- veltrack[[i]]$Standard_deviation_velocity
+    matrix[i, "MaxVelocity"]  <- veltrack[[i]]$Maximum_velocity
+    matrix[i, "MinVelocity"]  <- veltrack[[i]]$Minimum_velocity
   }
 
   ## Build working matrix for clustering (expand circular vars to sin/cos)
@@ -315,9 +351,10 @@ cluster_track <- function(
       if (name %in% c("Sinuosity")) {
         return(log(pmax(x, 1 + eps)))
       }
-      if (name %in% c("Distance","Length","StLength","sdStLength",
-                      "Velocity","sdVelocity","MaxVelocity","MinVelocity",
-                      "TrackWidth","PaceAng")) {
+      if (name %in% c("PathLen","BeelineLen","StLength","sdStLength",
+                      "StrideLen","PaceLen",
+                      "TrackWidth","Gauge","PaceAng","StepAng",
+                      "Velocity","sdVelocity","MaxVelocity","MinVelocity")) {
         shift <- if (any(x <= 0, na.rm = TRUE)) eps - min(x, na.rm = TRUE) + eps else 0
         return(log(x + shift))
       }

@@ -28,7 +28,7 @@ test_that("tps_to_track processes valid files correctly", {
 test_that("tps_to_track interpolates missing footprints correctly", {
   tpsMountTom <- system.file("extdata", "MountTom.tps", package = "QuAnTeTrack")
 
-  # Here: first column = track, second = footprint (track 3, footprint 7)
+  # Here: first column = trackway, second = footprint (trackway 3, footprint 7)
   NAs <- matrix(c(3, 7), nrow = 1, ncol = 2)
 
   R.L.side <- c(
@@ -49,7 +49,7 @@ test_that("tps_to_track interpolates missing footprints correctly", {
   expect_type(result, "list")
   expect_named(result, c("Trajectories", "Footprints"))
 
-  # Ensure missing footprints have been interpolated and marked in the correct track
+  # Ensure missing footprints have been interpolated and marked in the correct trackway
   expect_true(any(result$Footprints[[3]]$missing == "Inferred"))
 
   # Footprints include Side column
@@ -72,7 +72,7 @@ test_that("tps_to_track throws informative errors for incorrect inputs", {
   )
 })
 
-test_that("tps_to_track validates R.L.side length vs. number of tracks", {
+test_that("tps_to_track validates R.L.side length vs. number of trackways", {
   tpsPaluxyRiver <- system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")
 
   # Provide wrong-length R.L.side vector to trigger length check
@@ -80,7 +80,7 @@ test_that("tps_to_track validates R.L.side length vs. number of tracks", {
     tps_to_track(
       tpsPaluxyRiver,
       scale = 0.004341493,
-      R.L.side = c("R"),  # too short; Paluxy example has 2 tracks in docs
+      R.L.side = c("R"),  # too short; Paluxy example has 2 trackways in docs
       missing = FALSE
     ),
     "Length of 'R.L.side'"
@@ -89,7 +89,7 @@ test_that("tps_to_track validates R.L.side length vs. number of tracks", {
 
 # Duplicate IMAGE should error
 test_that("tps_to_track errors when IMAGE names are duplicated", {
-  # Build a minimal TPS with two tracks sharing the same IMAGE
+  # Build a minimal TPS with two trackways sharing the same IMAGE
   tps_text <- c(
     "LM=3",
     "0 0",
@@ -107,7 +107,7 @@ test_that("tps_to_track errors when IMAGE names are duplicated", {
   tmp_tps <- tempfile(fileext = ".tps")
   writeLines(tps_text, tmp_tps)
 
-  # Must pass two sides (R/L) for two tracks
+  # Must pass two sides (R/L) for two trackways
   expect_error(
     tps_to_track(
       tmp_tps,
@@ -122,7 +122,7 @@ test_that("tps_to_track errors when IMAGE names are duplicated", {
 
 # Duplicate ID should error
 test_that("tps_to_track errors when ID values are duplicated", {
-  # Build a minimal TPS with two tracks sharing the same ID
+  # Build a minimal TPS with two trackways sharing the same ID
   tps_text <- c(
     "LM=3",
     "0 0",

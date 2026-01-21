@@ -4,7 +4,7 @@
 \alias{combined_prob}
 \title{Calculate combined probabilities of similarity or intersection metrics of tracks}
 \usage{
-combined_prob(data, metrics = NULL)
+combined_prob(data, metrics = NULL, H1 = c("Higher", "Lower"))
 }
 \arguments{
 \item{data}{A \code{track} R object, which is a list consisting of two elements:
@@ -15,6 +15,8 @@ combined_prob(data, metrics = NULL)
 
 \item{metrics}{A list of \code{track similarity} and/or \code{track intersection} R objects derived from different tests. All tests must be
 based on the same number of simulations.}
+
+\item{H1}{Alternative hypothesis for intersection metrics. One of \code{"Higher"} or \code{"Lower"}.}
 }
 \value{
 A list containing:
@@ -28,10 +30,36 @@ derived from different models. The function uses simulation data to extract \emp
 the significance of combined metrics across various similarity assessments.
 }
 \details{
-The \code{combined_prob()} function combines \emph{p}-values derived from multiple similarity metric tests and intersection tests.
-It calculates the combined \emph{p}-values by assessing the probability of observing the combined metrics across simulated datasets.
-Pairwise \emph{p}-values use a Monte Carlo tail test with the (+1) correction and are FDR-adjusted with Benjamini–Hochberg (BH)
-across unique trajectory pairs.
+The \code{combined_prob()} function combines evidence from multiple trajectory-based
+metrics, including distance-based similarity measures (e.g., DTW and Fréchet)
+and intersection metrics, using simulation-based hypothesis testing.
+
+For distance-based similarity metrics (such as DTW and Fréchet), smaller values
+indicate greater similarity between trajectories. Accordingly, pairwise \emph{p}-values
+are computed using a lower-tail Monte Carlo test with the (+1) correction
+(Phipson & Smyth, 2010):
+\deqn{p = (1 + \#\{D_{sim} \le D_{obs}\}) / (nsim + 1)}
+This tests whether the observed trajectories are at least as similar as expected
+under the null model of random movement.
+
+For intersection metrics, the direction of the test depends on the alternative
+hypothesis specified by \code{H1}. When \code{H1 = "Lower"}, the test evaluates
+whether the observed number of intersections is significantly lower than expected
+under random simulations (e.g., coordinated or gregarious movement). When
+\code{H1 = "Higher"}, the test evaluates whether the observed number of intersections
+is significantly higher than expected (e.g., chasing or predatory interactions).
+
+Combined pairwise \emph{p}-values are obtained by jointly evaluating all metrics across
+simulations, identifying those simulation replicates in which all metrics are
+simultaneously as extreme as the observed values, given their respective directions.
+A Monte Carlo test with the (+1) correction is used, and the resulting pairwise
+\emph{p}-values are adjusted for multiple comparisons using the Benjamini–Hochberg (BH)
+procedure.
+
+In addition, a global combined \emph{p}-value is computed based on a single global
+statistic summarizing all pairwise comparisons, providing an overall assessment
+of whether the observed set of trajectories departs from random expectations
+across all metrics considered.
 }
 \section{Logo}{
 
@@ -45,7 +73,7 @@ DTW1 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "No
 Frechet1 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1,
   origin.permutation = "None")
-combined_prob(PaluxyRiver, metrics = list(DTW1, Frechet1, int1))
+combined_prob(PaluxyRiver, metrics = list(DTW1, Frechet1, int1), H1 = "Lower")
 
 # Example 2: "Constrained" model and similarity metrics.
 s2 <- simulate_track(PaluxyRiver, nsim = 3, model = "Constrained")
@@ -55,7 +83,7 @@ Frechet2 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2,
   superposition = "None")
 int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2,
   origin.permutation = "Min.Box")
-combined_prob(PaluxyRiver, metrics = list(DTW2, Frechet2, int2))
+combined_prob(PaluxyRiver, metrics = list(DTW2, Frechet2, int2), H1 = "Lower")
 
 # Example 3: "Unconstrained" model and similarity metrics.
 s3 <- simulate_track(PaluxyRiver, nsim = 3, model = "Unconstrained")
@@ -65,7 +93,7 @@ Frechet3 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3,
   superposition = "None")
 int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3,
   origin.permutation = "Conv.Hull")
-combined_prob(PaluxyRiver, metrics = list(DTW3, Frechet3, int3))
+combined_prob(PaluxyRiver, metrics = list(DTW3, Frechet3, int3), H1 = "Lower")
 
 }
 \seealso{

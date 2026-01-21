@@ -84,8 +84,8 @@
 #'   \item{\code{Mean_turning_angle}}{The mean of the turning angles (in degrees).}
 #'   \item{\code{Standard_deviation_turning_angle}}{The standard deviation of the turning angles (in degrees).}
 #'
-#'   \item{\code{Distance}}{The total distance covered by the track (in meters).}
-#'   \item{\code{Length}}{The length of the track  (in meters).}
+#'   \item{\code{Path_length}}{Total path length (in meters), computed as the sum of distances between consecutive trajectory points.}
+#'   \item{\code{Beeline_length}}{Straight-line distance (in meters) between the first and last points of the trajectory.}
 #'
 #'   \item{\code{Step_lengths}}{A vector of step lengths for the track  (in meters).}
 #'   \item{\code{Mean_step_length}}{The mean of the step lengths  (in meters).}
@@ -305,8 +305,8 @@ track_param <- function(data, gauge_size = NA) {
     Standard_deviation_turning_angle <- as.numeric(sd(ang_circ)) * (180 / pi)
 
     # Distance/length/steps/sinuosity/straightness
-    Distance <- TrajDistance(trajectories[[i]])
-    Length <- TrajLength(trajectories[[i]])
+    Beeline_length <- TrajDistance(trajectories[[i]])
+    Path_length <- TrajLength(trajectories[[i]])
     Step_lengths <- TrajStepLengths(trajectories[[i]])
     Mean_step_length <- mean(Step_lengths)
     Standard_deviation_step_length <- sd(Step_lengths)
@@ -349,8 +349,8 @@ track_param <- function(data, gauge_size = NA) {
       Mean_turning_angle = Mean_turning_angle,
       Standard_deviation_turning_angle = Standard_deviation_turning_angle,
 
-      Distance = Distance,
-      Length = Length,
+      Beeline_length = Beeline_length,
+      Path_length = Path_length,
 
       Step_lengths = Step_lengths,
       Mean_step_length = Mean_step_length,

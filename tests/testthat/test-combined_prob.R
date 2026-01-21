@@ -34,7 +34,7 @@ test_that("combined_prob() correctly computes combined probabilities", {
   DTW1 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
   Frechet1 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
   int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1, origin.permutation = "None")
-  result1 <- combined_prob(PaluxyRiver, metrics = list(DTW1, Frechet1, int1))
+  result1 <- combined_prob(PaluxyRiver, metrics = list(DTW1, Frechet1, int1), H1 = "Lower")
 
   expect_true(is.list(result1))
   expect_named(result1, c("P_values", "P_values_BH", "P_values_global"))
@@ -48,7 +48,7 @@ test_that("combined_prob() correctly computes combined probabilities", {
   DTW2 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
   Frechet2 <- simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "None")
   int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2, origin.permutation = "Min.Box")
-  result2 <- combined_prob(PaluxyRiver, metrics = list(DTW2, Frechet2, int2))
+  result2 <- combined_prob(PaluxyRiver, metrics = list(DTW2, Frechet2, int2), H1 = "Lower")
 
   expect_true(is.list(result2))
   expect_named(result2, c("P_values", "P_values_BH", "P_values_global"))
@@ -61,7 +61,7 @@ test_that("combined_prob() correctly computes combined probabilities", {
   DTW3 <- simil_DTW_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None")
   Frechet3 <- suppressWarnings(simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "None"))
   int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3, origin.permutation = "Conv.Hull")
-  result3 <- combined_prob(PaluxyRiver, metrics = list(DTW3, Frechet3, int3))
+  result3 <- combined_prob(PaluxyRiver, metrics = list(DTW3, Frechet3, int3), H1 = "Lower")
 
   expect_true(is.list(result3))
   expect_named(result3, c("P_values", "P_values_BH", "P_values_global"))

@@ -77,7 +77,7 @@ test_that("cluster_track works correctly with MountTom and PaluxyRiver", {
   result5 <- cluster_track(
     PaluxyRiver,
     veltrack_PaluxyRiver,
-    variables = c("Distance", "Straightness")
+    variables = c("PathLen", "Straightness")
   )
   expect_true(is.data.frame(result5$matrix))
   expect_class_labels(result5$clust$classification, nrow(result5$matrix))
@@ -85,7 +85,7 @@ test_that("cluster_track works correctly with MountTom and PaluxyRiver", {
   result6 <- cluster_track(
     PaluxyRiver,
     veltrack_PaluxyRiver,
-    variables = c("Length", "sdVelocity")
+    variables = c("BeelineLen", "sdVelocity")
   )
   expect_class_labels(result6$clust$classification, nrow(result6$matrix))
 
@@ -102,4 +102,25 @@ test_that("cluster_track works correctly with MountTom and PaluxyRiver", {
     variables = c("Sinuosity")
   )
   expect_class_labels(result8$clust$classification, nrow(result8$matrix))
+
+  ## ---------------------------
+  ## Gauge requirement (new)
+  ## ---------------------------
+  expect_error(
+    cluster_track(
+      PaluxyRiver,
+      veltrack_PaluxyRiver,
+      variables = c("Gauge", "PathLen")
+    ),
+    "gauge_size"
+  )
+
+  ## With gauge_size provided
+  result9 <- suppressWarnings(cluster_track(
+    PaluxyRiver,
+    veltrack_PaluxyRiver,
+    variables = c("Gauge", "TrackWidth"),
+    gauge_size = 1
+  ))
+  expect_class_labels(result9$clust$classification, nrow(result9$matrix))
 })

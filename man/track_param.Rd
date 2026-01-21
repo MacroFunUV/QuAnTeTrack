@@ -24,8 +24,8 @@ The parameters included are:
 \item{\code{Mean_turning_angle}}{The mean of the turning angles (in degrees).}
 \item{\code{Standard_deviation_turning_angle}}{The standard deviation of the turning angles (in degrees).}
 
-\item{\code{Distance}}{The total distance covered by the track (in meters).}
-\item{\code{Length}}{The length of the track  (in meters).}
+\item{\code{Path_length}}{Total path length (in meters), computed as the sum of distances between consecutive trajectory points.}
+\item{\code{Beeline_length}}{Straight-line distance (in meters) between the first and last points of the trajectory.}
 
 \item{\code{Step_lengths}}{A vector of step lengths for the track  (in meters).}
 \item{\code{Mean_step_length}}{The mean of the step lengths  (in meters).}

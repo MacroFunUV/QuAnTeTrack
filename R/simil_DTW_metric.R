@@ -75,7 +75,7 @@
 #' (Benjamini & Hochberg, 1995).}
 #'
 #' \item{DTW_metric_p_values_combined}{(If \code{test = TRUE}) A single numeric value representing
-#' the combined *p*-value across all DTW distances (based on the global statistic: the sum of pairwise distances).
+#' the combined *p*-value across all DTW distances (based on a global dominance criterion, evaluating in how many simulations the observed distances are smaller than the simulated ones across all trajectory pairs simultaneously).
 #' This indicates the overall significance of the observed DTW distances relative to simulations.}
 #'
 #' \item{DTW_distance_metric_simulations}{(If \code{test = TRUE}) A list containing matrices of DTW distances
@@ -145,20 +145,27 @@ simil_DTW_metric <- function(data, test = FALSE, sim = NULL, superposition = "No
   if (is.null(test)) test <- FALSE
   if (is.null(superposition)) superposition <- "None"
 
+  # data structure checks
   if (!is.list(data) || length(data) < 2) {
     stop("The 'data' argument must be a 'track' R object, which is a list consisting of two elements.")
   }
   if (!is.list(data[[1]]) || !is.list(data[[2]])) {
     stop("The two elements of 'data' must be lists.")
   }
-  if (!is.logical(test)) stop("'test' argument should be TRUE or FALSE.")
-  if (test && is.null(sim)) stop("A 'sim' argument must be provided when 'test' is TRUE.")
+  if (!is.logical(test)) {
+    stop("'test' argument should be TRUE or FALSE.")
+  }
+  if (test && is.null(sim)) {
+    stop("A 'sim' argument must be provided when 'test' is TRUE.")
+  }
 
+  # superposition option checks
   valid_superpositions <- c("None","Centroid","Origin")
   if (!superposition %in% valid_superpositions) {
     stop("Invalid 'superposition' argument. One of 'None', 'Centroid', or 'Origin' must be chosen.")
   }
 
+  # simulation structure checks
   if (!is.null(sim)) {
     if (!is.list(sim)) stop("The 'sim' argument must be a list.")
     if (length(sim[[1]]) != length(data[[1]])) {
@@ -172,36 +179,38 @@ simil_DTW_metric <- function(data, test = FALSE, sim = NULL, superposition = "No
   ## ---- Global per-trajectory superposition ----
   if (superposition == "Centroid") {
     for (i in seq_along(trks)) {
-      trks[[i]][,1] <- trks[[i]][,1] - mean(trks[[i]][,1], na.rm = TRUE)
-      trks[[i]][,2] <- trks[[i]][,2] - mean(trks[[i]][,2], na.rm = TRUE)
+      trks[[i]][, 1] <- trks[[i]][, 1] - mean(trks[[i]][, 1], na.rm = TRUE)
+      trks[[i]][, 2] <- trks[[i]][, 2] - mean(trks[[i]][, 2], na.rm = TRUE)
     }
   } else if (superposition == "Origin") {
     for (i in seq_along(trks)) {
-      trks[[i]][,1] <- trks[[i]][,1] - trks[[i]][1,1]
-      trks[[i]][,2] <- trks[[i]][,2] - trks[[i]][1,2]
+      trks[[i]][, 1] <- trks[[i]][, 1] - trks[[i]][1, 1]
+      trks[[i]][, 2] <- trks[[i]][, 2] - trks[[i]][1, 2]
     }
   }
+  # "None": no translation
 
-  ## ---- Output matrix ----
+  ## ---- Output matrix scaffold ----
   Matrixsim <- data.frame(matrix(nrow = length(trks), ncol = length(trks)))
   colnames(Matrixsim) <- names(trks)
   rownames(Matrixsim) <- names(trks)
-  DTW <- Matrixsim
+  DTW_metric <- Matrixsim  # avoid masking the function name
 
-  ## ---- Observed pairwise DTW ----
+  ## ---- Observed pairwise Fréchet ----
   for (c in seq_along(trks)) {
     for (r in seq_along(trks)) {
       if (c <= r) next
-      val <- dtw::dtw(
-        as.matrix(trks[[r]][,1:2, drop = FALSE]),
-        as.matrix(trks[[c]][,1:2, drop = FALSE]),
-        distance.only = TRUE
-      )$distance
-      DTW[r, c] <- val
-      DTW[c, r] <- val  # make symmetric (minimal change)
+      val <- suppressWarnings(
+        SimilarityMeasures::DTW(
+          as.matrix(trks[[r]][, 1:2, drop = FALSE]),
+          as.matrix(trks[[c]][, 1:2, drop = FALSE])
+        )
+      )
+      DTW_metric[r, c] <- val
+      DTW_metric[c, r] <- val  # make symmetric (minimal change)
     }
   }
-  diag(DTW) <- NA  # explicit NA diagonal (minimal change)
+  diag(DTW_metric) <- NA  # explicit NA diagonal (minimal change)
 
   if (test) {
     ## ---- Apply global superposition to simulations ----
@@ -209,11 +218,11 @@ simil_DTW_metric <- function(data, test = FALSE, sim = NULL, superposition = "No
       for (i in seq_along(sim)) {
         for (j in seq_along(sim[[i]])) {
           if (superposition == "Centroid") {
-            sim[[i]][[j]][,1] <- sim[[i]][[j]][,1] - mean(sim[[i]][[j]][,1], na.rm = TRUE)
-            sim[[i]][[j]][,2] <- sim[[i]][[j]][,2] - mean(sim[[i]][[j]][,2], na.rm = TRUE)
-          } else {
-            sim[[i]][[j]][,1] <- sim[[i]][[j]][,1] - sim[[i]][[j]][1,1]
-            sim[[i]][[j]][,2] <- sim[[i]][[j]][,2] - sim[[i]][[j]][1,2]
+            sim[[i]][[j]][, 1] <- sim[[i]][[j]][, 1] - mean(sim[[i]][[j]][, 1], na.rm = TRUE)
+            sim[[i]][[j]][, 2] <- sim[[i]][[j]][, 2] - mean(sim[[i]][[j]][, 2], na.rm = TRUE)
+          } else { # "Origin"
+            sim[[i]][[j]][, 1] <- sim[[i]][[j]][, 1] - sim[[i]][[j]][1, 1]
+            sim[[i]][[j]][, 2] <- sim[[i]][[j]][, 2] - sim[[i]][[j]][1, 2]
           }
         }
       }
@@ -226,11 +235,14 @@ simil_DTW_metric <- function(data, test = FALSE, sim = NULL, superposition = "No
 
     ## ---- Simulated metrics ----
     nsim <- length(sim)
-    DTWsim <- Matrixsim
     listDTW <- vector("list", nsim)
     listnegDTW <- logical(nsim)
 
     for (i in seq_len(nsim)) {
+
+      ## CHANGE: reset DTW_sim each iteration (robustness)
+      DTW_sim <- Matrixsim
+
       sim[[i]]$Trajectory <- as.factor(sim[[i]]$Trajectory)
       levs <- levels(sim[[i]]$Trajectory)
 
@@ -239,22 +251,26 @@ simil_DTW_metric <- function(data, test = FALSE, sim = NULL, superposition = "No
           if (c <= r) next
           A <- sim[[i]][sim[[i]]$Trajectory == levs[r], 1:2, drop = FALSE]
           B <- sim[[i]][sim[[i]]$Trajectory == levs[c], 1:2, drop = FALSE]
-          DTWsim[r, c] <- suppressWarnings(
-            dtw::dtw(as.matrix(A), as.matrix(B), distance.only = TRUE)$distance
+          DTW_sim[r, c] <- suppressWarnings(
+            SimilarityMeasures::DTW(as.matrix(A), as.matrix(B))
           )
+
+          ## (optional but consistent): make simulated matrix symmetric
+          DTW_sim[c, r] <- DTW_sim[r, c]
         }
       }
+      diag(DTW_sim) <- NA
 
-      listDTW[[i]] <- DTWsim
-      diff_vec <- c(as.matrix(DTW - DTWsim))
+      listDTW[[i]] <- DTW_sim
+      diff_vec <- c(as.matrix(DTW_metric - DTW_sim))
       diff_vec <- diff_vec[!is.na(diff_vec)]
       listnegDTW[i] <- if (length(diff_vec)) all(schoolmath::is.real.positive(diff_vec)) else FALSE
 
-      ## ---- Progress messages ----
+      ## ---- Progress messages (console) ----
       message(paste(Sys.time(), paste("Iteration", i)))
       message(" ")
       message("DTW metric")
-      print(DTWsim)
+      print(DTW_sim)
       message("------------------------------------")
       if (i == nsim) {
         message("ANALYSIS COMPLETED")
@@ -263,45 +279,46 @@ simil_DTW_metric <- function(data, test = FALSE, sim = NULL, superposition = "No
       }
     }
 
-    ## ---- p-values (with +1 correction) ----
-    DTWsim_pval <- Matrixsim
+    ## ---- p-values (+1 correction to avoid zeros) ----
+    DTW_pval <- Matrixsim
     for (c in seq_along(trks)) {
       for (r in seq_along(trks)) {
         if (c <= r) next
         vec <- numeric(nsim)
-        for (i in seq_len(nsim)) vec[i] <- listDTW[[i]][r, c]
-        # Monte Carlo lower-tail with (+1) correction (minimal change)
-        DTWsim_pval[r, c] <- (1 + sum(vec <= DTW[r, c], na.rm = TRUE)) / (nsim + 1)
+        for (i in seq_len(nsim)) vec[i] <- as.matrix(listDTW[[i]])[r, c]
+        p_rc <- (1 + sum(vec <= DTW_metric[r, c], na.rm = TRUE)) / (nsim + 1)
+        DTW_pval[r, c] <- p_rc
+        DTW_pval[c, r] <- p_rc
       }
     }
-    diag(DTWsim_pval) <- NA  # NA diagonal for p-values (consistency)
+    diag(DTW_pval) <- NA
 
-    # Combined (kept as in original logic)
+    # Combined p-value kept as original logic (no change requested)
     DTW_together_pval <- sum(listnegDTW) / nsim
 
-    ## ---- BH correction (minimal, robust to data.frame) ----
-    tmp <- as.matrix(DTWsim_pval)
+    ## ---- Benjamini–Hochberg (BH) correction ----
+    tmp <- as.matrix(DTW_pval)
     vals <- as.vector(tmp)
     keep <- !is.na(vals)
     vals_adj <- vals
     vals_adj[keep] <- p.adjust(vals[keep], method = "BH")
-    DTWsim_pval_BH <- as.data.frame(matrix(vals_adj,
-                                           nrow = nrow(tmp),
-                                           ncol = ncol(tmp),
-                                           byrow = FALSE))
-    colnames(DTWsim_pval_BH) <- colnames(DTWsim_pval)
-    rownames(DTWsim_pval_BH) <- rownames(DTWsim_pval)
-    diag(DTWsim_pval_BH) <- NA
+    DTW_pval_BH <- as.data.frame(matrix(vals_adj,
+                                            nrow = nrow(tmp),
+                                            ncol = ncol(tmp),
+                                            byrow = FALSE))
+    colnames(DTW_pval_BH) <- colnames(DTW_pval)
+    rownames(DTW_pval_BH) <- rownames(DTW_pval)
+    diag(DTW_pval_BH) <- NA
 
     return(list(
-      DTW_distance_metric = DTW,
-      DTW_distance_metric_p_values = DTWsim_pval,
-      DTW_distance_metric_p_values_BH = DTWsim_pval_BH,
+      DTW_distance_metric = DTW_metric,
+      DTW_distance_metric_p_values = DTW_pval,
+      DTW_distance_metric_p_values_BH = DTW_pval_BH,
       DTW_metric_p_values_combined = DTW_together_pval,
       DTW_distance_metric_simulations = listDTW
     ))
   }
 
   ## ---- Return ----
-  list(DTW_distance_metric = DTW)
+  list(DTW_distance_metric = DTW_metric)
 }

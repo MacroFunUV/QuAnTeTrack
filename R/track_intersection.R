@@ -156,105 +156,72 @@
 #'
 #' @export
 
-
-track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.permutation = NULL, custom.coord = NULL) {
+track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL,
+                               origin.permutation = NULL, custom.coord = NULL) {
 
   ## Set default values if arguments are NULL----
-  if (is.null(test)) test <- FALSE # Set default if 'test' is NULL
-  if (is.null(origin.permutation)) origin.permutation <- "None" # Set default if 'origin.permutation' is NULL
+  if (is.null(test)) test <- FALSE
+  if (is.null(origin.permutation)) origin.permutation <- "None"
 
   ## Errors and Warnings----
-
-  # Check if 'data' is a list with at least two elements
   if (!is.list(data) || length(data) < 2) {
     stop("The 'data' argument must be a 'track' R object, which is a list consisting of two elements.")
   }
-
-  # Check if the two elements of 'data' are lists
   if (!is.list(data[[1]]) || !is.list(data[[2]])) {
     stop("The two elements of 'data' must be lists.")
   }
-
-  # Warn if the 'test' argument is not a boolean
   if (!is.logical(test)) {
     stop("'test' argument should be TRUE or FALSE.")
   }
-
-  # Check if 'sim' is provided when test is TRUE
   if (test == TRUE && is.null(sim)) {
     stop("A 'sim' argument must be provided when 'test' is TRUE.")
   }
-
-  # Check if 'H1' argument is provided when 'test = TRUE'
   if (test == TRUE && is.null(H1)) {
     stop("'H1' argument must be specified when 'test' is TRUE. Choose either 'Lower' or 'Higher'.")
   }
-
-  # Check if 'H1' argument is one of the valid options
   if (!is.null(H1) && !H1 %in% c("Lower", "Higher")) {
     stop("Invalid 'H1' argument. Valid options are 'Lower' or 'Higher'.")
   }
-
-  # If 'sim' is provided, ensure it is a list and has the same structure as 'data'
   if (!is.null(sim)) {
     if (!is.list(sim)) {
       stop("The 'sim' argument must be a list.")
     }
-
-    # Check that 'sim' contains the same number of tracks as 'data'
     if (length(sim[[1]]) != length(data[[1]])) {
       stop("The 'sim' list must have the same number of trajectories as 'data'.")
     }
   }
-
-  # Check if 'origin.permutation' is valid
   valid_permutations <- c("None", "Min.Box", "Conv.Hull", "Custom")
   if (!origin.permutation %in% valid_permutations) {
     stop(paste("Invalid 'origin.permutation'. Valid options are:", paste(valid_permutations, collapse = ", ")))
   }
-
-  # If 'origin.permutation' is "Custom", check if 'custom.coord' is provided
   if (origin.permutation == "Custom" && is.null(custom.coord)) {
     stop("If 'origin.permutation' is set to 'Custom', the 'custom.coord' must be provided.")
   }
-
-  # Check if 'custom.coord' is a matrix or a data frame with two columns
   if (!is.null(custom.coord) && !is.matrix(custom.coord) && !is.data.frame(custom.coord)) {
     stop("The 'custom.coord' must be a matrix or a data frame.")
   }
-
   if (!is.null(custom.coord) && ncol(as.matrix(custom.coord)) != 2) {
     stop("The 'custom.coord' must have exactly two columns.")
   }
 
-
   ## Code----
   data <- data[[1]]
 
-  # Function to determine if two line segments intersect
+  # digits to round intersection points before "unique" (robust to floating point)
+  round_digits <- 6
+
   find_intersection <- function(p1, p2, p3, p4) {
-    x1 <- p1[1]
-    y1 <- p1[2]
-    x2 <- p2[1]
-    y2 <- p2[2]
-    x3 <- p3[1]
-    y3 <- p3[2]
-    x4 <- p4[1]
-    y4 <- p4[2]
+    x1 <- p1[1]; y1 <- p1[2]
+    x2 <- p2[1]; y2 <- p2[2]
+    x3 <- p3[1]; y3 <- p3[2]
+    x4 <- p4[1]; y4 <- p4[2]
 
-    # Compute determinants
     denom <- (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+    if (denom == 0) return(c(NA, NA))
 
-    # Check if the lines are parallel
-    if (denom == 0) {
-      return(c(NA, NA)) # Lines are parallel or coincident
-    }
-
-    # Compute intersection point
     intersect_x <- ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / denom
     intersect_y <- ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / denom
 
-    # Check if the intersection point is within both line segments
     if (min(x1, x2) <= intersect_x && intersect_x <= max(x1, x2) &&
         min(y1, y2) <= intersect_y && intersect_y <= max(y1, y2) &&
         min(x3, x4) <= intersect_x && intersect_x <= max(x3, x4) &&
@@ -265,7 +232,6 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
     }
   }
 
-  # Function to count unique intersections between two trajectories
   intersect <- function(traj1, traj2) {
     intersections <- list()
 
@@ -275,25 +241,18 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
           c(traj1$x[i], traj1$y[i]), c(traj1$x[i + 1], traj1$y[i + 1]),
           c(traj2$x[j], traj2$y[j]), c(traj2$x[j + 1], traj2$y[j + 1])
         )
-
-        if (!is.na(int[1])) {
-          intersections[[length(intersections) + 1]] <- int
-        }
+        if (!is.na(int[1])) intersections[[length(intersections) + 1]] <- int
       }
     }
 
-    # Remove duplicate intersections
     if (length(intersections) == 0) return(0)
-    unique_intersections <- unique(do.call(rbind, intersections))
 
-    # Return the number of unique intersections
-    if (is.null(unique_intersections)) {
-      return(0)
-    } else {
-      return(nrow(unique_intersections))
-    }
+    pts <- do.call(rbind, intersections)
+    pts <- round(pts, round_digits)              # robust uniqueness
+    unique_intersections <- unique(pts)
+
+    if (is.null(unique_intersections)) 0 else nrow(unique_intersections)
   }
-
 
   # Calculate actual intersection metrics
   Matrixsim <- data.frame(matrix(nrow = length(data), ncol = length(data)))
@@ -306,23 +265,21 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
       if (i <= j) next
       val <- intersect(data[[i]], data[[j]])
       Intersect[j, i] <- val
-      Intersect[i, j] <- val  # make symmetric (minimal change)
+      Intersect[i, j] <- val
     }
   }
-  diag(Intersect) <- NA       # explicit NA diagonal (minimal change)
-
+  diag(Intersect) <- NA
 
   # Calculate simulation intersection metrics
-  # Permutation of coordinates at origin
   if (test == TRUE) {
     nsim <- length(sim)
 
+    # Permutation of coordinates at origin
     if (origin.permutation != "None") {
       mat <- matrix(ncol = 2, nrow = length(data))
-
       for (i in 1:length(data)) {
-        mat[, 1][i] <- data[[i]]$x[1]
-        mat[, 2][i] <- data[[i]]$y[1]
+        mat[i, 1] <- data[[i]]$x[1]
+        mat[i, 2] <- data[[i]]$y[1]
       }
 
       if (length(data) == 2) {
@@ -330,21 +287,17 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
       }
 
       if (origin.permutation == "Min.Box") {
-        mat <- getMinBBox(mat)
-        mat <- mat$pts
-      }
-
-      if (origin.permutation == "Conv.Hull") {
+        mat <- getMinBBox(mat)$pts
+      } else if (origin.permutation == "Conv.Hull") {
         mat <- mat[chull(mat), ]
+      } else if (origin.permutation == "Custom") {
+        mat <- as.matrix(custom.coord)
       }
 
-      if (origin.permutation == "Custom") {
-        mat <- custom.coord
-      }
-
-      for (i in 1:length(sim)) {
+      for (i in 1:nsim) {
         for (j in 1:length(sim[[1]])) {
-          sim[[i]][[j]] <- TrajTranslate(sim[[i]][[j]], csr(mat, 1)[1], csr(mat, 1)[2])
+          p <- csr(mat, 1)  # FIX: one call -> consistent (x,y)
+          sim[[i]][[j]] <- TrajTranslate(sim[[i]][[j]], p[1], p[2])
         }
 
         message(paste(Sys.time(), paste("Permutation", i)))
@@ -360,23 +313,21 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
     }
 
     # Calculate metrics
-    Intersectsim <- Matrixsim
-
-    listIntersect <- list()
-    listdiffIntersect <- c()
+    listIntersect <- vector("list", nsim)
 
     for (i in 1:nsim) {
+      Intersectsim <- Matrixsim  # FIX: reset each iteration
+
       for (c in 1:length(data)) {
         for (r in 1:length(data)) {
           if (c <= r) next
           Intersectsim[r, c] <- intersect(sim[[i]][[r]], sim[[i]][[c]])
+          Intersectsim[c, r] <- Intersectsim[r, c]  # keep symmetric
         }
       }
-      listIntersect[[i]] <- Intersectsim
+      diag(Intersectsim) <- NA
 
-      diffinter <- c(as.matrix(Intersect - listIntersect[[i]]))
-      diffinter <- diffinter[!is.na(diffinter)]
-      listdiffIntersect[i] <- sum(diffinter)
+      listIntersect[[i]] <- Intersectsim
 
       message(paste(Sys.time(), paste("Iteration", i)))
       message(" ")
@@ -390,46 +341,45 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
       }
     }
 
-    # Calculate p-values
+    # Pairwise p-values with (+1) correction (and symmetric output)
+    Intersectsim_pval <- Matrixsim
+    for (c in 1:length(data)) {
+      for (r in 1:length(data)) {
+        if (c <= r) next
+
+        v <- numeric(nsim)
+        for (i in 1:nsim) v[i] <- as.matrix(listIntersect[[i]])[r, c]
+
+        obs_rc <- Intersect[r, c]
+
+        if (H1 == "Lower") {
+          p_rc <- (1 + sum(v <= obs_rc)) / (nsim + 1)
+        } else { # "Higher"
+          p_rc <- (1 + sum(v >= obs_rc)) / (nsim + 1)
+        }
+
+        Intersectsim_pval[r, c] <- p_rc
+        Intersectsim_pval[c, r] <- p_rc
+      }
+    }
+    diag(Intersectsim_pval) <- NA
+
+    # Global combined p-value (sum of unique pairwise intersections)
+    T_obs <- sum(as.matrix(Intersect)[lower.tri(as.matrix(Intersect), diag = FALSE)], na.rm = TRUE)
+
+    T_sim <- numeric(nsim)
+    for (i in 1:nsim) {
+      M <- as.matrix(listIntersect[[i]])
+      T_sim[i] <- sum(M[lower.tri(M, diag = FALSE)], na.rm = TRUE)
+    }
+
     if (H1 == "Lower") {
-      Intersectsim_pval <- Matrixsim
-
-      vector <- c()
-      for (c in 1:length(data)) {
-        for (r in 1:length(data)) {
-          if (c <= r) next
-          for (i in 1:nsim) {
-            vector[i] <- listIntersect[[i]][r, c]
-          }
-          Intersectsim_pval[r, c] <- length(which(vector <= Intersect[r, c])) / nsim
-        }
-      }
-
-      vector <- c()
-
-      Intersect_together_pval <- 1 - length(which(listdiffIntersect > 0)) / nsim
+      Intersect_together_pval <- (1 + sum(T_sim <= T_obs)) / (nsim + 1)
+    } else { # "Higher"
+      Intersect_together_pval <- (1 + sum(T_sim >= T_obs)) / (nsim + 1)
     }
 
-    if (H1 == "Higher") {
-      Intersectsim_pval <- Matrixsim
-
-      vector <- c()
-      for (c in 1:length(data)) {
-        for (r in 1:length(data)) {
-          if (c <= r) next
-          for (i in 1:nsim) {
-            vector[i] <- listIntersect[[i]][r, c]
-          }
-          Intersectsim_pval[r, c] <- length(which(vector >= Intersect[r, c])) / nsim
-        }
-      }
-
-      vector <- c()
-
-      Intersect_together_pval <- 1 - length(which(listdiffIntersect < 0)) / nsim
-    }
-
-    ## BH correction (minimal, robust to data.frame) --------------------------
+    # BH correction
     tmp <- as.matrix(Intersectsim_pval)
     vals <- as.vector(tmp)
     keep <- !is.na(vals)
@@ -441,24 +391,22 @@ track_intersection <- function(data, test = NULL, H1 = NULL, sim = NULL, origin.
                                                  byrow = FALSE))
     colnames(Intersectsim_pval_BH) <- colnames(Intersectsim_pval)
     rownames(Intersectsim_pval_BH) <- rownames(Intersectsim_pval)
-    ## ------------------------------------------------------------------------
-  }
+    diag(Intersectsim_pval_BH) <- NA
 
+    out <- list()
+    out[[1]] <- Intersect
+    out[[2]] <- Intersectsim_pval
+    out[[3]] <- Intersectsim_pval_BH
+    out[[4]] <- Intersect_together_pval
+    out[[5]] <- listIntersect
 
-  if (test == TRUE) {
-    list <- list()
-    list[[1]] <- Intersect
-    list[[2]] <- Intersectsim_pval
-    list[[3]] <- Intersectsim_pval_BH
-    list[[4]] <- Intersect_together_pval
-    list[[5]] <- listIntersect
+    names(out) <- c("Intersection_metric",
+                    "Intersection_metric_p_values",
+                    "Intersection_metric_p_values_BH",
+                    "Intersection_metric_p_values_combined",
+                    "Intersection_metric_simulations")
+    return(out)
 
-    names(list) <- c("Intersection_metric",
-                     "Intersection_metric_p_values",
-                     "Intersection_metric_p_values_BH",
-                     "Intersection_metric_p_values_combined",
-                     "Intersection_metric_simulations")
-    return(list)
   } else {
     return(Intersect)
   }

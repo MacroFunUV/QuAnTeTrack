@@ -5,10 +5,10 @@ test_that("track_param correctly computes parameters for PaluxyRiver dataset", {
   expect_true(is.list(result))
   expect_equal(length(result), length(PaluxyRiver[[1]]))
 
-  # Check that each track has expected parameter names (new function)
+  # Check that each track has expected parameter names (updated)
   expected_names <- c(
     "Turning_angles", "Mean_turning_angle", "Standard_deviation_turning_angle",
-    "Distance", "Length",
+    "Beeline_length", "Path_length",
     "Step_lengths", "Mean_step_length", "Standard_deviation_step_length",
     "Stride_length", "Mean_stride_length",
     "Pace_length", "Mean_pace_length",
@@ -29,10 +29,10 @@ test_that("track_param correctly computes parameters for MountTom dataset", {
   expect_true(is.list(result))
   expect_equal(length(result), length(MountTom[[1]]))
 
-  # Check expected parameter names (new function)
+  # Check expected parameter names (updated)
   expected_names <- c(
     "Turning_angles", "Mean_turning_angle", "Standard_deviation_turning_angle",
-    "Distance", "Length",
+    "Beeline_length", "Path_length",
     "Step_lengths", "Mean_step_length", "Standard_deviation_step_length",
     "Stride_length", "Mean_stride_length",
     "Pace_length", "Mean_pace_length",
@@ -54,8 +54,8 @@ test_that("track_param returns correct data types", {
     expect_true(is.numeric(track$Mean_turning_angle))
     expect_true(is.numeric(track$Standard_deviation_turning_angle))
 
-    expect_true(is.numeric(track$Distance))
-    expect_true(is.numeric(track$Length))
+    expect_true(is.numeric(track$Beeline_length))
+    expect_true(is.numeric(track$Path_length))
 
     expect_true(is.numeric(track$Step_lengths))
     expect_true(is.numeric(track$Mean_step_length))
@@ -113,7 +113,7 @@ test_that("track_param handles single-track data correctly", {
 
   expected_names <- c(
     "Turning_angles", "Mean_turning_angle", "Standard_deviation_turning_angle",
-    "Distance", "Length",
+    "Beeline_length", "Path_length",
     "Step_lengths", "Mean_step_length", "Standard_deviation_step_length",
     "Stride_length", "Mean_stride_length",
     "Pace_length", "Mean_pace_length",

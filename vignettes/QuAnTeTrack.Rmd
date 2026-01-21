@@ -80,7 +80,7 @@ if (Sys.getenv("RGL_USE_NULL") == "" && !interactive()) {
 
 ### **Installation**
 
-To install the **QuAnTeTrack** package, you can choose between installing the **stable version from CRAN** (recommended) or the **development version from GitHub**.
+To install the **QuAnTeTrack** package, we can choose between installing the **stable version from CRAN** (recommended) or the **development version from GitHub**.
 
 #### **From CRAN (recommended)**
 
@@ -92,19 +92,19 @@ install.packages("QuAnTeTrack")
 
 #### **From GitHub (development version)**
 
-If you want the latest development version, you will need to use the `devtools` package. If you haven't installed `devtools` yet, you can do so with the following command:
+If we want the latest development version, we will need to use the `devtools` package. If we haven't installed `devtools` yet, we can do so with the following command:
 
 ``` r
 install.packages("devtools")
 ```
 
-Once `devtools` is installed, you can install **QuAnTeTrack** using:
+Once `devtools` is installed, we can install **QuAnTeTrack** using:
 
 ``` r
 devtools::install_github("MacroFunUV/QuAnTeTrack")
 ```
 
-If you have already installed **QuAnTeTrack** and want to ensure you have the latest version, you can update it with:
+If we have already installed **QuAnTeTrack** and want to ensure we have the latest version, we can update it with:
 
 ``` r
 devtools::install_github("MacroFunUV/QuAnTeTrack", force = TRUE)
@@ -112,18 +112,18 @@ devtools::install_github("MacroFunUV/QuAnTeTrack", force = TRUE)
 
 ### **Loading the Package**
 
-Once installed, you can load the package using:
+Once installed, we can load the package using:
 
 ```{r setup}
 library(QuAnTeTrack)
 ```
 
-This command will make all the functions from **QuAnTeTrack** available for use. You are now ready to begin your trackway analysis!
+This command will make all the functions from **QuAnTeTrack** available for use. We are now ready to begin our trackway analysis!
 
 
 ## **Terminology**
 
-The terminology used throughout **QuAnTeTrack** follows standardized definitions for tetrapod track and trackway analysis. All anatomical, ichnological, and trackway-related terms adhere to the nomenclature and definitions proposed in the *Glossary of Tetrapod Tracks* published by *Lallensack et al. (2025)*.
+The terminology used throughout **QuAnTeTrack** follows standardized definitions for tetrapod footprint and trackway analysis. All anatomical, ichnological, and trackway-related terms adhere to the nomenclature and definitions proposed in the *Glossary of Tetrapod Tracks* published by *Lallensack et al. (2025)*.
 
 By adopting this reference framework, **QuAnTeTrack** ensures terminological consistency with current ichnological standards and facilitates comparability across studies. Users are encouraged to consult the glossary for detailed definitions.
 
@@ -136,35 +136,37 @@ The **QuAnTeTrack** package (**Qu**antitative **An**alysis of **Te**trapod **Tra
 
 #### **1.1 Data Digitization and Preprocessing**
 
-The first step involves **digitizing the trackway data** using the **TPS software suite**, particularly:
+The first step involves **digitizing the trackway** using the **TPS software suite**, particularly:
 
 -   **tpsUtil** (*Rohlf, 2008*): For compiling and converting `.TPS` files.\
 -   **tpsDig** (*Rohlf, 2009*): For digitizing footprint coordinates from trackways.
 
-The digitization process should ensure that the footprints are consistently recorded across all tracks. This process is essential for converting raw images into structured data for further analysis.
+The digitization process should ensure that the footprints are consistently recorded across all footprints. This process is essential for converting raw images into structured data for further analysis.
 
-#### **1.2 Loading Data with `tps_to_track()`**
+#### **1.2 Loading Data
 
 Once digitized, the data is loaded into **QuAnTeTrack** using the `tps_to_track()` function. This function:
 
--   Reads `.TPS` files containing digitized footprints within tracks.
--   Extracts and organizes data into structured `track` R objects.
+-   Reads `.TPS` files containing digitized footprints within trackways.
+-   Extracts and organizes data into structured `trackway` R objects.
 -   Handles missing footprints through interpolation if required.
 -   Converts raw data into real-world measurements using user-specified scales.
 
-The resulting **`track` R objects** contain:
+The resulting **`trackway` R objects** contain:
+-   **Trajectories:** A list of trajectories (trackway midlines interpolated by connecting the midpoints of successive left–right footprint pairs, i.e., footprints linked by pace lines). Includes columns X, Y, IMAGE, ID, and Side (set to "Medial"). \
+-   **Footprints:** A list of data frames containing footprint coordinates and metadata, with a Side column ("R" or "L") and a missing marker ("Actual" or "Inferred").
 
--   **Trajectories:** Interpolated pathways derived from midpoints between footprints.\
--   **Footprints:** Original digitized points and metadata for each track.
+If the dataset is extensive, users can utilize the **`subset_track()`** function to isolate specific trackways for focused analysis.
 
-If the dataset is extensive, users can utilize the **`subset_track()`** function to isolate specific tracks for focused analysis.
+#### **1.3 Visual Check and Quantification of Potential Sampling Biases**
 
-#### **1.3 Quantification of Potential Sampling Biases**
+Before downstream analyses, **QuAnTeTrack** provides dedicated tools visualize the digitized data and to quantify uncertainty arising from the human sampling process and anatomical fidelity.
 
-Before downstream analyses, **QuAnTeTrack** provides dedicated tools to quantify uncertainty arising from the human sampling process and anatomical ambiguity.
-
+-   **Visual Inspection of Trackways (`plot_track()`)**:\
+    Generates visualizations of trackways and footprints to inspect their overall structure.
+    
 -   **Observer-related uncertainty (`observer_error_partitioning()`)**:\
-    Partitions the variance of trackway parameters into components attributable to biological differences among tracks, inter-observer variability, and intra-observer (replicate) variability using replicated digitizations and mixed-effects models. This analysis allows users to assess reproducibility, identify robust parameters, and evaluate the reliability of measurements prior to hypothesis testing.
+    Partitions the variance of trackway parameters into components attributable to biological differences among trackways, inter-observer variability, and intra-observer (replicate) variability using replicated digitizations and mixed-effects models. This analysis allows users to assess reproducibility, identify robust parameters, and evaluate the reliability of measurements prior to hypothesis testing.
 
 -   **Anatomical uncertainty (`anatomical_error_partitioning()`)**:\
     Quantifies the sensitivity of trackway parameters to landmark placement uncertainty using Monte Carlo simulations. By perturbing footprint landmarks within user-defined spatial tolerances, this function estimates the relative contribution of anatomical or taphonomic uncertainty versus genuine biological signal.
@@ -173,21 +175,18 @@ Together, these tools enable an explicit audit of data quality and help determin
 
 ### **2. Descriptive and Kinematic Information**
 
-#### **2.1 Exploratory Analysis of Track Parameters**
+#### **2.1 Exploratory Analysis of Trackway Parameters**
 
-Before testing specific hypotheses, users should perform an initial exploration of the data. This includes:
-
--   **Visual Inspection of Tracks (`plot_track()`)**:\
-    Generates visualizations of trackways and footprints to inspect their overall structure.
+Before testing specific hypotheses, users should also perform an initial exploration of the data. This includes:
 
 -   **Parameter Calculation (`track_param()`)**:\
-    Calculates essential movement parameters, including step lengths, turning angles, total distance, track length, sinuosity, and straightness.
+    Calculates essential movement and trackway parameters, including turning angles; step, stride, and pace lengths; path and beeline lengths; sinuosity and straightness; and footprint-based metrics such as trackway width, gauge, pace angulation, and step angle.
 
 -   **Velocity Calculation (`velocity_track()`)**:\
-    Estimates velocities and relative stride lengths for each track based on empirical formulations.
+    Estimates velocities and relative stride lengths for each trackway based on empirical formulations.
 
 -   **Visualization of Velocity Patterns (`plot_velocity()`)**:\
-    Examines how velocity or relative stride length varies along each track.
+    Examines how velocity or relative stride length varies along each trackway.
 
 -   **Direction Analysis (`plot_direction()`)**:\
     Provides multiple visualization options (boxplots, polar histograms, faceted plots) to explore trackway directionality.
@@ -197,89 +196,219 @@ These tools allow users to identify general patterns, trends, and potential anom
 
 #### **2.2 Testing Directional and Velocity Patterns**
 
-To assess whether tracks exhibit distinct movement patterns, the following statistical tests can be applied:
+To assess whether trackways exhibit distinct estimated velocities and movement patterns (i.e., trackway orientation patterns), the following statistical tests can be applied:
 
 -   **Testing Velocity (`test_velocity()`)**:\
-    Compares mean velocities across tracks using ANOVA, Kruskal–Wallis, or GLM approaches.
+    Compares mean velocities across trackways using ANOVA, Kruskal–Wallis, or GLM approaches.
 
 -   **Movement Mode Analysis (`mode_velocity()`)**:\
-    Uses Spearman’s rank correlation to detect acceleration, deceleration, or steady movement along tracks.
+    Uses Spearman’s rank correlation to detect acceleration, deceleration, or steady movement along trackways.
 
 -   **Testing Direction (`test_direction()`)**:\
-    Compares mean directions across tracks using appropriate statistical models.
+    Compares mean directions across trackways using a suit of circular statistical tests.
     
-### **3. Testing (Palaeo)Ethological Hypotheses**
+### **3. Testing (Paleo)Ethological Hypotheses**
 
-QuAnTeTrack tests paleoecological and paleoethological hypotheses by comparing observed fossil trackways with null expectations generated from simulated, independent movement. Under coordinated or sequential movement (e.g., pursuit, queuing or herding), trajectories are expected to show higher covariation and characteristic intersection patterns than predicted by chance. QuAnTeTrack quantifies these patterns using trajectory similarity metrics and intersection analyses, and evaluates them against Monte Carlo–derived null distributions generated under movement scenarios with increasing environmental constraints. This framework allows researchers to distinguish genuine behavioral coordination from patterns imposed by environmental structure.
+QuAnTeTrack tests paleoecological and paleoethological hypotheses by comparing observed fossil trackways with null expectations generated from simulated, independent movement. Under coordinated or sequential movement (e.g., pursuit, queuing or herding), trajectories are expected to show higher covariation and characteristic intersection patterns than predicted by chance. QuAnTeTrack quantifies these patterns using trajectory similarity metrics and intersection analyses, and evaluates them against Monte Carlo–derived null distributions generated under movement scenarios with different degrees of environmental constraint. This framework allows researchers to distinguish genuine behavioral coordination from patterns imposed by environmental structure.
 
-#### **3.1 Simulation-Based Hypothesis Testing (`simulate_track()`)**
+#### **3.1 Simulation of Null (i.e., Independent) Movement Models (`simulate_track()`)**
 
-The `simulate_track()` function generates simulated trajectories under different models that represent **different levels of constraint on movement**, while assuming independence among trackmakers. These models define alternative null scenarios against which observed trackways are evaluated::
+The `simulate_track()` function generates simulated trajectories under different models that represent **different levels of constraint on movement**, while assuming independence among trackmakers. These models define alternative null scenarios against which observed trackways are evaluated (**Directed model**, **Constrained model**, and **Unconstrained model**). Simulations can be visually compared with empirical trackways using `plot_sim()`.
 
--   **Directed model**
--   **Constrained model**
--   **Unconstrained model**
+#### **3.2 Comparing Simulated and Empirical Trackways**
 
-Simulations can incorporate geological or environmental constraints and are visually compared with empirical tracks using `plot_sim()`.
-
-#### **3.2 Comparing Simulated and Empirical Tracks**
-
-Similarity and interaction among tracks are assessed using:
+Similarity and interactions among trackways are calculated using:
 
 -   **Dynamic Time Warping (`simil_DTW_metric()`)**
 -   **Fréchet distance (`simil_Frechet_metric()`)**
--   **Track intersections (`track_intersection()`)**
+-   **Trackway intersections (`track_intersection()`)**
 
-Observed values are evaluated against simulated expectations to infer coordinated or independent movement.
+Observed values are evaluated against distributions generated under simulated null models to estimate the statistical support for coordinated versus independent movement.
 
 #### **3.3 Combining Probability Metrics (`combined_prob()`)**
 
-The `combined_prob()` function integrates *p*-values from multiple metrics into a single global probability, providing a more robust assessment of trackway interactions.
+The `combined_prob()` function integrates *p*-values from multiple metrics (i.e., Dynamic Time Warping, Fréchet distance, and intersection counts) into a single global probability, providing a more robust statistical assessment of paleoethological hypotheses about trackmakers movement.
 
 #### **3.4 Clustering Analysis (`cluster_track()`)**
 
-The `cluster_track()` function groups tracks based on movement parameters and can be applied prior to formal testing to identify behavioral groupings and guide hypothesis-driven analyses.
+The `cluster_track()` function groups trackways based on movement parameters and can be applied prior to formal testing to identify behavioral groupings and guide hypothesis-driven analyses.
 
+
+Below is a **fully rewritten and expanded “Raw Data Format” section**, developed **in the same format and style as our original**, but with **all steps, assumptions, and implications made explicit**. Nothing is left implicit, and the workflow is fully tied together to avoid user confusion.
 
 ## **Raw Data Format**
 
-**QuAnTeTrack** accepts raw data in the form of **.TPS files** containing footprint coordinates. Each track should be recorded as a different image within the **.TPS file**.
+**QuAnTeTrack** accepts raw data in the form of **`.TPS` files** containing **2D footprint coordinates**, organized by **trackways**.
 
-### **Requirements**
+### **What is a TPS file in this context?**
 
--   **Footprint coordinates** should be digitized in **equivalent positions** within each footprint.\
--   **Tracks with missing footprints** are acceptable and will be **interpolated** as needed by the package functions.\
--   It is **recommended** to digitize the coordinates using the **TPS software suite**, particularly:
-    -   **tpsUtil** (*Rohlf, 2008*) - for file manipulation and data conversion.\
-    -   **tpsDig** (*Rohlf, 2009*) - for digitizing landmarks and outlines.
+A **TPS file** is a plain-text format widely used in geometric morphometrics to store landmark coordinates associated with images. In **QuAnTeTrack**, TPS files are used in a **trackway-centric way**, where:
 
-This vignette demonstrates how to **load, process, and analyze trackway data** using the **QuAnTeTrack** package. We will walk through the **Paluxy River** and the **Mount Tom** datasets, representing dinosaur tracks from the Paluxy River site (*Farlow et al., 2012*) and the Mount Tom site (*Ostrom, 1972*), respectively. Examples of `.tps` files of these datasets can be downloaded here:
+* **Each trackway is treated as one specimen**
+* **Each specimen consists of multiple landmarks**
+* **Each landmark corresponds to one footprint reference point**
+* Landmark order reflects the **temporal sequence of footprint formation**, from earliest to latest along the trackway
+
+### **General Requirements**
+
+* **Footprint coordinates must be digitized using equivalent reference points** within each footprint (see *Landmarking tips* below).
+* **Trackways with missing footprints are acceptable**. Missing footprints may be:
+
+  * Truly absent (not preserved), or
+  * Present but lacking sufficient anatomical fidelity to identify the chosen reference point
+    These will be **interpolated**, if specified, by the function `tps_to_track()`.
+* All digitization should be performed using the **TPS software suite**, specifically:
+
+  * **tpsUtil** (Rohlf, 2008) — for file creation, image handling, and TPS file management.
+  * **tpsDig** (Rohlf, 2009) — for interactive digitization of landmarks.
+
+### **Shared map / orthophoto concept and digitization workflow**
+
+#### **Definition: shared map or orthophoto**
+
+A **shared map or orthophoto of the tracksite surface** is a **single, fixed background image** representing the **entire footprint-bearing surface**, used as the **common spatial reference** for *all* digitized trackways from a site.
+
+This image may be:
+
+* A **true orthophoto** generated via photogrammetry or laser scanning (preferred), or
+* A **scaled site map or plan-view raster** (acceptable if spatially accurate)
+
+The essential requirement is that **all trackways are digitized in the same coordinate system**, derived from this single image.
+
+#### **Explicit digitization workflow**
+
+1. **Image capture**
+
+   * Obtain **one shared image** (orthophoto or scaled map) of the complete tracksite surface.
+
+2. **TPS file preparation (tpsUtil)**
+
+   * Replicate this image **as many times as the number of trackways to be digitized**.
+   * Use **tpsUtil → “Build TPS file from images”** to generate a `.TPS` file containing:
+
+     * Multiple identical images
+     * One image slot per trackway
+   * At this stage, the TPS file contains **no landmarks**.
+
+3. **Landmark digitization (tpsDig)**
+
+   * Open the TPS file in **tpsDig**.
+   * For **each replicated image**:
+
+     * Digitize **only one trackway**
+     * Enter landmarks sequentially following the **timeline of movement**, from the earliest formed footprint to the latest
+   * Move to the next image and repeat for the next trackway.
+
+This workflow uses **the same image copied repeatedly**, with **only one trackway digitized per image**.
+This ensures that all trackways share a common spatial reference while remaining independent specimens.
+
+
+### **Image capture and spatial biases**
+
+#### **Potential sources of bias**
+
+Digital recording methods (photography, photogrammetry, laser scanning) introduce inherent biases that propagate through the entire analytical pipeline:
+
+* **Optical distortion** (lens curvature, oblique angles) alters footprint geometry.
+* **Uneven resolution** or shadows may obscure anatomical features.
+* **Scale-bar misplacement** (tilted or not coplanar with the surface) biases all distance-based metrics, including step length, velocity proxies, and sinuosity.
+* Even small **scaling errors** systematically affect all derived parameters.
+
+#### **Georeferencing and orientation**
+
+When digitizing trackways from images or slabs:
+
+* Orientation relative to **external references** (e.g., north, bedding planes, slope) must be explicitly defined.
+* Misalignment alters:
+
+  * Calculated movement directions
+  * Turning angles
+  * Comparability among trackways
+* Inconsistent reference systems invalidate cross-trackway comparisons.
+
+Orthogonal photographs are strongly recommended. Tracksites with **abrupt slopes or complex topographies** may be misleading when represented in 2D until a future **3D implementation of QuAnTeTrack** becomes available.
+
+#### **Best practices to minimize bias**
+
+* Prefer **high-resolution, calibrated methods** (controlled photography, photogrammetry, laser scanning).
+* Ensure image resolution exceeds the **scale fidelity of the smallest footprint features**.
+* Place **scale bars coplanar** with the track surface and clearly visible.
+* Correct optical distortion and avoid oblique imaging angles.
+* Regularly verify scale using known distances on the slab.
+* Establish orientation relative to external references (north, bedding, slope).
+
+### **Landmarking tips**
+
+#### **Choice of reference point**
+
+Footprint coordinates must be digitized at a **consistently identifiable reference point** within each footprint, such as:
+
+* Tips of digit impressions
+* Centroids of phalangeal pads
+* Track centroids (for morphologically simple tracks)
+
+Reference points are mathematically expressed as **2D (or future 3D) coordinates**.
+
+Footprint landmarks do not always represent strictly homologous anatomical features. Variations in claw mark position, pad definition, or digit orientation often reflect **foot kinematics and behavior**, rather than anatomy. The impact of this uncertainty can be explicitly evaluated using the `anatomical_error_partitioning()` function.
+
+
+#### **Track-type–specific conventions**
+
+Trackway parameters require a reference point that is identifiable across all measurable footprints:
+
+* Amphibians and reptiles: base of digit impression III
+* Tridactyl tracks: tip of digit impression III
+* Sauropod tracks or poorly defined tracks: track centroid
+* Hominin tracks: pternion of the heel
+
+Distal reference points (e.g., digit tips) are more sensitive to **foot rotation and kinematic variability**, which may increase variance in derived parameters.
+
+#### **Missing and ambiguous footprints**
+
+* Trackways with missing footprints are acceptable.
+* Interpolation may be applied using `tps_to_track()` when specified.
+* This applies both to:
+
+  * Truly absent footprints
+  * Present footprints lacking sufficient anatomical fidelity to locate the chosen reference point
+
+#### **Pes vs. manus digitization**
+
+It is **strongly recommended** to digitize **pes trackways only**, except in cases where manus trackways are the explicit focus of the study.
+Several downstream calculations in the QuAnTeTrack workflow assume pes-based measurements.
+
+
+For further discussion of footprint reference points and landmarking strategies, see *Lallensack et al. (2025)* and *Zelditsh et al. (2012)*, and references therein.
+
+This vignette demonstrates how to **load, process, and analyze trackway data** using the **QuAnTeTrack** package. We will walk through the **Paluxy River** and the **Mount Tom** datasets, representing dinosaur trackways from the Paluxy River site (*Farlow et al., 2012*) and the Mount Tom site (*Ostrom, 1972*), respectively. Examples of `.tps` files of these datasets can be downloaded here:
 
 -   [Paluxy River](https://github.com/MacroFunUV/QuAnTeTrack/blob/master/inst/extdata/PaluxyRiver.tps)
 -   [Mount Tom](https://github.com/MacroFunUV/QuAnTeTrack/blob/master/inst/extdata/MountTom.tps)
 
 ## **Loading and Converting Data**
 
-The **`tps_to_track()`** function is an essential component of the **QuAnTeTrack** package, designed to transform raw **`.TPS` files** containing digitized trackway data into structured **`track` R objects**. This tool is particularly useful for reconstructing trackways from footprints digitized using the **TPS software suite**, such as **tpsUtil** and **tpsDig**. The function reads the raw **`.TPS` files**, extracts the coordinate data, and processes it to generate **`track` R objects** that are compatible with the analytical tools provided by **QuAnTeTrack**.
+The **`tps_to_track()`** function is an essential component of the **QuAnTeTrack** package, designed to transform raw **`.TPS` files** containing digitized trackway data into structured **`trackway` R objects**. This tool is particularly useful for reconstructing trackway midlines (i.e., trajectories) from footprints digitized using the **TPS software suite**. The function reads the raw **`.TPS` files**, extracts the coordinate data, and processes it to generate **`trackway` R objects** that are compatible with the analytical tools provided by **QuAnTeTrack**.
 
-The **`tps_to_track()`** function reads **`.TPS` files** where each track is represented by a series of **(x, y) coordinates** stored as separate images. These data points are then processed to generate **trajectory coordinates** by calculating the **midpoints between consecutive footprints**. These trajectories serve as reconstructed pathways, allowing users to analyze overall movement patterns. When missing footprints are encountered, the function can interpolate their positions based on the locations of adjacent footprints and the specified side (left or right) of the initial footprint.
+The **`tps_to_track()`** function reads **`.TPS` files** where each trackway is represented by a series of **(x, y) coordinates** (i.e., reference points of footprints) stored as separate images. These data points are then processed to generate **trackway midline coordinates** by interpolating the **midpoints of successive pace lines**. 
 
-Several arguments are provided to customize data handling. The **`file`** argument specifies the path to the `.TPS` file, while the **`scale`** argument allows users to define a scale factor (in **meters per pixel**) to convert coordinates to real-world measurements. To account for missing footprints, the **`missing`** argument specifies whether interpolation is required, while the **`NAs`** argument provides a matrix detailing which footprints need interpolation. Additionally, the **`R.L.side`** argument identifies whether the first footprint of each track belongs to the **left or right side**, which is essential when dealing with incomplete trackways.
+These trackway midline coordinates serve as reconstructed trajectories, allowing users to analyze overall movement patterns. When missing footprints are encountered, the function can interpolate their positions based on the locations of adjacent footprints and the specified laterality (left or right) of the initial footprint.
 
-The function generates a **`track` R object** consisting of two main components: **`Trajectories`** and **`Footprints`**. The **`Trajectories`** element contains a list of interpolated trajectories, where each trajectory represents a series of midpoints calculated between consecutive footprints. The **`Footprints`** element comprises a list of data frames with the original footprint coordinates, associated metadata (such as image reference and ID), and an indicator specifying whether each footprint is actual or inferred.
+Several arguments are provided to customize data handling. The **`file`** argument specifies the path to the `.TPS` file, while the **`scale`** argument allows users to define a scale factor (in **meters per pixel**) to convert coordinates to real-world measurements. To account for missing footprints, the **`missing`** argument specifies whether interpolation is required, while the **`NAs`** argument provides a matrix detailing which footprints need interpolation. Additionally, the **`R.L.side`** argument identifies whether the first footprint of each trackway belongs to the **left or right side**, which is essential when dealing with incomplete trackways.
 
-The resulting **`track` R object** provides a comprehensive framework for organizing digitized trackway data, making it compatible with the various analytical functions within the **QuAnTeTrack** package. This structured data format enables users to perform advanced analyses such as calculating movement parameters, testing hypotheses about trackmaker behavior, and comparing tracks using similarity metrics. By transforming raw data into structured objects, the **`tps_to_track()`** function serves as a foundational step in the broader analytical pipeline provided by **QuAnTeTrack**.
+The function generates a **`trackway` R object** consisting of two main components: **`Trajectories`** and **`Footprints`**. The **`Trajectories`** element contains a list of interpolated trajectories, where each trajectory represents a series of midpoints between successive left–right footprint pairs. The **`Footprints`** element comprises a list of data frames with the original footprint coordinates, associated metadata (such as image reference and ID), and an indicator specifying whether each footprint is actual or inferred.
+
+The resulting **`trackway` R object** provides a comprehensive framework for organizing digitized trackway data, making it compatible with the various analytical functions within the **QuAnTeTrack** package. By transforming raw data into structured objects, the **`tps_to_track()`** function serves as a foundational step in the broader analytical pipeline provided by **QuAnTeTrack**.
 
 ### **Examples of Usage**
 
-Here, the TPS files (**PaluxyRiver.tps** and **MountTom.tps**) are loaded using the `system.file()` function to ensure compatibility across systems. This approach is necessary because these files are stored as **internal data within the package** (specifically, in the `inst/extdata/` folder). Using `system.file()` ensures that the files can be accessed regardless of the user's operating system or working directory, making the vignette fully portable and reproducible. They are then converted to `track` R objects using the `tps_to_track()` function. The `scale` argument is used to set the coordinate scaling factor. For the **PaluxyRiver** dataset, no footprints are missing, so the `missing` argument is set to `FALSE` and `NAs = NULL`. For the **MountTom** dataset, some footprints are missing, so the `missing` argument is set to `TRUE`, and the missing footprints are specified using the `NAs` matrix. Additionally, the `R.L.side` argument is provided to specify the side of the first footprint of each track (either "R" for right or "L" for left).
+Here, the TPS files (**PaluxyRiver.tps** and **MountTom.tps**) are loaded using the `system.file()` function to ensure compatibility across systems. This approach is necessary because these files are stored as **internal data within the package** (specifically, in the `inst/extdata/` folder). Using `system.file()` ensures that the files can be accessed regardless of the user's operating system or working directory, making the vignette fully portable and reproducible. They are then converted to `trackway` R objects using the `tps_to_track()` function. For the **PaluxyRiver** dataset, no footprints are missing, so the `missing` argument is set to `FALSE` and `NAs = NULL`. For the **MountTom** dataset, some footprints are missing, so the `missing` argument is set to `TRUE`, and the missing footprints are specified using the `NAs` matrix. Additionally, the `R.L.side` argument is provided to specify the laterality of the first footprint of each trackway.
 
-For users working with their own data, **replace** `system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")` and `system.file("extdata", "MountTom.tps", package = "QuAnTeTrack")` with the **file paths to your .TPS files** (e.g., `"C:/path/to/your/PaluxyRiver.tps"` and `"C:/path/to/your/MountTom.tps"`).
+For users working with their own data, **replace** `system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack")` and `system.file("extdata", "MountTom.tps", package = "QuAnTeTrack")` with the **file paths to our .TPS files** (e.g., `"C:/path/to/our/PaluxyRiver.tps"` and `"C:/path/to/our/MountTom.tps"`).
 
 ```{r, eval=FALSE}
 PaluxyRiver <- tps_to_track(
   system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack"),
-  scale = 0.004341493,
+  scale = 0.004,
   R.L.side = c("R", "L"),
   missing = FALSE,
   NAs = NULL
@@ -289,7 +418,7 @@ PaluxyRiver <- tps_to_track(
 ```{r echo=FALSE}
 PaluxyRiver <- tps_to_track(
   system.file("extdata", "PaluxyRiver.tps", package = "QuAnTeTrack"),
-  scale = 0.004341493,
+  scale = 0.004,
   R.L.side = c("R", "L"),
   missing = FALSE,
   NAs = NULL
@@ -299,7 +428,7 @@ PaluxyRiver <- tps_to_track(
 ```{r, eval=FALSE}
 MountTom <- tps_to_track(
   system.file("extdata", "MountTom.tps", package = "QuAnTeTrack"),
-  scale = 0.004411765,
+  scale = 0.004,
   missing = TRUE,
   NAs = matrix(c(7, 3), nrow = 1, ncol = 2),
   R.L.side = c(
@@ -312,7 +441,7 @@ MountTom <- tps_to_track(
 ```{r echo=FALSE}
 MountTom <- tps_to_track(
   system.file("extdata", "MountTom.tps", package = "QuAnTeTrack"),
-  scale = 0.004411765,
+  scale = 0.004,
   missing = TRUE,
   NAs = matrix(c(7, 3), nrow = 1, ncol = 2),
   R.L.side = c(
@@ -323,19 +452,19 @@ MountTom <- tps_to_track(
 ```
 
 
-## **Subsetting Tracks from Track Data**
+## **Subsetting trackways from trackway Data**
 
-The **`subset_track()`** function is designed to extract specific tracks from a larger dataset of tracks, making it easier to focus on particular **trajectories or footprints** for further analysis or visualization. This function is particularly useful when working with **extensive datasets** where only a subset of tracks is relevant to the research question.
+The **`subset_track()`** function is designed to extract specific trackways from a larger dataset of trackways, making it easier to focus on particular **trajectories or footprints** for further analysis or visualization. This function is particularly useful when working with **extensive datasets** where only a subset of trackways is relevant to the research question.
 
-The function operates by taking a **`track` R object**, which contains two elements: **`Trajectories`** and **`Footprints`**. Each of these elements is a **list**, where each list entry corresponds to a separate track. By specifying the desired indices through the **`tracks`** argument, users can isolate particular tracks of interest.
+The function operates by taking a **`trackway` R object**, which contains two elements: **`Trajectories`** and **`Footprints`**. Each of these elements is a **list**, where each list entry corresponds to a separate trackway. By specifying the desired indices through the **`tracks`** argument, users can isolate particular trackways of interest.
 
-If the **`tracks`** argument is left unspecified (**`NULL`**), the function defaults to returning **all tracks** in the dataset. Otherwise, it subsets the dataset based on the **indices provided**. If any indices are **outside the range of available tracks**, they are ignored with a **warning message** to notify the user. This functionality ensures robustness when working with datasets of varying sizes.
+If the **`tracks`** argument is left unspecified (**`NULL`**), the function defaults to returning **all trackways** in the dataset. Otherwise, it subsets the dataset based on the **indices provided**. If any indices are **outside the range of available trackways**, they are ignored with a **warning message** to notify the user. This functionality ensures robustness when working with datasets of varying sizes.
 
-The function returns a modified **`track` R object** with the same structure as the original, but only containing the specified tracks. This approach maintains compatibility with other functions that expect a **`track` R object**, allowing for seamless integration into broader analytical workflows.
+The function returns a modified **`trackway` R object** with the same structure as the original, but only containing the specified trackways. This approach maintains compatibility with other functions that expect a **`trackway` R object**, allowing for seamless integration into broader analytical workflows.
 
 ### **Examples of Usage**
 
-To prepare a subset of tracks with more than **three footprints** from the **MountTom dataset** for later analyses, you can use the **`subset_track()`** function. This is especially useful for focusing on a selection of tracks of interest before applying similarity metrics, simulations, or statistical tests.
+To prepare a subset of trackways with more than **three footprints** from the **MountTom dataset** for later analyses, we can use the **`subset_track()`** function. This is especially useful for focusing on a selection of trackways of interest before applying similarity metrics, simulations, or statistical tests.
 
 ```{r, eval=FALSE}
 sbMountTom <- subset_track(MountTom, tracks = c(1, 2, 3, 4, 7, 8, 9, 13, 15, 16, 18))
@@ -348,19 +477,26 @@ print(sbMountTom)
 ```
 
 
-## **Plotting Tracks**
+## **Plotting trackways**
 
-The **`plot_track()`** function is a versatile tool designed to visualize **track and footprint data** from a **`track` R object** in various ways, providing a flexible approach to examining and presenting trackway datasets. This function generates customizable plots using the **`ggplot2`** package, allowing users to inspect individual tracks, footprints, or a combination of both. By adjusting various plotting parameters, users can tailor their visualizations to highlight specific aspects of the dataset, such as **individual track paths**, **footprint shapes**, and **colors**.
+The **`plot_track()`** function is a versatile tool designed to visualize **trackway and footprint data** from a **`trackway` R object** in various ways, providing a flexible approach to examining and presenting trackway datasets. This function generates customizable plots using the **`ggplot2`** package, allowing users to inspect individual trajectories, footprints, or a combination of both. By adjusting various plotting parameters, users can tailor their visualizations to highlight specific aspects of the dataset, such as **individual trajectories paths**, **footprint shapes**, and **colors**, among others.
 
-The **`plot_track()`** function allows users to choose between three plotting modes: plotting only the **footprints**, only the **interpolated trackways**, or a **combination of both**. This is controlled by the **`plot`** argument, which can be set to **`"Footprints"`**, **`"Tracks"`**, or **`"FootprintsTracks"`** (default). The footprints and tracks are plotted using different layers, with footprints represented by **points** and tracks represented by **lines**.
+The **`plot_track()`** function allows users to choose between three plotting modes: plotting only the **footprints**, only the **interpolated trajectories**, or a **combination of both**. This is controlled by the **`plot`** argument, which can be set to **`"Footprints"`**, **`"Trajectories"`**, or **`"FootprintsTrajectories"`** (default). The footprints and trajectories are plotted using different layers, with footprints represented by **points** and trajectories represented by **lines**. 
 
-Additional customization options include changing **colors**, **sizes**, **shapes**, and **transparency** of the plotted elements. Users can provide a vector of colors via the **`colours`** argument, which allows different tracks to be plotted in different colors. The **`cex.f`** and **`cex.t`** arguments control the sizes of footprint points and track lines, respectively. The **`shape.f`** argument allows users to specify the shapes of footprint points, while the **`alpha.f`**, **`alpha.t`**, and **`alpha.l`** arguments control the transparency of footprints, track lines, and labels, respectively.
+The **`plot_track()`** function also allows users to visualize the **direction of movement** along trackways by adding **arrowheads at the terminal end of each trajectory**. This behavior is controlled by the **`arrow.t`** argument. When **`arrow.t = TRUE`**, arrowheads are drawn at the end of trajectory lines, indicating the inferred direction of progression along each trackway. The size of the arrowheads can be adjusted using the **`arrow.size`** argument, allowing arrows to be scaled appropriately for different plotting resolutions or figure sizes. Arrow color and transparency are automatically inherited from the corresponding trajectory lines (i.e., they follow the settings of **`colours`** and **`alpha.t`**), ensuring visual consistency between trajectories and their associated directional indicators.
 
-The **`plot_track()`** function also supports the addition of **labels** to individual tracks. If the **`plot.labels`** argument is set to **`TRUE`**, labels are displayed at the start of each track, with the label text determined by the **`labels`** argument. If labels are not provided, the function automatically generates labels based on track names in the original TPS file. Users can adjust the label size using the **`cex.l`** argument and control the padding around the labels with the **`box.p`** argument.
+In addition to these options, the **`plot_track()`** function allows users to inspect the **sequence of footprints along each trackway** using the **`seq.foot`** argument. When **`seq.foot = TRUE`**, footprints are labeled with their sequential order along the trackway instead of being plotted as points, using the same size specified by **`cex.f`**. This option is intended as a diagnostic tool to verify that footprints are correctly ordered along each trackway after digitization and preprocessing, facilitating the detection of ordering errors or inconsistencies in the footprint sequence.
+
+Additional customization options include changing **colors**, **sizes**, **widths**, **shapes**, and **transparency** of the plotted elements. Users can provide a vector of colors via the **`colours`** argument, which allows elements of different trackways to be plotted in different colors. The **`cex.f`** and **`cex.t`** arguments control the sizes of footprint points and trajectory lines, respectively. The **`shape.f`** argument allows users to specify the shapes of footprint points, while the **`alpha.f`**, **`alpha.t`**, and **`alpha.l`** arguments control the transparency of footprints, trajectory lines, and labels, respectively.
+
+The **`plot_track()`** function also supports the addition of **labels** to individual trackways. If the **`plot.labels`** argument is set to **`TRUE`**, labels are displayed at the start of each trackway, with the label text determined by the **`labels`** argument. If labels are not provided, the function automatically generates labels based on trackway names in the original TPS file. Users can adjust the label size using the **`cex.l`** argument and control the padding around the labels with the **`box.p`** argument.
 
 The **`plot_track()`** function returns a **`ggplot`** object, which can be further customized using additional **`ggplot2`** functions. This allows users to enhance their plots with additional layers, themes, and annotations as needed.
 
-The function is especially useful for comparing **multiple trackways at once**, providing a comprehensive view of **track distribution**, **direction**, and **spacing**. It also allows users to produce **clean visualizations** suitable for **presentation or publication**.
+The **`plot_track()`** function is designed as a **diagnostic and exploratory tool**. Its primary purpose is to display the raw spatial data (footprint coordinates and interpolated trajectories) that have been digitized, allowing users to visually confirm data integrity prior to quantitative analyses. This includes verifying footprint order, assessing trackway orientation, and checking the correspondence between interpolated trajectories and the underlying footprint data.
+
+Importantly, these visualizations are **not intended to replace traditional ichnological representations**. Hand-drawn maps and interpretative outlines often convey morphological, taxonomic, and contextual information that cannot be captured by raw coordinate plots alone. Instead, **`plot_track()`** provides a reproducible, data-driven visualization that complements classical ichnological illustrations and serves primarily as a quality-control and exploratory aid.
+
 
 ### **Examples of Usage**
 
@@ -374,7 +510,7 @@ plot_track(PaluxyRiver)
 plot_track(MountTom)
 ```
 
-To visualize only the footprint data without the interpolated trajectories, use the `plot = "Footprints"` argument. This is particularly useful when you want to inspect the original footprint positions without the influence of interpolated tracks.
+To visualize only the footprint data without the interpolated trajectories, use the `plot = "Footprints"` argument. This is particularly useful when we want to inspect the original footprint positions without the influence of interpolated trajaectories.
 
 ```{r echo=TRUE}
 plot_track(PaluxyRiver, plot = "Footprints")
@@ -384,30 +520,120 @@ plot_track(PaluxyRiver, plot = "Footprints")
 plot_track(MountTom, plot = "Footprints")
 ```
 
-If you want to focus on the interpolated trackways without displaying the footprints, use the `plot = "Tracks"` argument. This visualization helps analyze the continuity and pattern of movement.
+In addition, the correctness of the **footprint sequence** along each trackway can be visually assessed using the **`seq.foot = TRUE`** argument, which replaces footprint points with their sequential numbering. This provides a direct check that footprints are ordered consistently with the inferred direction of movement.
 
 ```{r echo=TRUE}
-plot_track(PaluxyRiver, plot = "Tracks")
+plot_track(PaluxyRiver, plot = "FootprintsTrajectories", cex.f = 4, alpha.t = 0.2, seq.foot = TRUE)
 ```
 
 ```{r echo=TRUE}
-plot_track(MountTom, plot = "Tracks")
+plot_track(MountTom, plot = "FootprintsTrajectories", cex.f = 4, alpha.t = 0.2, seq.foot = TRUE)
 ```
 
-The **`plot_track()`** function allows flexible customization to improve the clarity and presentation of trackway data. Users can label tracks, change footprint shapes, adjust colors, and control label size and transparency.
-
-In this first example, tracks from the **Mount Tom** dataset are labeled using `paste()` to generate names like `"Track 1"`, `"Track 2"`, etc. Labels are enlarged with **`cex.l = 4`**, given padding using **`box.p = 0.3`**, and made semi-transparent with **`alpha.l = 0.7`**.
+If the goal is to focus exclusively on the interpolated trajectories without displaying individual footprints, the **`plot = "Trajectories"`** option can be used. This visualization highlights the overall geometry, continuity, and spatial pattern of movement along each trackway. When combined with **`arrow.t = TRUE`**, arrowheads are added to the terminal end of each trajectory, providing an explicit visual indication of **trackway directionality**. This is particularly useful as a quality-control step, allowing users to verify that trajectories are oriented correctly and that the inferred direction of movement is consistent with the underlying footprint sequence and field interpretation. By making directionality explicit, this option helps detect potential errors in footprint ordering or trajectory construction prior to downstream analyses.
 
 ```{r echo=TRUE}
-labels <- paste("Track", seq_along(MountTom[[1]]))
+plot_track(PaluxyRiver, plot = "Trajectories", arrow.t = TRUE, arrow.size = 0.1)
+```
+
+```{r echo=TRUE}
+plot_track(MountTom, plot = "Trajectories", arrow.t = TRUE, arrow.size = 0.1)
+```
+
+The **`plot_track()`** function also allows **labeling individual trackways** using the **`plot.labels`** and **`labels`** arguments. In this example, trackways from the **Mount Tom** dataset are assigned custom labels (e.g., *“Trackway 1”*, *“Trackway 2”*...) generated with `paste()`. Label appearance is customized by increasing label size (**`cex.l = 4`**), adding padding around labels (**`box.p = 0.3`**), and applying semi-transparency (**`alpha.l = 0.7`**) to improve readability.
+
+
+```{r echo=TRUE}
+labels <- paste("Trackway", seq_along(MountTom[[1]]))
 plot_track(MountTom, plot.labels = TRUE, labels = labels, cex.l = 4, box.p = 0.3, alpha.l = 0.7)
 ```
 
-In the second example, we plot only **footprints** from the **Paluxy River** dataset, using **`colours = c("red", "orange")`** to distinguish tracks and **`shape.f = c(15, 18)`** to assign different shapes to footprints—useful for visually comparing trackmakers.
+Here, we plot only **footprints** from the **Paluxy River** dataset, using **`colours = c("red", "orange")`** to distinguish trackways and **`shape.f = c(15, 18)`** to assign different footprint shapes.
+
 
 ```{r echo=TRUE}
 plot_track(PaluxyRiver, plot = "Footprints", colours = c("red", "orange"), shape.f = c(15, 18))
 ```
+
+By setting **`seq.foot = TRUE`**, footprint points are replaced by their **sequential numbers**, allowing individual footprints to be clearly distinguished and their order along each trackway to be visually verified.
+
+```{r echo=TRUE}
+plot_track(PaluxyRiver, plot = "Footprints", colours = c("red", "orange"), shape.f = c(15, 18), cex.f = 4,seq.foot = TRUE)
+```
+
+## **Observer-related uncertainty and reproducibility of digitization**
+
+Quantitative analyses of fossil trackways ultimately rely on coordinates placed by human observers. Even when the same trackway is digitized following a standardized protocol, small differences in landmark placement may arise between observers or between repeated digitizations by the same observer. These differences introduce **sampling uncertainty** that can propagate through all downstream analyses and, if not explicitly evaluated, may obscure or even mimic biological patterns.
+
+To explicitly assess the reproducibility of trackway metrics and to distinguish genuine biological signal from human-induced noise, **QuAnTeTrack** provides the function **`observer_error_partitioning()`**. This function quantifies how much of the variability in trackway parameters is attributable to **true differences among trackways** versus **inter-observer and intra-observer sampling effects**, using replicated digitizations and mixed-effects modeling.
+
+The logic behind `observer_error_partitioning()` is straightforward: if a given parameter primarily reflects biological differences among trackways, repeated digitizations of the same trackway—regardless of who digitizes them—should yield similar values. Conversely, if a parameter is highly sensitive to landmark placement or digitization choices, a large proportion of its variance will be associated with observer identity or with replicate-to-replicate scatter.
+
+By partitioning variance into biologically meaningful and observer-related components, this function allows users to: (1) Audit the **reproducibility** of digitized trackway data, (2) identify **robust metrics** suitable for hypothesis testing and clustering, and (3) detect parameters that are **dominated by sampling noise** and require caution or protocol refinement.
+
+The analysis requires three explicit inputs that together define the structure of the reproducibility assessment. First, the **`data`** argument takes a `trackway` R object containing *all replicated digitizations*. Each replicate is treated as an independent realization of the same underlying biological trackway and must therefore be included within the same object, rather than split across multiple files or analyses. Second, the **`metadata`** argument provides the experimental context of the digitization process. This metadata table contains one row per entry returned by `track_param(data)`, in the same order, and specifies which digitizations correspond to the same biological trackway, which observer produced them, and how many replicate attempts were made. By explicitly encoding track identity, observer identity, and replicate structure, this table allows the function to disentangle biological variation from inter- and intra-observer sampling effects. Finally, the **`variables`** argument defines which trackway parameters are evaluated. By default, the function considers a broad set of directional, kinematic, and geometric metrics (including turning angles, distances, step-length statistics, sinuosity, straightness, trackway width, and pace angulation). Users may restrict this set to a subset of parameters when focusing on specific aspects of trackway geometry or when evaluating the robustness of particular metrics prior to hypothesis testing.
+
+The function requires that **all replicated digitizations**—across observers and/or repeated attempts—are bundled into a single `trackway` R object. Each replicate is treated as an independent entry and must be accompanied by a corresponding row in a metadata table describing:
+
+- The biological **track ID**,
+- The **observer** who digitized it,
+- The **replicate index** within each observer–track combination.
+
+For each selected trackway parameter, `observer_error_partitioning()` fits a mixed-effects model that decomposes variance into four conceptual components:
+
+- **Between-track variance (`track`)** — interpreted as biological signal,
+- **Between-observer variance (`observer`)** — inter-observer sampling error,
+- **Observer × track interaction (`observer:track`)** — observer-specific bias tied to particular tracks,
+- **Residual variance** — intra-observer sampling error (replicate-to-replicate scatter).
+
+Random-effect terms that cannot be estimated (e.g., factors with only one level) are automatically excluded, allowing the function to adapt to different experimental designs (inter-only, intra-only, or combined).
+
+Angular parameters, such as turning angles and pace angulation, are treated using a sine–cosine transformation to respect their circular nature and to avoid artificial discontinuities at 0°/360°. Variance components are estimated independently in sine and cosine space and then averaged.
+
+To facilitate interpretation, the function summarizes robustness using a **signal-to-noise ratio (SNR)**, defined as the ratio between biological variance and the total sampling-related variance (observer, observer × track, and residual components). As a practical guideline:
+
+- **Low SNR (< 1)** indicates that observer-related uncertainty exceeds biological signal,
+- **Intermediate SNR (~1–2)** suggests comparable biological and sampling contributions,
+- **High SNR (> 2)** indicates that biological differences dominate and the metric is robust.
+
+This information is particularly useful for deciding which parameters can be confidently interpreted in downstream analyses and which should be treated with caution.
+
+`observer_error_partitioning()` returns an `"error_partitioning"` object that includes:
+
+- A **summary table** reporting variance components and their relative contributions for each parameter,
+- A **signal-to-noise table** quantifying biological versus sampling variance,
+- A **compact quality-control table** that classifies each metric according to robustness and identifies the dominant source of variance,
+- The **fitted mixed-effects models** used in the analysis, along with the underlying analysis table and model formulas.
+
+Together, these outputs provide both a quantitative and an intuitive assessment of digitization reliability.
+
+### **Example usage and interpretation**
+
+In the example below, multiple observers digitize the same biological trackways, and each observer produces replicated digitizations. This design allows simultaneous estimation of inter-observer and intra-observer uncertainty.
+
+## **Anatomical uncertainty and landmark-fidelity effects**
+
+Even when trackways are digitized by a single observer following a consistent protocol, fossil footprints are rarely preserved with perfect anatomical fidelity. Erosion, deformation, substrate collapse, or incomplete preservation may obscure the precise position of biologically meaningful reference points, introducing uncertainty that is independent of who digitizes the material. This form of uncertainty is intrinsic to the fossil record and reflects limitations in anatomical preservation rather than the human sampling process.
+
+To explicitly quantify the impact of this source of uncertainty, **QuAnTeTrack** provides the function **`anatomical_error_partitioning()`**. This function evaluates how much of the variability in trackway parameters can be attributed to **imprecision in landmark placement caused by anatomical or taphonomic factors**, as opposed to genuine biological differences among trackways. In contrast to observer-based approaches, this function relies exclusively on simulation and does not incorporate observer identity or replicated digitizations.
+
+The logic behind `anatomical_error_partitioning()` is conceptually analogous to a sensitivity analysis. Rather than asking whether different observers obtain similar results, it asks a different question: *if the anatomical reference points of footprints were slightly misplaced within a realistic spatial tolerance, how much would the resulting trackway parameters change?* Parameters that remain stable under such perturbations can be considered robust to preservation-related uncertainty, whereas parameters that vary strongly are more sensitive to landmark fidelity and should be interpreted with caution.
+
+The analysis operates on a single `trackway` R object containing the original digitized data. Landmark uncertainty is introduced by repeatedly perturbing footprint coordinates within a user-defined spatial tolerance, specified via an **error radius** that represents expected imprecision in reference-point placement. This tolerance may be applied uniformly to all trackways or allowed to vary among trackways to reflect heterogeneous preservation quality across a site.
+
+For each simulation, footprint landmarks are randomly displaced within the specified tolerance, the medial trajectory is reconstructed following the same procedure used for the original data, and trackway parameters are recalculated. Repeating this process across many Monte Carlo simulations generates a distribution of values for each parameter that reflects **anatomical noise alone**, without any contribution from observer effects.
+
+The resulting variability is then decomposed into two primary components: variability among trackways, interpreted as biological signal, and variability generated within trackways by simulated landmark perturbations, interpreted as anatomical uncertainty. Angular parameters, such as turning angles and pace angulation, are handled using a sine–cosine transformation to respect their circular nature and avoid artificial discontinuities.
+
+As in the observer-based framework, robustness is summarized using a **signal-to-noise ratio (SNR)**, defined here as the ratio between between-track (biological) variance and variance introduced by anatomical uncertainty. Low SNR values indicate that a parameter is strongly affected by landmark fidelity, whereas high SNR values indicate that biological differences dominate despite plausible levels of anatomical imprecision.
+
+`anatomical_error_partitioning()` returns an `"error_partitioning"` object that mirrors the structure used for observer-related uncertainty, facilitating direct comparison between the two sources of error. The output includes a summary of variance components for each parameter, signal-to-noise ratios, and a compact quality-control table identifying which metrics are most sensitive to anatomical uncertainty.
+
+By explicitly quantifying the effects of landmark fidelity, this function provides a critical complement to observer-based error assessment. Together, these approaches allow users to disentangle uncertainty arising from the fossil record itself from uncertainty introduced during digitization, and to identify trackway parameters that remain interpretable despite imperfect preservation.
+
+### **Example usage and interpretation**
+
+In the examples below, anatomical uncertainty is explored by progressively increasing the spatial tolerance applied to footprint landmarks. As the assumed imprecision increases, parameters that are sensitive to landmark fidelity typically show increasing anatomical variance and decreasing signal-to-noise ratios, whereas robust parameters remain comparatively stable.
 
 
 ## **Extracting Track Parameters**
@@ -1248,5 +1474,6 @@ The resulting clusters can help infer **behavioral strategies** (e.g., direct vs
 -   **Rohlf, F. J.** 2009. **tpsDig. Version 2.14.** Department of Ecology and Evolution, State University of New York.\
     Available at: <https://sbmorphometrics.org/>\
 -   **Ruiz, J., & Torices, A. (2013).** Humans running at stadiums and beaches and the accuracy of speed estimations from fossil trackways. *Ichnos*, 20(1), 31-35.\
--   **Thulborn, R. A., & Wade, M. (1984).** Dinosaur trackways in the Winton Formation (mid-Cretaceous) of Queensland. *Memoirs of the Queensland Museum*, 21(2), 413-517.
+-   **Thulborn, R. A., & Wade, M. (1984).** Dinosaur trackways in the Winton Formation (mid-Cretaceous) of Queensland. *Memoirs of the Queensland Museum*, 21(2), 413-517.\
+-   **Zelditch, M., Swiderski, D., & Sheets, H. D. (2012).** Geometric morphometrics for biologists: a primer. *Academic Press*, 477 pp.
 

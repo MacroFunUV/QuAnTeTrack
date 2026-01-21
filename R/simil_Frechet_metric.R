@@ -72,7 +72,7 @@
 #' (Benjamini & Hochberg, 1995).}
 #'
 #' \item{Frechet_metric_p_values_combined}{(If \code{test = TRUE}) A single numeric value representing
-#' the combined *p*-value across all Fréchet distances (based on the global statistic: the sum of pairwise distances).
+#' the combined *p*-value across all Fréchet distances (based on a global dominance criterion, evaluating in how many simulations the observed distances are smaller than the simulated ones across all trajectory pairs simultaneously).
 #' This indicates the overall significance of the observed Fréchet distances relative to simulations.}
 #'
 #' \item{Frechet_distance_metric_simulations}{(If \code{test = TRUE}) A list containing matrices of Fréchet distances
@@ -123,7 +123,6 @@
 #' @seealso \code{\link{tps_to_track}}, \code{\link{simulate_track}}, \code{\link[SimilarityMeasures]{Frechet}}
 #'
 #' @export
-
 
 simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition = "None") {
 
@@ -221,11 +220,14 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
 
     ## ---- Simulated metrics ----
     nsim <- length(sim)
-    Frechet_sim <- Matrixsim
     listFrechet <- vector("list", nsim)
     listnegFrechet <- logical(nsim)
 
     for (i in seq_len(nsim)) {
+
+      ## CHANGE: reset Frechet_sim each iteration (robustness)
+      Frechet_sim <- Matrixsim
+
       sim[[i]]$Trajectory <- as.factor(sim[[i]]$Trajectory)
       levs <- levels(sim[[i]]$Trajectory)
 
@@ -237,8 +239,12 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
           Frechet_sim[r, c] <- suppressWarnings(
             SimilarityMeasures::Frechet(as.matrix(A), as.matrix(B))
           )
+
+          ## (optional but consistent): make simulated matrix symmetric
+          Frechet_sim[c, r] <- Frechet_sim[r, c]
         }
       }
+      diag(Frechet_sim) <- NA
 
       listFrechet[[i]] <- Frechet_sim
       diff_vec <- c(as.matrix(Frechet_metric - Frechet_sim))
@@ -264,8 +270,10 @@ simil_Frechet_metric <- function(data, test = FALSE, sim = NULL, superposition =
       for (r in seq_along(trks)) {
         if (c <= r) next
         vec <- numeric(nsim)
-        for (i in seq_len(nsim)) vec[i] <- listFrechet[[i]][r, c]
-        Frechet_pval[r, c] <- (1 + sum(vec <= Frechet_metric[r, c], na.rm = TRUE)) / (nsim + 1)
+        for (i in seq_len(nsim)) vec[i] <- as.matrix(listFrechet[[i]])[r, c]
+        p_rc <- (1 + sum(vec <= Frechet_metric[r, c], na.rm = TRUE)) / (nsim + 1)
+        Frechet_pval[r, c] <- p_rc
+        Frechet_pval[c, r] <- p_rc
       }
     }
     diag(Frechet_pval) <- NA

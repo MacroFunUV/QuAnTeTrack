@@ -14,7 +14,8 @@ cluster_track(
   hclust_method = "complete",
   transform = TRUE,
   scale = TRUE,
-  max_clusters = NULL
+  max_clusters = NULL,
+  gauge_size = NA
 )
 }
 \arguments{
@@ -27,9 +28,10 @@ cluster_track(
 \item{veltrack}{A \code{track velocity} R object consisting of a list of lists, where each sublist contains the computed parameters for a corresponding track.}
 
 \item{variables}{A character vector specifying the movement parameters to be used in the clustering analysis. Valid parameter names include:
-\code{"TurnAng"}, \code{"sdTurnAng"}, \code{"Distance"}, \code{"Length"}, \code{"StLength"}, \code{"sdStLength"},
-\code{"Sinuosity"}, \code{"Straightness"}, \code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"},
-\code{"TrackWidth"}, \code{"PaceAng"}.}
+\code{"TurnAng"}, \code{"sdTurnAng"}, \code{"PathLen"}, \code{"BeelineLen"}, \code{"StLength"}, \code{"sdStLength"},
+\code{"StrideLen"}, \code{"PaceLen"}, \code{"Sinuosity"}, \code{"Straightness"},
+\code{"TrackWidth"}, \code{"Gauge"}, \code{"PaceAng"}, \code{"StepAng"},
+\code{"Velocity"}, \code{"sdVelocity"}, \code{"MaxVelocity"}, \code{"MinVelocity"}.}
 
 \item{analysis}{Character; clustering backend. One of \code{"hclust"} (default; distance-based hierarchical clustering)
 or \code{"mclust"} (model-based Gaussian mixtures).}
@@ -53,6 +55,10 @@ One of  \code{"complete"} (default), \code{"ward.D"}, \code{"ward.D2"}, \code{"s
 \item{max_clusters}{Integer. Maximum number of clusters (mixture components) to consider when \code{analysis = "mclust"}.
 If \code{NULL} (default), uses \code{min(9, n)}, where \code{n} is the number of valid tracks (observations) entering the model.
 The minimum number of clusters considered by default is \code{1}.}
+
+\item{gauge_size}{Numeric. Pes/manus length (or width) used to compute Gauge as \code{TrackWidth / gauge_size}.
+If \code{NULL} or \code{NA}, Gauge is returned as \code{NA}. If \code{"Gauge"} is included in \code{variables},
+\code{gauge_size} must be a single positive numeric value.}
 }
 \value{
 A track clustering R object consisting of a list containing the following elements:
@@ -104,8 +110,10 @@ The \code{cluster_track()} function can perform distance-based hierarchical clus
 (\code{analysis = "mclust"}).
 
 The function first filters out tracks with fewer than four steps, as these tracks may not provide reliable movement data.
-It then calculates various movement parameters for each remaining track, including turning angles, distances, lengths, sinuosity, straightness, velocities,
-and additional ichnological descriptors (trackway width, pace angulation).
+It then computes movement/trackway parameters via
+\code{track_param()} (turning angles; path and beeline lengths; step/stride/pace; sinuosity/straightness; and
+footprint-based metrics such as trackway width, gauge, pace angulation and step angle) and combines them with
+velocity descriptors from \code{veltrack}. The selected variables are then used for clustering.
 Finally, the selected movement parameters are used as input for clustering the tracks.
 
 When \code{analysis = "hclust"}: the function performs agglomerative hierarchical clustering
@@ -170,18 +178,26 @@ sine and cosine components (circular treatment) before analysis. This measures h
 direction of movement changes at each step.
 \item \code{"sdTurnAng"}: The circular standard deviation of the turning angles, in degrees.
 Internally expanded to sine and cosine components before analysis to respect angular geometry.
-\item \code{"Distance"}: The total distance covered by the track, calculated as the sum of the
-straight-line distances between consecutive points (meters).
-\item \code{"Length"}: The overall length of the track, a straight-line distance between the
-starting and ending points (meters).
-\item \code{"StLength"}: Step lengths for each step of the track, representing how far the object
-moved between two consecutive points (meters).
-\item \code{"sdStLength"}: The standard deviation of the step lengths, showing how consistent the
-steps are in length (meters).
-\item \code{"Sinuosity"}: A measure of the track's winding nature, calculated as the ratio of the
-actual track length to the straight-line distance (dimensionless).
-\item \code{"Straightness"}: The straightness of the track, calculated as the straight-line
-distance divided by the total path length (dimensionless).
+\item \code{"PathLen"}: Total path length (meters), computed as the sum of distances between consecutive
+trajectory points.
+\item \code{"BeelineLen"}: Straight-line distance (meters) between the first and last points of the trajectory.
+\item \code{"StLength"}: Mean step length for each step of the track (meters), representing how far the object
+moved between two consecutive trajectory points.
+\item \code{"sdStLength"}: The standard deviation of the step lengths (meters), showing how consistent the
+steps are in length.
+\item \code{"StrideLen"}: Mean stride length (meters). In the current implementation this is computed as
+\code{Mean_step_length * 2}.
+\item \code{"PaceLen"}: Mean pace length (meters), computed as the mean distance between consecutive
+contralateral footprints (L–R or R–L) in footprint order.
+\item \code{"Sinuosity"}: A measure of the track's winding nature (dimensionless).
+\item \code{"Straightness"}: The straightness of the track (dimensionless).
+\item \code{"TrackWidth"}: Trackway width, i.e., the lateral spacing between left and right
+footprint series (units consistent with input coordinates, typically meters).
+\item \code{"Gauge"}: Trackway gauge (dimensionless), computed as \code{TrackWidth / gauge_size}.
+\item \code{"PaceAng"}: Pace angulation (degrees), a classical ichnological descriptor summarizing
+the angular relation of successive steps within a trackway.
+\item \code{"StepAng"}: Mean step angle (degrees), computed as the mean angle between each pace segment
+and the inferred stride/trackway axis estimated by PCA.
 \item \code{"Velocity"}: The average velocity of the track, calculated as the total distance divided
 by the time elapsed between the first and last footprint (meters per second).
 \item \code{"sdVelocity"}: The standard deviation of the velocity, indicating how much the velocity
@@ -190,10 +206,6 @@ fluctuates throughout the track (meters per second).
 point (meters per second).
 \item \code{"MinVelocity"}: The minimum velocity during the track, identifying the slowest point
 (meters per second).
-\item \code{"TrackWidth"}: Trackway width, i.e., the lateral spacing between left and right
-footprint series (units consistent with input coordinates, typically meters).
-\item \code{"PaceAng"}: Pace angulation (degrees), a classical ichnological descriptor summarizing
-the angular relation of successive steps within a trackway.
 }
 
 The \code{cluster_track()} function has biological relevance in identifying groups of tracks with

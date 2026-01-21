@@ -39,7 +39,7 @@ adjusted \emph{p}-values controlling the false discovery rate (FDR), applied acr
 (Benjamini & Hochberg, 1995).}
 
 \item{DTW_metric_p_values_combined}{(If \code{test = TRUE}) A single numeric value representing
-the combined \emph{p}-value across all DTW distances (based on the global statistic: the sum of pairwise distances).
+the combined \emph{p}-value across all DTW distances (based on a global dominance criterion, evaluating in how many simulations the observed distances are smaller than the simulated ones across all trajectory pairs simultaneously).
 This indicates the overall significance of the observed DTW distances relative to simulations.}
 
 \item{DTW_distance_metric_simulations}{(If \code{test = TRUE}) A list containing matrices of DTW distances

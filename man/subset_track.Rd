@@ -2,28 +2,33 @@
 % Please edit documentation in R/subset_track.R
 \name{subset_track}
 \alias{subset_track}
-\title{Subset tracks}
+\title{Subset trackways}
 \usage{
 subset_track(data, tracks = NULL)
 }
 \arguments{
-\item{data}{A \code{track} R object, which is a list consisting of two elements:
+\item{data}{A \code{trackway} R object, which is a list consisting of two elements:
 \itemize{
-\item \strong{\code{Trajectories}}: A list of interpolated trajectories, where each trajectory is a series of midpoints between consecutive footprints.
-\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates, metadata (e.g., image reference, ID), and a marker indicating whether the footprint is actual or inferred.
+\item \strong{\code{Trajectories}}: A list of trajectories representing trackway midlines,
+interpolated by connecting the midpoints of successive left–right footprint pairs
+(i.e., footprints linked by pace lines). Includes columns \code{X}, \code{Y},
+\code{IMAGE}, \code{ID}, and \code{Side} (set to \code{"Medial"}).
+\item \strong{\code{Footprints}}: A list of data frames containing footprint coordinates
+and associated metadata, with a \code{Side} column (\code{"R"} or \code{"L"})
+and a \code{missing} marker (\code{"Actual"} or \code{"Inferred"}).
 }}
 
-\item{tracks}{A numeric vector specifying the indices of tracks to subset. The default is to include all tracks.}
+\item{tracks}{A numeric vector specifying the indices of trackways to subset. The default is to include all trackways.}
 }
 \value{
-A \code{track} R object that contains only the specified subset of tracks. The structure of the returned object mirrors the input structure but includes only the selected tracks.
+A \code{trackway} R object that contains only the specified subset of trackways. The structure of the returned object mirrors the input structure but includes only the selected trackways.
 }
 \description{
-\code{subset_track()} is a function that subsets tracks from a list of track data based on the specified indices.
+\code{subset_track()} is a function that subsets trackways from a \code{trackway} R object based on the specified indices.
 }
 \details{
 This function subsets both the \strong{\code{Trajectories}} and \strong{\code{Footprints}} elements of the input data based on the provided vector of indices.
-It allows users to focus on a specific subset of tracks for further analysis or visualization, particularly when working with large datasets containing numerous tracks.
+It allows users to focus on a specific subset of trackways for further analysis or visualization, particularly when working with large datasets containing numerous trackways.
 }
 \section{Logo}{
 
@@ -31,10 +36,10 @@ It allows users to focus on a specific subset of tracks for further analysis or 
 }
 
 \examples{
-# Example 1: Subset the first three tracks of MountTom dataset.
+# Example 1: Subset the first three trackways of MountTom dataset.
 subset_data <- subset_track(MountTom, tracks = c(1:3))
 
-# Example 2:  Subset the tracks at indices 5, 7, and 10.
+# Example 2:  Subset the trackways at indices 5, 7, and 10.
 subset_data <- subset_track(MountTom, tracks = c(5, 7, 10))
 
 }

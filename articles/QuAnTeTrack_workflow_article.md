@@ -11729,700 +11729,700 @@ simil_dtw_directed_paluxy <- simil_DTW_metric(PaluxyRiver, test = TRUE,
 print(simil_dtw_directed_paluxy)
 ```
 
-    #> 2026-03-21 16:51:15.542486 Iteration 1
+    #> 2026-03-21 20:02:27.359022 Iteration 1
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   5.965847
     #> Trackway_2   5.965847         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.549568 Iteration 2
+    #> 2026-03-21 20:02:27.366847 Iteration 2
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   12.25117
     #> Trackway_2   12.25117         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.556111 Iteration 3
+    #> 2026-03-21 20:02:27.374365 Iteration 3
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.699525
     #> Trackway_2   6.699525         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.562711 Iteration 4
+    #> 2026-03-21 20:02:27.381827 Iteration 4
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   11.48689
     #> Trackway_2   11.48689         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.569277 Iteration 5
+    #> 2026-03-21 20:02:27.389251 Iteration 5
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.302667
     #> Trackway_2   9.302667         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.575893 Iteration 6
+    #> 2026-03-21 20:02:27.396677 Iteration 6
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.051429
     #> Trackway_2   7.051429         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.582585 Iteration 7
+    #> 2026-03-21 20:02:27.404183 Iteration 7
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.242862
     #> Trackway_2   8.242862         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.589153 Iteration 8
+    #> 2026-03-21 20:02:27.411516 Iteration 8
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.036795
     #> Trackway_2   7.036795         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.595707 Iteration 9
+    #> 2026-03-21 20:02:27.418813 Iteration 9
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.685264
     #> Trackway_2   8.685264         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.602295 Iteration 10
+    #> 2026-03-21 20:02:27.426152 Iteration 10
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.198181
     #> Trackway_2   8.198181         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.609095 Iteration 11
+    #> 2026-03-21 20:02:27.433531 Iteration 11
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.428557
     #> Trackway_2   8.428557         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.615624 Iteration 12
+    #> 2026-03-21 20:02:27.440903 Iteration 12
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.889371
     #> Trackway_2   8.889371         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.622306 Iteration 13
+    #> 2026-03-21 20:02:27.448409 Iteration 13
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   5.456906
     #> Trackway_2   5.456906         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.629842 Iteration 14
+    #> 2026-03-21 20:02:27.456556 Iteration 14
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    9.99483
     #> Trackway_2    9.99483         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.64297 Iteration 15
+    #> 2026-03-21 20:02:27.471172 Iteration 15
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    15.8234
     #> Trackway_2    15.8234         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.649794 Iteration 16
+    #> 2026-03-21 20:02:27.47877 Iteration 16
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.098378
     #> Trackway_2   9.098378         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.656393 Iteration 17
+    #> 2026-03-21 20:02:27.486009 Iteration 17
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.869719
     #> Trackway_2   6.869719         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.663004 Iteration 18
+    #> 2026-03-21 20:02:27.493217 Iteration 18
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   10.97267
     #> Trackway_2   10.97267         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.669548 Iteration 19
+    #> 2026-03-21 20:02:27.500365 Iteration 19
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.873918
     #> Trackway_2   7.873918         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.676018 Iteration 20
+    #> 2026-03-21 20:02:27.50739 Iteration 20
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   11.88757
     #> Trackway_2   11.88757         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.682622 Iteration 21
+    #> 2026-03-21 20:02:27.514349 Iteration 21
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   16.64634
     #> Trackway_2   16.64634         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.689323 Iteration 22
+    #> 2026-03-21 20:02:27.52156 Iteration 22
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.775963
     #> Trackway_2   9.775963         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.696037 Iteration 23
+    #> 2026-03-21 20:02:27.528714 Iteration 23
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   12.28782
     #> Trackway_2   12.28782         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.702729 Iteration 24
+    #> 2026-03-21 20:02:27.536217 Iteration 24
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   11.65634
     #> Trackway_2   11.65634         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.709271 Iteration 25
+    #> 2026-03-21 20:02:27.543432 Iteration 25
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.149532
     #> Trackway_2   7.149532         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.715832 Iteration 26
+    #> 2026-03-21 20:02:27.550773 Iteration 26
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.863978
     #> Trackway_2   8.863978         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.722617 Iteration 27
+    #> 2026-03-21 20:02:27.557913 Iteration 27
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    9.38228
     #> Trackway_2    9.38228         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.72914 Iteration 28
+    #> 2026-03-21 20:02:27.56518 Iteration 28
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.518337
     #> Trackway_2   9.518337         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.735693 Iteration 29
+    #> 2026-03-21 20:02:27.572411 Iteration 29
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.252216
     #> Trackway_2   7.252216         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.742247 Iteration 30
+    #> 2026-03-21 20:02:27.579473 Iteration 30
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   18.29014
     #> Trackway_2   18.29014         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.748837 Iteration 31
+    #> 2026-03-21 20:02:27.586614 Iteration 31
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   10.73569
     #> Trackway_2   10.73569         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.755556 Iteration 32
+    #> 2026-03-21 20:02:27.593757 Iteration 32
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   14.03749
     #> Trackway_2   14.03749         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.762516 Iteration 33
+    #> 2026-03-21 20:02:27.600955 Iteration 33
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.414557
     #> Trackway_2   7.414557         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.770051 Iteration 34
+    #> 2026-03-21 20:02:27.608647 Iteration 34
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   11.16532
     #> Trackway_2   11.16532         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.777705 Iteration 35
+    #> 2026-03-21 20:02:27.616405 Iteration 35
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    5.36321
     #> Trackway_2    5.36321         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.785266 Iteration 36
+    #> 2026-03-21 20:02:27.624127 Iteration 36
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.368371
     #> Trackway_2   6.368371         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.792845 Iteration 37
+    #> 2026-03-21 20:02:27.631907 Iteration 37
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   11.23507
     #> Trackway_2   11.23507         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.805717 Iteration 38
+    #> 2026-03-21 20:02:27.64569 Iteration 38
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   5.503266
     #> Trackway_2   5.503266         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.812597 Iteration 39
+    #> 2026-03-21 20:02:27.653199 Iteration 39
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    8.90788
     #> Trackway_2    8.90788         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.81925 Iteration 40
+    #> 2026-03-21 20:02:27.660577 Iteration 40
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   12.51941
     #> Trackway_2   12.51941         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.825835 Iteration 41
+    #> 2026-03-21 20:02:27.667825 Iteration 41
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    6.00535
     #> Trackway_2    6.00535         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.832508 Iteration 42
+    #> 2026-03-21 20:02:27.674902 Iteration 42
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    12.3614
     #> Trackway_2    12.3614         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.839002 Iteration 43
+    #> 2026-03-21 20:02:27.682098 Iteration 43
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.082762
     #> Trackway_2   6.082762         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.845558 Iteration 44
+    #> 2026-03-21 20:02:27.689132 Iteration 44
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   11.01178
     #> Trackway_2   11.01178         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.852375 Iteration 45
+    #> 2026-03-21 20:02:27.696402 Iteration 45
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.371789
     #> Trackway_2   7.371789         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.859068 Iteration 46
+    #> 2026-03-21 20:02:27.703636 Iteration 46
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.030301
     #> Trackway_2   8.030301         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.865775 Iteration 47
+    #> 2026-03-21 20:02:27.711044 Iteration 47
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.980278
     #> Trackway_2   6.980278         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.8724 Iteration 48
+    #> 2026-03-21 20:02:27.71837 Iteration 48
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   10.17699
     #> Trackway_2   10.17699         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.878994 Iteration 49
+    #> 2026-03-21 20:02:27.725746 Iteration 49
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.946222
     #> Trackway_2   7.946222         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.88557 Iteration 50
+    #> 2026-03-21 20:02:27.732982 Iteration 50
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    15.9232
     #> Trackway_2    15.9232         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.892077 Iteration 51
+    #> 2026-03-21 20:02:27.740299 Iteration 51
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.659665
     #> Trackway_2   8.659665         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.898725 Iteration 52
+    #> 2026-03-21 20:02:27.747532 Iteration 52
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   12.26831
     #> Trackway_2   12.26831         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.905289 Iteration 53
+    #> 2026-03-21 20:02:27.754761 Iteration 53
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.102159
     #> Trackway_2   8.102159         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.911792 Iteration 54
+    #> 2026-03-21 20:02:27.761891 Iteration 54
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.824064
     #> Trackway_2   6.824064         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.918513 Iteration 55
+    #> 2026-03-21 20:02:27.768862 Iteration 55
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.243153
     #> Trackway_2   6.243153         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.925152 Iteration 56
+    #> 2026-03-21 20:02:27.775867 Iteration 56
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    8.66335
     #> Trackway_2    8.66335         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.931706 Iteration 57
+    #> 2026-03-21 20:02:27.782908 Iteration 57
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.575802
     #> Trackway_2   9.575802         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.938351 Iteration 58
+    #> 2026-03-21 20:02:27.789952 Iteration 58
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.075326
     #> Trackway_2   6.075326         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.944829 Iteration 59
+    #> 2026-03-21 20:02:27.796932 Iteration 59
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.636032
     #> Trackway_2   7.636032         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.951361 Iteration 60
+    #> 2026-03-21 20:02:27.80398 Iteration 60
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.159662
     #> Trackway_2   6.159662         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.963381 Iteration 61
+    #> 2026-03-21 20:02:27.816671 Iteration 61
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.394419
     #> Trackway_2   8.394419         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.970675 Iteration 62
+    #> 2026-03-21 20:02:27.824237 Iteration 62
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA      11.14
     #> Trackway_2      11.14         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.977406 Iteration 63
+    #> 2026-03-21 20:02:27.831121 Iteration 63
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.033521
     #> Trackway_2   9.033521         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.983966 Iteration 64
+    #> 2026-03-21 20:02:27.838142 Iteration 64
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.229046
     #> Trackway_2   7.229046         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.990512 Iteration 65
+    #> 2026-03-21 20:02:27.845067 Iteration 65
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.986163
     #> Trackway_2   6.986163         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:15.997146 Iteration 66
+    #> 2026-03-21 20:02:27.852163 Iteration 66
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.772953
     #> Trackway_2   8.772953         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.003704 Iteration 67
+    #> 2026-03-21 20:02:27.859205 Iteration 67
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.229288
     #> Trackway_2   7.229288         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.010515 Iteration 68
+    #> 2026-03-21 20:02:27.866422 Iteration 68
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   11.78027
     #> Trackway_2   11.78027         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.017098 Iteration 69
+    #> 2026-03-21 20:02:27.873591 Iteration 69
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   11.19947
     #> Trackway_2   11.19947         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.023782 Iteration 70
+    #> 2026-03-21 20:02:27.881031 Iteration 70
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    10.9586
     #> Trackway_2    10.9586         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.03035 Iteration 71
+    #> 2026-03-21 20:02:27.888311 Iteration 71
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   12.28704
     #> Trackway_2   12.28704         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.036898 Iteration 72
+    #> 2026-03-21 20:02:27.895663 Iteration 72
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   10.50279
     #> Trackway_2   10.50279         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.043485 Iteration 73
+    #> 2026-03-21 20:02:27.903004 Iteration 73
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   10.31169
     #> Trackway_2   10.31169         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.050117 Iteration 74
+    #> 2026-03-21 20:02:27.91025 Iteration 74
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.614872
     #> Trackway_2   6.614872         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.05665 Iteration 75
+    #> 2026-03-21 20:02:27.917526 Iteration 75
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.458243
     #> Trackway_2   6.458243         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.063107 Iteration 76
+    #> 2026-03-21 20:02:27.924712 Iteration 76
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.539505
     #> Trackway_2   7.539505         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.069654 Iteration 77
+    #> 2026-03-21 20:02:27.931882 Iteration 77
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   5.684973
     #> Trackway_2   5.684973         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.076221 Iteration 78
+    #> 2026-03-21 20:02:27.938947 Iteration 78
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.426667
     #> Trackway_2   7.426667         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.082805 Iteration 79
+    #> 2026-03-21 20:02:27.946122 Iteration 79
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.926958
     #> Trackway_2   9.926958         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.089354 Iteration 80
+    #> 2026-03-21 20:02:27.953388 Iteration 80
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.710177
     #> Trackway_2   7.710177         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.095865 Iteration 81
+    #> 2026-03-21 20:02:27.960654 Iteration 81
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.411787
     #> Trackway_2   9.411787         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.102412 Iteration 82
+    #> 2026-03-21 20:02:27.96787 Iteration 82
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.330011
     #> Trackway_2   9.330011         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.108914 Iteration 83
+    #> 2026-03-21 20:02:27.975239 Iteration 83
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   10.34119
     #> Trackway_2   10.34119         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.12076 Iteration 84
+    #> 2026-03-21 20:02:27.988042 Iteration 84
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.758005
     #> Trackway_2   6.758005         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.128269 Iteration 85
+    #> 2026-03-21 20:02:27.99648 Iteration 85
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   14.07835
     #> Trackway_2   14.07835         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.134978 Iteration 86
+    #> 2026-03-21 20:02:28.003779 Iteration 86
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.419326
     #> Trackway_2   9.419326         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.141591 Iteration 87
+    #> 2026-03-21 20:02:28.01117 Iteration 87
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   10.71896
     #> Trackway_2   10.71896         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.148126 Iteration 88
+    #> 2026-03-21 20:02:28.01842 Iteration 88
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.852054
     #> Trackway_2   8.852054         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.154615 Iteration 89
+    #> 2026-03-21 20:02:28.02564 Iteration 89
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   10.03826
     #> Trackway_2   10.03826         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.161084 Iteration 90
+    #> 2026-03-21 20:02:28.032674 Iteration 90
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   8.052817
     #> Trackway_2   8.052817         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.167989 Iteration 91
+    #> 2026-03-21 20:02:28.040024 Iteration 91
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    10.4574
     #> Trackway_2    10.4574         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.174619 Iteration 92
+    #> 2026-03-21 20:02:28.047268 Iteration 92
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   10.76337
     #> Trackway_2   10.76337         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.181377 Iteration 93
+    #> 2026-03-21 20:02:28.054874 Iteration 93
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.066065
     #> Trackway_2   7.066065         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.187929 Iteration 94
+    #> 2026-03-21 20:02:28.062451 Iteration 94
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.991028
     #> Trackway_2   9.991028         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.194483 Iteration 95
+    #> 2026-03-21 20:02:28.070144 Iteration 95
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    10.1453
     #> Trackway_2    10.1453         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.201023 Iteration 96
+    #> 2026-03-21 20:02:28.077888 Iteration 96
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   12.09773
     #> Trackway_2   12.09773         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.207494 Iteration 97
+    #> 2026-03-21 20:02:28.085308 Iteration 97
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   9.215357
     #> Trackway_2   9.215357         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.213911 Iteration 98
+    #> 2026-03-21 20:02:28.092756 Iteration 98
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   7.753546
     #> Trackway_2   7.753546         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.220529 Iteration 99
+    #> 2026-03-21 20:02:28.100154 Iteration 99
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   6.860927
     #> Trackway_2   6.860927         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:16.227037 Iteration 100
+    #> 2026-03-21 20:02:28.107609 Iteration 100
     #> 
     #> DTW metric
     #>            Trackway_1 Trackway_2
@@ -12964,700 +12964,700 @@ simil_frechet_directed_paluxy <- simil_Frechet_metric(PaluxyRiver, test = TRUE,
 print(simil_frechet_directed_paluxy)
 ```
 
-    #> 2026-03-21 16:51:17.023716 Iteration 1
+    #> 2026-03-21 20:02:28.872068 Iteration 1
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5466994
     #> Trackway_2  0.5466994         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:17.220271 Iteration 2
+    #> 2026-03-21 20:02:29.07448 Iteration 2
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8314387
     #> Trackway_2  0.8314387         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:17.409426 Iteration 3
+    #> 2026-03-21 20:02:29.269742 Iteration 3
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4405489
     #> Trackway_2  0.4405489         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:17.587775 Iteration 4
+    #> 2026-03-21 20:02:29.456825 Iteration 4
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   1.020344
     #> Trackway_2   1.020344         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:17.774393 Iteration 5
+    #> 2026-03-21 20:02:29.651797 Iteration 5
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6534077
     #> Trackway_2  0.6534077         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:17.962818 Iteration 6
+    #> 2026-03-21 20:02:29.849027 Iteration 6
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7824013
     #> Trackway_2  0.7824013         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:18.156447 Iteration 7
+    #> 2026-03-21 20:02:30.05115 Iteration 7
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7704186
     #> Trackway_2  0.7704186         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:18.341417 Iteration 8
+    #> 2026-03-21 20:02:30.245419 Iteration 8
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   0.442308
     #> Trackway_2   0.442308         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:18.527872 Iteration 9
+    #> 2026-03-21 20:02:30.439775 Iteration 9
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6421676
     #> Trackway_2  0.6421676         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:18.704827 Iteration 10
+    #> 2026-03-21 20:02:30.625004 Iteration 10
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8946362
     #> Trackway_2  0.8946362         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:18.900777 Iteration 11
+    #> 2026-03-21 20:02:30.832534 Iteration 11
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8039577
     #> Trackway_2  0.8039577         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:19.088174 Iteration 12
+    #> 2026-03-21 20:02:31.027546 Iteration 12
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5781781
     #> Trackway_2  0.5781781         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:19.283593 Iteration 13
+    #> 2026-03-21 20:02:31.231014 Iteration 13
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4626604
     #> Trackway_2  0.4626604         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:19.475171 Iteration 14
+    #> 2026-03-21 20:02:31.431144 Iteration 14
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   1.089194
     #> Trackway_2   1.089194         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:19.665099 Iteration 15
+    #> 2026-03-21 20:02:31.62847 Iteration 15
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   1.179128
     #> Trackway_2   1.179128         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:19.854533 Iteration 16
+    #> 2026-03-21 20:02:31.827152 Iteration 16
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7050019
     #> Trackway_2  0.7050019         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:20.043111 Iteration 17
+    #> 2026-03-21 20:02:32.023251 Iteration 17
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6391275
     #> Trackway_2  0.6391275         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:20.241147 Iteration 18
+    #> 2026-03-21 20:02:32.228889 Iteration 18
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8823738
     #> Trackway_2  0.8823738         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:20.431025 Iteration 19
+    #> 2026-03-21 20:02:32.425466 Iteration 19
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7304331
     #> Trackway_2  0.7304331         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:20.621394 Iteration 20
+    #> 2026-03-21 20:02:32.623671 Iteration 20
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7524138
     #> Trackway_2  0.7524138         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:20.811035 Iteration 21
+    #> 2026-03-21 20:02:32.822843 Iteration 21
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   1.031958
     #> Trackway_2   1.031958         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:20.996214 Iteration 22
+    #> 2026-03-21 20:02:33.016879 Iteration 22
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6342117
     #> Trackway_2  0.6342117         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:21.191715 Iteration 23
+    #> 2026-03-21 20:02:33.424604 Iteration 23
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7860495
     #> Trackway_2  0.7860495         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:21.369843 Iteration 24
+    #> 2026-03-21 20:02:33.597869 Iteration 24
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6304838
     #> Trackway_2  0.6304838         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:21.559542 Iteration 25
+    #> 2026-03-21 20:02:33.78428 Iteration 25
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6054783
     #> Trackway_2  0.6054783         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:21.751018 Iteration 26
+    #> 2026-03-21 20:02:33.970748 Iteration 26
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6831045
     #> Trackway_2  0.6831045         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:21.939307 Iteration 27
+    #> 2026-03-21 20:02:34.155572 Iteration 27
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.9491129
     #> Trackway_2  0.9491129         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:22.343656 Iteration 28
+    #> 2026-03-21 20:02:34.337996 Iteration 28
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5900783
     #> Trackway_2  0.5900783         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:22.525604 Iteration 29
+    #> 2026-03-21 20:02:34.533688 Iteration 29
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   0.540638
     #> Trackway_2   0.540638         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:22.706829 Iteration 30
+    #> 2026-03-21 20:02:34.724008 Iteration 30
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   1.234839
     #> Trackway_2   1.234839         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:22.878601 Iteration 31
+    #> 2026-03-21 20:02:34.901419 Iteration 31
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7804393
     #> Trackway_2  0.7804393         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:23.048245 Iteration 32
+    #> 2026-03-21 20:02:35.077631 Iteration 32
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.9413796
     #> Trackway_2  0.9413796         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:23.220903 Iteration 33
+    #> 2026-03-21 20:02:35.256585 Iteration 33
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6420718
     #> Trackway_2  0.6420718         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:23.401983 Iteration 34
+    #> 2026-03-21 20:02:35.444337 Iteration 34
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8017566
     #> Trackway_2  0.8017566         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:23.588488 Iteration 35
+    #> 2026-03-21 20:02:35.633498 Iteration 35
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6177451
     #> Trackway_2  0.6177451         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:23.771147 Iteration 36
+    #> 2026-03-21 20:02:35.832295 Iteration 36
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7355254
     #> Trackway_2  0.7355254         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:23.955389 Iteration 37
+    #> 2026-03-21 20:02:36.020623 Iteration 37
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.9641226
     #> Trackway_2  0.9641226         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:24.137414 Iteration 38
+    #> 2026-03-21 20:02:36.207844 Iteration 38
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6630825
     #> Trackway_2  0.6630825         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:24.304795 Iteration 39
+    #> 2026-03-21 20:02:36.380386 Iteration 39
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4388457
     #> Trackway_2  0.4388457         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:24.487194 Iteration 40
+    #> 2026-03-21 20:02:36.568613 Iteration 40
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   0.813586
     #> Trackway_2   0.813586         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:24.651863 Iteration 41
+    #> 2026-03-21 20:02:36.738465 Iteration 41
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.2289895
     #> Trackway_2  0.2289895         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:24.838831 Iteration 42
+    #> 2026-03-21 20:02:36.927173 Iteration 42
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   1.086042
     #> Trackway_2   1.086042         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:25.020836 Iteration 43
+    #> 2026-03-21 20:02:37.120579 Iteration 43
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5161119
     #> Trackway_2  0.5161119         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:25.192281 Iteration 44
+    #> 2026-03-21 20:02:37.295732 Iteration 44
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6689956
     #> Trackway_2  0.6689956         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:25.370888 Iteration 45
+    #> 2026-03-21 20:02:37.479564 Iteration 45
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4896413
     #> Trackway_2  0.4896413         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:25.553703 Iteration 46
+    #> 2026-03-21 20:02:37.667779 Iteration 46
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   0.478708
     #> Trackway_2   0.478708         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:25.743424 Iteration 47
+    #> 2026-03-21 20:02:37.85541 Iteration 47
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7140279
     #> Trackway_2  0.7140279         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:25.926799 Iteration 48
+    #> 2026-03-21 20:02:38.043524 Iteration 48
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6390971
     #> Trackway_2  0.6390971         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:26.103786 Iteration 49
+    #> 2026-03-21 20:02:38.221604 Iteration 49
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6644136
     #> Trackway_2  0.6644136         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:26.287851 Iteration 50
+    #> 2026-03-21 20:02:38.416403 Iteration 50
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.9691225
     #> Trackway_2  0.9691225         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:26.47273 Iteration 51
+    #> 2026-03-21 20:02:38.604729 Iteration 51
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7321079
     #> Trackway_2  0.7321079         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:26.656549 Iteration 52
+    #> 2026-03-21 20:02:38.791445 Iteration 52
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6940011
     #> Trackway_2  0.6940011         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:26.840383 Iteration 53
+    #> 2026-03-21 20:02:38.978249 Iteration 53
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6164811
     #> Trackway_2  0.6164811         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:27.025449 Iteration 54
+    #> 2026-03-21 20:02:39.165674 Iteration 54
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4648986
     #> Trackway_2  0.4648986         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:27.196972 Iteration 55
+    #> 2026-03-21 20:02:39.338439 Iteration 55
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.3725837
     #> Trackway_2  0.3725837         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:27.380125 Iteration 56
+    #> 2026-03-21 20:02:39.518418 Iteration 56
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7150995
     #> Trackway_2  0.7150995         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:27.555948 Iteration 57
+    #> 2026-03-21 20:02:39.695786 Iteration 57
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5512543
     #> Trackway_2  0.5512543         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:27.739641 Iteration 58
+    #> 2026-03-21 20:02:39.886645 Iteration 58
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4961773
     #> Trackway_2  0.4961773         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:27.926841 Iteration 59
+    #> 2026-03-21 20:02:40.074797 Iteration 59
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6840355
     #> Trackway_2  0.6840355         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:28.111555 Iteration 60
+    #> 2026-03-21 20:02:40.263014 Iteration 60
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7041385
     #> Trackway_2  0.7041385         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:28.298943 Iteration 61
+    #> 2026-03-21 20:02:40.451952 Iteration 61
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6760407
     #> Trackway_2  0.6760407         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:28.472272 Iteration 62
+    #> 2026-03-21 20:02:40.627978 Iteration 62
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8191738
     #> Trackway_2  0.8191738         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:28.661425 Iteration 63
+    #> 2026-03-21 20:02:40.818505 Iteration 63
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7036756
     #> Trackway_2  0.7036756         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:28.833192 Iteration 64
+    #> 2026-03-21 20:02:40.999448 Iteration 64
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4866544
     #> Trackway_2  0.4866544         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:29.006468 Iteration 65
+    #> 2026-03-21 20:02:41.175632 Iteration 65
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4898451
     #> Trackway_2  0.4898451         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:29.193084 Iteration 66
+    #> 2026-03-21 20:02:41.371815 Iteration 66
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7180408
     #> Trackway_2  0.7180408         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:29.377296 Iteration 67
+    #> 2026-03-21 20:02:41.562716 Iteration 67
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4726775
     #> Trackway_2  0.4726775         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:29.561649 Iteration 68
+    #> 2026-03-21 20:02:41.750732 Iteration 68
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8760031
     #> Trackway_2  0.8760031         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:29.749702 Iteration 69
+    #> 2026-03-21 20:02:41.942334 Iteration 69
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.9632462
     #> Trackway_2  0.9632462         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:29.92919 Iteration 70
+    #> 2026-03-21 20:02:42.121214 Iteration 70
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.9732862
     #> Trackway_2  0.9732862         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:30.115585 Iteration 71
+    #> 2026-03-21 20:02:42.314546 Iteration 71
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8384016
     #> Trackway_2  0.8384016         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:30.301535 Iteration 72
+    #> 2026-03-21 20:02:42.504138 Iteration 72
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   0.963868
     #> Trackway_2   0.963868         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:30.487729 Iteration 73
+    #> 2026-03-21 20:02:42.695239 Iteration 73
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA    0.99137
     #> Trackway_2    0.99137         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:30.660517 Iteration 74
+    #> 2026-03-21 20:02:42.869447 Iteration 74
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.3467418
     #> Trackway_2  0.3467418         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:30.844283 Iteration 75
+    #> 2026-03-21 20:02:43.056803 Iteration 75
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4517816
     #> Trackway_2  0.4517816         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:31.035764 Iteration 76
+    #> 2026-03-21 20:02:43.246243 Iteration 76
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5435408
     #> Trackway_2  0.5435408         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:31.221136 Iteration 77
+    #> 2026-03-21 20:02:43.43864 Iteration 77
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4622743
     #> Trackway_2  0.4622743         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:31.407945 Iteration 78
+    #> 2026-03-21 20:02:43.62821 Iteration 78
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8716827
     #> Trackway_2  0.8716827         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:31.5951 Iteration 79
+    #> 2026-03-21 20:02:43.817662 Iteration 79
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8055714
     #> Trackway_2  0.8055714         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:31.767462 Iteration 80
+    #> 2026-03-21 20:02:43.992276 Iteration 80
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.4256905
     #> Trackway_2  0.4256905         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:31.951368 Iteration 81
+    #> 2026-03-21 20:02:44.178733 Iteration 81
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6218316
     #> Trackway_2  0.6218316         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:32.141799 Iteration 82
+    #> 2026-03-21 20:02:44.366675 Iteration 82
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5727662
     #> Trackway_2  0.5727662         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:32.319265 Iteration 83
+    #> 2026-03-21 20:02:44.542478 Iteration 83
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6715919
     #> Trackway_2  0.6715919         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:32.509361 Iteration 84
+    #> 2026-03-21 20:02:44.739699 Iteration 84
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   0.699989
     #> Trackway_2   0.699989         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:32.696384 Iteration 85
+    #> 2026-03-21 20:02:44.929961 Iteration 85
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   1.156907
     #> Trackway_2   1.156907         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:32.879453 Iteration 86
+    #> 2026-03-21 20:02:45.116061 Iteration 86
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.6286463
     #> Trackway_2  0.6286463         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:33.063563 Iteration 87
+    #> 2026-03-21 20:02:45.304363 Iteration 87
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7153463
     #> Trackway_2  0.7153463         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:33.255229 Iteration 88
+    #> 2026-03-21 20:02:45.493419 Iteration 88
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7993102
     #> Trackway_2  0.7993102         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:33.440523 Iteration 89
+    #> 2026-03-21 20:02:45.688635 Iteration 89
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8249873
     #> Trackway_2  0.8249873         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:33.624004 Iteration 90
+    #> 2026-03-21 20:02:45.876191 Iteration 90
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.7111871
     #> Trackway_2  0.7111871         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:33.808958 Iteration 91
+    #> 2026-03-21 20:02:46.063961 Iteration 91
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5584687
     #> Trackway_2  0.5584687         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:33.984146 Iteration 92
+    #> 2026-03-21 20:02:46.242336 Iteration 92
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8907633
     #> Trackway_2  0.8907633         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:34.170376 Iteration 93
+    #> 2026-03-21 20:02:46.431899 Iteration 93
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5086097
     #> Trackway_2  0.5086097         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:34.346556 Iteration 94
+    #> 2026-03-21 20:02:46.612539 Iteration 94
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA   0.721202
     #> Trackway_2   0.721202         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:34.53899 Iteration 95
+    #> 2026-03-21 20:02:46.804376 Iteration 95
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.8673562
     #> Trackway_2  0.8673562         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:34.727233 Iteration 96
+    #> 2026-03-21 20:02:46.999774 Iteration 96
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.9653837
     #> Trackway_2  0.9653837         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:34.912216 Iteration 97
+    #> 2026-03-21 20:02:47.186215 Iteration 97
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5446947
     #> Trackway_2  0.5446947         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.09889 Iteration 98
+    #> 2026-03-21 20:02:47.37501 Iteration 98
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.5188816
     #> Trackway_2  0.5188816         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.287415 Iteration 99
+    #> 2026-03-21 20:02:47.568556 Iteration 99
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
     #> Trackway_1         NA  0.9608178
     #> Trackway_2  0.9608178         NA
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.474718 Iteration 100
+    #> 2026-03-21 20:02:47.758355 Iteration 100
     #> 
     #> Frechet metric
     #>            Trackway_1 Trackway_2
@@ -14199,403 +14199,403 @@ int_directed_paluxy <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower"
 print(int_directed_paluxy)
 ```
 
-    #> 2026-03-21 16:51:35.860574 Iteration 1
+    #> 2026-03-21 20:02:48.093902 Iteration 1
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.871751 Iteration 2
+    #> 2026-03-21 20:02:48.103833 Iteration 2
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.882684 Iteration 3
+    #> 2026-03-21 20:02:48.114056 Iteration 3
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.893839 Iteration 4
+    #> 2026-03-21 20:02:48.12423 Iteration 4
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.904799 Iteration 5
+    #> 2026-03-21 20:02:48.134605 Iteration 5
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.915935 Iteration 6
+    #> 2026-03-21 20:02:48.145295 Iteration 6
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.926874 Iteration 7
+    #> 2026-03-21 20:02:48.155945 Iteration 7
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.937686 Iteration 8
+    #> 2026-03-21 20:02:48.166217 Iteration 8
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.955028 Iteration 9
+    #> 2026-03-21 20:02:48.176558 Iteration 9
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.965913 Iteration 10
+    #> 2026-03-21 20:02:48.186772 Iteration 10
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.976616 Iteration 11
+    #> 2026-03-21 20:02:48.197037 Iteration 11
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.987389 Iteration 12
+    #> 2026-03-21 20:02:48.212541 Iteration 12
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:35.997894 Iteration 13
+    #> 2026-03-21 20:02:48.222605 Iteration 13
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.00867 Iteration 14
+    #> 2026-03-21 20:02:48.2325 Iteration 14
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.019383 Iteration 15
+    #> 2026-03-21 20:02:48.24237 Iteration 15
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.030126 Iteration 16
+    #> 2026-03-21 20:02:48.252188 Iteration 16
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.040585 Iteration 17
+    #> 2026-03-21 20:02:48.261933 Iteration 17
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.051282 Iteration 18
+    #> 2026-03-21 20:02:48.271834 Iteration 18
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.062065 Iteration 19
+    #> 2026-03-21 20:02:48.281839 Iteration 19
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.072989 Iteration 20
+    #> 2026-03-21 20:02:48.291742 Iteration 20
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.084365 Iteration 21
+    #> 2026-03-21 20:02:48.301758 Iteration 21
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.095382 Iteration 22
+    #> 2026-03-21 20:02:48.31166 Iteration 22
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.106303 Iteration 23
+    #> 2026-03-21 20:02:48.321989 Iteration 23
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.117295 Iteration 24
+    #> 2026-03-21 20:02:48.332257 Iteration 24
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.128304 Iteration 25
+    #> 2026-03-21 20:02:48.342637 Iteration 25
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.13925 Iteration 26
+    #> 2026-03-21 20:02:48.353282 Iteration 26
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.150126 Iteration 27
+    #> 2026-03-21 20:02:48.363753 Iteration 27
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.160927 Iteration 28
+    #> 2026-03-21 20:02:48.374082 Iteration 28
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.176952 Iteration 29
+    #> 2026-03-21 20:02:48.384336 Iteration 29
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.187603 Iteration 30
+    #> 2026-03-21 20:02:48.394547 Iteration 30
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.198221 Iteration 31
+    #> 2026-03-21 20:02:48.420787 Iteration 31
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.208834 Iteration 32
+    #> 2026-03-21 20:02:48.431029 Iteration 32
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.219356 Iteration 33
+    #> 2026-03-21 20:02:48.440927 Iteration 33
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.229965 Iteration 34
+    #> 2026-03-21 20:02:48.450872 Iteration 34
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.240567 Iteration 35
+    #> 2026-03-21 20:02:48.460595 Iteration 35
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.251167 Iteration 36
+    #> 2026-03-21 20:02:48.470374 Iteration 36
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.261838 Iteration 37
+    #> 2026-03-21 20:02:48.480186 Iteration 37
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.272506 Iteration 38
+    #> 2026-03-21 20:02:48.489961 Iteration 38
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.283193 Iteration 39
+    #> 2026-03-21 20:02:48.499858 Iteration 39
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.29438 Iteration 40
+    #> 2026-03-21 20:02:48.509845 Iteration 40
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.305127 Iteration 41
+    #> 2026-03-21 20:02:48.519808 Iteration 41
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.316053 Iteration 42
+    #> 2026-03-21 20:02:48.530013 Iteration 42
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.326899 Iteration 43
+    #> 2026-03-21 20:02:48.540146 Iteration 43
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.337796 Iteration 44
+    #> 2026-03-21 20:02:48.551472 Iteration 44
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.348605 Iteration 45
+    #> 2026-03-21 20:02:48.562407 Iteration 45
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.35954 Iteration 46
+    #> 2026-03-21 20:02:48.572608 Iteration 46
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.370456 Iteration 47
+    #> 2026-03-21 20:02:48.582929 Iteration 47
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.386415 Iteration 48
+    #> 2026-03-21 20:02:48.593269 Iteration 48
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.397149 Iteration 49
+    #> 2026-03-21 20:02:48.603658 Iteration 49
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.407825 Iteration 50
+    #> 2026-03-21 20:02:48.618708 Iteration 50
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.418673 Iteration 51
+    #> 2026-03-21 20:02:48.628632 Iteration 51
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.429338 Iteration 52
+    #> 2026-03-21 20:02:48.638371 Iteration 52
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.440059 Iteration 53
+    #> 2026-03-21 20:02:48.648163 Iteration 53
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.450793 Iteration 54
+    #> 2026-03-21 20:02:48.658072 Iteration 54
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.46145 Iteration 55
+    #> 2026-03-21 20:02:48.668185 Iteration 55
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.472275 Iteration 56
+    #> 2026-03-21 20:02:48.678069 Iteration 56
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.483261 Iteration 57
+    #> 2026-03-21 20:02:48.687975 Iteration 57
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.494057 Iteration 58
+    #> 2026-03-21 20:02:48.697904 Iteration 58
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.505325 Iteration 59
+    #> 2026-03-21 20:02:48.70763 Iteration 59
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.516396 Iteration 60
+    #> 2026-03-21 20:02:48.717562 Iteration 60
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.527256 Iteration 61
+    #> 2026-03-21 20:02:48.727485 Iteration 61
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.538129 Iteration 62
+    #> 2026-03-21 20:02:48.737557 Iteration 62
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.549057 Iteration 63
+    #> 2026-03-21 20:02:48.748226 Iteration 63
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.559956 Iteration 64
+    #> 2026-03-21 20:02:48.760416 Iteration 64
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.570976 Iteration 65
+    #> 2026-03-21 20:02:48.770867 Iteration 65
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.581719 Iteration 66
+    #> 2026-03-21 20:02:48.781078 Iteration 66
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.597754 Iteration 67
+    #> 2026-03-21 20:02:48.791209 Iteration 67
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.608583 Iteration 68
+    #> 2026-03-21 20:02:48.801336 Iteration 68
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.619366 Iteration 69
+    #> 2026-03-21 20:02:48.816382 Iteration 69
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.63007 Iteration 70
+    #> 2026-03-21 20:02:48.826283 Iteration 70
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.641409 Iteration 71
+    #> 2026-03-21 20:02:48.836067 Iteration 71
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.652154 Iteration 72
+    #> 2026-03-21 20:02:48.845974 Iteration 72
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.662787 Iteration 73
+    #> 2026-03-21 20:02:48.855721 Iteration 73
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.673535 Iteration 74
+    #> 2026-03-21 20:02:48.865474 Iteration 74
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.684117 Iteration 75
+    #> 2026-03-21 20:02:48.875178 Iteration 75
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.694891 Iteration 76
+    #> 2026-03-21 20:02:48.885187 Iteration 76
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.705616 Iteration 77
+    #> 2026-03-21 20:02:48.894972 Iteration 77
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.716414 Iteration 78
+    #> 2026-03-21 20:02:48.904732 Iteration 78
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.727575 Iteration 79
+    #> 2026-03-21 20:02:48.914826 Iteration 79
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.738361 Iteration 80
+    #> 2026-03-21 20:02:48.924812 Iteration 80
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.749142 Iteration 81
+    #> 2026-03-21 20:02:48.935095 Iteration 81
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.759971 Iteration 82
+    #> 2026-03-21 20:02:48.945632 Iteration 82
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.770728 Iteration 83
+    #> 2026-03-21 20:02:48.956004 Iteration 83
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.781468 Iteration 84
+    #> 2026-03-21 20:02:48.966122 Iteration 84
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.792302 Iteration 85
+    #> 2026-03-21 20:02:48.976334 Iteration 85
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.80842 Iteration 86
+    #> 2026-03-21 20:02:48.986461 Iteration 86
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.819368 Iteration 87
+    #> 2026-03-21 20:02:48.996696 Iteration 87
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.829998 Iteration 88
+    #> 2026-03-21 20:02:49.011411 Iteration 88
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.840639 Iteration 89
+    #> 2026-03-21 20:02:49.021375 Iteration 89
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.851108 Iteration 90
+    #> 2026-03-21 20:02:49.03099 Iteration 90
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.861711 Iteration 91
+    #> 2026-03-21 20:02:49.04085 Iteration 91
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.872161 Iteration 92
+    #> 2026-03-21 20:02:49.050571 Iteration 92
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.882742 Iteration 93
+    #> 2026-03-21 20:02:49.060373 Iteration 93
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.893401 Iteration 94
+    #> 2026-03-21 20:02:49.070335 Iteration 94
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.904141 Iteration 95
+    #> 2026-03-21 20:02:49.080388 Iteration 95
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.914806 Iteration 96
+    #> 2026-03-21 20:02:49.090296 Iteration 96
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.925672 Iteration 97
+    #> 2026-03-21 20:02:49.100097 Iteration 97
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.936627 Iteration 98
+    #> 2026-03-21 20:02:49.110011 Iteration 98
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.947375 Iteration 99
+    #> 2026-03-21 20:02:49.119933 Iteration 99
     #> 
     #> Intersect metric
     #> ------------------------------------
-    #> 2026-03-21 16:51:36.95819 Iteration 100
+    #> 2026-03-21 20:02:49.130074 Iteration 100
     #> 
     #> Intersect metric
     #> ------------------------------------

@@ -21,6 +21,11 @@ the significance of combined metrics across various similarity assessments."><me
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/QuAnTeTrack.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/QuAnTeTrack_validation_article.html">Evaluating trajectory-based signatures of coordinated movement with QuAnTeTrack</a></li>
+    <li><a class="dropdown-item" href="../articles/QuAnTeTrack_workflow_article.html">Applied Examples Using QuAnTeTrack</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -135,21 +140,21 @@ across all metrics considered.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1: "Directed" model and similarity metrics.</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Directed"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">DTW1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s1</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:31.207226 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:01.30991 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 7.767709</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 7.767709       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:31.214188 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:01.317985 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 10.91272</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 10.91272       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:31.220474 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:01.325254 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
@@ -160,21 +165,21 @@ across all metrics considered.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">Frechet1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s1</span>, superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:31.616441 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:01.690495 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1        NA 0.7781548</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 0.7781548        NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:31.79077 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:01.863743 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Track_1   Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1        NA 0.7738161</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 0.7738161        NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:31.966607 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:02.031702 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Track_1   Track_2</span>
@@ -186,15 +191,15 @@ across all metrics considered.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">int1</span> <span class="op">&lt;-</span> <span class="fu"><a href="track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, sim <span class="op">=</span> <span class="va">s1</span>,</span></span>
 <span class="r-in"><span>  origin.permutation <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:31.989049 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:02.056659 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:31.999041 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:02.067901 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:32.008841 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:02.078789 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -220,21 +225,21 @@ across all metrics considered.</p>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Constrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">DTW2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s2</span>,</span></span>
 <span class="r-in"><span>  superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:32.034265 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:02.105152 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 67.17671</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 67.17671       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:32.040362 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:02.111964 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 34.32521</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 34.32521       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:32.054649 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:02.118974 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
@@ -246,21 +251,21 @@ across all metrics considered.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">Frechet2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s2</span>,</span></span>
 <span class="r-in"><span>  superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:32.367172 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:02.435165 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 3.765697</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 3.765697       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:32.517336 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:02.582085 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 3.752331</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 3.752331       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:32.700125 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:02.754726 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Track_1   Track_2</span>
@@ -272,30 +277,30 @@ across all metrics considered.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">int2</span> <span class="op">&lt;-</span> <span class="fu"><a href="track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, sim <span class="op">=</span> <span class="va">s2</span>,</span></span>
 <span class="r-in"><span>  origin.permutation <span class="op">=</span> <span class="st">"Min.Box"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:33.104157 Permutation 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:03.156001 Permutation 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:33.517028 Permutation 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:03.576728 Permutation 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:33.585538 Permutation 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:03.649502 Permutation 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:33.596989 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:03.660312 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:33.607156 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:03.670287 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:33.617474 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:03.67961 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -321,21 +326,21 @@ across all metrics considered.</p>
 <span class="r-in"><span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">3</span>, model <span class="op">=</span> <span class="st">"Unconstrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">DTW3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s3</span>,</span></span>
 <span class="r-in"><span>  superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:33.641526 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:03.702211 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 27.66064</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 27.66064       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:33.647842 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:03.708252 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1       NA 300.0043</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 300.0043       NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:33.65414 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:03.714809 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> DTW metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
@@ -347,21 +352,21 @@ across all metrics considered.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">Frechet3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, sim <span class="op">=</span> <span class="va">s3</span>,</span></span>
 <span class="r-in"><span>  superposition <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:34.020767 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:04.080202 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA 1.54771</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 1.54771      NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:34.039998 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:04.10264 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA      -1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      -1      NA</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:34.157051 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:04.236015 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Frechet metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_1  Track_2</span>
@@ -373,30 +378,30 @@ across all metrics considered.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-in"><span><span class="va">int3</span> <span class="op">&lt;-</span> <span class="fu"><a href="track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, sim <span class="op">=</span> <span class="va">s3</span>,</span></span>
 <span class="r-in"><span>  origin.permutation <span class="op">=</span> <span class="st">"Conv.Hull"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:34.280999 Permutation 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:04.382743 Permutation 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:34.359322 Permutation 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:04.466918 Permutation 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:34.424375 Permutation 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:04.744894 Permutation 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:34.436702 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:04.756633 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:34.447091 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:04.766686 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:28:34.456599 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:50:04.776398 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>

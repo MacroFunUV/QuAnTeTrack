@@ -532,12 +532,7 @@ intersection structure is associated primarily with pairs whose relative
 configuration is aligned with the main direction of displacement (Figure
 X).
 
-![Pairwise significance for the Higher-intersection hypothesis plotted
-against initial Euclidean spacing and angular
-difference.](figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100.png)
-
-Pairwise significance for the Higher-intersection hypothesis plotted
-against initial Euclidean spacing and angular difference.
+`{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise significance for the Higher-intersection hypothesis plotted against initial Euclidean spacing and angular difference."} knitr::include_graphics("figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100.png")`
 
 Under the **Lower** hypothesis, the signal is weaker, but the lowest
 p-values tend to occur among nearby dyads with larger angular
@@ -546,13 +541,7 @@ evident among some pairs that were both spatially close and more
 laterally arranged relative to their mean direction of movement (Figure
 X).
 
-![Pairwise significance for the Lower-intersection hypothesis plotted
-against initial Euclidean spacing and angular
-difference.](figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100.png)
-
-Pairwise significance for the Lower-intersection hypothesis plotted
-against initial Euclidean spacing and angular difference.
-
+`{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise significance for the Lower-intersection hypothesis plotted against initial Euclidean spacing and angular difference."} knitr::include_graphics("figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100.png")`
 Taken together, the two intersection analyses show that intersection
 structure varies systematically with pairwise geometric configuration
 rather than being randomly distributed across the herd.
@@ -569,19 +558,10 @@ hypothesis, the lowest combined p-values are still concentrated mainly
 among dyads with small angular differences, whereas under the **Lower**
 hypothesis the contrast is less pronounced (Figure X).
 
-![Combined significance for Intersection + DTW under the
-Higher-intersection
-hypothesis.](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Higher_nsim100.png)
+![](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Higher_nsim100.gif)
 
-Combined significance for Intersection + DTW under the
-Higher-intersection hypothesis.
-
-![Combined significance for Intersection + DTW under the
-Lower-intersection
-hypothesis.](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Lower_nsim100.png)
-
-Combined significance for Intersection + DTW under the
-Lower-intersection hypothesis.
+*Combined significance for Intersection + DTW under the
+Higher-intersection hypothesis.*
 
 For the **Fréchet-based combinations**, the effect of adding
 intersection information is more clearly structured. Under the

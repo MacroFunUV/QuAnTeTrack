@@ -497,14 +497,7 @@ distributed across much of the cloud, indicating widespread non-random
 similarity among observed trajectories relative to the simulated
 baseline (Figure X).
 
-![Pairwise DTW distance plotted against the Euclidean distance between
-the first recorded positions of individuals. Point colour represents the
-raw pairwise significance value relative to the unconstrained null
-model.](figures/dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png)
-
-Pairwise DTW distance plotted against the Euclidean distance between the
-first recorded positions of individuals. Point colour represents the raw
-pairwise significance value relative to the unconstrained null model.
+`{r dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise DTW distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model."} knitr::include_graphics("figures/dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png")`
 
 For **Fréchet distance**, the relationship with initial Euclidean
 spacing is more regular and more nearly linear. As the initial
@@ -525,27 +518,7 @@ the first recorded positions of individuals. Point colour represents the
 raw pairwise significance value relative to the unconstrained null
 model.
 
-When pairwise significance is plotted against initial Euclidean spacing
-and angular difference, the two similarity metrics show related but not
-identical patterns. In the DTW analysis, low p-values occur across much
-of the distribution, especially at lower angular differences. In the
-Fréchet analysis, low p-values are more concentrated in a narrower
-region of the plot and are more strongly structured by pairwise geometry
-(Figure X).
-
-![Pairwise DTW significance plotted against initial Euclidean spacing
-and angular
-difference.](figures/scatter_angleDelta_vs_euclid_pvalueDTW_RAW_Centroid_nsim100.png)
-
-Pairwise DTW significance plotted against initial Euclidean spacing and
-angular difference.
-
-![Pairwise Fréchet significance plotted against initial Euclidean
-spacing and angular
-difference.](figures/scatter_angleDelta_vs_euclid_pvalueFrechet_RAW_Centroid_nsim100.png)
-
-Pairwise Fréchet significance plotted against initial Euclidean spacing
-and angular difference.
+`{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise Fréchet distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model."} knitr::include_graphics("figures/frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png")`
 
 #### 3.3. Intersection structure
 

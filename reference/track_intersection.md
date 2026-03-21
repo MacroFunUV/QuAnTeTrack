@@ -229,23 +229,23 @@ Statistical applications in genetics and molecular biology, 9(1).
 s1 <- simulate_track(PaluxyRiver, nsim = 5, model = "Directed")
 int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1,
 origin.permutation = "None")
-#> 2026-01-21 09:03:56.953073 Iteration 1
+#> 2026-03-21 15:22:49.16416 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:56.964282 Iteration 2
+#> 2026-03-21 15:22:49.175277 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:56.974889 Iteration 3
+#> 2026-03-21 15:22:49.18639 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:56.98549 Iteration 4
+#> 2026-03-21 15:22:49.197338 Iteration 4
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:56.996315 Iteration 5
+#> 2026-03-21 15:22:49.208323 Iteration 5
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -279,8 +279,8 @@ print(int1)
 #> 
 #> $Intersection_metric_simulations[[2]]
 #>         Track_1 Track_2
-#> Track_1      NA       3
-#> Track_2       3      NA
+#> Track_1      NA       2
+#> Track_2       2      NA
 #> 
 #> $Intersection_metric_simulations[[3]]
 #>         Track_1 Track_2
@@ -303,46 +303,46 @@ print(int1)
 s2 <- simulate_track(PaluxyRiver, nsim = 5, model = "Constrained")
 int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2,
 origin.permutation = "Min.Box")
-#> 2026-01-21 09:03:57.158215 Permutation 1
+#> 2026-03-21 15:22:49.62706 Permutation 1
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-01-21 09:03:57.255809 Permutation 2
+#> 2026-03-21 15:22:49.718925 Permutation 2
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-01-21 09:03:57.544779 Permutation 3
+#> 2026-03-21 15:22:49.996291 Permutation 3
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-01-21 09:03:57.665761 Permutation 4
+#> 2026-03-21 15:22:50.106178 Permutation 4
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-01-21 09:03:57.715148 Permutation 5
+#> 2026-03-21 15:22:50.157495 Permutation 5
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
 #> PERMUTATION COMPLETED
 #> ------------------------------------
 #>  
-#> 2026-01-21 09:03:57.726871 Iteration 1
+#> 2026-03-21 15:22:50.168995 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:57.737629 Iteration 2
+#> 2026-03-21 15:22:50.179617 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:57.748192 Iteration 3
+#> 2026-03-21 15:22:50.19041 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:57.758878 Iteration 4
+#> 2026-03-21 15:22:50.201004 Iteration 4
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:57.769492 Iteration 5
+#> 2026-03-21 15:22:50.211676 Iteration 5
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -356,23 +356,23 @@ print(int2)
 #> Track_2       1      NA
 #> 
 #> $Intersection_metric_p_values
-#>         Track_1 Track_2
-#> Track_1      NA       1
-#> Track_2       1      NA
+#>           Track_1   Track_2
+#> Track_1        NA 0.8333333
+#> Track_2 0.8333333        NA
 #> 
 #> $Intersection_metric_p_values_BH
-#>         Track_1 Track_2
-#> Track_1      NA       1
-#> Track_2       1      NA
+#>           Track_1   Track_2
+#> Track_1        NA 0.8333333
+#> Track_2 0.8333333        NA
 #> 
 #> $Intersection_metric_p_values_combined
-#> [1] 1
+#> [1] 0.8333333
 #> 
 #> $Intersection_metric_simulations
 #> $Intersection_metric_simulations[[1]]
 #>         Track_1 Track_2
-#> Track_1      NA       1
-#> Track_2       1      NA
+#> Track_1      NA       0
+#> Track_2       0      NA
 #> 
 #> $Intersection_metric_simulations[[2]]
 #>         Track_1 Track_2
@@ -381,8 +381,8 @@ print(int2)
 #> 
 #> $Intersection_metric_simulations[[3]]
 #>         Track_1 Track_2
-#> Track_1      NA       0
-#> Track_2       0      NA
+#> Track_1      NA       3
+#> Track_2       3      NA
 #> 
 #> $Intersection_metric_simulations[[4]]
 #>         Track_1 Track_2
@@ -391,8 +391,8 @@ print(int2)
 #> 
 #> $Intersection_metric_simulations[[5]]
 #>         Track_1 Track_2
-#> Track_1      NA       0
-#> Track_2       0      NA
+#> Track_1      NA       1
+#> Track_2       1      NA
 #> 
 #> 
 
@@ -400,46 +400,46 @@ print(int2)
 s3 <- simulate_track(PaluxyRiver, nsim = 5, model = "Unconstrained")
 int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3,
 origin.permutation = "Conv.Hull")
-#> 2026-01-21 09:03:57.915939 Permutation 1
+#> 2026-03-21 15:22:50.58943 Permutation 1
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
-#> 2026-01-21 09:03:57.966211 Permutation 2
+#> 2026-03-21 15:22:50.632523 Permutation 2
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
-#> 2026-01-21 09:03:58.240637 Permutation 3
+#> 2026-03-21 15:22:50.679922 Permutation 3
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
-#> 2026-01-21 09:03:58.294076 Permutation 4
+#> 2026-03-21 15:22:50.733299 Permutation 4
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
-#> 2026-01-21 09:03:58.34186 Permutation 5
+#> 2026-03-21 15:22:50.775972 Permutation 5
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
 #> PERMUTATION COMPLETED
 #> ------------------------------------
 #>  
-#> 2026-01-21 09:03:58.353655 Iteration 1
+#> 2026-03-21 15:22:50.787711 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.364174 Iteration 2
+#> 2026-03-21 15:22:50.798395 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.374596 Iteration 3
+#> 2026-03-21 15:22:50.809156 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.38543 Iteration 4
+#> 2026-03-21 15:22:50.819902 Iteration 4
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.395928 Iteration 5
+#> 2026-03-21 15:22:50.830605 Iteration 5
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -483,8 +483,8 @@ print(int3)
 #> 
 #> $Intersection_metric_simulations[[4]]
 #>         Track_1 Track_2
-#> Track_1      NA       0
-#> Track_2       0      NA
+#> Track_1      NA       1
+#> Track_2       1      NA
 #> 
 #> $Intersection_metric_simulations[[5]]
 #>         Track_1 Track_2
@@ -499,46 +499,46 @@ s4 <- simulate_track(sbMountTom, nsim = 5)
 #> Warning: `model` is NULL. Defaulting to 'Unconstrained'.
 int4 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s4,
 origin.permutation = "Min.Box")
-#> 2026-01-21 09:03:58.483181 Permutation 1
+#> 2026-03-21 15:22:50.918059 Permutation 1
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-01-21 09:03:58.486331 Permutation 2
+#> 2026-03-21 15:22:50.921058 Permutation 2
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-01-21 09:03:58.48964 Permutation 3
+#> 2026-03-21 15:22:50.923874 Permutation 3
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-01-21 09:03:58.492654 Permutation 4
+#> 2026-03-21 15:22:50.927423 Permutation 4
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-01-21 09:03:58.495947 Permutation 5
+#> 2026-03-21 15:22:50.930479 Permutation 5
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
 #> PERMUTATION COMPLETED
 #> ------------------------------------
 #>  
-#> 2026-01-21 09:03:58.524998 Iteration 1
+#> 2026-03-21 15:22:50.959631 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.553457 Iteration 2
+#> 2026-03-21 15:22:50.988004 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.581612 Iteration 3
+#> 2026-03-21 15:22:51.016306 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.60969 Iteration 4
+#> 2026-03-21 15:22:51.044598 Iteration 4
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.641938 Iteration 5
+#> 2026-03-21 15:22:51.073015 Iteration 5
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -631,10 +631,10 @@ print(int4)
 #> $Intersection_metric_simulations[[1]]
 #>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09
 #> Track_01       NA        0        0        0        0        0        0
-#> Track_02        0       NA        1        0        0        0        0
-#> Track_03        0        1       NA        0        1        0        0
+#> Track_02        0       NA        0        0        0        0        0
+#> Track_03        0        0       NA        0        0        0        0
 #> Track_04        0        0        0       NA        0        0        0
-#> Track_07        0        0        1        0       NA        0        0
+#> Track_07        0        0        0        0       NA        0        0
 #> Track_08        0        0        0        0        0       NA        0
 #> Track_09        0        0        0        0        0        0       NA
 #> Track_13        0        0        0        0        0        0        0
@@ -656,23 +656,23 @@ print(int4)
 #> 
 #> $Intersection_metric_simulations[[2]]
 #>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09
-#> Track_01       NA        0        1        0        0        0        0
+#> Track_01       NA        0        0        0        0        0        0
 #> Track_02        0       NA        0        0        0        0        0
-#> Track_03        1        0       NA        0        0        0        0
-#> Track_04        0        0        0       NA        0        1        1
-#> Track_07        0        0        0        0       NA        0        0
-#> Track_08        0        0        0        1        0       NA        0
-#> Track_09        0        0        0        1        0        0       NA
+#> Track_03        0        0       NA        0        0        0        0
+#> Track_04        0        0        0       NA        0        0        0
+#> Track_07        0        0        0        0       NA        1        0
+#> Track_08        0        0        0        0        1       NA        0
+#> Track_09        0        0        0        0        0        0       NA
 #> Track_13        0        0        0        0        0        0        0
 #> Track_15        0        0        0        0        0        0        0
 #> Track_16        0        0        0        0        0        0        0
-#> Track_18        0        0        0        0        1        0        0
+#> Track_18        0        0        0        0        0        0        0
 #>          Track_13 Track_15 Track_16 Track_18
 #> Track_01        0        0        0        0
 #> Track_02        0        0        0        0
 #> Track_03        0        0        0        0
 #> Track_04        0        0        0        0
-#> Track_07        0        0        0        1
+#> Track_07        0        0        0        0
 #> Track_08        0        0        0        0
 #> Track_09        0        0        0        0
 #> Track_13       NA        0        0        0
@@ -682,12 +682,12 @@ print(int4)
 #> 
 #> $Intersection_metric_simulations[[3]]
 #>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09
-#> Track_01       NA        0        0        0        0        1        0
+#> Track_01       NA        0        0        0        0        0        0
 #> Track_02        0       NA        0        0        0        0        0
 #> Track_03        0        0       NA        0        0        0        0
-#> Track_04        0        0        0       NA        0        0        0
-#> Track_07        0        0        0        0       NA        0        0
-#> Track_08        1        0        0        0        0       NA        0
+#> Track_04        0        0        0       NA        1        0        0
+#> Track_07        0        0        0        1       NA        0        0
+#> Track_08        0        0        0        0        0       NA        0
 #> Track_09        0        0        0        0        0        0       NA
 #> Track_13        0        0        0        0        0        0        0
 #> Track_15        0        0        0        0        0        0        0
@@ -709,8 +709,8 @@ print(int4)
 #> $Intersection_metric_simulations[[4]]
 #>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09
 #> Track_01       NA        0        0        0        0        0        0
-#> Track_02        0       NA        0        0        0        0        0
-#> Track_03        0        0       NA        0        0        0        0
+#> Track_02        0       NA        1        0        0        0        0
+#> Track_03        0        1       NA        0        0        0        0
 #> Track_04        0        0        0       NA        0        0        0
 #> Track_07        0        0        0        0       NA        0        0
 #> Track_08        0        0        0        0        0       NA        0
@@ -734,14 +734,14 @@ print(int4)
 #> 
 #> $Intersection_metric_simulations[[5]]
 #>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09
-#> Track_01       NA        0        0        0        0        0        0
-#> Track_02        0       NA        0        0        0        0        0
+#> Track_01       NA        1        0        0        0        0        0
+#> Track_02        1       NA        0        0        0        0        0
 #> Track_03        0        0       NA        0        0        0        0
 #> Track_04        0        0        0       NA        0        0        0
 #> Track_07        0        0        0        0       NA        0        0
 #> Track_08        0        0        0        0        0       NA        1
 #> Track_09        0        0        0        0        0        1       NA
-#> Track_13        0        0        0        0        0        0        0
+#> Track_13        0        0        0        0        1        0        0
 #> Track_15        0        0        0        0        0        0        0
 #> Track_16        0        0        0        0        0        0        0
 #> Track_18        0        0        0        0        0        0        0
@@ -750,7 +750,7 @@ print(int4)
 #> Track_02        0        0        0        0
 #> Track_03        0        0        0        0
 #> Track_04        0        0        0        0
-#> Track_07        0        0        0        0
+#> Track_07        1        0        0        0
 #> Track_08        0        0        0        0
 #> Track_09        0        0        0        0
 #> Track_13       NA        0        0        0
@@ -767,46 +767,46 @@ s5 <- simulate_track(sbMountTom, nsim = 5)
 area_origin <- matrix(c(50, 5, 10, 5, 10, 20, 50, 20), ncol = 2, byrow = TRUE)
 int5 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s5,
 origin.permutation = "Custom", custom.coord = area_origin)
-#> 2026-01-21 09:03:58.758173 Permutation 1
+#> 2026-03-21 15:22:51.193941 Permutation 1
 #>  
 #> Permutation of coordinates at origin using Custom
 #> ------------------------------------
-#> 2026-01-21 09:03:58.760933 Permutation 2
+#> 2026-03-21 15:22:51.196582 Permutation 2
 #>  
 #> Permutation of coordinates at origin using Custom
 #> ------------------------------------
-#> 2026-01-21 09:03:58.763567 Permutation 3
+#> 2026-03-21 15:22:51.199095 Permutation 3
 #>  
 #> Permutation of coordinates at origin using Custom
 #> ------------------------------------
-#> 2026-01-21 09:03:58.766071 Permutation 4
+#> 2026-03-21 15:22:51.201655 Permutation 4
 #>  
 #> Permutation of coordinates at origin using Custom
 #> ------------------------------------
-#> 2026-01-21 09:03:58.768579 Permutation 5
+#> 2026-03-21 15:22:51.204159 Permutation 5
 #>  
 #> Permutation of coordinates at origin using Custom
 #> ------------------------------------
 #> PERMUTATION COMPLETED
 #> ------------------------------------
 #>  
-#> 2026-01-21 09:03:58.797329 Iteration 1
+#> 2026-03-21 15:22:51.232517 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.825572 Iteration 2
+#> 2026-03-21 15:22:51.260185 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.853676 Iteration 3
+#> 2026-03-21 15:22:51.288339 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.881853 Iteration 4
+#> 2026-03-21 15:22:51.316362 Iteration 4
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-01-21 09:03:58.910798 Iteration 5
+#> 2026-03-21 15:22:51.344496 Iteration 5
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -893,7 +893,7 @@ print(int5)
 #> Track_18        1        1        1       NA
 #> 
 #> $Intersection_metric_p_values_combined
-#> [1] 0.5
+#> [1] 0.3333333
 #> 
 #> $Intersection_metric_simulations
 #> $Intersection_metric_simulations[[1]]
@@ -985,11 +985,11 @@ print(int5)
 #> Track_09        0        0        0        0        0        0       NA
 #> Track_13        0        0        0        0        0        0        0
 #> Track_15        0        0        0        0        0        0        0
-#> Track_16        0        1        0        0        0        0        0
+#> Track_16        0        0        0        0        0        0        0
 #> Track_18        0        0        0        0        0        0        0
 #>          Track_13 Track_15 Track_16 Track_18
 #> Track_01        0        0        0        0
-#> Track_02        0        0        1        0
+#> Track_02        0        0        0        0
 #> Track_03        0        0        0        0
 #> Track_04        0        0        0        0
 #> Track_07        0        0        0        0
@@ -1003,12 +1003,12 @@ print(int5)
 #> $Intersection_metric_simulations[[5]]
 #>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09
 #> Track_01       NA        0        0        0        0        0        0
-#> Track_02        0       NA        1        0        0        0        0
-#> Track_03        0        1       NA        0        0        0        0
-#> Track_04        0        0        0       NA        0        0        0
+#> Track_02        0       NA        0        0        0        0        0
+#> Track_03        0        0       NA        0        0        0        0
+#> Track_04        0        0        0       NA        0        0        1
 #> Track_07        0        0        0        0       NA        0        0
 #> Track_08        0        0        0        0        0       NA        0
-#> Track_09        0        0        0        0        0        0       NA
+#> Track_09        0        0        0        1        0        0       NA
 #> Track_13        0        0        0        0        0        0        0
 #> Track_15        0        0        0        0        0        0        0
 #> Track_16        0        0        0        0        0        0        0

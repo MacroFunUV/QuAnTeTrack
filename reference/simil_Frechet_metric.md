@@ -191,26 +191,26 @@ Phone: +34 (9635) 44477
 # in the PaluxyRiver dataset
 s1 <- simulate_track(PaluxyRiver, nsim = 3, model = "Directed")
 simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
-#> 2026-01-21 09:03:52.854846 Iteration 1
+#> 2026-03-21 15:22:44.87449 Iteration 1
 #>  
 #> Frechet metric
 #>           Track_1   Track_2
-#> Track_1        NA 0.8858555
-#> Track_2 0.8858555        NA
+#> Track_1        NA 0.8136067
+#> Track_2 0.8136067        NA
 #> ------------------------------------
-#> 2026-01-21 09:03:53.045258 Iteration 2
-#>  
-#> Frechet metric
-#>          Track_1  Track_2
-#> Track_1       NA 1.001106
-#> Track_2 1.001106       NA
-#> ------------------------------------
-#> 2026-01-21 09:03:53.22593 Iteration 3
+#> 2026-03-21 15:22:45.065331 Iteration 2
 #>  
 #> Frechet metric
 #>           Track_1   Track_2
-#> Track_1        NA 0.7908833
-#> Track_2 0.7908833        NA
+#> Track_1        NA 0.9591916
+#> Track_2 0.9591916        NA
+#> ------------------------------------
+#> 2026-03-21 15:22:45.244097 Iteration 3
+#>  
+#> Frechet metric
+#>           Track_1   Track_2
+#> Track_1        NA 0.8045526
+#> Track_2 0.8045526        NA
 #> ------------------------------------
 #> ANALYSIS COMPLETED
 #> ------------------------------------
@@ -236,18 +236,18 @@ simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 #> $Frechet_distance_metric_simulations
 #> $Frechet_distance_metric_simulations[[1]]
 #>           Track_1   Track_2
-#> Track_1        NA 0.8858555
-#> Track_2 0.8858555        NA
+#> Track_1        NA 0.8136067
+#> Track_2 0.8136067        NA
 #> 
 #> $Frechet_distance_metric_simulations[[2]]
-#>          Track_1  Track_2
-#> Track_1       NA 1.001106
-#> Track_2 1.001106       NA
+#>           Track_1   Track_2
+#> Track_1        NA 0.9591916
+#> Track_2 0.9591916        NA
 #> 
 #> $Frechet_distance_metric_simulations[[3]]
 #>           Track_1   Track_2
-#> Track_1        NA 0.7908833
-#> Track_2 0.7908833        NA
+#> Track_1        NA 0.8045526
+#> Track_2 0.8045526        NA
 #> 
 #> 
 
@@ -255,26 +255,26 @@ simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s1, superposition = "None")
 # in the PaluxyRiver dataset  using the "Centroid" superposition method
 s2 <- simulate_track(PaluxyRiver, nsim = 3, model = "Constrained")
 simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "Centroid")
-#> 2026-01-21 09:03:53.60203 Iteration 1
+#> 2026-03-21 15:22:45.600364 Iteration 1
 #>  
 #> Frechet metric
 #>          Track_1  Track_2
-#> Track_1       NA 1.916336
-#> Track_2 1.916336       NA
+#> Track_1       NA 4.133894
+#> Track_2 4.133894       NA
 #> ------------------------------------
-#> 2026-01-21 09:03:53.748521 Iteration 2
+#> 2026-03-21 15:22:45.77115 Iteration 2
 #>  
 #> Frechet metric
 #>          Track_1  Track_2
-#> Track_1       NA 6.404749
-#> Track_2 6.404749       NA
+#> Track_1       NA 4.585326
+#> Track_2 4.585326       NA
 #> ------------------------------------
-#> 2026-01-21 09:03:53.932298 Iteration 3
+#> 2026-03-21 15:22:45.949273 Iteration 3
 #>  
 #> Frechet metric
 #>          Track_1  Track_2
-#> Track_1       NA 1.386378
-#> Track_2 1.386378       NA
+#> Track_1       NA 1.772063
+#> Track_2 1.772063       NA
 #> ------------------------------------
 #> ANALYSIS COMPLETED
 #> ------------------------------------
@@ -300,18 +300,18 @@ simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "Centro
 #> $Frechet_distance_metric_simulations
 #> $Frechet_distance_metric_simulations[[1]]
 #>          Track_1  Track_2
-#> Track_1       NA 1.916336
-#> Track_2 1.916336       NA
+#> Track_1       NA 4.133894
+#> Track_2 4.133894       NA
 #> 
 #> $Frechet_distance_metric_simulations[[2]]
 #>          Track_1  Track_2
-#> Track_1       NA 6.404749
-#> Track_2 6.404749       NA
+#> Track_1       NA 4.585326
+#> Track_2 4.585326       NA
 #> 
 #> $Frechet_distance_metric_simulations[[3]]
 #>          Track_1  Track_2
-#> Track_1       NA 1.386378
-#> Track_2 1.386378       NA
+#> Track_1       NA 1.772063
+#> Track_2 1.772063       NA
 #> 
 #> 
 
@@ -319,26 +319,26 @@ simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s2, superposition = "Centro
 # in the PaluxyRiver dataset using the "Origin" superposition method
 s3 <- simulate_track(PaluxyRiver, nsim = 3, model = "Unconstrained")
 simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "Origin")
-#> 2026-01-21 09:03:54.319269 Iteration 1
-#>  
-#> Frechet metric
-#>         Track_1 Track_2
-#> Track_1      NA 2.04268
-#> Track_2 2.04268      NA
-#> ------------------------------------
-#> 2026-01-21 09:03:54.349992 Iteration 2
+#> 2026-03-21 15:22:46.29102 Iteration 1
 #>  
 #> Frechet metric
 #>          Track_1  Track_2
-#> Track_1       NA 26.59941
-#> Track_2 26.59941       NA
+#> Track_1       NA 8.880119
+#> Track_2 8.880119       NA
 #> ------------------------------------
-#> 2026-01-21 09:03:54.389622 Iteration 3
+#> 2026-03-21 15:22:46.4177 Iteration 2
 #>  
 #> Frechet metric
 #>          Track_1  Track_2
-#> Track_1       NA 16.82425
-#> Track_2 16.82425       NA
+#> Track_1       NA 12.64627
+#> Track_2 12.64627       NA
+#> ------------------------------------
+#> 2026-03-21 15:22:46.449527 Iteration 3
+#>  
+#> Frechet metric
+#>          Track_1  Track_2
+#> Track_1       NA 29.38458
+#> Track_2 29.38458       NA
 #> ------------------------------------
 #> ANALYSIS COMPLETED
 #> ------------------------------------
@@ -363,19 +363,19 @@ simil_Frechet_metric(PaluxyRiver, test = TRUE, sim = s3, superposition = "Origin
 #> 
 #> $Frechet_distance_metric_simulations
 #> $Frechet_distance_metric_simulations[[1]]
-#>         Track_1 Track_2
-#> Track_1      NA 2.04268
-#> Track_2 2.04268      NA
+#>          Track_1  Track_2
+#> Track_1       NA 8.880119
+#> Track_2 8.880119       NA
 #> 
 #> $Frechet_distance_metric_simulations[[2]]
 #>          Track_1  Track_2
-#> Track_1       NA 26.59941
-#> Track_2 26.59941       NA
+#> Track_1       NA 12.64627
+#> Track_2 12.64627       NA
 #> 
 #> $Frechet_distance_metric_simulations[[3]]
 #>          Track_1  Track_2
-#> Track_1       NA 16.82425
-#> Track_2 16.82425       NA
+#> Track_1       NA 29.38458
+#> Track_2 29.38458       NA
 #> 
 #> 
 

@@ -43,6 +43,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_velocity</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  <span class="va">trackvel</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  param <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  lwd <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  colours <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -62,6 +63,13 @@
 
 <dt id="arg-trackvel">trackvel<a class="anchor" aria-label="anchor" href="#arg-trackvel"></a></dt>
 <dd><p>A <code>track velocity</code> R object consisting of a list where each element corresponds to a track and contains velocity or relative stride length data.</p></dd>
+
+
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
+<dd><p>A character string specifying the type of plot. Options are:</p><ul><li><p><code>"tracksite"</code> to plot the parameter on the trajectories (default).</p></li>
+<li><p><code>"sequence"</code> to plot the parameter along the step sequence (x = step number, y = velocity or relative stride length) for each trackway.
+If <code>NULL</code>, the default value <code>"tracksite"</code> will be used.</p></li>
+</ul></dd>
 
 
 <dt id="arg-param">param<a class="anchor" aria-label="anchor" href="#arg-param"></a></dt>
@@ -85,12 +93,13 @@ If <code>NULL</code>, the default value <code>"V"</code> will be used.</p></li>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>ggplot</code> object showing the trajectories colored by the specified parameter.</p>
+    <p>A <code>ggplot</code> object.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function creates a plot where each trajectory is colored based on the specified parameter (<code>"V"</code> for velocity or <code>"RSL"</code> for relative stride length). The <span class="pkg">ggplot2</span> package is used for plotting.</p>
-<p>The color gradient for the parameter is applied using <code>scale_color_gradientn()</code>. The color palette can be customized via the <code>colours</code> argument.</p>
+    <p>The function creates a plot where each trajectory is colored based on the specified parameter (<code>"V"</code> for velocity or <code>"RSL"</code> for relative stride length) when <code>type = "tracksite"</code>.</p>
+<p>When <code>type = "sequence"</code>, the function creates a plot for each trackway showing the parameter along the step sequence.</p>
+<p>The color gradient for the parameter is applied using <code>scale_color_gradientn()</code> when <code>type = "tracksite"</code>. The color palette can be customized via the <code>colours</code> argument.</p>
     </div>
     <div class="section level2">
     <h2 id="logo">Logo<a class="anchor" aria-label="anchor" href="#logo"></a></h2>
@@ -178,6 +187,20 @@ If <code>NULL</code>, the default value <code>"V"</code> will be used.</p></li>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">plot4</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_velocity-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example 5: Plot Step-Sequence Velocity Profiles (MountTom dataset)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Plot velocity along step sequence for each trackway</span></span></span>
+<span class="r-in"><span><span class="va">plot5</span> <span class="op">&lt;-</span> <span class="fu">plot_velocity</span><span class="op">(</span><span class="va">MountTom</span>, <span class="va">V_mounttom</span>, type <span class="op">=</span> <span class="st">"sequence"</span>, param <span class="op">=</span> <span class="st">"V"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">plot5</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_velocity-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Example 6: Plot Step-Sequence Relative Stride Length Profiles (MountTom dataset)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Plot relative stride length along step sequence for each trackway</span></span></span>
+<span class="r-in"><span><span class="va">plot6</span> <span class="op">&lt;-</span> <span class="fu">plot_velocity</span><span class="op">(</span><span class="va">MountTom</span>, <span class="va">V_mounttom</span>, type <span class="op">=</span> <span class="st">"sequence"</span>, param <span class="op">=</span> <span class="st">"RSL"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">plot6</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot_velocity-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -47,6 +47,9 @@ Once installed, we can load the package using:
 
 ``` r
 library(QuAnTeTrack)
+#> Registered S3 method overwritten by 'lme4':
+#>   method           from
+#>   na.action.merMod car
 ```
 
 This command will make all the functions from **QuAnTeTrack** available
@@ -1184,52 +1187,57 @@ scatter.
 By partitioning variance into biologically meaningful and
 observer-related components, this function allows users to: (1) Audit
 the **reproducibility** of digitized trackway data, (2) identify
-**robust metrics** suitable for hypothesis testing and clustering, and
-(3) detect parameters that are **dominated by sampling noise** and
-require caution or protocol refinement.
+**robust metrics** suitable for hypothesis testing, and (3) detect
+parameters that are **dominated by sampling noise** and require caution
+or protocol refinement.
 
-The analysis requires three explicit inputs that together define the
-structure of the reproducibility assessment. First, the **`data`**
-argument takes a `trackway` R object containing *all replicated
-digitizations*. Each replicate is treated as an independent realization
-of the same underlying biological trackway and must therefore be
-included within the same object, rather than split across multiple files
-or analyses. Second, the **`metadata`** argument provides the
-experimental context of the digitization process. This metadata table
-contains one row per entry returned by `track_param(data)`, in the same
-order, and specifies which digitizations correspond to the same
-biological trackway, which observer produced them, and how many
-replicate attempts were made. By explicitly encoding track identity,
-observer identity, and replicate structure, this table allows the
-function to disentangle biological variation from inter- and
-intra-observer sampling effects. Finally, the **`variables`** argument
-defines which trackway parameters are evaluated. By default, the
-function considers a broad set of directional, kinematic, and geometric
-metrics (including turning angles, distances, step-length statistics,
-sinuosity, straightness, trackway width, and pace angulation). Users may
-restrict this set to a subset of parameters when focusing on specific
-aspects of trackway geometry or when evaluating the robustness of
-particular metrics prior to hypothesis testing.
-
-The function requires that **all replicated digitizations**—across
-observers and/or repeated attempts—are bundled into a single `trackway`
-R object. Each replicate is treated as an independent entry and must be
-accompanied by a corresponding row in a metadata table describing:
-
-- The biological **track ID**,
-- The **observer** who digitized it,
-- The **replicate index** within each observer–track combination.
+The analysis requires **three explicit inputs** that together define the
+structure of the reproducibility assessment. The **`data`** argument
+must be a **single `trackway` R object** that contains the **complete
+digitization experiment**, including **all biological trackways under
+study** and **all digitizations performed on them**. Each trackway may
+be represented by **one or more digitizations**, produced by **one or
+more observers**, and each observer may contribute **one or more
+replicate digitization attempts**. Every digitization, regardless of
+trackway, observer, or replicate status, is stored as a **separate
+entry** within this single `trackway` object. **All trackways,
+observers, and replicates intended for variance partitioning must
+therefore be included together in the same object** and must not be
+split across multiple objects, files, or analyses, as the function
+relies on their **joint structure** to estimate variance components. The
+**`metadata`** argument is a **data frame** that encodes this structure
+explicitly and must contain **one row per track entry**. This
+information is provided through **explicit columns** in the metadata
+table: a **`trackway` column** identifying the trackway to which each
+digitization belongs, an **`observer` column** identifying the observer
+who produced the digitization, and a **`replica` column** giving the
+replicate index within each observer–trackway combination. These
+column-wise identifiers define the **random-effects structure** of the
+mixed-effects models fitted by the function: variability among
+**`trackway`** levels captures **between-trackway (biological)
+differences**, variability among **`observer`** levels captures
+**inter-observer sampling effects**, variability among
+**`observer:trackway`** levels captures **observer-specific deviations
+for particular trackways**, and the **residual variance** represents
+**replicate-to-replicate variability** within observer–trackway
+combinations; random-effect terms that occur with a **single level** are
+omitted automatically. Finally, the **`variables`** argument specifies
+which **trackway parameters** are evaluated; by default, the function
+analyzes a **broad set of directional, kinematic, and geometric
+metrics**, but users may restrict this set to focus on **specific
+aspects of trackway geometry** or to assess the **robustness of
+individual metrics** prior to downstream hypothesis testing.
 
 For each selected trackway parameter,
 [`observer_error_partitioning()`](https://macrofunuv.github.io/QuAnTeTrack/reference/observer_error_partitioning.md)
 fits a mixed-effects model that decomposes variance into four conceptual
 components:
 
-- **Between-track variance (`track`)** — interpreted as biological
+- **Between-trackway variance (`trackway`)** — interpreted as biological
   signal,
 - **Between-observer variance (`observer`)** — inter-observer sampling
   error,
-- **Observer × track interaction (`observer:track`)** —
+- **Observer × trackway interaction (`observer:trackway`)** —
   observer-specific bias tied to particular tracks,
 - **Residual variance** — intra-observer sampling error
   (replicate-to-replicate scatter).
@@ -1247,7 +1255,7 @@ averaged.
 To facilitate interpretation, the function summarizes robustness using a
 **signal-to-noise ratio (SNR)**, defined as the ratio between biological
 variance and the total sampling-related variance (observer, observer ×
-track, and residual components). As a practical guideline:
+trackway, and residual components). As a practical guideline:
 
 - **Low SNR (\< 1)** indicates that observer-related uncertainty exceeds
   biological signal,
@@ -1276,12 +1284,76 @@ returns an `"error_partitioning"` object that includes:
 Together, these outputs provide both a quantitative and an intuitive
 assessment of digitization reliability.
 
-### **Example usage and interpretation**
+### **Example usage**
 
-In the example below, multiple observers digitize the same biological
-trackways, and each observer produces replicated digitizations. This
-design allows simultaneous estimation of inter-observer and
-intra-observer uncertainty.
+This example uses the Paluxy River trackway dataset, which was digitized
+multiple times by different members of the PASLab team at the Cavanilles
+Institute of Biodiversity and Evolutionary Biology, University of
+Valencia (Spain). The goal is to quantify how much variability in
+trackway parameters reflects true biological differences among
+trackways, and how much arises from observer and replicate effects.
+
+We first load the replicated TPS file and convert it into a trackway
+object. Each footprint is assigned a left/right side, and medial
+trajectories are reconstructed from consecutive footprints.
+
+``` r
+tps <- system.file("extdata", "PaluxyRiverObsRep.tps",
+                   package = "QuAnTeTrack")
+RL <- rep(c("R","L"), length.out = 34)
+trks <- tps_to_track(file = tps, scale = 0.004341493,
+                     R.L.side = RL, missing = FALSE, NAs = NULL)
+```
+
+Next, we build the metadata table required for observer-based error
+partitioning. Each replicated digitization is treated as a separate
+entry. The metadata explicitly records, in columns, the replicate index,
+the trackway identity, and the observer who digitized it.
+
+``` r
+n  <- length(trks$Trajectories)
+md <- data.frame(
+  trackway    = rep(c("T01","T02"), length.out = n),
+  observer = ifelse(seq_len(n) <= ceiling(n/2), "obs1", "obs2"),
+  stringsAsFactors = FALSE
+)
+md$replica <- ave(seq_len(n),
+                  interaction(md$observer, md$trackway, drop = TRUE),
+                  FUN = seq_along)
+md <- md[, c("replica","trackway","observer")]
+```
+
+We then select a subset of parameters that include both linear and
+angular metrics, allowing us to evaluate how different types of
+variables respond to observer and replicate effects.
+
+``` r
+vars <- c("BeelineLen","Straightness","TurnAng","PaceAng")
+```
+
+Finally, we run the observer-based error partitioning. The function fits
+mixed-effects models for each selected variable and decomposes variance
+into biological and observer-related components. The resulting
+quality-control table summarizes robustness using signal-to-noise ratios
+and variance dominance.
+
+``` r
+res_full <- observer_error_partitioning(data = trks,
+                                        metadata = md,
+                                        variables = vars)
+print(res_full$qc)
+```
+
+    #>       variable        SNR SNR_rating top_component top_percent      R2_c
+    #> 1   BeelineLen 14362.3060     strong      trackway    99.99304 0.9999304
+    #> 2 Straightness   158.6878     strong      trackway    99.37378 0.9937378
+    #> 3      TurnAng  3642.6814     strong      trackway    99.97256 0.9997673
+    #> 4      PaceAng   314.5134     strong      trackway    99.68306 0.9990678
+    #>   observer_estimable
+    #> 1                yes
+    #> 2                yes
+    #> 3                yes
+    #> 4                yes
 
 ## **Anatomical uncertainty and landmark-fidelity effects**
 
@@ -1363,7 +1435,7 @@ uncertainty arising from the fossil record itself from uncertainty
 introduced during digitization, and to identify trackway parameters that
 remain interpretable despite imperfect preservation.
 
-### **Example usage and interpretation**
+### **Example usage**
 
 In the examples below, anatomical uncertainty is explored by
 progressively increasing the spatial tolerance applied to footprint
@@ -1639,7 +1711,7 @@ the **PaluxyRiver dataset** using the previously calculated
 plot_velocity(PaluxyRiver, velocity_paluxyriver_diff, param = "RSL")
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-32-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-40-1.png)
 
 Plotting trajectories colored by **velocity** for the **MountTom
 dataset** using the previously calculated `velocity_mounttom` object.
@@ -1648,7 +1720,7 @@ dataset** using the previously calculated `velocity_mounttom` object.
 plot_velocity(MountTom, velocity_mounttom, param = "V")
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-33-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-41-1.png)
 
 Generating a clean visualization of **relative stride length (RSL)** for
 the **PaluxyRiver dataset** without displaying a legend.
@@ -1658,7 +1730,7 @@ plot_velocity(PaluxyRiver, velocity_paluxyriver_diff, param = "RSL", lwd = 1.5,
               colours = c("purple", "orange", "pink", "gray"), legend = FALSE)
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-34-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-42-1.png)
 
 Applying **custom colors and increased line width** to enhance
 visualization of **velocity patterns** for the **MountTom dataset**.
@@ -1668,7 +1740,7 @@ plot_velocity(MountTom, velocity_mounttom, param = "V", lwd = 2,
               colours = c("blue", "green", "yellow", "red"))
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-35-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-43-1.png)
 
 ## **Plotting Direction Data**
 
@@ -1733,13 +1805,13 @@ outliers across tracks.
 plot_direction(PaluxyRiver, plot_type = "boxplot")
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-36-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-44-1.png)
 
 ``` r
 plot_direction(MountTom, plot_type = "boxplot")
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-37-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-45-1.png)
 
 The **`polar_steps`** option creates a polar histogram of individual
 steps radiating from a central point, revealing the angular spread of
@@ -1749,13 +1821,13 @@ movement and dominant directions.
 plot_direction(PaluxyRiver, plot_type = "polar_steps")
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-38-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-46-1.png)
 
 ``` r
 plot_direction(MountTom, plot_type = "polar_steps")
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-39-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-47-1.png)
 
 The **`polar_average`** option generates a simplified polar plot by
 averaging step directions for each track, providing a general overview
@@ -1765,13 +1837,13 @@ of dominant movement trends.
 plot_direction(PaluxyRiver, plot_type = "polar_average")
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-40-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-48-1.png)
 
 ``` r
 plot_direction(MountTom, plot_type = "polar_average")
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-41-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-49-1.png)
 
 The **`faceted`** option displays individual step directions separately
 for each track using faceted panels, allowing detailed comparison of
@@ -1781,13 +1853,13 @@ movement patterns across multiple tracks.
 plot_direction(PaluxyRiver, plot_type = "faceted")
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-42-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-50-1.png)
 
 ``` r
 plot_direction(MountTom, plot_type = "faceted")
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-43-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-51-1.png)
 
 Customization options include setting custom breaks on the radial axis
 with **`y_breaks_manual`** and adjusting the position of y-axis labels
@@ -1797,13 +1869,13 @@ with **`y_labels_position`** for better presentation.
 plot_direction(PaluxyRiver, plot_type = "polar_average", y_breaks_manual = c(1, 2))
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-44-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-52-1.png)
 
 ``` r
 plot_direction(PaluxyRiver, plot_type = "polar_steps", y_labels_position = -90)
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-45-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-53-1.png)
 
 ## **Testing for Differences in Velocity**
 
@@ -2049,16 +2121,16 @@ test_velocity(PaluxyRiver, velocity_paluxyriver_diff, analysis = "Kruskal-Wallis
     #> Kruskal-Wallis chi-squared = 38.6698, df = 1, p-value = 0
     #> 
     #> 
-    #>                            Comparison of x by group                            
-    #>                                 (No adjustment)                                
-    #> Col Mean-|
-    #> Row Mean |   Trackway
-    #> ---------+-----------
-    #> Trackway |  -6.218503
-    #>          |    0.0000*
+    #>                    Dunn's Pairwise Comparison of x by group                   
+    #>                                 (No adjustment)                               
+    #> Col Mean-│
+    #> Row Mean │   Trackway
+    #> ─────────┼───────────
+    #> Trackway │  -6.218503
+    #>          │     0.0000*
     #> 
-    #> alpha = 0.05
-    #> Reject Ho if p <= alpha/2
+    #> α = 0.05
+    #> Reject Ho if p ≤ α/2, where p = Pr(Z ≥ |z|)
     #> $normality_results
     #>             Trackway 1 Trackway 2
     #> statistic.W  0.9586486 0.91134871
@@ -2112,57 +2184,57 @@ test_velocity(MountTom, velocity_mounttom, analysis = "Kruskal-Wallis")
     #> Kruskal-Wallis chi-squared = 47.0791, df = 10, p-value = 0
     #> 
     #> 
-    #>                            Comparison of x by group                            
-    #>                                 (No adjustment)                                
-    #> Col Mean-|
-    #> Row Mean |   Trackway   Trackway   Trackway   Trackway   Trackway   Trackway
-    #> ---------+------------------------------------------------------------------
-    #> Trackway |  -1.421706
-    #>          |     0.0776
-    #>          |
-    #> Trackway |  -2.691099  -1.489538
-    #>          |    0.0036*     0.0682
-    #>          |
-    #> Trackway |   0.490554   1.692115   2.805954
-    #>          |     0.3119     0.0453    0.0025*
-    #>          |
-    #> Trackway |   2.038004   3.367888   4.317520   1.286742
-    #>          |    0.0208*    0.0004*    0.0000*     0.0991
-    #>          |
-    #> Trackway |  -0.704116   0.567496   1.866004  -1.064720  -2.513099
-    #>          |     0.2407     0.2852     0.0310     0.1435    0.0060*
-    #>          |
-    #> Trackway |  -2.101242  -0.899681   0.520205  -2.285749  -3.755634  -1.322667
-    #>          |    0.0178*     0.1841     0.3015    0.0111*    0.0001*     0.0930
-    #>          |
-    #> Trackway |   2.778485   3.980046   4.823720   2.017765   0.892692   3.172207
-    #>          |    0.0027*    0.0000*    0.0000*    0.0218*     0.1860    0.0008*
-    #>          |
-    #> Trackway |  -0.349544   0.852015   2.065056  -0.740898  -2.087004   0.290877
-    #>          |     0.3633     0.1971    0.0195*     0.2294    0.0184*     0.3856
-    #>          |
-    #> Trackway |   1.476147   2.855404   3.891159   0.778231  -0.598549   2.015289
-    #>          |     0.0700    0.0021*    0.0000*     0.2182     0.2747    0.0219*
-    #>          |
-    #> Trackway |   0.061567   1.263128   2.427623  -0.378331  -1.695386   0.669566
-    #>          |     0.4755     0.1033    0.0076*     0.3526     0.0450     0.2516
-    #> Col Mean-|
-    #> Row Mean |   Trackway   Trackway   Trackway   Trackway
-    #> ---------+--------------------------------------------
-    #> Trackway |   4.303515
-    #>          |    0.0000*
-    #>          |
-    #> Trackway |   1.544851  -2.758663
-    #>          |     0.0612    0.0029*
-    #>          |
-    #> Trackway |   3.314043  -1.460277   1.600184
-    #>          |    0.0005*     0.0721     0.0548
-    #>          |
-    #> Trackway |   1.907418  -2.396096   0.362567  -1.197952
-    #>          |     0.0282    0.0083*     0.3585     0.1155
+    #>                    Dunn's Pairwise Comparison of x by group                   
+    #>                                 (No adjustment)                               
+    #> Col Mean-│
+    #> Row Mean │   Trackway   Trackway   Trackway   Trackway   Trackway   Trackway
+    #> ─────────┼──────────────────────────────────────────────────────────────────
+    #> Trackway │  -1.421706
+    #>          │     0.0776 
+    #>          │
+    #> Trackway │  -2.691099  -1.489538
+    #>          │     0.0036*    0.0682 
+    #>          │
+    #> Trackway │   0.490554   1.692115   2.805954
+    #>          │     0.3119     0.0453     0.0025*
+    #>          │
+    #> Trackway │   2.038004   3.367888   4.317520   1.286742
+    #>          │     0.0208*    0.0004*    0.0000*    0.0991 
+    #>          │
+    #> Trackway │  -0.704116   0.567496   1.866004  -1.064720  -2.513099
+    #>          │     0.2407     0.2852     0.0310     0.1435     0.0060*
+    #>          │
+    #> Trackway │  -2.101242  -0.899681   0.520205  -2.285749  -3.755634  -1.322667
+    #>          │     0.0178*    0.1841     0.3015     0.0111*    0.0001*    0.0930 
+    #>          │
+    #> Trackway │   2.778485   3.980046   4.823720   2.017765   0.892692   3.172207
+    #>          │     0.0027*    0.0000*    0.0000*    0.0218*    0.1860     0.0008*
+    #>          │
+    #> Trackway │  -0.349544   0.852015   2.065056  -0.740898  -2.087004   0.290877
+    #>          │     0.3633     0.1971     0.0195*    0.2294     0.0184*    0.3856 
+    #>          │
+    #> Trackway │   1.476147   2.855404   3.891159   0.778231  -0.598549   2.015289
+    #>          │     0.0700     0.0021*    0.0000*    0.2182     0.2747     0.0219*
+    #>          │
+    #> Trackway │   0.061567   1.263128   2.427623  -0.378331  -1.695386   0.669566
+    #>          │     0.4755     0.1033     0.0076*    0.3526     0.0450     0.2516 
+    #> Col Mean-│
+    #> Row Mean │   Trackway   Trackway   Trackway   Trackway
+    #> ─────────┼────────────────────────────────────────────
+    #> Trackway │   4.303515
+    #>          │     0.0000*
+    #>          │
+    #> Trackway │   1.544851  -2.758663
+    #>          │     0.0612     0.0029*
+    #>          │
+    #> Trackway │   3.314043  -1.460277   1.600184
+    #>          │     0.0005*    0.0721     0.0548 
+    #>          │
+    #> Trackway │   1.907418  -2.396096   0.362567  -1.197952
+    #>          │     0.0282     0.0083*    0.3585     0.1155 
     #> 
-    #> alpha = 0.05
-    #> Reject Ho if p <= alpha/2
+    #> α = 0.05
+    #> Reject Ho if p ≤ α/2, where p = Pr(Z ≥ |z|)
     #> $normality_results
     #>             Trackway 01 Trackway 02 Trackway 03 Trackway 04 Trackway 07
     #> statistic.W   0.9209702   0.9049639   0.8522781   0.9286605   0.9400514
@@ -12359,7 +12431,7 @@ original tracks.
 plot_sim(PaluxyRiver, sim_unconstrained_paluxy)
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-86-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-94-1.png)
 
 Visualizing the **Directed simulation for the Paluxy River dataset**
 with customized colors, transparency, and line width. Simulated tracks
@@ -12375,7 +12447,7 @@ plot_sim(PaluxyRiver, sim_directed_paluxy,
 )
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-87-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-95-1.png)
 
 Visualizing the **Constrained simulation for the Paluxy River dataset**
 with enhanced transparency and a reduced line width for the simulated
@@ -12390,7 +12462,7 @@ plot_sim(PaluxyRiver, sim_constrained_paluxy,
 )
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-88-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-96-1.png)
 
 Visualizing the **Unconstrained simulation for the MountTom dataset**
 using default settings.  
@@ -12401,7 +12473,7 @@ over the actual tracks without any customization.
 plot_sim(sbMountTom, sim_unconstrained_mount)
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-89-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-97-1.png)
 
 Visualizing the **Directed simulation for the MountTom dataset** with a
 custom color palette, higher transparency, and thicker lines for
@@ -12418,7 +12490,7 @@ plot_sim(sbMountTom, sim_directed_mount,
 )
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-90-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-98-1.png)
 
 Visualizing the **Constrained simulation for the MountTom dataset** with
 a diverse color palette and thinner simulated tracks for better clarity.
@@ -12435,7 +12507,7 @@ plot_sim(sbMountTom, sim_constrained_mount,
 )
 ```
 
-![](QuAnTeTrack_files/figure-html/unnamed-chunk-91-1.png)
+![](QuAnTeTrack_files/figure-html/unnamed-chunk-99-1.png)
 
 ## **Similarity Metric Calculation using Dynamic Time Warping (DTW) and Fréchet Distance**
 

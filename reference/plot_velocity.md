@@ -11,6 +11,7 @@ customization of line width and color gradients.
 plot_velocity(
   data,
   trackvel,
+  type = NULL,
   param = NULL,
   lwd = NULL,
   colours = NULL,
@@ -37,6 +38,16 @@ plot_velocity(
   corresponds to a track and contains velocity or relative stride length
   data.
 
+- type:
+
+  A character string specifying the type of plot. Options are:
+
+  - `"tracksite"` to plot the parameter on the trajectories (default).
+
+  - `"sequence"` to plot the parameter along the step sequence (x = step
+    number, y = velocity or relative stride length) for each trackway.
+    If `NULL`, the default value `"tracksite"` will be used.
+
 - param:
 
   A character string specifying the parameter to plot. Options are:
@@ -62,18 +73,20 @@ plot_velocity(
 
 ## Value
 
-A `ggplot` object showing the trajectories colored by the specified
-parameter.
+A `ggplot` object.
 
 ## Details
 
 The function creates a plot where each trajectory is colored based on
 the specified parameter (`"V"` for velocity or `"RSL"` for relative
-stride length). The ggplot2 package is used for plotting.
+stride length) when `type = "tracksite"`.
+
+When `type = "sequence"`, the function creates a plot for each trackway
+showing the parameter along the step sequence.
 
 The color gradient for the parameter is applied using
-`scale_color_gradientn()`. The color palette can be customized via the
-`colours` argument.
+`scale_color_gradientn()` when `type = "tracksite"`. The color palette
+can be customized via the `colours` argument.
 
 ## Logo
 
@@ -167,5 +180,19 @@ plot4 <- plot_velocity(PaluxyRiver, V_paluxyriver,
   colours = custom_colours_rsl, legend = FALSE
 )
 print(plot4)
+
+
+# Example 5: Plot Step-Sequence Velocity Profiles (MountTom dataset)
+
+# Plot velocity along step sequence for each trackway
+plot5 <- plot_velocity(MountTom, V_mounttom, type = "sequence", param = "V")
+print(plot5)
+
+
+# Example 6: Plot Step-Sequence Relative Stride Length Profiles (MountTom dataset)
+
+# Plot relative stride length along step sequence for each trackway
+plot6 <- plot_velocity(MountTom, V_mounttom, type = "sequence", param = "RSL")
+print(plot6)
 
 ```

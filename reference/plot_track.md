@@ -31,17 +31,8 @@ plot_track(
 
 - data:
 
-  A `trackway` R object, which is a list consisting of two elements:
-
-  - **`Trajectories`**: A list of trajectories representing trackway
-    midlines, interpolated by connecting the midpoints of successive
-    left–right footprint pairs (i.e., footprints linked by pace lines).
-    Includes columns `X`, `Y`, `IMAGE`, `ID`, and `Side` (set to
-    `"Medial"`).
-
-  - **`Footprints`**: A list of data frames containing footprint
-    coordinates and associated metadata, with a `Side` column (`"R"` or
-    `"L"`) and a `missing` marker (`"Actual"` or `"Inferred"`).
+  A `trackway` R object. See
+  [`tps_to_track`](https://macrofunuv.github.io/QuAnTeTrack/reference/tps_to_track.md).
 
 - plot:
 

@@ -154,7 +154,10 @@ ensure we have the latest version, we can update it with:</p>
 </h3>
 <p>Once installed, we can load the package using:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MacroFunUV/QuAnTeTrack" class="external-link">QuAnTeTrack</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MacroFunUV/QuAnTeTrack" class="external-link">QuAnTeTrack</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Registered S3 method overwritten by 'lme4':</span></span>
+<span><span class="co">#&gt;   method           from</span></span>
+<span><span class="co">#&gt;   na.action.merMod car</span></span></code></pre></div>
 <p>This command will make all the functions from
 <strong>QuAnTeTrack</strong> available for use. We are now ready to
 begin our trackway analysis!</p>
@@ -1369,59 +1372,68 @@ scatter.</p>
 <p>By partitioning variance into biologically meaningful and
 observer-related components, this function allows users to: (1) Audit
 the <strong>reproducibility</strong> of digitized trackway data, (2)
-identify <strong>robust metrics</strong> suitable for hypothesis testing
-and clustering, and (3) detect parameters that are <strong>dominated by
+identify <strong>robust metrics</strong> suitable for hypothesis
+testing, and (3) detect parameters that are <strong>dominated by
 sampling noise</strong> and require caution or protocol refinement.</p>
-<p>The analysis requires three explicit inputs that together define the
-structure of the reproducibility assessment. First, the
-<strong><code>data</code></strong> argument takes a
-<code>trackway</code> R object containing <em>all replicated
-digitizations</em>. Each replicate is treated as an independent
-realization of the same underlying biological trackway and must
-therefore be included within the same object, rather than split across
-multiple files or analyses. Second, the
-<strong><code>metadata</code></strong> argument provides the
-experimental context of the digitization process. This metadata table
-contains one row per entry returned by <code>track_param(data)</code>,
-in the same order, and specifies which digitizations correspond to the
-same biological trackway, which observer produced them, and how many
-replicate attempts were made. By explicitly encoding track identity,
-observer identity, and replicate structure, this table allows the
-function to disentangle biological variation from inter- and
-intra-observer sampling effects. Finally, the
-<strong><code>variables</code></strong> argument defines which trackway
-parameters are evaluated. By default, the function considers a broad set
-of directional, kinematic, and geometric metrics (including turning
-angles, distances, step-length statistics, sinuosity, straightness,
-trackway width, and pace angulation). Users may restrict this set to a
-subset of parameters when focusing on specific aspects of trackway
-geometry or when evaluating the robustness of particular metrics prior
-to hypothesis testing.</p>
-<p>The function requires that <strong>all replicated
-digitizations</strong>—across observers and/or repeated attempts—are
-bundled into a single <code>trackway</code> R object. Each replicate is
-treated as an independent entry and must be accompanied by a
-corresponding row in a metadata table describing:</p>
-<ul>
-<li>The biological <strong>track ID</strong>,</li>
-<li>The <strong>observer</strong> who digitized it,</li>
-<li>The <strong>replicate index</strong> within each observer–track
-combination.</li>
-</ul>
+<p>The analysis requires <strong>three explicit inputs</strong> that
+together define the structure of the reproducibility assessment. The
+<strong><code>data</code></strong> argument must be a <strong>single
+<code>trackway</code> R object</strong> that contains the
+<strong>complete digitization experiment</strong>, including <strong>all
+biological trackways under study</strong> and <strong>all digitizations
+performed on them</strong>. Each trackway may be represented by
+<strong>one or more digitizations</strong>, produced by <strong>one or
+more observers</strong>, and each observer may contribute <strong>one or
+more replicate digitization attempts</strong>. Every digitization,
+regardless of trackway, observer, or replicate status, is stored as a
+<strong>separate entry</strong> within this single <code>trackway</code>
+object. <strong>All trackways, observers, and replicates intended for
+variance partitioning must therefore be included together in the same
+object</strong> and must not be split across multiple objects, files, or
+analyses, as the function relies on their <strong>joint
+structure</strong> to estimate variance components. The
+<strong><code>metadata</code></strong> argument is a <strong>data
+frame</strong> that encodes this structure explicitly and must contain
+<strong>one row per track entry</strong>. This information is provided
+through <strong>explicit columns</strong> in the metadata table: a
+<strong><code>trackway</code> column</strong> identifying the trackway
+to which each digitization belongs, an <strong><code>observer</code>
+column</strong> identifying the observer who produced the digitization,
+and a <strong><code>replica</code> column</strong> giving the replicate
+index within each observer–trackway combination. These column-wise
+identifiers define the <strong>random-effects structure</strong> of the
+mixed-effects models fitted by the function: variability among
+<strong><code>trackway</code></strong> levels captures
+<strong>between-trackway (biological) differences</strong>, variability
+among <strong><code>observer</code></strong> levels captures
+<strong>inter-observer sampling effects</strong>, variability among
+<strong><code>observer:trackway</code></strong> levels captures
+<strong>observer-specific deviations for particular trackways</strong>,
+and the <strong>residual variance</strong> represents
+<strong>replicate-to-replicate variability</strong> within
+observer–trackway combinations; random-effect terms that occur with a
+<strong>single level</strong> are omitted automatically. Finally, the
+<strong><code>variables</code></strong> argument specifies which
+<strong>trackway parameters</strong> are evaluated; by default, the
+function analyzes a <strong>broad set of directional, kinematic, and
+geometric metrics</strong>, but users may restrict this set to focus on
+<strong>specific aspects of trackway geometry</strong> or to assess the
+<strong>robustness of individual metrics</strong> prior to downstream
+hypothesis testing.</p>
 <p>For each selected trackway parameter,
 <code><a href="../reference/observer_error_partitioning.html">observer_error_partitioning()</a></code> fits a mixed-effects model
 that decomposes variance into four conceptual components:</p>
 <ul>
 <li>
-<strong>Between-track variance (<code>track</code>)</strong> —
+<strong>Between-trackway variance (<code>trackway</code>)</strong> —
 interpreted as biological signal,</li>
 <li>
 <strong>Between-observer variance (<code>observer</code>)</strong> —
 inter-observer sampling error,</li>
 <li>
-<strong>Observer × track interaction
-(<code>observer:track</code>)</strong> — observer-specific bias tied to
-particular tracks,</li>
+<strong>Observer × trackway interaction
+(<code>observer:trackway</code>)</strong> — observer-specific bias tied
+to particular tracks,</li>
 <li>
 <strong>Residual variance</strong> — intra-observer sampling error
 (replicate-to-replicate scatter).</li>
@@ -1438,7 +1450,7 @@ averaged.</p>
 <p>To facilitate interpretation, the function summarizes robustness
 using a <strong>signal-to-noise ratio (SNR)</strong>, defined as the
 ratio between biological variance and the total sampling-related
-variance (observer, observer × track, and residual components). As a
+variance (observer, observer × trackway, and residual components). As a
 practical guideline:</p>
 <ul>
 <li>
@@ -1471,13 +1483,65 @@ formulas.</li>
 <p>Together, these outputs provide both a quantitative and an intuitive
 assessment of digitization reliability.</p>
 <div class="section level3">
-<h3 id="example-usage-and-interpretation">
-<strong>Example usage and interpretation</strong><a class="anchor" aria-label="anchor" href="#example-usage-and-interpretation"></a>
+<h3 id="example-usage">
+<strong>Example usage</strong><a class="anchor" aria-label="anchor" href="#example-usage"></a>
 </h3>
-<p>In the example below, multiple observers digitize the same biological
-trackways, and each observer produces replicated digitizations. This
-design allows simultaneous estimation of inter-observer and
-intra-observer uncertainty.</p>
+<p>This example uses the Paluxy River trackway dataset, which was
+digitized multiple times by different members of the PASLab team at the
+Cavanilles Institute of Biodiversity and Evolutionary Biology,
+University of Valencia (Spain). The goal is to quantify how much
+variability in trackway parameters reflects true biological differences
+among trackways, and how much arises from observer and replicate
+effects.</p>
+<p>We first load the replicated TPS file and convert it into a trackway
+object. Each footprint is assigned a left/right side, and medial
+trajectories are reconstructed from consecutive footprints.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"PaluxyRiverObsRep.tps"</span>,</span>
+<span>                   package <span class="op">=</span> <span class="st">"QuAnTeTrack"</span><span class="op">)</span></span>
+<span><span class="va">RL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R"</span>,<span class="st">"L"</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">34</span><span class="op">)</span></span>
+<span><span class="va">trks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tps_to_track.html">tps_to_track</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">tps</span>, scale <span class="op">=</span> <span class="fl">0.004341493</span>,</span>
+<span>                     R.L.side <span class="op">=</span> <span class="va">RL</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, NAs <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<p>Next, we build the metadata table required for observer-based error
+partitioning. Each replicated digitization is treated as a separate
+entry. The metadata explicitly records, in columns, the replicate index,
+the trackway identity, and the observer who digitized it.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">n</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">trks</span><span class="op">$</span><span class="va">Trajectories</span><span class="op">)</span></span>
+<span><span class="va">md</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  trackway    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T01"</span>,<span class="st">"T02"</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="va">n</span><span class="op">)</span>,</span>
+<span>  observer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>, <span class="st">"obs1"</span>, <span class="st">"obs2"</span><span class="op">)</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">md</span><span class="op">$</span><span class="va">replica</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ave.html" class="external-link">ave</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
+<span>                  <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">md</span><span class="op">$</span><span class="va">observer</span>, <span class="va">md</span><span class="op">$</span><span class="va">trackway</span>, drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>                  FUN <span class="op">=</span> <span class="va">seq_along</span><span class="op">)</span></span>
+<span><span class="va">md</span> <span class="op">&lt;-</span> <span class="va">md</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"replica"</span>,<span class="st">"trackway"</span>,<span class="st">"observer"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<p>We then select a subset of parameters that include both linear and
+angular metrics, allowing us to evaluate how different types of
+variables respond to observer and replicate effects.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BeelineLen"</span>,<span class="st">"Straightness"</span>,<span class="st">"TurnAng"</span>,<span class="st">"PaceAng"</span><span class="op">)</span></span></code></pre></div>
+<p>Finally, we run the observer-based error partitioning. The function
+fits mixed-effects models for each selected variable and decomposes
+variance into biological and observer-related components. The resulting
+quality-control table summarizes robustness using signal-to-noise ratios
+and variance dominance.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">res_full</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/observer_error_partitioning.html">observer_error_partitioning</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">trks</span>,</span>
+<span>                                        metadata <span class="op">=</span> <span class="va">md</span>,</span>
+<span>                                        variables <span class="op">=</span> <span class="va">vars</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res_full</span><span class="op">$</span><span class="va">qc</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt;       variable        SNR SNR_rating top_component top_percent      R2_c</span></span>
+<span><span class="co">#&gt; 1   BeelineLen 14362.3060     strong      trackway    99.99304 0.9999304</span></span>
+<span><span class="co">#&gt; 2 Straightness   158.6878     strong      trackway    99.37378 0.9937378</span></span>
+<span><span class="co">#&gt; 3      TurnAng  3642.6814     strong      trackway    99.97256 0.9997673</span></span>
+<span><span class="co">#&gt; 4      PaceAng   314.5134     strong      trackway    99.68306 0.9990678</span></span>
+<span><span class="co">#&gt;   observer_estimable</span></span>
+<span><span class="co">#&gt; 1                yes</span></span>
+<span><span class="co">#&gt; 2                yes</span></span>
+<span><span class="co">#&gt; 3                yes</span></span>
+<span><span class="co">#&gt; 4                yes</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -1555,8 +1619,8 @@ uncertainty arising from the fossil record itself from uncertainty
 introduced during digitization, and to identify trackway parameters that
 remain interpretable despite imperfect preservation.</p>
 <div class="section level3">
-<h3 id="example-usage-and-interpretation-1">
-<strong>Example usage and interpretation</strong><a class="anchor" aria-label="anchor" href="#example-usage-and-interpretation-1"></a>
+<h3 id="example-usage-1">
+<strong>Example usage</strong><a class="anchor" aria-label="anchor" href="#example-usage-1"></a>
 </h3>
 <p>In the examples below, anatomical uncertainty is explored by
 progressively increasing the spatial tolerance applied to footprint
@@ -1675,9 +1739,9 @@ track lengths, sinuosity, and straightness from
 <strong><code>track</code> R objects</strong>. The examples below
 calculate these parameters for the <strong>Paluxy River</strong> and
 <strong>Mount Tom</strong> datasets.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_param.html">track_param</a></span><span class="op">(</span><span class="va">PaluxyRiver</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">params_mount</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_param.html">track_param</a></span><span class="op">(</span><span class="va">MountTom</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -1803,14 +1867,14 @@ running)</strong>.</p>
 <p>Calculating velocities for the <strong>Paluxy River dataset</strong>
 using <strong>Method A</strong> for both tracks. The hip heights
 (<code>H_paluxyriver</code>) are provided for each trackmaker.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.472</span>, <span class="fl">2.200</span><span class="op">)</span></span>
 <span><span class="va">velocity_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, H <span class="op">=</span> <span class="va">H_paluxyriver</span><span class="op">)</span></span></code></pre></div>
 <p>Calculating velocities for the <strong>Mount Tom dataset</strong>
 using <strong>Method A</strong> for all tracks. Multiple hip heights
 (<code>H_mounttom</code>) are specified, corresponding to each track in
 the dataset.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H_mounttom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">1.380</span>, <span class="fl">1.404</span>, <span class="fl">1.320</span>, <span class="fl">1.736</span>, <span class="fl">1.364</span>, <span class="fl">1.432</span>, <span class="fl">1.508</span>, <span class="fl">1.768</span>, <span class="fl">1.600</span>,</span>
 <span>  <span class="fl">1.848</span>, <span class="fl">1.532</span>, <span class="fl">1.532</span>, <span class="fl">0.760</span>, <span class="fl">1.532</span>, <span class="fl">1.688</span>, <span class="fl">1.620</span>, <span class="fl">0.636</span>, <span class="fl">1.784</span>, <span class="fl">1.676</span>, <span class="fl">1.872</span>,</span>
@@ -1822,7 +1886,7 @@ using <strong>different methods</strong>: <strong>Method A</strong> for
 the sauropod trackway and <strong>Method B</strong> for the theropod
 trackway. This demonstrates how to apply distinct calculation methods to
 different trackmakers within the same dataset.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3.472</span>, <span class="fl">2.200</span><span class="op">)</span></span>
 <span><span class="va">Method_paluxyriver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span></span>
 <span><span class="va">velocity_paluxyriver_diff</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/velocity_track.html">velocity_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, H <span class="op">=</span> <span class="va">H_paluxyriver</span>, method <span class="op">=</span> <span class="va">Method_paluxyriver</span><span class="op">)</span></span></code></pre></div>
@@ -1874,29 +1938,29 @@ influence movement.</p>
 <p>Plotting trajectories colored by <strong>relative stride length
 (RSL)</strong> for the <strong>PaluxyRiver dataset</strong> using the
 previously calculated <code>velocity_paluxyriver_diff</code> object.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_velocity.html">plot_velocity</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, <span class="va">velocity_paluxyriver_diff</span>, param <span class="op">=</span> <span class="st">"RSL"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-32-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-40-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Plotting trajectories colored by <strong>velocity</strong> for the
 <strong>MountTom dataset</strong> using the previously calculated
 <code>velocity_mounttom</code> object.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_velocity.html">plot_velocity</a></span><span class="op">(</span><span class="va">MountTom</span>, <span class="va">velocity_mounttom</span>, param <span class="op">=</span> <span class="st">"V"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-33-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-41-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Generating a clean visualization of <strong>relative stride length
 (RSL)</strong> for the <strong>PaluxyRiver dataset</strong> without
 displaying a legend.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_velocity.html">plot_velocity</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, <span class="va">velocity_paluxyriver_diff</span>, param <span class="op">=</span> <span class="st">"RSL"</span>, lwd <span class="op">=</span> <span class="fl">1.5</span>, </span>
 <span>              colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"orange"</span>, <span class="st">"pink"</span>, <span class="st">"gray"</span><span class="op">)</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-34-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-42-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Applying <strong>custom colors and increased line width</strong> to
 enhance visualization of <strong>velocity patterns</strong> for the
 <strong>MountTom dataset</strong>.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_velocity.html">plot_velocity</a></span><span class="op">(</span><span class="va">MountTom</span>, <span class="va">velocity_mounttom</span>, param <span class="op">=</span> <span class="st">"V"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, </span>
 <span>              colours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"yellow"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-35-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-43-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -1964,50 +2028,50 @@ preferences</strong>, and <strong>potential group behavior</strong>.</p>
 <p>The <strong><code>boxplot</code></strong> option generates a summary
 of directional data distribution, highlighting central tendency,
 variability, and potential outliers across tracks.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-36-1.png" class="r-plt" alt="" width="100%"></p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-44-1.png" class="r-plt" alt="" width="100%"></p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-37-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-45-1.png" class="r-plt" alt="" width="100%"></p>
 <p>The <strong><code>polar_steps</code></strong> option creates a polar
 histogram of individual steps radiating from a central point, revealing
 the angular spread of movement and dominant directions.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-38-1.png" class="r-plt" alt="" width="100%"></p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-46-1.png" class="r-plt" alt="" width="100%"></p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-39-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-47-1.png" class="r-plt" alt="" width="100%"></p>
 <p>The <strong><code>polar_average</code></strong> option generates a
 simplified polar plot by averaging step directions for each track,
 providing a general overview of dominant movement trends.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_average"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-40-1.png" class="r-plt" alt="" width="100%"></p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-48-1.png" class="r-plt" alt="" width="100%"></p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"polar_average"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-41-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-49-1.png" class="r-plt" alt="" width="100%"></p>
 <p>The <strong><code>faceted</code></strong> option displays individual
 step directions separately for each track using faceted panels, allowing
 detailed comparison of movement patterns across multiple tracks.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"faceted"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-42-1.png" class="r-plt" alt="" width="100%"></p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-50-1.png" class="r-plt" alt="" width="100%"></p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, plot_type <span class="op">=</span> <span class="st">"faceted"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-43-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-51-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Customization options include setting custom breaks on the radial
 axis with <strong><code>y_breaks_manual</code></strong> and adjusting
 the position of y-axis labels with
 <strong><code>y_labels_position</code></strong> for better
 presentation.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_average"</span>, y_breaks_manual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-44-1.png" class="r-plt" alt="" width="100%"></p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-52-1.png" class="r-plt" alt="" width="100%"></p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_direction.html">plot_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, plot_type <span class="op">=</span> <span class="st">"polar_steps"</span>, y_labels_position <span class="op">=</span> <span class="op">-</span><span class="fl">90</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-45-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-53-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -2100,7 +2164,7 @@ the <strong>GLM fit</strong> and pairwise comparisons from the
 <p>The <strong>ANOVA</strong> method is suitable for comparing mean
 velocities when data meet the assumptions of normality and homogeneity
 of variances.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_velocity.html">test_velocity</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, <span class="va">velocity_paluxyriver_diff</span>, analysis <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Warning in test_velocity(PaluxyRiver, velocity_paluxyriver_diff, analysis =</span></span>
 <span><span class="co">#&gt; "ANOVA"): One or more tracks do not follow a normal distribution (p-value &lt;=</span></span>
@@ -2140,7 +2204,7 @@ of variances.</p>
 <span><span class="co">#&gt; $track</span></span>
 <span><span class="co">#&gt;                            diff       lwr       upr p adj</span></span>
 <span><span class="co">#&gt; Trackway 2-Trackway 1 0.1967992 0.1594567 0.2341416     0</span></span></code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_velocity.html">test_velocity</a></span><span class="op">(</span><span class="va">MountTom</span>, <span class="va">velocity_mounttom</span>, analysis <span class="op">=</span> <span class="st">"ANOVA"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Warning in test_velocity(MountTom, velocity_mounttom, analysis = "ANOVA"): The</span></span>
 <span><span class="co">#&gt; following tracks were removed from the analysis due to having 3 or fewer</span></span>
@@ -2240,7 +2304,7 @@ of variances.</p>
 <p>The <strong>Kruskal-Wallis</strong> test is a non-parametric method
 that compares median velocities, useful when normality or homogeneity of
 variances cannot be assumed.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_velocity.html">test_velocity</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, <span class="va">velocity_paluxyriver_diff</span>, analysis <span class="op">=</span> <span class="st">"Kruskal-Wallis"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Warning in test_velocity(PaluxyRiver, velocity_paluxyriver_diff, analysis =</span></span>
 <span><span class="co">#&gt; "Kruskal-Wallis"): One or more tracks do not follow a normal distribution</span></span>
@@ -2256,16 +2320,16 @@ variances cannot be assumed.</p>
 <span><span class="co">#&gt; Kruskal-Wallis chi-squared = 38.6698, df = 1, p-value = 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;                            Comparison of x by group                            </span></span>
-<span><span class="co">#&gt;                                 (No adjustment)                                </span></span>
-<span><span class="co">#&gt; Col Mean-|</span></span>
-<span><span class="co">#&gt; Row Mean |   Trackway</span></span>
-<span><span class="co">#&gt; ---------+-----------</span></span>
-<span><span class="co">#&gt; Trackway |  -6.218503</span></span>
-<span><span class="co">#&gt;          |    0.0000*</span></span>
+<span><span class="co">#&gt;                    Dunn's Pairwise Comparison of x by group                   </span></span>
+<span><span class="co">#&gt;                                 (No adjustment)                               </span></span>
+<span><span class="co">#&gt; Col Mean-│</span></span>
+<span><span class="co">#&gt; Row Mean │   Trackway</span></span>
+<span><span class="co">#&gt; ─────────┼───────────</span></span>
+<span><span class="co">#&gt; Trackway │  -6.218503</span></span>
+<span><span class="co">#&gt;          │     0.0000*</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; alpha = 0.05</span></span>
-<span><span class="co">#&gt; Reject Ho if p &lt;= alpha/2</span></span>
+<span><span class="co">#&gt; α = 0.05</span></span>
+<span><span class="co">#&gt; Reject Ho if p ≤ α/2, where p = Pr(Z ≥ |z|)</span></span>
 <span><span class="co">#&gt; $normality_results</span></span>
 <span><span class="co">#&gt;             Trackway 1 Trackway 2</span></span>
 <span><span class="co">#&gt; statistic.W  0.9586486 0.91134871</span></span>
@@ -2303,7 +2367,7 @@ variances cannot be assumed.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $Kruskal_Wallis$Dunn$comparisons</span></span>
 <span><span class="co">#&gt; [1] "Trackway 1 - Trackway 2"</span></span></code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_velocity.html">test_velocity</a></span><span class="op">(</span><span class="va">MountTom</span>, <span class="va">velocity_mounttom</span>, analysis <span class="op">=</span> <span class="st">"Kruskal-Wallis"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Warning in test_velocity(MountTom, velocity_mounttom, analysis =</span></span>
 <span><span class="co">#&gt; "Kruskal-Wallis"): The following tracks were removed from the analysis due to</span></span>
@@ -2316,57 +2380,57 @@ variances cannot be assumed.</p>
 <span><span class="co">#&gt; Kruskal-Wallis chi-squared = 47.0791, df = 10, p-value = 0</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;                            Comparison of x by group                            </span></span>
-<span><span class="co">#&gt;                                 (No adjustment)                                </span></span>
-<span><span class="co">#&gt; Col Mean-|</span></span>
-<span><span class="co">#&gt; Row Mean |   Trackway   Trackway   Trackway   Trackway   Trackway   Trackway</span></span>
-<span><span class="co">#&gt; ---------+------------------------------------------------------------------</span></span>
-<span><span class="co">#&gt; Trackway |  -1.421706</span></span>
-<span><span class="co">#&gt;          |     0.0776</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |  -2.691099  -1.489538</span></span>
-<span><span class="co">#&gt;          |    0.0036*     0.0682</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |   0.490554   1.692115   2.805954</span></span>
-<span><span class="co">#&gt;          |     0.3119     0.0453    0.0025*</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |   2.038004   3.367888   4.317520   1.286742</span></span>
-<span><span class="co">#&gt;          |    0.0208*    0.0004*    0.0000*     0.0991</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |  -0.704116   0.567496   1.866004  -1.064720  -2.513099</span></span>
-<span><span class="co">#&gt;          |     0.2407     0.2852     0.0310     0.1435    0.0060*</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |  -2.101242  -0.899681   0.520205  -2.285749  -3.755634  -1.322667</span></span>
-<span><span class="co">#&gt;          |    0.0178*     0.1841     0.3015    0.0111*    0.0001*     0.0930</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |   2.778485   3.980046   4.823720   2.017765   0.892692   3.172207</span></span>
-<span><span class="co">#&gt;          |    0.0027*    0.0000*    0.0000*    0.0218*     0.1860    0.0008*</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |  -0.349544   0.852015   2.065056  -0.740898  -2.087004   0.290877</span></span>
-<span><span class="co">#&gt;          |     0.3633     0.1971    0.0195*     0.2294    0.0184*     0.3856</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |   1.476147   2.855404   3.891159   0.778231  -0.598549   2.015289</span></span>
-<span><span class="co">#&gt;          |     0.0700    0.0021*    0.0000*     0.2182     0.2747    0.0219*</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |   0.061567   1.263128   2.427623  -0.378331  -1.695386   0.669566</span></span>
-<span><span class="co">#&gt;          |     0.4755     0.1033    0.0076*     0.3526     0.0450     0.2516</span></span>
-<span><span class="co">#&gt; Col Mean-|</span></span>
-<span><span class="co">#&gt; Row Mean |   Trackway   Trackway   Trackway   Trackway</span></span>
-<span><span class="co">#&gt; ---------+--------------------------------------------</span></span>
-<span><span class="co">#&gt; Trackway |   4.303515</span></span>
-<span><span class="co">#&gt;          |    0.0000*</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |   1.544851  -2.758663</span></span>
-<span><span class="co">#&gt;          |     0.0612    0.0029*</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |   3.314043  -1.460277   1.600184</span></span>
-<span><span class="co">#&gt;          |    0.0005*     0.0721     0.0548</span></span>
-<span><span class="co">#&gt;          |</span></span>
-<span><span class="co">#&gt; Trackway |   1.907418  -2.396096   0.362567  -1.197952</span></span>
-<span><span class="co">#&gt;          |     0.0282    0.0083*     0.3585     0.1155</span></span>
+<span><span class="co">#&gt;                    Dunn's Pairwise Comparison of x by group                   </span></span>
+<span><span class="co">#&gt;                                 (No adjustment)                               </span></span>
+<span><span class="co">#&gt; Col Mean-│</span></span>
+<span><span class="co">#&gt; Row Mean │   Trackway   Trackway   Trackway   Trackway   Trackway   Trackway</span></span>
+<span><span class="co">#&gt; ─────────┼──────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; Trackway │  -1.421706</span></span>
+<span><span class="co">#&gt;          │     0.0776 </span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │  -2.691099  -1.489538</span></span>
+<span><span class="co">#&gt;          │     0.0036*    0.0682 </span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │   0.490554   1.692115   2.805954</span></span>
+<span><span class="co">#&gt;          │     0.3119     0.0453     0.0025*</span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │   2.038004   3.367888   4.317520   1.286742</span></span>
+<span><span class="co">#&gt;          │     0.0208*    0.0004*    0.0000*    0.0991 </span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │  -0.704116   0.567496   1.866004  -1.064720  -2.513099</span></span>
+<span><span class="co">#&gt;          │     0.2407     0.2852     0.0310     0.1435     0.0060*</span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │  -2.101242  -0.899681   0.520205  -2.285749  -3.755634  -1.322667</span></span>
+<span><span class="co">#&gt;          │     0.0178*    0.1841     0.3015     0.0111*    0.0001*    0.0930 </span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │   2.778485   3.980046   4.823720   2.017765   0.892692   3.172207</span></span>
+<span><span class="co">#&gt;          │     0.0027*    0.0000*    0.0000*    0.0218*    0.1860     0.0008*</span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │  -0.349544   0.852015   2.065056  -0.740898  -2.087004   0.290877</span></span>
+<span><span class="co">#&gt;          │     0.3633     0.1971     0.0195*    0.2294     0.0184*    0.3856 </span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │   1.476147   2.855404   3.891159   0.778231  -0.598549   2.015289</span></span>
+<span><span class="co">#&gt;          │     0.0700     0.0021*    0.0000*    0.2182     0.2747     0.0219*</span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │   0.061567   1.263128   2.427623  -0.378331  -1.695386   0.669566</span></span>
+<span><span class="co">#&gt;          │     0.4755     0.1033     0.0076*    0.3526     0.0450     0.2516 </span></span>
+<span><span class="co">#&gt; Col Mean-│</span></span>
+<span><span class="co">#&gt; Row Mean │   Trackway   Trackway   Trackway   Trackway</span></span>
+<span><span class="co">#&gt; ─────────┼────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; Trackway │   4.303515</span></span>
+<span><span class="co">#&gt;          │     0.0000*</span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │   1.544851  -2.758663</span></span>
+<span><span class="co">#&gt;          │     0.0612     0.0029*</span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │   3.314043  -1.460277   1.600184</span></span>
+<span><span class="co">#&gt;          │     0.0005*    0.0721     0.0548 </span></span>
+<span><span class="co">#&gt;          │</span></span>
+<span><span class="co">#&gt; Trackway │   1.907418  -2.396096   0.362567  -1.197952</span></span>
+<span><span class="co">#&gt;          │     0.0282     0.0083*    0.3585     0.1155 </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; alpha = 0.05</span></span>
-<span><span class="co">#&gt; Reject Ho if p &lt;= alpha/2</span></span>
+<span><span class="co">#&gt; α = 0.05</span></span>
+<span><span class="co">#&gt; Reject Ho if p ≤ α/2, where p = Pr(Z ≥ |z|)</span></span>
 <span><span class="co">#&gt; $normality_results</span></span>
 <span><span class="co">#&gt;             Trackway 01 Trackway 02 Trackway 03 Trackway 04 Trackway 07</span></span>
 <span><span class="co">#&gt; statistic.W   0.9209702   0.9049639   0.8522781   0.9286605   0.9400514</span></span>
@@ -2470,7 +2534,7 @@ variances cannot be assumed.</p>
 data do not meet the assumptions required for ANOVA. This method fits a
 linear model with a Gaussian family and performs pairwise comparisons
 using <code>emmeans</code>.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_velocity.html">test_velocity</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, <span class="va">velocity_paluxyriver_diff</span>, analysis <span class="op">=</span> <span class="st">"GLM"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Warning in test_velocity(PaluxyRiver, velocity_paluxyriver_diff, analysis =</span></span>
 <span><span class="co">#&gt; "GLM"): One or more tracks do not follow a normal distribution (p-value &lt;=</span></span>
@@ -2526,7 +2590,7 @@ using <code>emmeans</code>.</p>
 <span><span class="co">#&gt; $contrasts</span></span>
 <span><span class="co">#&gt;  contrast                estimate     SE df t.ratio p.value</span></span>
 <span><span class="co">#&gt;  Trackway 1 - Trackway 2   -0.197 0.0186 51 -10.580 &lt;0.0001</span></span></code></pre>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_velocity.html">test_velocity</a></span><span class="op">(</span><span class="va">MountTom</span>, <span class="va">velocity_mounttom</span>, analysis <span class="op">=</span> <span class="st">"GLM"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Warning in test_velocity(MountTom, velocity_mounttom, analysis = "GLM"): The</span></span>
 <span><span class="co">#&gt; following tracks were removed from the analysis due to having 3 or fewer</span></span>
@@ -2721,7 +2785,7 @@ limited.</p>
 contains calculated velocities for the <strong>PaluxyRiver
 dataset</strong> with different methods applied to the sauropod (Method
 A) and theropod (Method B).</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mode_velocity.html">mode_velocity</a></span><span class="op">(</span><span class="va">velocity_paluxyriver_diff</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; $Track_1</span></span>
 <span><span class="co">#&gt; $Track_1$correlation</span></span>
@@ -2757,7 +2821,7 @@ A) and theropod (Method B).</p>
 <span><span class="co">#&gt; [1] "Steady"</span></span></code></pre>
 <p>The <strong><code>velocity_mounttom</code></strong> object contains
 calculated velocities for the <strong>MountTom dataset</strong>.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/mode_velocity.html">mode_velocity</a></span><span class="op">(</span><span class="va">velocity_mounttom</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; $Track_01</span></span>
 <span><span class="co">#&gt; $Track_01$correlation</span></span>
@@ -3060,7 +3124,7 @@ interactions</strong>, regardless of the underlying data structure.</p>
 <strong>mean directions</strong> across tracks, assuming the data is
 normally distributed and variances are homogeneous. Post-hoc pairwise
 comparisons are conducted if significant differences are found.</p>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_direction.html">test_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, analysis <span class="op">=</span> <span class="st">"Watson-Williams"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; $assumption_results</span></span>
 <span><span class="co">#&gt; $assumption_results$rayleigh</span></span>
@@ -3100,7 +3164,7 @@ comparisons are conducted if significant differences are found.</p>
 <span><span class="co">#&gt; $pairwise</span></span>
 <span><span class="co">#&gt;       track1     track2  statistic  p_value          method    p_adj</span></span>
 <span><span class="co">#&gt; 1 Trackway 1 Trackway 2 0.01754253 0.895151 Watson-Williams 0.895151</span></span></code></pre>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_direction.html">test_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, analysis <span class="op">=</span> <span class="st">"Watson-Williams"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; $assumption_results</span></span>
 <span><span class="co">#&gt; $assumption_results$rayleigh</span></span>
@@ -3214,7 +3278,7 @@ non-parametric alternative for comparing <strong>median
 directions</strong> across tracks when the data does not meet the
 assumptions of ANOVA. Significant differences are further examined using
 Dunn’s test.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_direction.html">test_direction</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, analysis <span class="op">=</span> <span class="st">"Watson-Wheeler"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; $assumption_results</span></span>
 <span><span class="co">#&gt; $assumption_results$rayleigh</span></span>
@@ -3246,7 +3310,7 @@ Dunn’s test.</p>
 <span><span class="co">#&gt; 1 Trackway 1 Trackway 2 0.001081754       1</span></span>
 <span><span class="co">#&gt;                                 method p_adj</span></span>
 <span><span class="co">#&gt; 1 Watson-Wheeler (permutation, B=1000)     1</span></span></code></pre>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/test_direction.html">test_direction</a></span><span class="op">(</span><span class="va">MountTom</span>, analysis <span class="op">=</span> <span class="st">"Watson-Wheeler"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; $assumption_results</span></span>
 <span><span class="co">#&gt; $assumption_results$rayleigh</span></span>
@@ -3485,7 +3549,7 @@ with <strong>100 simulated tracks</strong>, the examples below display
 <strong>only a subset of 10 simulated tracks</strong> to prevent the
 vignette from becoming excessively large. This approach ensures the
 vignette remains efficient, clear, and easy to navigate.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim_unconstrained_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">100</span>, model <span class="op">=</span> <span class="st">"Unconstrained"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sim_unconstrained_paluxy</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; [[1]]</span></span>
@@ -4646,7 +4710,7 @@ vignette remains efficient, clear, and easy to navigate.</p>
 <span><span class="co">#&gt; 22  0.11185162-0.4749818i     Traj_2     Sim_10 TrajSim_2_10</span></span>
 <span><span class="co">#&gt; 23  0.10570347-0.6536949i     Traj_2     Sim_10 TrajSim_2_10</span></span>
 <span><span class="co">#&gt; 24  0.11072806-0.6290805i     Traj_2     Sim_10 TrajSim_2_10</span></span></code></pre>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim_directed_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">100</span>, model <span class="op">=</span> <span class="st">"Directed"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sim_directed_paluxy</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; [[1]]</span></span>
@@ -5807,7 +5871,7 @@ vignette remains efficient, clear, and easy to navigate.</p>
 <span><span class="co">#&gt; 22  0.018953897+0.6180510i     Traj_2     Sim_10 TrajSim_2_10</span></span>
 <span><span class="co">#&gt; 23  0.009836446+0.5209598i     Traj_2     Sim_10 TrajSim_2_10</span></span>
 <span><span class="co">#&gt; 24  0.274352639+0.5843188i     Traj_2     Sim_10 TrajSim_2_10</span></span></code></pre>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim_constrained_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">100</span>, model <span class="op">=</span> <span class="st">"Constrained"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sim_constrained_paluxy</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; [[1]]</span></span>
@@ -6968,7 +7032,7 @@ vignette remains efficient, clear, and easy to navigate.</p>
 <span><span class="co">#&gt; 22 0.40274149+0.3588452i     Traj_2     Sim_10 TrajSim_2_10</span></span>
 <span><span class="co">#&gt; 23 0.40979898+0.4108445i     Traj_2     Sim_10 TrajSim_2_10</span></span>
 <span><span class="co">#&gt; 24 0.48868304+0.4460861i     Traj_2     Sim_10 TrajSim_2_10</span></span></code></pre>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim_unconstrained_mount</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">sbMountTom</span>, nsim <span class="op">=</span> <span class="fl">100</span>, model <span class="op">=</span> <span class="st">"Unconstrained"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sim_unconstrained_mount</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; [[1]]</span></span>
@@ -8809,7 +8873,7 @@ vignette remains efficient, clear, and easy to navigate.</p>
 <span><span class="co">#&gt; 3 0.5641703+0.9657827i    Traj_11     Sim_10 TrajSim_11_10</span></span>
 <span><span class="co">#&gt; 4 0.5615914+0.9370666i    Traj_11     Sim_10 TrajSim_11_10</span></span>
 <span><span class="co">#&gt; 5 0.5197295+0.9261426i    Traj_11     Sim_10 TrajSim_11_10</span></span></code></pre>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim_directed_mount</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">sbMountTom</span>, nsim <span class="op">=</span> <span class="fl">100</span>, model <span class="op">=</span> <span class="st">"Directed"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sim_directed_mount</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; [[1]]</span></span>
@@ -10650,7 +10714,7 @@ vignette remains efficient, clear, and easy to navigate.</p>
 <span><span class="co">#&gt; 3 -0.3772146+1.0161046i    Traj_11     Sim_10 TrajSim_11_10</span></span>
 <span><span class="co">#&gt; 4 -0.3855031+0.9750675i    Traj_11     Sim_10 TrajSim_11_10</span></span>
 <span><span class="co">#&gt; 5 -0.4097417+0.9453464i    Traj_11     Sim_10 TrajSim_11_10</span></span></code></pre>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim_constrained_mount</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">sbMountTom</span>, nsim <span class="op">=</span> <span class="fl">100</span>, model <span class="op">=</span> <span class="st">"Constrained"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">sim_constrained_mount</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; [[1]]</span></span>
@@ -12545,45 +12609,45 @@ replicates the original track patterns under various conditions.</p>
 dataset</strong> using default settings.<br>
 This plot provides a basic comparison of the simulated tracks over the
 original tracks.</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_sim.html">plot_sim</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, <span class="va">sim_unconstrained_paluxy</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-86-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-94-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Visualizing the <strong>Directed simulation for the Paluxy River
 dataset</strong> with customized colors, transparency, and line width.
 Simulated tracks are plotted using light blue and orange colors with
 moderate transparency, making them easily distinguishable from the
 actual tracks plotted in black.</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_sim.html">plot_sim</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, <span class="va">sim_directed_paluxy</span>,</span>
 <span>  colours_sim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#E69F00"</span>, <span class="st">"#56B4E9"</span><span class="op">)</span>,</span>
 <span>  alpha_sim <span class="op">=</span> <span class="fl">0.4</span>, lwd_sim <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  colours_act <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"black"</span><span class="op">)</span>, alpha_act <span class="op">=</span> <span class="fl">0.7</span>, lwd_act <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-87-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-95-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Visualizing the <strong>Constrained simulation for the Paluxy River
 dataset</strong> with enhanced transparency and a reduced line width for
 the simulated tracks. This approach highlights the actual tracks more
 clearly, emphasizing the contrast between real and simulated data.</p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_sim.html">plot_sim</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, <span class="va">sim_constrained_paluxy</span>,</span>
 <span>  colours_sim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#E69F00"</span>, <span class="st">"#56B4E9"</span><span class="op">)</span>,</span>
 <span>  alpha_sim <span class="op">=</span> <span class="fl">0.6</span>, lwd_sim <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>  alpha_act <span class="op">=</span> <span class="fl">0.5</span>, lwd_act <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-88-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-96-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Visualizing the <strong>Unconstrained simulation for the MountTom
 dataset</strong> using default settings.<br>
 This plot provides a straightforward comparison of the simulated tracks
 over the actual tracks without any customization.</p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_sim.html">plot_sim</a></span><span class="op">(</span><span class="va">sbMountTom</span>, <span class="va">sim_unconstrained_mount</span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-89-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-97-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Visualizing the <strong>Directed simulation for the MountTom
 dataset</strong> with a custom color palette, higher transparency, and
 thicker lines for simulated tracks. This setup allows for better
 differentiation between the various simulated tracks and the original
 ones.</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_sim.html">plot_sim</a></span><span class="op">(</span><span class="va">sbMountTom</span>, <span class="va">sim_directed_mount</span>,</span>
 <span>  colours_sim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#6BAED6"</span>, <span class="st">"#FF7F00"</span>, <span class="st">"#1F77B4"</span>, <span class="st">"#D62728"</span>, </span>
 <span>                  <span class="st">"#2CA02C"</span>, <span class="st">"#9467BD"</span>, <span class="st">"#8C564B"</span>, <span class="st">"#E377C2"</span>, </span>
@@ -12591,12 +12655,12 @@ ones.</p>
 <span>  alpha_sim <span class="op">=</span> <span class="fl">0.3</span>, lwd_sim <span class="op">=</span> <span class="fl">1.5</span>,</span>
 <span>  alpha_act <span class="op">=</span> <span class="fl">0.8</span>, lwd_act <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-90-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-98-1.png" class="r-plt" alt="" width="100%"></p>
 <p>Visualizing the <strong>Constrained simulation for the MountTom
 dataset</strong> with a diverse color palette and thinner simulated
 tracks for better clarity. The high transparency of simulated tracks
 ensures the original tracks remain clearly visible.</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_sim.html">plot_sim</a></span><span class="op">(</span><span class="va">sbMountTom</span>, <span class="va">sim_constrained_mount</span>,</span>
 <span>  colours_sim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#6BAED6"</span>, <span class="st">"#FF7F00"</span>, <span class="st">"#1F77B4"</span>, <span class="st">"#D62728"</span>, </span>
 <span>                  <span class="st">"#2CA02C"</span>, <span class="st">"#9467BD"</span>, <span class="st">"#8C564B"</span>, <span class="st">"#E377C2"</span>, </span>
@@ -12604,7 +12668,7 @@ ensures the original tracks remain clearly visible.</p>
 <span>  alpha_sim <span class="op">=</span> <span class="fl">0.5</span>, lwd_sim <span class="op">=</span> <span class="fl">0.2</span>,</span>
 <span>  alpha_act <span class="op">=</span> <span class="fl">0.6</span>, lwd_act <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-91-1.png" class="r-plt" alt="" width="100%"></p>
+<p><img src="QuAnTeTrack_files/figure-html/unnamed-chunk-99-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -12725,7 +12789,7 @@ similarity</strong>, and assessing the accuracy of simulations.</p>
 <p>Comparing <strong>Paluxy River</strong> tracks against
 <strong>Directed model simulations</strong> using <strong>Centroid
 superposition</strong>.</p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">simil_dtw_directed_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                                              sim <span class="op">=</span> <span class="va">sim_directed_paluxy</span>, </span>
 <span>                                              superposition <span class="op">=</span> <span class="st">"Centroid"</span><span class="op">)</span></span></code></pre></div>
@@ -13247,7 +13311,7 @@ superposition</strong>.</p>
 <span><span class="co">#&gt;            Trackway_1 Trackway_2</span></span>
 <span><span class="co">#&gt; Trackway_1         NA   10.04254</span></span>
 <span><span class="co">#&gt; Trackway_2   10.04254         NA</span></span></code></pre>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">simil_frechet_directed_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                                              sim <span class="op">=</span> <span class="va">sim_directed_paluxy</span>, </span>
 <span>                                              superposition <span class="op">=</span> <span class="st">"Centroid"</span><span class="op">)</span></span></code></pre></div>
@@ -13772,7 +13836,7 @@ superposition</strong>.</p>
 <p>Comparing <strong>MountTom</strong> tracks (after subsetting) against
 <strong>Constrained model simulations</strong> using <strong>Origin
 superposition</strong>.</p>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">simil_dtw_constrained_mount</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simil_DTW_metric.html">simil_DTW_metric</a></span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                                                sim <span class="op">=</span> <span class="va">sim_constrained_mount</span>, </span>
 <span>                                                superposition <span class="op">=</span> <span class="st">"Origin"</span><span class="op">)</span></span></code></pre></div>
@@ -17693,7 +17757,7 @@ superposition</strong>.</p>
 <span><span class="co">#&gt; Trackway_15  20.5311279</span></span>
 <span><span class="co">#&gt; Trackway_16  12.4590411</span></span>
 <span><span class="co">#&gt; Trackway_18          NA</span></span></code></pre>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">simil_frechet_constrained_mount</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric</a></span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                                                sim <span class="op">=</span> <span class="va">sim_constrained_mount</span>, </span>
 <span>                                                superposition <span class="op">=</span> <span class="st">"Origin"</span><span class="op">)</span></span></code></pre></div>
@@ -21718,7 +21782,7 @@ meaningful or simply the result of random chance.</p>
 and simulated tracks generated using the <strong>Directed
 model</strong>, without modifying the starting positions, and testing
 for <strong>reduced intersections</strong>.</p>
-<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">int_directed_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, </span>
 <span>                                          sim <span class="op">=</span> <span class="va">sim_directed_paluxy</span>, </span>
 <span>                                          origin.permutation <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span>
@@ -22246,7 +22310,7 @@ for <strong>reduced intersections</strong>.</p>
 <strong>Constrained model</strong>, with <strong>convex hull
 permutation</strong> of starting points, and testing for
 <strong>increased intersections</strong>.</p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">int_constrained_mount</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/track_intersection.html">track_intersection</a></span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Higher"</span>, </span>
 <span>                                            sim <span class="op">=</span> <span class="va">sim_constrained_mount</span>, </span>
 <span>                                            origin.permutation <span class="op">=</span> <span class="st">"Conv.Hull"</span><span class="op">)</span></span>
@@ -26235,7 +26299,7 @@ dataset (<code>sim_directed_paluxy</code>) and are stored in the objects
 <code>simil_dtw_directed_paluxy</code>,
 <code>simil_frechet_directed_paluxy</code>, and
 <code>int_directed_paluxy</code>.</p>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">combined_metrics_paluxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combined_prob.html">combined_prob</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, metrics <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="va">simil_dtw_directed_paluxy</span>,</span>
 <span>  <span class="va">simil_frechet_directed_paluxy</span>,</span>
@@ -26392,7 +26456,7 @@ trackmakers</strong>.</p>
 the <strong><code><a href="../reference/velocity_track.html">velocity_track()</a></code></strong> function. This object
 will later be passed to
 <strong><code><a href="../reference/cluster_track.html">cluster_track()</a></code></strong>:</p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">H_mounttom_subset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">1.380</span>, <span class="fl">1.404</span>, <span class="fl">1.320</span>, <span class="fl">1.736</span>, <span class="fl">1.432</span>, <span class="fl">1.508</span>, <span class="fl">1.768</span>, <span class="fl">0.760</span>, <span class="fl">1.688</span>, <span class="fl">1.620</span>, <span class="fl">1.784</span></span>
 <span><span class="op">)</span></span>
@@ -26400,7 +26464,7 @@ will later be passed to
 <p>Next, perform clustering using key variables related to movement
 behavior: <strong>sinuosity</strong>, <strong>straightness</strong>,
 <strong>velocity</strong>, and <strong>turning angles</strong>.</p>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clustering_mounttom</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cluster_track.html">cluster_track</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">sbMountTom</span>,</span>
 <span>  veltrack <span class="op">=</span> <span class="va">velocity_sbmounttom</span>,</span>
@@ -26454,14 +26518,14 @@ behavior: <strong>sinuosity</strong>, <strong>straightness</strong>,
 <span><span class="co">#&gt;  [9] "df"             "bic"            "icl"            "hypvol"        </span></span>
 <span><span class="co">#&gt; [13] "parameters"     "z"              "classification" "uncertainty"</span></span></code></pre>
 <p>We then check the classification of tracks.</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clustering_mounttom</span><span class="op">$</span><span class="va">clust</span><span class="op">$</span><span class="va">classification</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt;  Track 1  Track 2  Track 3  Track 4  Track 5  Track 6  Track 7  Track 8 </span></span>
 <span><span class="co">#&gt;        1        2        3        4        5        6        1        7 </span></span>
 <span><span class="co">#&gt;  Track 9 Track 10 Track 11 </span></span>
 <span><span class="co">#&gt;        2        8        9</span></span></code></pre>
 <p>And the probability of each track belonging to each cluster.</p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clustering_mounttom</span><span class="op">$</span><span class="va">clust</span><span class="op">$</span><span class="va">z</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt;                   [,1]          [,2]          [,3]          [,4]          [,5]</span></span>
 <span><span class="co">#&gt; Track 1   1.000000e+00  5.221985e-35 4.860935e-153  1.239078e-86  5.808852e-89</span></span>

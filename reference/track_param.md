@@ -13,7 +13,7 @@ track_param(data, gauge_size = NA)
 
 - data:
 
-  A `track` R object, which is a list consisting of two elements:
+  A `trackway` R object, which is a list consisting of two elements:
 
   - **`Trajectories`**: A list of interpolated trajectories, where each
     trajectory is a series of midpoints between consecutive footprints.

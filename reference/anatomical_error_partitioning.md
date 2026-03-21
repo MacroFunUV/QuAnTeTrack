@@ -1,8 +1,8 @@
 # Partition anatomical-fidelity uncertainty (simulation-based)
 
 `anatomical_error_partitioning()` quantifies how much variance in
-trackway parameters is due to track landmark placement uncertainty
-(degree of anatomical fidelity) versus genuine between-track
+trackway parameters is due to footprint landmark placement uncertainty
+(degree of anatomical fidelity) versus genuine between-trackway
 (biological) differences, using simulation only (no observer effects).
 
 ## Usage
@@ -11,8 +11,8 @@ trackway parameters is due to track landmark placement uncertainty
 anatomical_error_partitioning(
   data,
   error_radius,
-  variables = c("TurnAng", "sdTurnAng", "Distance", "Length", "StLength", "sdStLength",
-    "Sinuosity", "Straightness", "TrackWidth", "PaceAng"),
+  variables,
+  gauge_size = NA,
   n_sim = 200,
   distribution = c("uniform", "gaussian"),
   seed = NULL
@@ -23,29 +23,39 @@ anatomical_error_partitioning(
 
 - data:
 
-  A `track` R object, which is a list consisting of two elements:
-
-  - **`Trajectories`**: A list of interpolated trajectories, where each
-    trajectory is a series of midpoints between consecutive tracks.
-
-  - **`tracks`**: A list of data frames containing track coordinates,
-    metadata (e.g., image reference, ID), and a marker indicating
-    whether the track is actual or inferred.
+  A `trackway` R object. See
+  [`tps_to_track`](https://macrofunuv.github.io/QuAnTeTrack/reference/tps_to_track.md).
 
 - error_radius:
 
-  Numeric; single radius (m) applied to all tracks or a numeric vector
-  of length `length(data$tracks)` with per-track tolerances.
+  Numeric; single radius (m) applied to footprints of all trackways or a
+  numeric vector of length `length(data$Trajectories)` with per-trackway
+  tolerances.
 
 - variables:
 
-  A character vector of parameters to analyze. Default is
-  `c("TurnAng","sdTurnAng","Distance","Length","StLength","sdStLength", "Sinuosity","Straightness","TrackWidth","PaceAng")`.
+  A character vector specifying the movement parameters to be used.
+  Valid parameter names include: `"TurnAng"`, `"sdTurnAng"`,
+  `"PathLen"`, `"BeelineLen"`, `"StLength"`, `"sdStLength"`,
+  `"StrideLen"`, `"PaceLen"`, `"Sinuosity"`, `"Straightness"`,
+  `"TrackWidth"`, `"Gauge"`, `"PaceAng"`, `"StepAng"`, `"Velocity"`,
+  `"sdVelocity"`, `"MaxVelocity"`, `"MinVelocity"`. See
+  [`track_param`](https://macrofunuv.github.io/QuAnTeTrack/reference/track_param.md)
+  and
+  [`cluster_track`](https://macrofunuv.github.io/QuAnTeTrack/reference/cluster_track.md)
+  for details.
+
+- gauge_size:
+
+  Numeric. Pes/manus length (or width) used to compute Gauge as
+  `Trackway_width / gauge_size`. See
+  [`track_param`](https://macrofunuv.github.io/QuAnTeTrack/reference/track_param.md)
+  for details.
 
 - n_sim:
 
-  Integer; number of Monte Carlo jitter simulations per track. Default
-  is `200`.
+  Integer; number of Monte Carlo jitter simulations per trackway.
+  Default is `200`.
 
 - distribution:
 
@@ -66,14 +76,14 @@ following elements:
 
   Data frame of variance components per variable. Columns: `variable`,
   `component`, `variance`, `percent`, and \\R^2_c\\. Components are
-  `track` (biological), `anatomical` (within-track simulation variance),
-  and `Residual` (from the model on simulation means).
+  `trackway` (biological), `anatomical` (within-trackway simulation
+  variance), and `Residual` (from the model on simulation means).
 
 - snr:
 
   Data frame with the signal-to-noise ratio per variable. Columns:
-  `variable`, `bio_component` (always `"track"`), `bio_var`,
-  `error_var`, and `SNR`. The ratio is \$\$SNR = Var(track) /
+  `variable`, `bio_component` (always `"trackway"`), `bio_var`,
+  `error_var`, and `SNR`. The ratio is \$\$SNR = Var(trackway) /
   \[Var(anatomical) + Var(Residual)\].\$\$
 
 - qc:
@@ -90,33 +100,33 @@ following elements:
 
 - analysis_table:
 
-  Long data frame with all simulated values for every track across all
-  Monte Carlo runs (variables joined with track IDs and simulation
-  labels).
+  Long data frame with all simulated values for every trackway across
+  all Monte Carlo runs (variables joined with trackway IDs and
+  simulation labels).
 
 - formulae:
 
   A short note describing the simulation-only decomposition
-  (within-track anatomical variance from simulations, plus a
-  random-intercept model on simulation means: \\y \sim 1 + (1\|track)\\;
-  angles handled via sine–cosine).
+  (within-trackway anatomical variance from simulations, plus a
+  random-intercept model on simulation means: \\y \sim 1 +
+  (1\|trackway)\\; angles handled via sine–cosine).
 
-- track_names:
+- trackway_names:
 
-  Character vector of internal track labels used in the analysis.
+  Character vector of internal trackway labels used in the analysis.
 
 ## Details
 
 The function estimates how much of the variability in trackway metrics
-can be attributed to positional uncertainty in track landmarks, rather
-than to true biological differences among trackways. It asks, in
+can be attributed to positional uncertainty in footprint landmarks,
+rather than to true biological differences among trackways. It asks, in
 essence: "If landmarks were slightly misplaced by up to `error_radius`,
 how much would that affect our computed parameters?" For each trackway,
 landmarks are repeatedly perturbed within the specified spatial
 tolerance, the medial trajectory is reconstructed, and parameters are
 recalculated across Monte Carlo simulations. The resulting variance in
-each metric is then decomposed into a between-track component
-(biological signal) and a within-track component (anatomical noise).
+each metric is then decomposed into a between-trackway component
+(biological signal) and a within-trackway component (anatomical noise).
 
 The `error_radius` represents expected imprecision in reference-point
 digitization (e.g., preservation quality, erosion, deformation, or
@@ -125,8 +135,8 @@ tolerance, users can evaluate how sensitive each metric is to anatomical
 or taphonomic uncertainty and identify parameters that remain stable
 despite imperfect preservation.
 
-For every track and simulation, landmarks are randomly displaced within
-a circular area of radius `r`, using either a uniform model
+For every trackway and simulation, landmarks are randomly displaced
+within a circular area of radius `r`, using either a uniform model
 (`"uniform"`) or a truncated Gaussian on `X` and `Y` with `SD = r/2`
 (`"gaussian"`, truncated at ±3 SD). Each perturbed landmark set is
 converted to a medial trajectory (midpoints between consecutive
@@ -137,9 +147,10 @@ and parameters are recalculated via
 For each metric \\Y\\, total variance is partitioned via the law of
 total variance into:
 
-- **track (biological)** — variance of simulation means among tracks;
+- **trackway (biological)** — variance of simulation means among
+  trackways;
 
-- **anatomical** — mean of within-track variances across simulations;
+- **anatomical** — mean of within-trackway variances across simulations;
 
 - **Residual** — residual from the random-intercept model on simulation
   means (no observer terms in this simulation-only setup).
@@ -149,7 +160,8 @@ space to handle circularity and avoid 0°/360° discontinuities (Fisher,
 1995).
 
 A signal-to-noise ratio quantifies robustness: \$\$\mathrm{SNR} =
-\frac{\mathrm{Var}(\mathrm{track})} {\mathrm{Var}(\mathrm{anatomical}) +
+\frac{\mathrm{Var}(\mathrm{trackway})}
+{\mathrm{Var}(\mathrm{anatomical}) +
 \mathrm{Var}(\mathrm{Residual})}.\$\$ As a rule of thumb:
 
 - **SNR \< 1** — anatomical error exceeds biology (weak);
@@ -203,12 +215,18 @@ set.seed(1)
 ep_small <- anatomical_error_partitioning(
   data         = PaluxyRiver,
   error_radius = 0.02,
-  variables    = c("Distance", "Straightness", "TurnAng"),
+  variables    = c("BeelineLen", "Straightness", "TurnAng"),
   n_sim        = 10
 )
-#> Error in if ((Var_anatomical + Var_res) > 0) Var_bio/(Var_anatomical +     Var_res) else NA_real_: missing value where TRUE/FALSE needed
 ep_small$qc
-#> Error: object 'ep_small' not found
+#>       variable        SNR SNR_rating top_component top_percent      R2_c
+#> 1   BeelineLen 2734.80404     strong      trackway    99.96345 0.9996345
+#> 2 Straightness   22.61413     strong      trackway    95.76525 0.9576525
+#> 3      TurnAng 1471.30665     strong      trackway    99.93208 0.9993208
+#>                observer_estimable
+#> 1 no (anatomical-only, sim-based)
+#> 2 no (anatomical-only, sim-based)
+#> 3 no (anatomical-only, sim-based)
 
 # Example 2: PaluxyRiver, larger jitter (8 cm) to see SNR drop
 # Inflate anatomical uncertainty; SNR should typically decrease.
@@ -216,12 +234,18 @@ set.seed(1)
 ep_large <- anatomical_error_partitioning(
   data         = PaluxyRiver,
   error_radius = 0.08,
-  variables    = c("Distance", "Straightness", "TurnAng"),
+  variables    = c("BeelineLen", "Straightness", "TurnAng"),
   n_sim        = 10
 )
-#> Error in if ((Var_anatomical + Var_res) > 0) Var_bio/(Var_anatomical +     Var_res) else NA_real_: missing value where TRUE/FALSE needed
 ep_large$qc
-#> Error: object 'ep_large' not found
+#>       variable        SNR SNR_rating top_component top_percent      R2_c
+#> 1   BeelineLen 165.040390     strong      trackway    99.39774 0.9939774
+#> 2 Straightness   2.187696     strong      trackway    68.62938 0.6862938
+#> 3      TurnAng  90.802197     strong      trackway    98.91070 0.9891070
+#>                observer_estimable
+#> 1 no (anatomical-only, sim-based)
+#> 2 no (anatomical-only, sim-based)
+#> 3 no (anatomical-only, sim-based)
 
 # Example 3: MountTom subset + Gaussian jitter (3 cm, truncated at ±3 SD)
 # Demonstrates alternative noise model and a reduced dataset.
@@ -239,12 +263,12 @@ ep_gauss <- anatomical_error_partitioning(
 )
 ep_gauss$snr
 #>              variable bio_component     bio_var    error_var        SNR
-#> StLength     StLength         track 0.058217558 1.031312e-05 5644.99846
-#> sdStLength sdStLength         track 0.001165249 2.973018e-05   39.19415
-#> PaceAng       PaceAng         track 0.005343677 2.543369e-04   21.01023
+#> StLength     StLength      trackway 0.058217558 1.031312e-05 5644.99846
+#> sdStLength sdStLength      trackway 0.001165249 2.973018e-05   39.19415
+#> PaceAng       PaceAng      trackway 0.005343677 2.543369e-04   21.01023
 
-# Example 4: PaluxyRiver with heterogeneous per-track tolerances
-# Alternate 2 cm / 5 cm across tracks; highlights mixed preservation quality.
+# Example 4: PaluxyRiver with heterogeneous per-trackway tolerances
+# Alternate 2 cm / 5 cm across trackways; highlights mixed preservation quality.
 set.seed(3)
 rads <- rep(c(0.02, 0.05),
             length.out = length(PaluxyRiver$Footprints))
@@ -256,13 +280,13 @@ ep_het <- anatomical_error_partitioning(
 )
 ep_het$summary
 #>                variable  component     variance    percent      R2_c
-#> TrackWidth.1 TrackWidth      track 3.740549e-02 99.7499311 0.9974993
+#> TrackWidth.1 TrackWidth   trackway 3.740549e-02 99.7499311 0.9974993
 #> TrackWidth.2 TrackWidth anatomical 9.377402e-05  0.2500689 0.9974993
 #> TrackWidth.3 TrackWidth   Residual 0.000000e+00  0.0000000 0.9974993
-#> Sinuosity.1   Sinuosity      track 3.086845e-03 98.6831363 0.9868314
+#> Sinuosity.1   Sinuosity   trackway 3.086845e-03 98.6831363 0.9868314
 #> Sinuosity.2   Sinuosity anatomical 4.119198e-05  1.3168637 0.9868314
 #> Sinuosity.3   Sinuosity   Residual 0.000000e+00  0.0000000 0.9868314
-#> PaceAng.1       PaceAng      track 8.498442e-02 99.7797710 0.9977977
+#> PaceAng.1       PaceAng   trackway 8.498442e-02 99.7797710 0.9977977
 #> PaceAng.2       PaceAng anatomical 1.875734e-04  0.2202290 0.9977977
 #> PaceAng.3       PaceAng   Residual 0.000000e+00  0.0000000 0.9977977
 
@@ -277,10 +301,10 @@ ep_ang <- anatomical_error_partitioning(
 )
 ep_ang$summary
 #>           variable  component     variance    percent      R2_c
-#> TurnAng.1  TurnAng      track 4.283363e-04 99.8192789 0.9981928
+#> TurnAng.1  TurnAng   trackway 4.283363e-04 99.8192789 0.9981928
 #> TurnAng.2  TurnAng anatomical 7.754955e-07  0.1807211 0.9981928
 #> TurnAng.3  TurnAng   Residual 0.000000e+00  0.0000000 0.9981928
-#> PaceAng.1  PaceAng      track 8.475987e-02 99.7051248 0.9970512
+#> PaceAng.1  PaceAng   trackway 8.475987e-02 99.7051248 0.9970512
 #> PaceAng.2  PaceAng anatomical 2.506750e-04  0.2948752 0.9970512
 #> PaceAng.3  PaceAng   Residual 0.000000e+00  0.0000000 0.9970512
 ```

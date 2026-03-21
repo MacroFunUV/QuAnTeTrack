@@ -219,9 +219,15 @@ percent, and the conditional \(R^2_c\).</p>
 <span class="r-in"><span>  variables    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BeelineLen"</span>, <span class="st">"Straightness"</span>, <span class="st">"TurnAng"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  n_sim        <span class="op">=</span> <span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in anatomical_error_partitioning(data = PaluxyRiver, error_radius = 0.02,     variables = c("BeelineLen", "Straightness", "TurnAng"), n_sim = 10):</span> could not find function "anatomical_error_partitioning"</span>
 <span class="r-in"><span><span class="va">ep_small</span><span class="op">$</span><span class="va">qc</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ep_small' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       variable        SNR SNR_rating top_component top_percent      R2_c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   BeelineLen 2734.80404     strong      trackway    99.96345 0.9996345</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Straightness   22.61413     strong      trackway    95.76525 0.9576525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      TurnAng 1471.30665     strong      trackway    99.93208 0.9993208</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                observer_estimable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 no (anatomical-only, sim-based)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 no (anatomical-only, sim-based)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 no (anatomical-only, sim-based)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: PaluxyRiver, larger jitter (8 cm) to see SNR drop</span></span></span>
 <span class="r-in"><span><span class="co"># Inflate anatomical uncertainty; SNR should typically decrease.</span></span></span>
@@ -232,9 +238,15 @@ percent, and the conditional \(R^2_c\).</p>
 <span class="r-in"><span>  variables    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BeelineLen"</span>, <span class="st">"Straightness"</span>, <span class="st">"TurnAng"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  n_sim        <span class="op">=</span> <span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in anatomical_error_partitioning(data = PaluxyRiver, error_radius = 0.08,     variables = c("BeelineLen", "Straightness", "TurnAng"), n_sim = 10):</span> could not find function "anatomical_error_partitioning"</span>
 <span class="r-in"><span><span class="va">ep_large</span><span class="op">$</span><span class="va">qc</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ep_large' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       variable        SNR SNR_rating top_component top_percent      R2_c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   BeelineLen 165.040390     strong      trackway    99.39774 0.9939774</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Straightness   2.187696     strong      trackway    68.62938 0.6862938</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      TurnAng  90.802197     strong      trackway    98.91070 0.9891070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                observer_estimable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 no (anatomical-only, sim-based)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 no (anatomical-only, sim-based)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 no (anatomical-only, sim-based)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: MountTom subset + Gaussian jitter (3 cm, truncated at ±3 SD)</span></span></span>
 <span class="r-in"><span><span class="co"># Demonstrates alternative noise model and a reduced dataset.</span></span></span>
@@ -250,9 +262,11 @@ percent, and the conditional \(R^2_c\).</p>
 <span class="r-in"><span>  n_sim        <span class="op">=</span> <span class="fl">10</span>,</span></span>
 <span class="r-in"><span>  distribution <span class="op">=</span> <span class="st">"gaussian"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in anatomical_error_partitioning(data = sbMountTom, error_radius = 0.03,     variables = c("StLength", "sdStLength", "PaceAng"), n_sim = 10,     distribution = "gaussian"):</span> could not find function "anatomical_error_partitioning"</span>
 <span class="r-in"><span><span class="va">ep_gauss</span><span class="op">$</span><span class="va">snr</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ep_gauss' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              variable bio_component     bio_var    error_var        SNR</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> StLength     StLength      trackway 0.058217558 1.031312e-05 5644.99846</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sdStLength sdStLength      trackway 0.001165249 2.973018e-05   39.19415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng       PaceAng      trackway 0.005343677 2.543369e-04   21.01023</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 4: PaluxyRiver with heterogeneous per-trackway tolerances</span></span></span>
 <span class="r-in"><span><span class="co"># Alternate 2 cm / 5 cm across trackways; highlights mixed preservation quality.</span></span></span>
@@ -265,9 +279,17 @@ percent, and the conditional \(R^2_c\).</p>
 <span class="r-in"><span>  variables    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TrackWidth"</span>, <span class="st">"Sinuosity"</span>, <span class="st">"PaceAng"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  n_sim        <span class="op">=</span> <span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in anatomical_error_partitioning(data = PaluxyRiver, error_radius = rads,     variables = c("TrackWidth", "Sinuosity", "PaceAng"), n_sim = 10):</span> could not find function "anatomical_error_partitioning"</span>
 <span class="r-in"><span><span class="va">ep_het</span><span class="op">$</span><span class="va">summary</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ep_het' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                variable  component     variance    percent      R2_c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TrackWidth.1 TrackWidth   trackway 3.740549e-02 99.7499311 0.9974993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TrackWidth.2 TrackWidth anatomical 9.377402e-05  0.2500689 0.9974993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TrackWidth.3 TrackWidth   Residual 0.000000e+00  0.0000000 0.9974993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sinuosity.1   Sinuosity   trackway 3.086845e-03 98.6831363 0.9868314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sinuosity.2   Sinuosity anatomical 4.119198e-05  1.3168637 0.9868314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sinuosity.3   Sinuosity   Residual 0.000000e+00  0.0000000 0.9868314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng.1       PaceAng   trackway 8.498442e-02 99.7797710 0.9977977</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng.2       PaceAng anatomical 1.875734e-04  0.2202290 0.9977977</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng.3       PaceAng   Residual 0.000000e+00  0.0000000 0.9977977</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 5: Angles only (circular handling via sine–cosine embedding)</span></span></span>
 <span class="r-in"><span><span class="co"># Focus on orientation metrics; output includes averaged sin/cos components.</span></span></span>
@@ -278,9 +300,14 @@ percent, and the conditional \(R^2_c\).</p>
 <span class="r-in"><span>  variables    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TurnAng"</span>, <span class="st">"PaceAng"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  n_sim        <span class="op">=</span> <span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in anatomical_error_partitioning(data = PaluxyRiver, error_radius = 0.04,     variables = c("TurnAng", "PaceAng"), n_sim = 10):</span> could not find function "anatomical_error_partitioning"</span>
 <span class="r-in"><span><span class="va">ep_ang</span><span class="op">$</span><span class="va">summary</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ep_ang' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           variable  component     variance    percent      R2_c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TurnAng.1  TurnAng   trackway 4.283363e-04 99.8192789 0.9981928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TurnAng.2  TurnAng anatomical 7.754955e-07  0.1807211 0.9981928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TurnAng.3  TurnAng   Residual 0.000000e+00  0.0000000 0.9981928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng.1  PaceAng   trackway 8.475987e-02 99.7051248 0.9970512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng.2  PaceAng anatomical 2.506750e-04  0.2948752 0.9970512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng.3  PaceAng   Residual 0.000000e+00  0.0000000 0.9970512</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

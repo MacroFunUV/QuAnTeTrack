@@ -224,64 +224,84 @@ must align one row per replicate in the same order.</p>
 <span class="r-in"><span><span class="va">RL</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R"</span>,<span class="st">"L"</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">34</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">trks</span> <span class="op">&lt;-</span> <span class="fu"><a href="tps_to_track.html">tps_to_track</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">tps</span>, scale <span class="op">=</span> <span class="fl">0.004341493</span>,</span></span>
 <span class="r-in"><span>                     R.L.side <span class="op">=</span> <span class="va">RL</span>, missing <span class="op">=</span> <span class="cn">FALSE</span>, NAs <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>file("") only supports open = "w+" and open = "w+b": using the former</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>file("") only supports open = "w+" and open = "w+b": using the former</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in if (skip &gt; 0L) readLines(file, skip):</span> missing value where TRUE/FALSE needed</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">n</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">trks</span><span class="op">$</span><span class="va">Trajectories</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'trks' not found</span>
 <span class="r-in"><span><span class="va">md</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  trackway    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"T01"</span>,<span class="st">"T02"</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="va">n</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  observer <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="va">n</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>, <span class="st">"obs1"</span>, <span class="st">"obs2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'n' not found</span>
 <span class="r-in"><span><span class="va">md</span><span class="op">$</span><span class="va">replica</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ave.html" class="external-link">ave</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                  <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">md</span><span class="op">$</span><span class="va">observer</span>, <span class="va">md</span><span class="op">$</span><span class="va">trackway</span>, drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                  FUN <span class="op">=</span> <span class="va">seq_along</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'md' not found</span>
 <span class="r-in"><span><span class="va">md</span> <span class="op">&lt;-</span> <span class="va">md</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"replica"</span>,<span class="st">"trackway"</span>,<span class="st">"observer"</span><span class="op">)</span><span class="op">]</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'md' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BeelineLen"</span>,<span class="st">"Straightness"</span>,<span class="st">"TurnAng"</span>,<span class="st">"PaceAng"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res_full</span> <span class="op">&lt;-</span> <span class="fu">observer_error_partitioning</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trks</span>,</span></span>
 <span class="r-in"><span>                                        metadata <span class="op">=</span> <span class="va">md</span>,</span></span>
 <span class="r-in"><span>                                        variables <span class="op">=</span> <span class="va">vars</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in observer_error_partitioning(data = trks, metadata = md, variables = vars):</span> could not find function "observer_error_partitioning"</span>
 <span class="r-in"><span><span class="va">res_full</span><span class="op">$</span><span class="va">qc</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'res_full' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       variable        SNR SNR_rating top_component top_percent      R2_c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   BeelineLen 14362.2478     strong      trackway    99.99304 0.9999304</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Straightness   158.6878     strong      trackway    99.37378 0.9937378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      TurnAng  3642.6814     strong      trackway    99.97256 0.9997673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      PaceAng   314.5133     strong      trackway    99.68306 0.9990678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   observer_estimable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                yes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                yes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                yes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                yes</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 2: Intra-only, single observer; residual = intra-observer</span></span></span>
 <span class="r-in"><span><span class="va">md_intra</span> <span class="op">&lt;-</span> <span class="va">md</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'md' not found</span>
 <span class="r-in"><span><span class="va">md_intra</span><span class="op">$</span><span class="va">observer</span> <span class="op">&lt;-</span> <span class="st">"obs1"</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'md_intra' not found</span>
 <span class="r-in"><span><span class="va">res_intra</span> <span class="op">&lt;-</span> <span class="fu">observer_error_partitioning</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trks</span>,</span></span>
 <span class="r-in"><span>                                         metadata <span class="op">=</span> <span class="va">md_intra</span>,</span></span>
 <span class="r-in"><span>                                         variables <span class="op">=</span> <span class="va">vars</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in observer_error_partitioning(data = trks, metadata = md_intra,     variables = vars):</span> could not find function "observer_error_partitioning"</span>
 <span class="r-in"><span><span class="va">res_intra</span><span class="op">$</span><span class="va">qc</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'res_intra' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       variable        SNR SNR_rating top_component top_percent      R2_c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   BeelineLen 14362.1992     strong      trackway    99.99304 0.9999304</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Straightness   158.6868     strong      trackway    99.37377 0.9937377</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      TurnAng  3643.9188     strong      trackway    99.97256 0.9997582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      PaceAng   314.5130     strong      trackway    99.68306 0.9990678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   observer_estimable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       no (1 level)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       no (1 level)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       no (1 level)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       no (1 level)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 3: Inter-only, single replicate; estimates inter-observer</span></span></span>
 <span class="r-in"><span><span class="va">md_inter</span> <span class="op">&lt;-</span> <span class="va">md</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'md' not found</span>
 <span class="r-in"><span><span class="va">md_inter</span><span class="op">$</span><span class="va">replica</span> <span class="op">&lt;-</span> <span class="fl">1L</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'md_inter' not found</span>
 <span class="r-in"><span><span class="va">res_inter</span> <span class="op">&lt;-</span> <span class="fu">observer_error_partitioning</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trks</span>,</span></span>
 <span class="r-in"><span>                                         metadata <span class="op">=</span> <span class="va">md_inter</span>,</span></span>
 <span class="r-in"><span>                                         variables <span class="op">=</span> <span class="va">vars</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in observer_error_partitioning(data = trks, metadata = md_inter,     variables = vars):</span> could not find function "observer_error_partitioning"</span>
 <span class="r-in"><span><span class="va">res_inter</span><span class="op">$</span><span class="va">qc</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'res_inter' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       variable        SNR SNR_rating top_component top_percent      R2_c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   BeelineLen 14362.2478     strong      trackway    99.99304 0.9999304</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Straightness   158.6878     strong      trackway    99.37378 0.9937378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      TurnAng  3642.6814     strong      trackway    99.97256 0.9997673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      PaceAng   314.5133     strong      trackway    99.68306 0.9990678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   observer_estimable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                yes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                yes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                yes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                yes</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example 4: Circular metrics only (angles via sine–cosine embedding)</span></span></span>
 <span class="r-in"><span><span class="va">res_ang</span> <span class="op">&lt;-</span> <span class="fu">observer_error_partitioning</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trks</span>,</span></span>
 <span class="r-in"><span>                                       metadata <span class="op">=</span> <span class="va">md</span>,</span></span>
 <span class="r-in"><span>                                       variables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TurnAng"</span>,<span class="st">"PaceAng"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in observer_error_partitioning(data = trks, metadata = md, variables = c("TurnAng",     "PaceAng")):</span> could not find function "observer_error_partitioning"</span>
 <span class="r-in"><span><span class="va">res_ang</span><span class="op">$</span><span class="va">summary</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'res_ang' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           variable         component     variance      percent      R2_c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TurnAng.1  TurnAng observer:trackway 9.047652e-11 1.974434e-05 0.9997673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TurnAng.2  TurnAng          observer 0.000000e+00 0.000000e+00 0.9997673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TurnAng.3  TurnAng          trackway 4.581145e-04 9.997256e+01 0.9997673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TurnAng.4  TurnAng          Residual 1.256725e-07 2.742503e-02 0.9997673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng.1  PaceAng observer:trackway 0.000000e+00 0.000000e+00 0.9990678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng.2  PaceAng          observer 0.000000e+00 0.000000e+00 0.9990678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng.3  PaceAng          trackway 1.355629e-01 9.968306e+01 0.9990678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PaceAng.4  PaceAng          Residual 4.310243e-04 3.169438e-01 0.9990678</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

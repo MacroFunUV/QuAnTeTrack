@@ -201,23 +201,23 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">5</span>, model <span class="op">=</span> <span class="st">"Directed"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">int1</span> <span class="op">&lt;-</span> <span class="fu">track_intersection</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, sim <span class="op">=</span> <span class="va">s1</span>,</span></span>
 <span class="r-in"><span>origin.permutation <span class="op">=</span> <span class="st">"None"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:02.527167 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:05.079928 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:02.538399 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:05.090897 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:02.551484 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:05.101178 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:02.580974 Iteration 4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:05.110869 Iteration 4</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:02.594534 Iteration 5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:05.122015 Iteration 5</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -228,41 +228,46 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA     0.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_1   Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1        NA 0.8333333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 0.8333333        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values_BH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Track_1   Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1        NA 0.8333333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2 0.8333333        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values_combined</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       0      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       3      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       0      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       0      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[5]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       0      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -270,46 +275,46 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">5</span>, model <span class="op">=</span> <span class="st">"Constrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">int2</span> <span class="op">&lt;-</span> <span class="fu">track_intersection</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, sim <span class="op">=</span> <span class="va">s2</span>,</span></span>
 <span class="r-in"><span>origin.permutation <span class="op">=</span> <span class="st">"Min.Box"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:02.954321 Permutation 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:05.618186 Permutation 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:03.799221 Permutation 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:05.773513 Permutation 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:04.007546 Permutation 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:05.855857 Permutation 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:04.257295 Permutation 4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:06.310011 Permutation 4</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:04.75759 Permutation 5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:06.386063 Permutation 5</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:04.789291 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:06.398978 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:04.80185 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:06.413884 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:04.81294 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:06.43256 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:04.823815 Iteration 4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:06.444055 Iteration 4</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:04.83476 Iteration 5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:06.455275 Iteration 5</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -320,12 +325,17 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values_BH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values_combined</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
@@ -334,27 +344,27 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       0      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[5]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       0      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -362,46 +372,46 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-in"><span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_track.html">simulate_track</a></span><span class="op">(</span><span class="va">PaluxyRiver</span>, nsim <span class="op">=</span> <span class="fl">5</span>, model <span class="op">=</span> <span class="st">"Unconstrained"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">int3</span> <span class="op">&lt;-</span> <span class="fu">track_intersection</span><span class="op">(</span><span class="va">PaluxyRiver</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Lower"</span>, sim <span class="op">=</span> <span class="va">s3</span>,</span></span>
 <span class="r-in"><span>origin.permutation <span class="op">=</span> <span class="st">"Conv.Hull"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:05.036249 Permutation 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:06.893335 Permutation 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:05.267893 Permutation 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:06.963778 Permutation 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:05.782106 Permutation 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.035021 Permutation 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.18434 Permutation 4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.110929 Permutation 4</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.446555 Permutation 5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.181544 Permutation 5</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Conv.Hull</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.459266 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.194565 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.47067 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.214032 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.482337 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.225235 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.493938 Iteration 4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.236545 Iteration 4</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.505009 Iteration 5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.247466 Iteration 5</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -412,41 +422,46 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA     0.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values_BH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values_combined</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       1      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       0      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       0      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       0      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[5]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         Track_1 Track_2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_1      NA       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_2       0      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -456,46 +471,46 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`model` is NULL. Defaulting to 'Unconstrained'.</span>
 <span class="r-in"><span><span class="va">int4</span> <span class="op">&lt;-</span> <span class="fu">track_intersection</span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Higher"</span>, sim <span class="op">=</span> <span class="va">s4</span>,</span></span>
 <span class="r-in"><span>origin.permutation <span class="op">=</span> <span class="st">"Min.Box"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.604486 Permutation 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.342103 Permutation 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.610549 Permutation 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.345932 Permutation 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.615502 Permutation 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.349748 Permutation 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.620873 Permutation 4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.353111 Permutation 4</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.626456 Permutation 5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.35629 Permutation 5</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Min.Box</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.655327 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.38285 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.68287 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.414727 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.726671 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.438678 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.764362 Iteration 4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.462817 Iteration 4</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.79418 Iteration 5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.486223 Iteration 5</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -506,16 +521,16 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        1        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
@@ -525,53 +540,79 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        1        1        1      1.0        1      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        1        1      0.8        1      0.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        1      0.8        1      0.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA      1.0        1      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        1      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07 Track_08  Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        1        1        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        1       NA        1        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        1        1       NA        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        1        1        1       NA 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        1        1        1        1        NA        1 0.1666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        1        1        1        1 1.0000000       NA 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        1        1        1        1 0.1666667        1        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        1        1        1        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        1        1        1        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        1        1        1        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        1        1        1        1 1.0000000        1 1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        1      1.0      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        1      1.0      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        1      1.0      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        1      1.0      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        1      1.0      0.8        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        1      1.0      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        1      1.0      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA      0.8      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        1       NA        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        1        1       NA        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        1        1        1       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values_BH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        1        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        1       NA        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        1        1       NA        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        1        1        1       NA        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        1        1        1        1       NA        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        1        1        1        1        1       NA        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        1        1        1        1        1        1       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        1        1        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        1        1        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        1        1        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        1        1        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        1       NA        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        1        1       NA        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        1        1        1       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values_combined</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8333333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        1        0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        1        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        1       NA        0        1        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        1        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        0        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
@@ -581,49 +622,49 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        1        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        1        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        1        0       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        1        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        1        0        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        1        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        1        0        0        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        0        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
@@ -633,23 +674,23 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        0        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
@@ -658,36 +699,36 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        1        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[5]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0        0       NA        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        0        1       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
@@ -698,46 +739,46 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-in"><span><span class="va">area_origin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">50</span>, <span class="fl">20</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">int5</span> <span class="op">&lt;-</span> <span class="fu">track_intersection</span><span class="op">(</span><span class="va">sbMountTom</span>, test <span class="op">=</span> <span class="cn">TRUE</span>, H1 <span class="op">=</span> <span class="st">"Higher"</span>, sim <span class="op">=</span> <span class="va">s5</span>,</span></span>
 <span class="r-in"><span>origin.permutation <span class="op">=</span> <span class="st">"Custom"</span>, custom.coord <span class="op">=</span> <span class="va">area_origin</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.915598 Permutation 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.614235 Permutation 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.919466 Permutation 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.61698 Permutation 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.923235 Permutation 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.619622 Permutation 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.927085 Permutation 4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.622139 Permutation 4</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.931225 Permutation 5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.624733 Permutation 5</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Permutation of coordinates at origin using Custom</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> PERMUTATION COMPLETED</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.965874 Iteration 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.650229 Iteration 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:06.998366 Iteration 2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.674442 Iteration 2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:07.02289 Iteration 3</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.698142 Iteration 3</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:07.049566 Iteration 4</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.722354 Iteration 4</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:03:07.076327 Iteration 5</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2026-03-21 16:29:07.747165 Iteration 5</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Intersect metric</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ------------------------------------</span>
@@ -748,16 +789,16 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        1        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
@@ -767,53 +808,79 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        1        1      0.8      1.0      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        1      1.0      1.0      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA      1.0      0.8      0.8        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA      1.0      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA      1.0        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04  Track_07 Track_08  Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        1        1        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        1       NA        1        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        1        1       NA        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        1        1        1       NA 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        1        1        1        1        NA        1 0.1666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        1        1        1        1 1.0000000       NA 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        1        1        1        1 0.1666667        1        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        1        1        1        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        1        1        1        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        1        1        1        1 1.0000000        1 1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        1        1        1        1 1.0000000        1 1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01      1.0      1.0      1.0      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02      0.8      1.0      1.0      0.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03      1.0      1.0      0.8      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04      1.0      1.0      1.0      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07      1.0      1.0      1.0      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08      1.0      1.0      0.8      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09      1.0      0.8      0.8      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA      1.0      1.0      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA      1.0      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA      1.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        1       NA        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        1        1       NA        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        1        1        1       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values_BH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        1        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        1       NA        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        1        1       NA        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        1        1        1       NA        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        1        1        1        1       NA        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        1        1        1        1        1       NA        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        1        1        1        1        1        1       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        1        1        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        1        1        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        1        1        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        1        1        1        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        1        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        1        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        1       NA        1        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        1        1       NA        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        1        1        1       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_p_values_combined</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        1        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        1        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        0        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
@@ -821,51 +888,51 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        1        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        0        1        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        0        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0        1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        1        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        1        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        0        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
@@ -875,49 +942,49 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[4]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        0        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        1        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        1        0        0        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        1        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Intersection_metric_simulations[[5]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_01 Track_02 Track_03 Track_04 Track_07 Track_08 Track_09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01       NA        0        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02       NA       NA        0        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03       NA       NA       NA        0        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04       NA       NA       NA       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07       NA       NA       NA       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08       NA       NA       NA       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA       NA       NA       NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0       NA        1        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_03        0        1       NA        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_04        0        0        0       NA        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_07        0        0        0        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0        0        0       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_13        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0        0        0        0        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Track_13 Track_15 Track_16 Track_18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_01        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_02        0        0        0        0</span>
@@ -927,9 +994,9 @@ Statistical applications in genetics and molecular biology, 9(1).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_08        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_09        0        0        0        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Track_13       NA        0        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15       NA       NA        0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16       NA       NA       NA        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18       NA       NA       NA       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_15        0       NA        0        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_16        0        0       NA        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Track_18        0        0        0       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>

@@ -162,20 +162,35 @@ coordinated, non-random collective displacement.
 
 ### Aim of this validation vignette
 
-To evaluate these assumptions in a modern analogue, we analysed the
-movement of a herd of domestic sheep recorded under open-field
-conditions. The validation pipeline tests whether observed sheep
-trajectories show:
+The primary aim of this validation vignette is to test whether
+**QuAnTeTrack** is able to recover the movement signals expected to
+characterize genuinely coordinated displacement in animals. This is a
+fundamental requirement of the package, because its analytical framework
+is based on the premise that coordinated movement leaves detectable
+structure in trajectory data. Demonstrating that these signals can be
+identified in an extant system known to exhibit coordinated group motion
+is therefore a necessary proof of concept for the biological validity of
+the approach.
 
-- greater pairwise similarity than expected under null movement
-  simulations,
-- non-random intersection patterns consistent with coordinated movement,
-- and graph/network structures consistent with cohesive group
-  displacement.
+To address this, the movement of a herd of domestic sheep recorded under
+open-field conditions was analysed as a modern analogue of coordinated
+collective displacement. The validation pipeline examines whether the
+package can detect the main signatures predicted by theory and empirical
+studies of collective movement, namely:
 
-This vignette therefore provides a first proof of concept that the
-movement signatures targeted by **QuAnTeTrack** can be recovered in an
-extant group with biologically interpretable collective behaviour.
+- greater pairwise trajectory similarity than expected under null
+  movement simulations,
+- non-random trajectory intersection patterns consistent with
+  coordinated spatial organization, and
+- graph/network structures compatible with cohesive group displacement.
+
+In this sense, the objective of the vignette is not simply to describe
+sheep movement, but to demonstrate that **QuAnTeTrack** can successfully
+identify the types of coordinated movement signals it was designed to
+measure. If these expected signatures are recovered in a modern group
+with biologically interpretable collective behaviour, this provides
+direct support for the package’s core assumptions and for its use as a
+tool to investigate coordinated movement in trajectory datasets.
 
 ## Materials and methods
 
@@ -279,6 +294,16 @@ intervals would be desirable in future work. Nevertheless, the chosen
 interval provides a reasonable and operational starting point for
 evaluating whether **QuAnTeTrack** is able to recover non-random
 movement structure in a modern gregarious system.
+
+![Sequential aerial frames extracted at 2 frames per second from the
+original recording, illustrating the collective displacement of the
+sheep herd and providing the basis for subsequent trajectory
+digitization.](figures/mosaic_frames_20cm_300ppi.png)
+
+Sequential aerial frames extracted at 2 frames per second from the
+original recording, illustrating the collective displacement of the
+sheep herd and providing the basis for subsequent trajectory
+digitization.
 
 #### Digitization and TPS generation
 
@@ -448,9 +473,9 @@ selection and synthesis. All code used for these analyses, together with
 the associated input and helper files, is provided in the `/scripts/`
 folder.
 
-### 3. Results
+### Results
 
-#### 3.1. General trajectory structure
+#### General trajectory structure
 
 The reconstructed trajectories show a clearly coherent herd-level
 displacement pattern, with most individuals moving along a common
@@ -480,7 +505,7 @@ Semi-transparent lines represent individual sheep paths reconstructed
 from the digitized frame sequence, and labels indicate the first
 recorded position of each trajectory.
 
-#### 3.2. Trajectory similarity
+#### Trajectory similarity
 
 Both trajectory similarity metrics indicate that the observed sheep
 paths were more structured than expected under the unconstrained null
@@ -495,9 +520,16 @@ distances are associated with a wide range of DTW values, whereas more
 distant pairs tend to show larger DTW distances. Low p-values are
 distributed across much of the cloud, indicating widespread non-random
 similarity among observed trajectories relative to the simulated
-baseline (Figure X).
+baseline.
 
-`{r dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise DTW distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model."} knitr::include_graphics("figures/dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png")`
+![Pairwise DTW distance plotted against the Euclidean distance between
+the first recorded positions of individuals. Point colour represents the
+raw pairwise significance value relative to the unconstrained null
+model.](figures/dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png)
+
+Pairwise DTW distance plotted against the Euclidean distance between the
+first recorded positions of individuals. Point colour represents the raw
+pairwise significance value relative to the unconstrained null model.
 
 For **Fréchet distance**, the relationship with initial Euclidean
 spacing is more regular and more nearly linear. As the initial
@@ -505,7 +537,7 @@ separation between sheep increases, Fréchet distance also tends to
 increase, indicating that more spatially distant pairs generally occupy
 more distinct trajectory geometries. Compared with DTW, the Fréchet
 signal is more orderly and shows a broader gradient of p-values across
-the dataset (Figure X).
+the dataset.
 
 ![Pairwise Fréchet distance plotted against the Euclidean distance
 between the first recorded positions of individuals. Point colour
@@ -518,9 +550,7 @@ the first recorded positions of individuals. Point colour represents the
 raw pairwise significance value relative to the unconstrained null
 model.
 
-`{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise Fréchet distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model."} knitr::include_graphics("figures/frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png")`
-
-#### 3.3. Intersection structure
+#### Intersection structure
 
 The intersection analyses reveal different patterns under the two
 directional hypotheses.
@@ -532,7 +562,12 @@ intersection structure is associated primarily with pairs whose relative
 configuration is aligned with the main direction of displacement (Figure
 X).
 
-`{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise significance for the Higher-intersection hypothesis plotted against initial Euclidean spacing and angular difference."} knitr::include_graphics("figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100.png")`
+![Pairwise significance for the Higher-intersection hypothesis plotted
+against initial Euclidean spacing and angular
+difference.](figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100.png)
+
+Pairwise significance for the Higher-intersection hypothesis plotted
+against initial Euclidean spacing and angular difference.
 
 Under the **Lower** hypothesis, the signal is weaker, but the lowest
 p-values tend to occur among nearby dyads with larger angular
@@ -541,12 +576,18 @@ evident among some pairs that were both spatially close and more
 laterally arranged relative to their mean direction of movement (Figure
 X).
 
-`{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise significance for the Lower-intersection hypothesis plotted against initial Euclidean spacing and angular difference."} knitr::include_graphics("figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100.png")`
+![Pairwise significance for the Lower-intersection hypothesis plotted
+against initial Euclidean spacing and angular
+difference.](figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100.png)
+
+Pairwise significance for the Lower-intersection hypothesis plotted
+against initial Euclidean spacing and angular difference.
+
 Taken together, the two intersection analyses show that intersection
 structure varies systematically with pairwise geometric configuration
 rather than being randomly distributed across the herd.
 
-#### 3.4. Combined metrics
+#### Combined metrics
 
 The combined analyses integrate trajectory similarity and intersection
 information and therefore provide a more specific view of pairwise
@@ -556,41 +597,42 @@ For the **DTW-based combinations**, the overall pattern remains strongly
 influenced by the widespread DTW similarity signal. Under the **Higher**
 hypothesis, the lowest combined p-values are still concentrated mainly
 among dyads with small angular differences, whereas under the **Lower**
-hypothesis the contrast is less pronounced (Figure X).
+hypothesis the contrast is less pronounced.
 
 ![](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Higher_nsim100.gif)
 
 *Combined significance for Intersection + DTW under the
 Higher-intersection hypothesis.*
 
+![](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Lower_nsim100.gif)
+
+*Combined significance for Intersection + DTW under the
+Lower-intersection hypothesis.*
+
 For the **Fréchet-based combinations**, the effect of adding
 intersection information is more clearly structured. Under the
 **Higher** hypothesis, the strongest combined support is concentrated
 among dyads with low angular differences. Under the **Lower**
 hypothesis, stronger support occurs mainly among nearby dyads with
-broader angular configurations (Figure X).
+broader angular configurations.
 
-![Combined significance for Intersection + Fréchet under the
-Higher-intersection
-hypothesis.](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Higher_nsim100.png)
+![](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Higher_nsim100.gif)
 
-Combined significance for Intersection + Fréchet under the
-Higher-intersection hypothesis.
+*Combined significance for Intersection + Frechet distance under the
+Higher-intersection hypothesis.*
 
-![Combined significance for Intersection + Fréchet under the
-Lower-intersection
-hypothesis.](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Lower_nsim100.png)
+![](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Lower_nsim100.gif)
 
-Combined significance for Intersection + Fréchet under the
-Lower-intersection hypothesis.
+*Combined significance for Intersection + Frechet distance under the
+Lower-intersection hypothesis.*
 
 Overall, the combined analyses show that pairwise support for
 coordinated movement is not uniformly distributed across the herd, but
 instead varies with both initial spacing and relative configuration.
 
-### 4. Discussion and future directions
+### Discussion and future directions
 
-#### 4.1. What this validation supports
+#### What this validation supports
 
 This validation provides an initial empirical test of whether the
 assumptions implemented in **QuAnTeTrack** recover biologically
@@ -641,11 +683,11 @@ behaviourally interpretable signatures of coordinated group displacement
 and uses them in a way that is consistent with the known logic of
 collective movement in a modern herd.
 
-#### 4.2. Current limitations
+#### Current limitations
 
 Several limitations should nevertheless be acknowledged.
 
-##### 4.2.1. Biological scope
+##### Biological scope
 
 This validation is based on a single extant study system and therefore
 does not yet capture the full diversity of coordinated movement patterns
@@ -654,7 +696,7 @@ domestic sheep herd is a useful and tractable model for gregarious
 displacement, but it represents only one region of the broader
 behavioural space that **QuAnTeTrack** is intended to address.
 
-##### 4.2.2. Frame sampling interval
+##### Frame sampling interval
 
 The temporal spacing between analysed frames was selected as a practical
 approximation to sheep step length, but real step timing is not constant
@@ -664,7 +706,7 @@ strength of downstream similarity and intersection metrics. The present
 results should therefore be interpreted as conditional on this specific
 temporal sampling choice.
 
-##### 4.2.3. Landmarking and digitization effects
+##### Landmarking and digitization effects
 
 The trajectories analysed here depend on manual digitization of
 individual positions across frames. As in any landmark-based workflow,
@@ -674,7 +716,7 @@ orientation is difficult to interpret. Such uncertainty could affect
 reconstructed trajectories and, by extension, the pairwise metrics
 derived from them.
 
-##### 4.2.4. Null model dependence
+##### Null model dependence
 
 Interpretation also depends partly on the selected null framework. In
 this vignette, significance was assessed relative to trajectories
@@ -685,7 +727,7 @@ of contrast with the observed data. The conclusions presented here
 therefore validate the performance of **QuAnTeTrack** under one explicit
 null scenario rather than exhaustively across all possible baselines.
 
-#### 4.3. Future validation scenarios
+#### Future validation scenarios
 
 Future work should expand validation across a wider range of movement
 contexts and biological systems. Particularly informative scenarios
@@ -712,7 +754,7 @@ modern analogues.
 
 ------------------------------------------------------------------------
 
-### 5. Reproducibility and supplementary material
+### Reproducibility and supplementary material
 
 The main analytical workflow is outlined in this vignette. Full code
 used for preprocessing, frame extraction, TPS conversion, simulation,

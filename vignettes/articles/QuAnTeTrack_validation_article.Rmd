@@ -562,12 +562,9 @@ distances are associated with a wide range of DTW values, whereas more
 distant pairs tend to show larger DTW distances. Low p-values are
 distributed across much of the cloud, indicating widespread non-random
 similarity among observed trajectories relative to the simulated
-baseline (Figure X).
+baseline.
 
-```{r dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise DTW distance plotted against the Euclidean distance between
-the first recorded positions of individuals. Point colour represents the
-raw pairwise significance value relative to the unconstrained null
-model."}
+```{r dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise DTW distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model."}
 knitr::include_graphics("figures/dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png")
 ```
 
@@ -577,20 +574,9 @@ separation between sheep increases, Fréchet distance also tends to
 increase, indicating that more spatially distant pairs generally occupy
 more distinct trajectory geometries. Compared with DTW, the Fréchet
 signal is more orderly and shows a broader gradient of p-values across
-the dataset (Figure X).
+the dataset.
 
-![Pairwise Fréchet distance plotted against the Euclidean distance
-between the first recorded positions of individuals. Point colour
-represents the raw pairwise significance value relative to the
-unconstrained null
-model.](figures/frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png){fig-align="center"
-width="70%"}
-
-```{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise Fréchet distance plotted against the Euclidean distance
-between the first recorded positions of individuals. Point colour
-represents the raw pairwise significance value relative to the
-unconstrained null
-model."}
+```{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise Fréchet distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model."}
 knitr::include_graphics("figures/frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png")
 ```
 
@@ -606,8 +592,7 @@ intersection structure is associated primarily with pairs whose relative
 configuration is aligned with the main direction of displacement (Figure
 X).
 
-```{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise significance for the Higher-intersection hypothesis plotted against initial Euclidean spacing and angular
-difference."}
+```{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise significance for the Higher-intersection hypothesis plotted against initial Euclidean spacing and angular difference."}
 knitr::include_graphics("figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100.png")
 ```
 
@@ -618,8 +603,7 @@ evident among some pairs that were both spatially close and more
 laterally arranged relative to their mean direction of movement (Figure
 X).
 
-```{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise significance for the Lower-intersection hypothesis plotted against initial Euclidean spacing and angular
-difference."}
+```{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise significance for the Lower-intersection hypothesis plotted against initial Euclidean spacing and angular difference."}
 knitr::include_graphics("figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100.png")
 ```
 Taken together, the two intersection analyses show that intersection
@@ -636,7 +620,7 @@ For the **DTW-based combinations**, the overall pattern remains strongly
 influenced by the widespread DTW similarity signal. Under the **Higher**
 hypothesis, the lowest combined p-values are still concentrated mainly
 among dyads with small angular differences, whereas under the **Lower**
-hypothesis the contrast is less pronounced (Figure X).
+hypothesis the contrast is less pronounced.
 
 
 <div style="text-align: center;">
@@ -644,31 +628,27 @@ hypothesis the contrast is less pronounced (Figure X).
   <p><em>Combined significance for Intersection + DTW under the Higher-intersection hypothesis.</em></p>
 </div>
 
+<div style="text-align: center;">
+  <img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection+DTW_Centroid_H1-Lower_nsim100.gif" width="85%" />
+  <p><em>Combined significance for Intersection + DTW under the Lower-intersection hypothesis.</em></p>
+</div>
 
 For the **Fréchet-based combinations**, the effect of adding
 intersection information is more clearly structured. Under the
 **Higher** hypothesis, the strongest combined support is concentrated
 among dyads with low angular differences. Under the **Lower**
 hypothesis, stronger support occurs mainly among nearby dyads with
-broader angular configurations (Figure X).
+broader angular configurations.
 
-::::: {style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;"}
-<div>
-
-![Combined significance for Intersection + Fréchet under the
-Higher-intersection
-hypothesis.](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection+Frechet_Centroid_H1-Higher_nsim100.png){width="100%"}
-
+<div style="text-align: center;">
+  <img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection+Frechet_Centroid_H1-Higher_nsim100.gif" width="85%" />
+  <p><em>Combined significance for Intersection + Frechet distance under the Higher-intersection hypothesis.</em></p>
 </div>
 
-<div>
-
-![Combined significance for Intersection + Fréchet under the
-Lower-intersection
-hypothesis.](figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection+Frechet_Centroid_H1-Lower_nsim100.png){width="100%"}
-
+<div style="text-align: center;">
+  <img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection+Frechet_Centroid_H1-Lower_nsim100.gif" width="85%" />
+  <p><em>Combined significance for Intersection + Frechet distance under the Lower-intersection hypothesis.</em></p>
 </div>
-:::::
 
 Overall, the combined analyses show that pairwise support for
 coordinated movement is not uniformly distributed across the herd, but

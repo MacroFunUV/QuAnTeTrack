@@ -623,12 +623,7 @@ whereas more distant pairs tend to show larger DTW distances. Low
 p-values are distributed across much of the cloud, indicating widespread
 non-random similarity among observed trajectories relative to the
 simulated baseline (Figure X).</p>
-<div class="float">
-<img src="figures/dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png" style="width:70.0%" fig-align="center" alt="Pairwise DTW distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model."><div class="figcaption">Pairwise DTW distance plotted against the
-Euclidean distance between the first recorded positions of individuals.
-Point colour represents the raw pairwise significance value relative to
-the unconstrained null model.</div>
-</div>
+<p><code>{r dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise DTW distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model."} knitr::include_graphics("figures/dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png")</code></p>
 <p>For <strong>Fréchet distance</strong>, the relationship with initial
 Euclidean spacing is more regular and more nearly linear. As the initial
 separation between sheep increases, Fréchet distance also tends to
@@ -642,27 +637,7 @@ Euclidean distance between the first recorded positions of individuals.
 Point colour represents the raw pairwise significance value relative to
 the unconstrained null model.</div>
 </div>
-<p>When pairwise significance is plotted against initial Euclidean
-spacing and angular difference, the two similarity metrics show related
-but not identical patterns. In the DTW analysis, low p-values occur
-across much of the distribution, especially at lower angular
-differences. In the Fréchet analysis, low p-values are more concentrated
-in a narrower region of the plot and are more strongly structured by
-pairwise geometry (Figure X).</p>
-<div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-<div>
-<div class="float">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueDTW_RAW_Centroid_nsim100.png" style="width:100.0%" alt="Pairwise DTW significance plotted against initial Euclidean spacing and angular difference."><div class="figcaption">Pairwise DTW significance plotted against
-initial Euclidean spacing and angular difference.</div>
-</div>
-</div>
-<div>
-<div class="float">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueFrechet_RAW_Centroid_nsim100.png" style="width:100.0%" alt="Pairwise Fréchet significance plotted against initial Euclidean spacing and angular difference."><div class="figcaption">Pairwise Fréchet significance plotted against
-initial Euclidean spacing and angular difference.</div>
-</div>
-</div>
-</div>
+<p><code>{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise Fréchet distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model."} knitr::include_graphics("figures/frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png")</code></p>
 </div>
 <div class="section level4">
 <h4 id="intersection-structure">3.3. Intersection structure<a class="anchor" aria-label="anchor" href="#intersection-structure"></a>
@@ -675,23 +650,15 @@ relatively broad range of Euclidean distances. This indicates that
 elevated intersection structure is associated primarily with pairs whose
 relative configuration is aligned with the main direction of
 displacement (Figure X).</p>
-<div class="float">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100.png" style="width:70.0%" fig-align="center" alt="Pairwise significance for the Higher-intersection hypothesis plotted against initial Euclidean spacing and angular difference."><div class="figcaption">Pairwise significance for the
-Higher-intersection hypothesis plotted against initial Euclidean spacing
-and angular difference.</div>
-</div>
+<p><code>{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise significance for the Higher-intersection hypothesis plotted against initial Euclidean spacing and angular difference."} knitr::include_graphics("figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100.png")</code></p>
 <p>Under the <strong>Lower</strong> hypothesis, the signal is weaker,
 but the lowest p-values tend to occur among nearby dyads with larger
 angular differences. In other words, reduced intersection structure is
 most evident among some pairs that were both spatially close and more
 laterally arranged relative to their mean direction of movement (Figure
 X).</p>
-<div class="float">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100.png" style="width:70.0%" fig-align="center" alt="Pairwise significance for the Lower-intersection hypothesis plotted against initial Euclidean spacing and angular difference."><div class="figcaption">Pairwise significance for the Lower-intersection
-hypothesis plotted against initial Euclidean spacing and angular
-difference.</div>
-</div>
-<p>Taken together, the two intersection analyses show that intersection
+<p><code>{r frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100, echo=FALSE, out.width="85%", fig.align="center", fig.cap="Pairwise significance for the Lower-intersection hypothesis plotted against initial Euclidean spacing and angular difference."} knitr::include_graphics("figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100.png")</code>
+Taken together, the two intersection analyses show that intersection
 structure varies systematically with pairwise geometric configuration
 rather than being randomly distributed across the herd.</p>
 </div>
@@ -707,19 +674,11 @@ Under the <strong>Higher</strong> hypothesis, the lowest combined
 p-values are still concentrated mainly among dyads with small angular
 differences, whereas under the <strong>Lower</strong> hypothesis the
 contrast is less pronounced (Figure X).</p>
-<div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-<div>
-<div class="float">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Higher_nsim100.png" style="width:100.0%" alt="Combined significance for Intersection + DTW under the Higher-intersection hypothesis."><div class="figcaption">Combined significance for Intersection + DTW
-under the Higher-intersection hypothesis.</div>
-</div>
-</div>
-<div>
-<div class="float">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Lower_nsim100.png" style="width:100.0%" alt="Combined significance for Intersection + DTW under the Lower-intersection hypothesis."><div class="figcaption">Combined significance for Intersection + DTW
-under the Lower-intersection hypothesis.</div>
-</div>
-</div>
+<div style="text-align: center;">
+<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Higher_nsim100.gif" width="85%"><p>
+<em>Combined significance for Intersection + DTW under the
+Higher-intersection hypothesis.</em>
+</p>
 </div>
 <p>For the <strong>Fréchet-based combinations</strong>, the effect of
 adding intersection information is more clearly structured. Under the

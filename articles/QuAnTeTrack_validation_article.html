@@ -224,21 +224,24 @@ to neighbours.</p>
 <strong>structured covariation</strong> in movement trajectories rather
 than chance resemblance, because alignment, attraction–repulsion,
 leadership, and neighbour-dependent interactions generate correlated
-motion through time <span class="citation">(Vicsek et al. 1995; Couzin
-et al. 2002; Sumpter 2006)</span>. This expectation is supported both
+motion through time <span class="citation">(Couzin, Krause, James,
+Ruxton, &amp; Franks, 2002; Sumpter, 2006; Vicsek, Czirók, Ben-Jacob,
+Cohen, &amp; Shochet, 1995)</span>. This expectation is supported both
 empirically and theoretically. Empirical studies of collective movement
 consistently show that coordinated groups exhibit non-random similarity
 in direction, displacement, and movement dynamics, whereas theoretical
 and modelling approaches demonstrate that local interaction rules are
 sufficient to generate coherent, correlated motion at the group level
-<span class="citation">(Sumpter 2006; Cavagna et al. 2010; Herbert-Read
-et al. 2011; Katz et al. 2011; Attanasi et al. 2014)</span>. In
-parallel, the movement-analysis literature explicitly treats correlated
-movement as a measurable signature of joint behaviour and emphasizes the
-importance of comparing observed similarity against null expectations in
-order to distinguish true coordination from chance resemblance or shared
-environmental constraints <span class="citation">(Long et al. 2014;
-Spiegel et al. 2016; Joo et al. 2018)</span>.</p>
+<span class="citation">(Attanasi et al., 2014; Cavagna et al., 2010;
+Herbert-Read et al., 2011; Katz, Tunström, Ioannou, Huepe, &amp; Couzin,
+2011; Sumpter, 2006)</span>. In parallel, the movement-analysis
+literature explicitly treats correlated movement as a measurable
+signature of joint behaviour and emphasizes the importance of comparing
+observed similarity against null expectations in order to distinguish
+true coordination from chance resemblance or shared environmental
+constraints <span class="citation">(Joo, Etienne, Bez, &amp; Mahévas,
+2018; Long, Nelson, Webb, &amp; Gee, 2014; Spiegel, Leu, Sih, &amp;
+Bull, 2016)</span>.</p>
 <p>A second expectation concerns <strong>trajectory intersection
 patterns</strong>, which should depend on the spatial geometry of the
 moving group. In <strong>front–behind</strong> configurations, such as
@@ -256,18 +259,18 @@ side-by-side or lane-like organization is associated with spatial
 segregation and reduced conflict. The same general pattern emerges from
 self-organization theory and collective-motion models, which show that
 interaction rules can produce either shared-path use or parallel spatial
-structuring depending on the geometry of neighbour interactions <span class="citation">(Helbing and Vicsek 1999; Czaczkes, Grüter, and
-Ratnieks 2015; Feliciani and Nishinari 2016; Burger et al. 2016; Mullick
-et al. 2022)</span>. Importantly, the literature does not always
-quantify geometric trajectory intersections directly. Instead, related
-measures such as <strong>shared path use</strong>, <strong>trail
-fidelity</strong>, <strong>encounter rates</strong>,
-<strong>collisions</strong>, or <strong>collision-avoidance
-manoeuvres</strong> are often used to describe the same underlying
-spatial principle. Even so, these measures support the general
-expectation that front–behind organization channels movement into shared
-space, whereas side-by-side organization segregates movement and reduces
-crossing or conflict.</p>
+structuring depending on the geometry of neighbour interactions <span class="citation">(Burger, Hittmeir, Ranetbauer, &amp; Wolfram, 2016;
+Czaczkes, Grüter, &amp; Ratnieks, 2015; Feliciani &amp; Nishinari, 2016;
+Helbing &amp; Vicsek, 1999; Mullick et al., 2022)</span>. Importantly,
+the literature does not always quantify geometric trajectory
+intersections directly. Instead, related measures such as <strong>shared
+path use</strong>, <strong>trail fidelity</strong>, <strong>encounter
+rates</strong>, <strong>collisions</strong>, or
+<strong>collision-avoidance manoeuvres</strong> are often used to
+describe the same underlying spatial principle. Even so, these measures
+support the general expectation that front–behind organization channels
+movement into shared space, whereas side-by-side organization segregates
+movement and reduces crossing or conflict.</p>
 <p>Taken together, the literature supports the use of both
 <strong>trajectory covariation</strong> and <strong>trajectory
 intersection structure</strong> as biologically meaningful signatures of
@@ -408,7 +411,7 @@ geometry as the original recording.</p>
 frames prior to digitization. Frames were extracted at a rate of
 <strong>2 frames per second</strong>, corresponding to one image every
 <strong>0.5 s</strong>, and a total of <strong>77 frames</strong> were
-used in the validation workflow.</p>
+used in the validation workflow (Figure @ref(fig:mosaic-frames)).</p>
 <p>The temporal interval between sampled frames was selected to provide
 a practical approximation to the average step cycle of sheep, so that
 consecutive positions would be spaced in a way broadly comparable to the
@@ -602,7 +605,8 @@ relative orientation within the herd.</p>
 <div class="section level3">
 <h3 id="general-trajectory-structure">General trajectory structure<a class="anchor" aria-label="anchor" href="#general-trajectory-structure"></a>
 </h3>
-<p>The reconstructed trajectories show a clearly coherent herd-level
+<p>The reconstructed trajectories (Figure
+@ref(fig-overview-trajectories)) show a clearly coherent herd-level
 displacement pattern, with most individuals moving along a common
 directional axis and maintaining a broadly aligned configuration through
 time. Rather than forming a dispersed or isotropic cloud, the paths are
@@ -633,15 +637,17 @@ recorded position of each trajectory.
 paths were more structured than expected under the unconstrained null
 model, although the form of this relationship differs between DTW and
 Fréchet distance.</p>
-<p>For <strong>DTW</strong>, pairwise trajectory distance increases
-overall with the Euclidean distance between the first recorded positions
-of individuals, but the relationship is broad and non-linear. The point
-cloud forms a wedge-shaped distribution in which short to intermediate
-initial distances are associated with a wide range of DTW values,
-whereas more distant pairs tend to show larger DTW distances. Low
-p-values are distributed across much of the cloud, indicating widespread
-non-random similarity among observed trajectories relative to the
-simulated baseline.</p>
+<p>For <strong>DTW</strong> (Figure
+@ref(dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100)), pairwise
+trajectory distance increases overall with the Euclidean distance
+between the first recorded positions of individuals, but the
+relationship is broad and non-linear. The point cloud forms a
+wedge-shaped distribution in which short to intermediate initial
+distances are associated with a wide range of DTW values, whereas more
+distant pairs tend to show larger DTW distances. Low p-values are
+distributed across much of the cloud, indicating widespread non-random
+similarity among observed trajectories relative to the simulated
+baseline.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png" class="r-plt" alt="Pairwise DTW distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model." width="85%"><p class="caption">
 Pairwise DTW distance plotted against the Euclidean distance between the
@@ -649,13 +655,14 @@ first recorded positions of individuals. Point colour represents the raw
 pairwise significance value relative to the unconstrained null model.
 </p>
 </div>
-<p>For <strong>Fréchet distance</strong>, the relationship with initial
-Euclidean spacing is more regular and more nearly linear. As the initial
-separation between sheep increases, Fréchet distance also tends to
-increase, indicating that more spatially distant pairs generally occupy
-more distinct trajectory geometries. Compared with DTW, the Fréchet
-signal is more orderly and shows a broader gradient of p-values across
-the dataset.</p>
+<p>For <strong>Fréchet distance</strong> (Figure
+@ref(frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100)), the
+relationship with initial Euclidean spacing is more regular and more
+nearly linear. As the initial separation between sheep increases,
+Fréchet distance also tends to increase, indicating that more spatially
+distant pairs generally occupy more distinct trajectory geometries.
+Compared with DTW, the Fréchet signal is more orderly and shows a
+broader gradient of p-values across the dataset.</p>
 <div class="figure" style="text-align: center">
 <img src="figures/frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png" class="r-plt" alt="Pairwise Fréchet distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model." width="85%"><p class="caption">
 Pairwise Fréchet distance plotted against the Euclidean distance between
@@ -670,24 +677,26 @@ model.
 </h3>
 <p>The intersection analyses reveal different patterns under the two
 directional hypotheses.</p>
-<p>Under the <strong>Higher</strong> hypothesis, the lowest p-values are
-concentrated mainly among dyads with small angular differences, across a
-relatively broad range of Euclidean distances. This indicates that
-elevated intersection structure is associated primarily with pairs whose
-relative configuration is aligned with the main direction of
-displacement (Figure X).</p>
+<p>Under the <strong>Higher</strong> hypothesis (Figure
+@ref(scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100)), the
+lowest p-values are concentrated mainly among dyads with small angular
+differences, across a relatively broad range of Euclidean distances.
+This indicates that elevated intersection structure is associated
+primarily with pairs whose relative configuration is aligned with the
+main direction of displacement (Figure X).</p>
 <div class="figure" style="text-align: center">
 <img src="figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100.png" class="r-plt" alt="Pairwise significance for the Higher-intersection hypothesis plotted against initial Euclidean spacing and angular difference." width="85%"><p class="caption">
 Pairwise significance for the Higher-intersection hypothesis plotted
 against initial Euclidean spacing and angular difference.
 </p>
 </div>
-<p>Under the <strong>Lower</strong> hypothesis, the signal is weaker,
-but the lowest p-values tend to occur among nearby dyads with larger
-angular differences. In other words, reduced intersection structure is
-most evident among some pairs that were both spatially close and more
-laterally arranged relative to their mean direction of movement (Figure
-X).</p>
+<p>Under the <strong>Lower</strong> hypothesis (Figure
+@ref(scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100)), the
+signal is weaker, but the lowest p-values tend to occur among nearby
+dyads with larger angular differences. In other words, reduced
+intersection structure is most evident among some pairs that were both
+spatially close and more laterally arranged relative to their mean
+direction of movement (Figure X).</p>
 <div class="figure" style="text-align: center">
 <img src="figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100.png" class="r-plt" alt="Pairwise significance for the Lower-intersection hypothesis plotted against initial Euclidean spacing and angular difference." width="85%"><p class="caption">
 Pairwise significance for the Lower-intersection hypothesis plotted
@@ -704,41 +713,28 @@ rather than being randomly distributed across the herd.</p>
 <p>The combined analyses integrate trajectory similarity and
 intersection information and therefore provide a more specific view of
 pairwise movement structure.</p>
-<p>For the <strong>DTW-based combinations</strong>, the overall pattern
-remains strongly influenced by the widespread DTW similarity signal.
-Under the <strong>Higher</strong> hypothesis, the lowest combined
-p-values are still concentrated mainly among dyads with small angular
-differences, whereas under the <strong>Lower</strong> hypothesis the
-contrast is less pronounced.</p>
-<div style="text-align: center;">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Higher_nsim100.gif" width="85%"><p>
-<em>Combined significance for Intersection + DTW under the
-Higher-intersection hypothesis.</em>
-</p>
+<p>For the <strong>DTW-based combinations</strong> (Figures
+@ref(combined-higher-dtw) and @ref(combined-lower-dtw))), the overall
+pattern remains strongly influenced by the widespread DTW similarity
+signal. Under the <strong>Higher</strong> hypothesis, the lowest
+combined p-values are still concentrated mainly among dyads with small
+angular differences, whereas under the <strong>Lower</strong> hypothesis
+the contrast is less pronounced.</p>
+<p><img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Higher_nsim100.gif" id="fig:combined-higher-dtw" style="width:85.0%" alt="Combined significance for Intersection + DTW under the Higher-intersection hypothesis."><img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Lower_nsim100.gif" id="fig:combined-lower-dtw" style="width:85.0%" alt="Combined significance for Intersection + DTW under the Lower-intersection hypothesis."></p>
+<p>For the <strong>Fréchet-based combinations</strong> (Figures
+@ref(combined-higher-frechet) and @ref(combined-lower-frechet))), the
+effect of adding intersection information is more clearly structured.
+Under the <strong>Higher</strong> hypothesis, the strongest combined
+support is concentrated among dyads with low angular differences. Under
+the <strong>Lower</strong> hypothesis, stronger support occurs mainly
+among nearby dyads with broader angular configurations.</p>
+<div class="float" id="fig:combined-higher-frechet">
+<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Higher_nsim100.gif" style="width:85.0%" alt="Combined significance for Intersection + Frechet distance under the Higher-intersection hypothesis."><div class="figcaption">Combined significance for Intersection + Frechet
+distance under the Higher-intersection hypothesis.</div>
 </div>
-<div style="text-align: center;">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Lower_nsim100.gif" width="85%"><p>
-<em>Combined significance for Intersection + DTW under the
-Lower-intersection hypothesis.</em>
-</p>
-</div>
-<p>For the <strong>Fréchet-based combinations</strong>, the effect of
-adding intersection information is more clearly structured. Under the
-<strong>Higher</strong> hypothesis, the strongest combined support is
-concentrated among dyads with low angular differences. Under the
-<strong>Lower</strong> hypothesis, stronger support occurs mainly among
-nearby dyads with broader angular configurations.</p>
-<div style="text-align: center;">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Higher_nsim100.gif" width="85%"><p>
-<em>Combined significance for Intersection + Frechet distance under the
-Higher-intersection hypothesis.</em>
-</p>
-</div>
-<div style="text-align: center;">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Lower_nsim100.gif" width="85%"><p>
-<em>Combined significance for Intersection + Frechet distance under the
-Lower-intersection hypothesis.</em>
-</p>
+<div class="float" id="fig:combined-lower-frechet">
+<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Lower_nsim100.gif" style="width:85.0%" alt="Combined significance for Intersection + Frechet distance under the Lower-intersection hypothesis."><div class="figcaption">Combined significance for Intersection + Frechet
+distance under the Lower-intersection hypothesis.</div>
 </div>
 <p>Overall, the combined analyses show that pairwise support for
 coordinated movement is not uniformly distributed across the herd, but
@@ -884,96 +880,90 @@ folders, external files, or repository links.]</p>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-Attanasi2014" class="csl-entry">
-Attanasi, Alessandro, Andrea Cavagna, Lorenzo Del Castello, Irene
-Giardina, Ana Jelić, Salvatore Melillo, Livia Parisi, Oliver Pohl,
-Edmond Shen, and Massimo Viale. 2014. <span>“Information Transfer and
-Behavioural Inertia in Starling Flocks.”</span> <em>Nature Physics</em>
-10 (9): 691–96. <a href="https://doi.org/10.1038/nphys3035" class="external-link">https://doi.org/10.1038/nphys3035</a>.
+Attanasi, A., Cavagna, A., Del Castello, L., Giardina, I., Jelić, A.,
+Melillo, S., … Viale, M. (2014). Information transfer and behavioural
+inertia in starling flocks. <em>Nature Physics</em>, <em>10</em>(9),
+691–696. <a href="https://doi.org/10.1038/nphys3035" class="external-link">https://doi.org/10.1038/nphys3035</a>
 </div>
 <div id="ref-Burger2016" class="csl-entry">
-Burger, Martin, Sabine Hittmeir, Helene Ranetbauer, and Marie-Therese
-Wolfram. 2016. <span>“Lane Formation by Side-Stepping.”</span> <em>SIAM
-Journal on Mathematical Analysis</em> 48 (2): 981–1005. <a href="https://doi.org/10.1137/15M1033174" class="external-link">https://doi.org/10.1137/15M1033174</a>.
+Burger, M., Hittmeir, S., Ranetbauer, H., &amp; Wolfram, M.-T. (2016).
+Lane formation by side-stepping. <em>SIAM Journal on Mathematical
+Analysis</em>, <em>48</em>(2), 981–1005. <a href="https://doi.org/10.1137/15M1033174" class="external-link">https://doi.org/10.1137/15M1033174</a>
 </div>
 <div id="ref-Cavagna2010" class="csl-entry">
-Cavagna, Andrea, Alessio Cimarelli, Irene Giardina, Giorgio Parisi,
-Raffaele Santagati, Fabio Stefanini, and Massimo Viale. 2010.
-<span>“Scale-Free Correlations in Starling Flocks.”</span>
-<em>Proceedings of the National Academy of Sciences of the United States
-of America</em> 107 (26): 11865–70. <a href="https://doi.org/10.1073/pnas.1005766107" class="external-link">https://doi.org/10.1073/pnas.1005766107</a>.
+Cavagna, A., Cimarelli, A., Giardina, I., Parisi, G., Santagati, R.,
+Stefanini, F., &amp; Viale, M. (2010). Scale-free correlations in
+starling flocks. <em>Proceedings of the National Academy of Sciences of
+the United States of America</em>, <em>107</em>(26), 11865–11870. <a href="https://doi.org/10.1073/pnas.1005766107" class="external-link">https://doi.org/10.1073/pnas.1005766107</a>
 </div>
 <div id="ref-Couzin2002" class="csl-entry">
-Couzin, Iain D., Jens Krause, Richard James, Graeme D. Ruxton, and Nigel
-R. Franks. 2002. <span>“Collective Memory and Spatial Sorting in Animal
-Groups.”</span> <em>Journal of Theoretical Biology</em> 218 (1): 1–11.
-<a href="https://doi.org/10.1006/jtbi.2002.3065" class="external-link">https://doi.org/10.1006/jtbi.2002.3065</a>.
+Couzin, I. D., Krause, J., James, R., Ruxton, G. D., &amp; Franks, N. R.
+(2002). Collective memory and spatial sorting in animal groups.
+<em>Journal of Theoretical Biology</em>, <em>218</em>(1), 1–11. <a href="https://doi.org/10.1006/jtbi.2002.3065" class="external-link">https://doi.org/10.1006/jtbi.2002.3065</a>
 </div>
 <div id="ref-Czaczkes2015" class="csl-entry">
-Czaczkes, Tomer J., Christoph Grüter, and Francis L. W. Ratnieks. 2015.
-<span>“Trail Pheromones: An Integrative View of Their Role in Social
-Insect Colony Organization.”</span> <em>Annual Review of Entomology</em>
-60: 581–99. <a href="https://doi.org/10.1146/annurev-ento-010814-020627" class="external-link">https://doi.org/10.1146/annurev-ento-010814-020627</a>.
+Czaczkes, T. J., Grüter, C., &amp; Ratnieks, F. L. W. (2015). Trail
+pheromones: An integrative view of their role in social insect colony
+organization. <em>Annual Review of Entomology</em>, <em>60</em>,
+581–599. <a href="https://doi.org/10.1146/annurev-ento-010814-020627" class="external-link">https://doi.org/10.1146/annurev-ento-010814-020627</a>
 </div>
 <div id="ref-Feliciani2016" class="csl-entry">
-Feliciani, Claudio, and Katsuhiro Nishinari. 2016. <span>“Empirical
-Analysis of the Lane Formation Process in Bidirectional Pedestrian
-Flow.”</span> <em>Physical Review E</em> 94 (3): 032304. <a href="https://doi.org/10.1103/PhysRevE.94.032304" class="external-link">https://doi.org/10.1103/PhysRevE.94.032304</a>.
+Feliciani, C., &amp; Nishinari, K. (2016). Empirical analysis of the
+lane formation process in bidirectional pedestrian flow. <em>Physical
+Review E</em>, <em>94</em>(3), 032304. <a href="https://doi.org/10.1103/PhysRevE.94.032304" class="external-link">https://doi.org/10.1103/PhysRevE.94.032304</a>
 </div>
 <div id="ref-Helbing1999" class="csl-entry">
-Helbing, Dirk, and Tamás Vicsek. 1999. <span>“Optimal
-Self-Organization.”</span> <em>New Journal of Physics</em> 1 (1): 13. <a href="https://doi.org/10.1088/1367-2630/1/1/313" class="external-link">https://doi.org/10.1088/1367-2630/1/1/313</a>.
+Helbing, D., &amp; Vicsek, T. (1999). Optimal self-organization. <em>New
+Journal of Physics</em>, <em>1</em>(1), 13. <a href="https://doi.org/10.1088/1367-2630/1/1/313" class="external-link">https://doi.org/10.1088/1367-2630/1/1/313</a>
 </div>
 <div id="ref-HerbertRead2011" class="csl-entry">
-Herbert-Read, James E., Andrea Perna, Richard P. Mann, Timothy M.
-Schaerf, David J. T. Sumpter, and Ashley J. W. Ward. 2011.
-<span>“Inferring the Rules of Interaction of Shoaling Fish.”</span>
-<em>Proceedings of the National Academy of Sciences of the United States
-of America</em> 108 (46): 18726–31. <a href="https://doi.org/10.1073/pnas.1109355108" class="external-link">https://doi.org/10.1073/pnas.1109355108</a>.
+Herbert-Read, J. E., Perna, A., Mann, R. P., Schaerf, T. M., Sumpter, D.
+J. T., &amp; Ward, A. J. W. (2011). Inferring the rules of interaction
+of shoaling fish. <em>Proceedings of the National Academy of Sciences of
+the United States of America</em>, <em>108</em>(46), 18726–18731. <a href="https://doi.org/10.1073/pnas.1109355108" class="external-link">https://doi.org/10.1073/pnas.1109355108</a>
 </div>
 <div id="ref-Joo2018" class="csl-entry">
-Joo, Rocio, Marie-Pierre Etienne, Nicolas Bez, and Stéphanie Mahévas.
-2018. <span>“Metrics for Describing Dyadic Movement: A Review.”</span>
-<em>Movement Ecology</em> 6: 26. <a href="https://doi.org/10.1186/s40462-018-0144-2" class="external-link">https://doi.org/10.1186/s40462-018-0144-2</a>.
+Joo, R., Etienne, M.-P., Bez, N., &amp; Mahévas, S. (2018). Metrics for
+describing dyadic movement: A review. <em>Movement Ecology</em>,
+<em>6</em>, 26. <a href="https://doi.org/10.1186/s40462-018-0144-2" class="external-link">https://doi.org/10.1186/s40462-018-0144-2</a>
 </div>
 <div id="ref-Katz2011" class="csl-entry">
-Katz, Yael, Kolbjørn Tunström, Christos C. Ioannou, Cristián Huepe, and
-Iain D. Couzin. 2011. <span>“Inferring the Structure and Dynamics of
-Interactions in Schooling Fish.”</span> <em>Proceedings of the National
-Academy of Sciences of the United States of America</em> 108 (46):
-18720–25. <a href="https://doi.org/10.1073/pnas.1107583108" class="external-link">https://doi.org/10.1073/pnas.1107583108</a>.
+Katz, Y., Tunström, K., Ioannou, C. C., Huepe, C., &amp; Couzin, I. D.
+(2011). Inferring the structure and dynamics of interactions in
+schooling fish. <em>Proceedings of the National Academy of Sciences of
+the United States of America</em>, <em>108</em>(46), 18720–18725. <a href="https://doi.org/10.1073/pnas.1107583108" class="external-link">https://doi.org/10.1073/pnas.1107583108</a>
 </div>
 <div id="ref-Long2014" class="csl-entry">
-Long, Jed A., Trisalyn A. Nelson, Stephen L. Webb, and Kenneth L. Gee.
-2014. <span>“A Critical Examination of Indices of Dynamic Interaction
-for Wildlife Telemetry Studies.”</span> <em>Journal of Animal
-Ecology</em> 83 (5): 1216–33. <a href="https://doi.org/10.1111/1365-2656.12198" class="external-link">https://doi.org/10.1111/1365-2656.12198</a>.
+Long, J. A., Nelson, T. A., Webb, S. L., &amp; Gee, K. L. (2014). A
+critical examination of indices of dynamic interaction for wildlife
+telemetry studies. <em>Journal of Animal Ecology</em>, <em>83</em>(5),
+1216–1233. <a href="https://doi.org/10.1111/1365-2656.12198" class="external-link">https://doi.org/10.1111/1365-2656.12198</a>
 </div>
 <div id="ref-Mullick2022" class="csl-entry">
-Mullick, Pratik, Sylvain Fontaine, Cécile Appert-Rolland, Anne-Hélène
-Olivier, William H. Warren, and Julien Pettré. 2022. <span>“Analysis of
-Emergent Patterns in Crossing Flows of Pedestrians Reveals an Invariant
-of <span><span>‘Stripe’</span></span> Formation in Human Data.”</span>
-<em>PLOS Computational Biology</em> 18 (6): e1010210. <a href="https://doi.org/10.1371/journal.pcbi.1010210" class="external-link">https://doi.org/10.1371/journal.pcbi.1010210</a>.
+Mullick, P., Fontaine, S., Appert-Rolland, C., Olivier, A.-H., Warren,
+W. H., &amp; Pettré, J. (2022). Analysis of emergent patterns in
+crossing flows of pedestrians reveals an invariant of
+<span><span>“stripe”</span></span> formation in human data. <em>PLOS
+Computational Biology</em>, <em>18</em>(6), e1010210. <a href="https://doi.org/10.1371/journal.pcbi.1010210" class="external-link">https://doi.org/10.1371/journal.pcbi.1010210</a>
 </div>
 <div id="ref-Spiegel2016" class="csl-entry">
-Spiegel, Orr, Stephan T. Leu, Andrew Sih, and C. Michael Bull. 2016.
-<span>“Socially Interacting or Indifferent Neighbours? Randomization of
-Movement Paths to Tease Apart Social Preference and Spatial
-Constraints.”</span> <em>Methods in Ecology and Evolution</em> 7 (8):
-971–79. <a href="https://doi.org/10.1111/2041-210X.12553" class="external-link">https://doi.org/10.1111/2041-210X.12553</a>.
+Spiegel, O., Leu, S. T., Sih, A., &amp; Bull, C. M. (2016). Socially
+interacting or indifferent neighbours? Randomization of movement paths
+to tease apart social preference and spatial constraints. <em>Methods in
+Ecology and Evolution</em>, <em>7</em>(8), 971–979. <a href="https://doi.org/10.1111/2041-210X.12553" class="external-link">https://doi.org/10.1111/2041-210X.12553</a>
 </div>
 <div id="ref-Sumpter2006" class="csl-entry">
-Sumpter, David J. T. 2006. <span>“The Principles of Collective Animal
-Behaviour.”</span> <em>Philosophical Transactions of the Royal Society
-B: Biological Sciences</em> 361 (1465): 5–22. <a href="https://doi.org/10.1098/rstb.2005.1733" class="external-link">https://doi.org/10.1098/rstb.2005.1733</a>.
+Sumpter, D. J. T. (2006). The principles of collective animal behaviour.
+<em>Philosophical Transactions of the Royal Society B: Biological
+Sciences</em>, <em>361</em>(1465), 5–22. <a href="https://doi.org/10.1098/rstb.2005.1733" class="external-link">https://doi.org/10.1098/rstb.2005.1733</a>
 </div>
 <div id="ref-Vicsek1995" class="csl-entry">
-Vicsek, Tamás, András Czirók, Eshel Ben-Jacob, Inon Cohen, and Ofer
-Shochet. 1995. <span>“Novel Type of Phase Transition in a System of
-Self-Driven Particles.”</span> <em>Physical Review Letters</em> 75 (6):
-1226–29. <a href="https://doi.org/10.1103/PhysRevLett.75.1226" class="external-link">https://doi.org/10.1103/PhysRevLett.75.1226</a>.
+Vicsek, T., Czirók, A., Ben-Jacob, E., Cohen, I., &amp; Shochet, O.
+(1995). Novel type of phase transition in a system of self-driven
+particles. <em>Physical Review Letters</em>, <em>75</em>(6), 1226–1229.
+<a href="https://doi.org/10.1103/PhysRevLett.75.1226" class="external-link">https://doi.org/10.1103/PhysRevLett.75.1226</a>
 </div>
 </div>
 </div>

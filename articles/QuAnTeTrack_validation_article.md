@@ -107,20 +107,20 @@ Under this framework, coordinated groups are expected to produce
 **structured covariation** in movement trajectories rather than chance
 resemblance, because alignment, attraction–repulsion, leadership, and
 neighbour-dependent interactions generate correlated motion through time
-(Vicsek et al. 1995; Couzin et al. 2002; Sumpter 2006). This expectation
+(Vicsek et al. 1995; Couzin et al. 2002; Sumpter 2006). This expectation
 is supported both empirically and theoretically. Empirical studies of
 collective movement consistently show that coordinated groups exhibit
 non-random similarity in direction, displacement, and movement dynamics,
 whereas theoretical and modelling approaches demonstrate that local
 interaction rules are sufficient to generate coherent, correlated motion
-at the group level (Sumpter 2006; Cavagna et al. 2010; Herbert-Read et
-al. 2011; Katz et al. 2011; Attanasi et al. 2014). In parallel, the
+at the group level (Sumpter 2006; Cavagna et al. 2010; Herbert-Read et
+al. 2011; Katz et al. 2011; Attanasi et al. 2014). In parallel, the
 movement-analysis literature explicitly treats correlated movement as a
 measurable signature of joint behaviour and emphasizes the importance of
 comparing observed similarity against null expectations in order to
 distinguish true coordination from chance resemblance or shared
-environmental constraints (Long et al. 2014; Spiegel et al. 2016; Joo et
-al. 2018).
+environmental constraints (Long et al. 2014; Spiegel et al. 2016; Joo et
+al. 2018).
 
 A second expectation concerns **trajectory intersection patterns**,
 which should depend on the spatial geometry of the moving group. In
@@ -139,16 +139,17 @@ organization is associated with spatial segregation and reduced
 conflict. The same general pattern emerges from self-organization theory
 and collective-motion models, which show that interaction rules can
 produce either shared-path use or parallel spatial structuring depending
-on the geometry of neighbour interactions (Helbing & Vicsek 1999;
-Czaczkes et al. 2015; Feliciani and Nishinari 2016; Burger et al. 2016;
-Mullick et al. 2022). Importantly, the literature does not always
-quantify geometric trajectory intersections directly. Instead, related
-measures such as **shared path use**, **trail fidelity**, **encounter
-rates**, **collisions**, or **collision-avoidance manoeuvres** are often
-used to describe the same underlying spatial principle. Even so, these
-measures support the general expectation that front–behind organization
-channels movement into shared space, whereas side-by-side organization
-segregates movement and reduces crossing or conflict.
+on the geometry of neighbour interactions (Helbing and Vicsek 1999;
+Czaczkes, Grüter, and Ratnieks 2015; Feliciani and Nishinari 2016;
+Burger et al. 2016; Mullick et al. 2022). Importantly, the literature
+does not always quantify geometric trajectory intersections directly.
+Instead, related measures such as **shared path use**, **trail
+fidelity**, **encounter rates**, **collisions**, or
+**collision-avoidance manoeuvres** are often used to describe the same
+underlying spatial principle. Even so, these measures support the
+general expectation that front–behind organization channels movement
+into shared space, whereas side-by-side organization segregates movement
+and reduces crossing or conflict.
 
 Taken together, the literature supports the use of both **trajectory
 covariation** and **trajectory intersection structure** as biologically
@@ -308,10 +309,12 @@ digitization.
 #### Digitization and TPS generation
 
 Each extracted frame was digitized in TPS format by recording the
-positions of individual sheep through the image sequence. These
-digitized positions were initially stored as individual TPS files and
-subsequently merged into a single consolidated trajectory file using a
-custom preprocessing routine.
+positions of individual sheep through the image sequence, with each
+landmark placed at the most anterior part of the head in order to
+provide a consistent positional reference across frames. These digitized
+positions were initially stored as individual TPS files and subsequently
+merged into a single consolidated trajectory file using a custom
+preprocessing routine.
 
 This custom step was designed to standardize formatting and ensure
 compatibility with downstream import into **QuAnTeTrack**. In
@@ -370,12 +373,6 @@ Warping**
 ([`simil_DTW_metric()`](https://macrofunuv.github.io/QuAnTeTrack/reference/simil_DTW_metric.md))
 and **Fréchet distance**
 ([`simil_Frechet_metric()`](https://macrofunuv.github.io/QuAnTeTrack/reference/simil_Frechet_metric.md)).
-Both metrics quantify the extent to which individual movement paths
-resemble one another, but they emphasize different properties of
-trajectory geometry. DTW is more tolerant of local differences in pace
-or temporal alignment, whereas Fréchet distance is more sensitive to the
-overall geometric similarity of the paths.
-
 All similarity analyses were conducted under **centroid superposition**.
 This standardization centres trajectories prior to comparison and
 therefore focuses the analysis on path geometry rather than absolute
@@ -441,13 +438,13 @@ using
 These analyses integrated evidence from several metrics for each pair of
 trajectories under the same directional intersection hypothesis.
 
-Three centroid-based combinations were evaluated separately for the
-**Lower** and **Higher** hypotheses: **Intersection + Fréchet**,
-**Intersection + DTW**, and **Intersection + Fréchet + DTW**. For each
-combination, the workflow generated combined pairwise significance
-matrices. These analyses were intended to evaluate whether support for
-non-random association became stronger when multiple trajectory-based
-signals were considered jointly rather than in isolation.
+Two centroid-based combinations were evaluated separately for the
+**Lower** and **Higher** hypotheses: **Intersection + Fréchet**, and
+**Intersection + DTW**. For each combination, the workflow generated
+combined pairwise significance matrices. These analyses were intended to
+evaluate whether support for non-random association became stronger when
+multiple trajectory-based signals were considered jointly rather than in
+isolation.
 
 #### Exploratory visualization and data export
 
@@ -461,17 +458,15 @@ distance between the first recorded positions of each pair of
 individuals and the angular difference between their relative initial
 configuration and their mean movement heading.
 
+This angular difference provides a geometric proxy for relative pair
+configuration. Values close to 0° indicate that individuals are arranged
+approximately along the direction of travel, as expected for
+front–behind pairs, whereas values close to 90° indicate lateral offset
+relative to the movement axis, as expected for side-by-side pairs.
+
 These plots were used to visualize how pairwise support for coordinated
 movement varied as a function of both initial spacing and relative
 orientation within the herd.
-
-All intermediate objects, statistical results, pairwise data tables, and
-figure files were saved automatically to a structured directory tree.
-This ensured that the workflow remained fully reproducible and that
-individual steps could be re-examined or reused during subsequent figure
-selection and synthesis. All code used for these analyses, together with
-the associated input and helper files, is provided in the `/scripts/`
-folder.
 
 ## Results
 
@@ -763,75 +758,81 @@ folders, external files, or repository links.\]
 
 ## References
 
-Attanasi, A., Cavagna, A., Del Castello, L., Giardina, I., Jelić, A.,
-Melillo, S., Parisi, L., Pohl, O., Shen, E., & Viale, M. (2014).
-*Information transfer and behavioural inertia in starling flocks*.
-**Nature Physics, 10**, 691–696. <https://doi.org/10.1038/nphys3035>
+Attanasi, Alessandro, Andrea Cavagna, Lorenzo Del Castello, Irene
+Giardina, Ana Jelić, Salvatore Melillo, Livia Parisi, Oliver Pohl,
+Edmond Shen, and Massimo Viale. 2014. “Information Transfer and
+Behavioural Inertia in Starling Flocks.” *Nature Physics* 10 (9):
+691–96. <https://doi.org/10.1038/nphys3035>.
 
-Burger, M., Hittmeir, S., Ranetbauer, H., & Wolfram, M.-T. (2016). *Lane
-formation by side-stepping*. **SIAM Journal on Mathematical Analysis,
-48**(2), 981–1005. <https://doi.org/10.1137/15M1033174>
+Burger, Martin, Sabine Hittmeir, Helene Ranetbauer, and Marie-Therese
+Wolfram. 2016. “Lane Formation by Side-Stepping.” *SIAM Journal on
+Mathematical Analysis* 48 (2): 981–1005.
+<https://doi.org/10.1137/15M1033174>.
 
-Cavagna, A., Cimarelli, A., Giardina, I., Parisi, G., Santagati, R.,
-Stefanini, F., & Viale, M. (2010). *Scale-free correlations in starling
-flocks*. **Proceedings of the National Academy of Sciences, 107**(26),
-11865–11870. <https://doi.org/10.1073/pnas.1005766107>
+Cavagna, Andrea, Alessio Cimarelli, Irene Giardina, Giorgio Parisi,
+Raffaele Santagati, Fabio Stefanini, and Massimo Viale. 2010.
+“Scale-Free Correlations in Starling Flocks.” *Proceedings of the
+National Academy of Sciences of the United States of America* 107 (26):
+11865–70. <https://doi.org/10.1073/pnas.1005766107>.
 
-Couzin, I. D., Krause, J., Franks, N. R., & Levin, S. A. (2002).
-*Collective memory and spatial sorting in animal groups*. **Journal of
-Theoretical Biology, 218**(1), 1–11.
-<https://doi.org/10.1006/jtbi.2002.3065>
+Couzin, Iain D., Jens Krause, Richard James, Graeme D. Ruxton, and Nigel
+R. Franks. 2002. “Collective Memory and Spatial Sorting in Animal
+Groups.” *Journal of Theoretical Biology* 218 (1): 1–11.
+<https://doi.org/10.1006/jtbi.2002.3065>.
 
-Czaczkes, T. J., Grüter, C., & Ratnieks, F. L. W. (2015). *Trail
-pheromones: an integrative view of their role in social insect colony
-organization*. **Annual Review of Entomology, 60**, 581–599.
-<https://doi.org/10.1146/annurev-ento-010814-020627>
+Czaczkes, Tomer J., Christoph Grüter, and Francis L. W. Ratnieks. 2015.
+“Trail Pheromones: An Integrative View of Their Role in Social Insect
+Colony Organization.” *Annual Review of Entomology* 60: 581–99.
+<https://doi.org/10.1146/annurev-ento-010814-020627>.
 
-Feliciani, C., & Nishinari, K. (2016). *Empirical analysis of the lane
-formation process in bidirectional pedestrian flow*. **Physical Review
-E, 94**, 032304. <https://doi.org/10.1103/PhysRevE.94.032304>
+Feliciani, Claudio, and Katsuhiro Nishinari. 2016. “Empirical Analysis
+of the Lane Formation Process in Bidirectional Pedestrian Flow.”
+*Physical Review E* 94 (3): 032304.
+<https://doi.org/10.1103/PhysRevE.94.032304>.
 
-Herbert-Read, J. E., Perna, A., Mann, R. P., Schaerf, T. M., Sumpter, D.
-J. T., & Ward, A. J. W. (2011). *Inferring the rules of interaction of
-shoaling fish*. **Proceedings of the National Academy of Sciences,
-108**(46), 18726–18731. <https://doi.org/10.1073/pnas.1109355108>
+Helbing, Dirk, and Tamás Vicsek. 1999. “Optimal Self-Organization.” *New
+Journal of Physics* 1 (1): 13.
+<https://doi.org/10.1088/1367-2630/1/1/313>.
 
-Helbing, D., & Vicsek, T. (1999). *Optimal self-organization*. **New
-Journal of Physics, 1**, 13. <https://doi.org/10.1088/1367-2630/1/1/313>
+Herbert-Read, James E., Andrea Perna, Richard P. Mann, Timothy M.
+Schaerf, David J. T. Sumpter, and Ashley J. W. Ward. 2011. “Inferring
+the Rules of Interaction of Shoaling Fish.” *Proceedings of the National
+Academy of Sciences of the United States of America* 108 (46): 18726–31.
+<https://doi.org/10.1073/pnas.1109355108>.
 
-Joo, R., Boone, M. E., Clay, T. A., Patrick, S. C., Clusella-Trullas,
-S., & Basille, M. (2018). *Metrics for describing dyadic movement: a
-review*. **Movement Ecology, 6**, 26.
-<https://doi.org/10.1186/s40462-018-0144-2>
+Joo, Rocio, Marie-Pierre Etienne, Nicolas Bez, and Stéphanie Mahévas.
+2018. “Metrics for Describing Dyadic Movement: A Review.” *Movement
+Ecology* 6: 26. <https://doi.org/10.1186/s40462-018-0144-2>.
 
-Katz, Y., Tunstrøm, K., Ioannou, C. C., Huepe, C., & Couzin, I. D.
-(2011). *Inferring the structure and dynamics of interactions in
-schooling fish*. **Proceedings of the National Academy of Sciences,
-108**(46), 18720–18725. <https://doi.org/10.1073/pnas.1107583108>
+Katz, Yael, Kolbjørn Tunström, Christos C. Ioannou, Cristián Huepe, and
+Iain D. Couzin. 2011. “Inferring the Structure and Dynamics of
+Interactions in Schooling Fish.” *Proceedings of the National Academy of
+Sciences of the United States of America* 108 (46): 18720–25.
+<https://doi.org/10.1073/pnas.1107583108>.
 
-Long, J. A., Nelson, T. A., Webb, S. L., & Gee, K. L. (2014). *A
-critical examination of indices of dynamic interaction for wildlife
-telemetry studies*. **Journal of Animal Ecology, 83**(5), 1216–1233.
-<https://doi.org/10.1111/1365-2656.12198>
+Long, Jed A., Trisalyn A. Nelson, Stephen L. Webb, and Kenneth L. Gee.
+2014. “A Critical Examination of Indices of Dynamic Interaction for
+Wildlife Telemetry Studies.” *Journal of Animal Ecology* 83 (5):
+1216–33. <https://doi.org/10.1111/1365-2656.12198>.
 
-Mullick, P., Fontaine, S., Appert-Rolland, C., Olivier, A.-H., Warren,
-W. H., & Pettré, J. (2022). *Analysis of emergent patterns in crossing
-flows of pedestrians reveals an invariant of ‘stripe’ formation in human
-data*. **PLOS Computational Biology, 18**(6), e1010210.
-<https://doi.org/10.1371/journal.pcbi.1010210>
+Mullick, Pratik, Sylvain Fontaine, Cécile Appert-Rolland, Anne-Hélène
+Olivier, William H. Warren, and Julien Pettré. 2022. “Analysis of
+Emergent Patterns in Crossing Flows of Pedestrians Reveals an Invariant
+of ‘Stripe’ Formation in Human Data.” *PLOS Computational Biology* 18
+(6): e1010210. <https://doi.org/10.1371/journal.pcbi.1010210>.
 
-Spiegel, O., Leu, S. T., Sih, A., & Bull, C. M. (2016). *Socially
-interacting or indifferent neighbours? Randomization of movement paths
-to tease apart social preference and spatial constraints*. **Methods in
-Ecology and Evolution, 7**(8), 971–979.
-<https://doi.org/10.1111/2041-210X.12553>
+Spiegel, Orr, Stephan T. Leu, Andrew Sih, and C. Michael Bull. 2016.
+“Socially Interacting or Indifferent Neighbours? Randomization of
+Movement Paths to Tease Apart Social Preference and Spatial
+Constraints.” *Methods in Ecology and Evolution* 7 (8): 971–79.
+<https://doi.org/10.1111/2041-210X.12553>.
 
-Sumpter, D. J. T. (2006). *The principles of collective animal
-behaviour*. **Philosophical Transactions of the Royal Society B:
-Biological Sciences, 361**(1465), 5–22.
-<https://doi.org/10.1098/rstb.2005.1733>
+Sumpter, David J. T. 2006. “The Principles of Collective Animal
+Behaviour.” *Philosophical Transactions of the Royal Society B:
+Biological Sciences* 361 (1465): 5–22.
+<https://doi.org/10.1098/rstb.2005.1733>.
 
-Vicsek, T., Czirók, A., Ben-Jacob, E., Cohen, I., & Shochet, O. (1995).
-*Novel type of phase transition in a system of self-driven particles*.
-**Physical Review Letters, 75**(6), 1226–1229.
-<https://doi.org/10.1103/PhysRevLett.75.1226>
+Vicsek, Tamás, András Czirók, Eshel Ben-Jacob, Inon Cohen, and Ofer
+Shochet. 1995. “Novel Type of Phase Transition in a System of
+Self-Driven Particles.” *Physical Review Letters* 75 (6): 1226–29.
+<https://doi.org/10.1103/PhysRevLett.75.1226>.

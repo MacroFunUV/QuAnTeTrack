@@ -2,7 +2,7 @@
 
 ![QuAnTeTrack Logo](figures/Logo.png)
 
-## **Rationale**
+## Rationale
 
 This vignette provides an initial empirical validation of the
 assumptions underlying **QuAnTeTrack** for detecting coordinated or
@@ -473,9 +473,9 @@ selection and synthesis. All code used for these analyses, together with
 the associated input and helper files, is provided in the `/scripts/`
 folder.
 
-### Results
+## Results
 
-#### General trajectory structure
+### General trajectory structure
 
 The reconstructed trajectories show a clearly coherent herd-level
 displacement pattern, with most individuals moving along a common
@@ -505,7 +505,7 @@ Semi-transparent lines represent individual sheep paths reconstructed
 from the digitized frame sequence, and labels indicate the first
 recorded position of each trajectory.
 
-#### Trajectory similarity
+### Trajectory similarity
 
 Both trajectory similarity metrics indicate that the observed sheep
 paths were more structured than expected under the unconstrained null
@@ -550,7 +550,7 @@ the first recorded positions of individuals. Point colour represents the
 raw pairwise significance value relative to the unconstrained null
 model.
 
-#### Intersection structure
+### Intersection structure
 
 The intersection analyses reveal different patterns under the two
 directional hypotheses.
@@ -587,7 +587,7 @@ Taken together, the two intersection analyses show that intersection
 structure varies systematically with pairwise geometric configuration
 rather than being randomly distributed across the herd.
 
-#### Combined metrics
+### Combined metrics
 
 The combined analyses integrate trajectory similarity and intersection
 information and therefore provide a more specific view of pairwise
@@ -630,9 +630,9 @@ Overall, the combined analyses show that pairwise support for
 coordinated movement is not uniformly distributed across the herd, but
 instead varies with both initial spacing and relative configuration.
 
-### Discussion and future directions
+## Discussion and future directions
 
-#### What this validation supports
+### What this validation supports
 
 This validation provides an initial empirical test of whether the
 assumptions implemented in **QuAnTeTrack** recover biologically
@@ -683,11 +683,11 @@ behaviourally interpretable signatures of coordinated group displacement
 and uses them in a way that is consistent with the known logic of
 collective movement in a modern herd.
 
-#### Current limitations
+### Current limitations
 
 Several limitations should nevertheless be acknowledged.
 
-##### Biological scope
+#### Biological scope
 
 This validation is based on a single extant study system and therefore
 does not yet capture the full diversity of coordinated movement patterns
@@ -696,7 +696,7 @@ domestic sheep herd is a useful and tractable model for gregarious
 displacement, but it represents only one region of the broader
 behavioural space that **QuAnTeTrack** is intended to address.
 
-##### Frame sampling interval
+#### Frame sampling interval
 
 The temporal spacing between analysed frames was selected as a practical
 approximation to sheep step length, but real step timing is not constant
@@ -706,7 +706,7 @@ strength of downstream similarity and intersection metrics. The present
 results should therefore be interpreted as conditional on this specific
 temporal sampling choice.
 
-##### Landmarking and digitization effects
+#### Landmarking and digitization effects
 
 The trajectories analysed here depend on manual digitization of
 individual positions across frames. As in any landmark-based workflow,
@@ -716,7 +716,7 @@ orientation is difficult to interpret. Such uncertainty could affect
 reconstructed trajectories and, by extension, the pairwise metrics
 derived from them.
 
-##### Null model dependence
+#### Null model dependence
 
 Interpretation also depends partly on the selected null framework. In
 this vignette, significance was assessed relative to trajectories
@@ -727,7 +727,7 @@ of contrast with the observed data. The conclusions presented here
 therefore validate the performance of **QuAnTeTrack** under one explicit
 null scenario rather than exhaustively across all possible baselines.
 
-#### Future validation scenarios
+### Future validation scenarios
 
 Future work should expand validation across a wider range of movement
 contexts and biological systems. Particularly informative scenarios
@@ -752,9 +752,7 @@ when applied to fossil trackway data, where behavioural inference
 necessarily depends on linking trajectory geometry to well-supported
 modern analogues.
 
-------------------------------------------------------------------------
-
-### Reproducibility and supplementary material
+## Reproducibility and supplementary material
 
 The main analytical workflow is outlined in this vignette. Full code
 used for preprocessing, frame extraction, TPS conversion, simulation,
@@ -763,9 +761,7 @@ and figure generation is provided as supplementary material.
 \[Insert here how the supplementary code is organized, e.g. scripts,
 folders, external files, or repository links.\]
 
-------------------------------------------------------------------------
-
-### References
+## References
 
 Attanasi, A., Cavagna, A., Del Castello, L., Giardina, I., Jelić, A.,
 Melillo, S., Parisi, L., Pohl, O., Shen, E., & Viale, M. (2014).

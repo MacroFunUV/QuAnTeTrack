@@ -229,23 +229,23 @@ Statistical applications in genetics and molecular biology, 9(1).
 s1 <- simulate_track(PaluxyRiver, nsim = 5, model = "Directed")
 int1 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s1,
 origin.permutation = "None")
-#> 2026-03-21 22:02:40.792535 Iteration 1
+#> 2026-03-22 13:44:39.280614 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:40.803957 Iteration 2
+#> 2026-03-22 13:44:39.291047 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:40.815125 Iteration 3
+#> 2026-03-22 13:44:39.301324 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:40.826138 Iteration 4
+#> 2026-03-22 13:44:39.311611 Iteration 4
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:40.837087 Iteration 5
+#> 2026-03-22 13:44:39.321904 Iteration 5
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -303,46 +303,46 @@ print(int1)
 s2 <- simulate_track(PaluxyRiver, nsim = 5, model = "Constrained")
 int2 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s2,
 origin.permutation = "Min.Box")
-#> 2026-03-21 22:02:41.007941 Permutation 1
+#> 2026-03-22 13:44:39.492829 Permutation 1
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-03-21 22:02:41.116988 Permutation 2
+#> 2026-03-22 13:44:39.912303 Permutation 2
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-03-21 22:02:41.178518 Permutation 3
+#> 2026-03-22 13:44:39.958416 Permutation 3
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-03-21 22:02:41.5637 Permutation 4
+#> 2026-03-22 13:44:40.088431 Permutation 4
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-03-21 22:02:41.610575 Permutation 5
+#> 2026-03-22 13:44:40.139377 Permutation 5
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
 #> PERMUTATION COMPLETED
 #> ------------------------------------
 #>  
-#> 2026-03-21 22:02:41.622249 Iteration 1
+#> 2026-03-22 13:44:40.150102 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:41.637625 Iteration 2
+#> 2026-03-22 13:44:40.159978 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:41.648629 Iteration 3
+#> 2026-03-22 13:44:40.1698 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:41.659429 Iteration 4
+#> 2026-03-22 13:44:40.179654 Iteration 4
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:41.670203 Iteration 5
+#> 2026-03-22 13:44:40.189589 Iteration 5
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -400,46 +400,46 @@ print(int2)
 s3 <- simulate_track(PaluxyRiver, nsim = 5, model = "Unconstrained")
 int3 <- track_intersection(PaluxyRiver, test = TRUE, H1 = "Lower", sim = s3,
 origin.permutation = "Conv.Hull")
-#> 2026-03-21 22:02:41.810095 Permutation 1
+#> 2026-03-22 13:44:40.330726 Permutation 1
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
-#> 2026-03-21 22:02:41.857212 Permutation 2
+#> 2026-03-22 13:44:40.378907 Permutation 2
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
-#> 2026-03-21 22:02:41.90435 Permutation 3
+#> 2026-03-22 13:44:40.42706 Permutation 3
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
-#> 2026-03-21 22:02:41.95147 Permutation 4
+#> 2026-03-22 13:44:40.475682 Permutation 4
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
-#> 2026-03-21 22:02:41.998919 Permutation 5
+#> 2026-03-22 13:44:40.523649 Permutation 5
 #>  
 #> Permutation of coordinates at origin using Conv.Hull
 #> ------------------------------------
 #> PERMUTATION COMPLETED
 #> ------------------------------------
 #>  
-#> 2026-03-21 22:02:42.010726 Iteration 1
+#> 2026-03-22 13:44:40.53465 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.026001 Iteration 2
+#> 2026-03-22 13:44:40.549253 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.036782 Iteration 3
+#> 2026-03-22 13:44:40.55899 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.047606 Iteration 4
+#> 2026-03-22 13:44:40.568887 Iteration 4
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.058271 Iteration 5
+#> 2026-03-22 13:44:40.57873 Iteration 5
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -499,46 +499,46 @@ s4 <- simulate_track(sbMountTom, nsim = 5)
 #> Warning: `model` is NULL. Defaulting to 'Unconstrained'.
 int4 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s4,
 origin.permutation = "Min.Box")
-#> 2026-03-21 22:02:42.145285 Permutation 1
+#> 2026-03-22 13:44:40.655884 Permutation 1
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-03-21 22:02:42.14863 Permutation 2
+#> 2026-03-22 13:44:40.658499 Permutation 2
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-03-21 22:02:42.151418 Permutation 3
+#> 2026-03-22 13:44:40.660811 Permutation 3
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-03-21 22:02:42.155081 Permutation 4
+#> 2026-03-22 13:44:40.663671 Permutation 4
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
-#> 2026-03-21 22:02:42.158244 Permutation 5
+#> 2026-03-22 13:44:40.666245 Permutation 5
 #>  
 #> Permutation of coordinates at origin using Min.Box
 #> ------------------------------------
 #> PERMUTATION COMPLETED
 #> ------------------------------------
 #>  
-#> 2026-03-21 22:02:42.187405 Iteration 1
+#> 2026-03-22 13:44:40.693112 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.215858 Iteration 2
+#> 2026-03-22 13:44:40.7192 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.244147 Iteration 3
+#> 2026-03-22 13:44:40.745224 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.272333 Iteration 4
+#> 2026-03-22 13:44:40.771111 Iteration 4
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.300741 Iteration 5
+#> 2026-03-22 13:44:40.797098 Iteration 5
 #>  
 #> Intersect metric
 #> ------------------------------------
@@ -767,46 +767,46 @@ s5 <- simulate_track(sbMountTom, nsim = 5)
 area_origin <- matrix(c(50, 5, 10, 5, 10, 20, 50, 20), ncol = 2, byrow = TRUE)
 int5 <- track_intersection(sbMountTom, test = TRUE, H1 = "Higher", sim = s5,
 origin.permutation = "Custom", custom.coord = area_origin)
-#> 2026-03-21 22:02:42.423301 Permutation 1
+#> 2026-03-22 13:44:40.905118 Permutation 1
 #>  
 #> Permutation of coordinates at origin using Custom
 #> ------------------------------------
-#> 2026-03-21 22:02:42.426214 Permutation 2
+#> 2026-03-22 13:44:40.907344 Permutation 2
 #>  
 #> Permutation of coordinates at origin using Custom
 #> ------------------------------------
-#> 2026-03-21 22:02:42.428827 Permutation 3
+#> 2026-03-22 13:44:40.90944 Permutation 3
 #>  
 #> Permutation of coordinates at origin using Custom
 #> ------------------------------------
-#> 2026-03-21 22:02:42.431351 Permutation 4
+#> 2026-03-22 13:44:40.911556 Permutation 4
 #>  
 #> Permutation of coordinates at origin using Custom
 #> ------------------------------------
-#> 2026-03-21 22:02:42.433918 Permutation 5
+#> 2026-03-22 13:44:40.913648 Permutation 5
 #>  
 #> Permutation of coordinates at origin using Custom
 #> ------------------------------------
 #> PERMUTATION COMPLETED
 #> ------------------------------------
 #>  
-#> 2026-03-21 22:02:42.463379 Iteration 1
+#> 2026-03-22 13:44:40.939959 Iteration 1
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.492863 Iteration 2
+#> 2026-03-22 13:44:40.966333 Iteration 2
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.522329 Iteration 3
+#> 2026-03-22 13:44:40.992681 Iteration 3
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.55177 Iteration 4
+#> 2026-03-22 13:44:41.018554 Iteration 4
 #>  
 #> Intersect metric
 #> ------------------------------------
-#> 2026-03-21 22:02:42.581205 Iteration 5
+#> 2026-03-22 13:44:41.044506 Iteration 5
 #>  
 #> Intersect metric
 #> ------------------------------------

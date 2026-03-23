@@ -107,22 +107,25 @@ Under this framework, coordinated groups are expected to produce
 **structured covariation** in movement trajectories rather than chance
 resemblance, because alignment, attraction–repulsion, leadership, and
 neighbour-dependent interactions generate correlated motion through time
-(Couzin, Krause, James, Ruxton, & Franks, 2002; Sumpter, 2006; Vicsek,
-Czirók, Ben-Jacob, Cohen, & Shochet, 1995). This expectation is
-supported both empirically and theoretically. Empirical studies of
-collective movement consistently show that coordinated groups exhibit
-non-random similarity in direction, displacement, and movement dynamics,
-whereas theoretical and modelling approaches demonstrate that local
-interaction rules are sufficient to generate coherent, correlated motion
-at the group level (Attanasi et al., 2014; Cavagna et al., 2010;
-Herbert-Read et al., 2011; Katz, Tunström, Ioannou, Huepe, & Couzin,
-2011; Sumpter, 2006). In parallel, the movement-analysis literature
-explicitly treats correlated movement as a measurable signature of joint
-behaviour and emphasizes the importance of comparing observed similarity
-against null expectations in order to distinguish true coordination from
-chance resemblance or shared environmental constraints (Joo, Etienne,
-Bez, & Mahévas, 2018; Long, Nelson, Webb, & Gee, 2014; Spiegel, Leu,
-Sih, & Bull, 2016).
+([Couzin, Krause, James, Ruxton, & Franks, 2002](#ref-Couzin2002);
+[Sumpter, 2006](#ref-Sumpter2006); [Vicsek, Czirók, Ben-Jacob, Cohen, &
+Shochet, 1995](#ref-Vicsek1995)). This expectation is supported both
+empirically and theoretically. Empirical studies of collective movement
+consistently show that coordinated groups exhibit non-random similarity
+in direction, displacement, and movement dynamics, whereas theoretical
+and modelling approaches demonstrate that local interaction rules are
+sufficient to generate coherent, correlated motion at the group level
+([Attanasi et al., 2014](#ref-Attanasi2014); [Cavagna et al.,
+2010](#ref-Cavagna2010); [Herbert-Read et al.,
+2011](#ref-HerbertRead2011); [Katz, Tunström, Ioannou, Huepe, & Couzin,
+2011](#ref-Katz2011); [Sumpter, 2006](#ref-Sumpter2006)). In parallel,
+the movement-analysis literature explicitly treats correlated movement
+as a measurable signature of joint behaviour and emphasizes the
+importance of comparing observed similarity against null expectations in
+order to distinguish true coordination from chance resemblance or shared
+environmental constraints ([Joo, Etienne, Bez, & Mahévas,
+2018](#ref-Joo2018); [Long, Nelson, Webb, & Gee, 2014](#ref-Long2014);
+[Spiegel, Leu, Sih, & Bull, 2016](#ref-Spiegel2016)).
 
 A second expectation concerns **trajectory intersection patterns**,
 which should depend on the spatial geometry of the moving group. In
@@ -141,17 +144,19 @@ organization is associated with spatial segregation and reduced
 conflict. The same general pattern emerges from self-organization theory
 and collective-motion models, which show that interaction rules can
 produce either shared-path use or parallel spatial structuring depending
-on the geometry of neighbour interactions (Burger, Hittmeir, Ranetbauer,
-& Wolfram, 2016; Czaczkes, Grüter, & Ratnieks, 2015; Feliciani &
-Nishinari, 2016; Helbing & Vicsek, 1999; Mullick et al., 2022).
-Importantly, the literature does not always quantify geometric
-trajectory intersections directly. Instead, related measures such as
-**shared path use**, **trail fidelity**, **encounter rates**,
-**collisions**, or **collision-avoidance manoeuvres** are often used to
-describe the same underlying spatial principle. Even so, these measures
-support the general expectation that front–behind organization channels
-movement into shared space, whereas side-by-side organization segregates
-movement and reduces crossing or conflict.
+on the geometry of neighbour interactions ([Burger, Hittmeir,
+Ranetbauer, & Wolfram, 2016](#ref-Burger2016); [Czaczkes, Grüter, &
+Ratnieks, 2015](#ref-Czaczkes2015); [Feliciani & Nishinari,
+2016](#ref-Feliciani2016); [Helbing & Vicsek, 1999](#ref-Helbing1999);
+[Mullick et al., 2022](#ref-Mullick2022)). Importantly, the literature
+does not always quantify geometric trajectory intersections directly.
+Instead, related measures such as **shared path use**, **trail
+fidelity**, **encounter rates**, **collisions**, or
+**collision-avoidance manoeuvres** are often used to describe the same
+underlying spatial principle. Even so, these measures support the
+general expectation that front–behind organization channels movement
+into shared space, whereas side-by-side organization segregates movement
+and reduces crossing or conflict.
 
 Taken together, the literature supports the use of both **trajectory
 covariation** and **trajectory intersection structure** as biologically

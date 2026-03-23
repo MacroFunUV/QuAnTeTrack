@@ -58,14 +58,11 @@
 </nav><div class="container template-article">
 
 
-
-
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Evaluating trajectory-based signatures of coordinated movement with QuAnTeTrack</h1>
-                        <h4 data-toc-skip class="author">Humberto G.
-Ferrón</h4>
+                        <h4 data-toc-skip class="author">Humberto G. Ferrón</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/MacroFunUV/QuAnTeTrack/blob/master/vignettes/articles/QuAnTeTrack_validation_article.Rmd" class="external-link"><code>vignettes/articles/QuAnTeTrack_validation_article.Rmd</code></a></small>
@@ -118,59 +115,60 @@ pre[class] {
   max-height: 500px;
 }
 </style>
-<div class="section level2">
-<h2 id="rationale">Rationale<a class="anchor" aria-label="anchor" href="#rationale"></a>
+<div class="section level2" number="1">
+<h2 id="rationale">
+<span class="header-section-number">1</span> Rationale<a class="anchor" aria-label="anchor" href="#rationale"></a>
 </h2>
 <p>This vignette provides an initial empirical validation of the
-assumptions underlying <strong>QuAnTeTrack</strong> for detecting
-coordinated or gregarious movement from trackway-derived trajectories.
-The main goal is to test whether the movement patterns that the package
-is designed to detect are effectively recovered in a modern biological
-system with observable group behaviour.</p>
-<div class="section level3">
-<h3 id="assumptions-underlying-coordinated-movement-detection">Assumptions underlying coordinated movement detection<a class="anchor" aria-label="anchor" href="#assumptions-underlying-coordinated-movement-detection"></a>
+assumptions underlying <strong>QuAnTeTrack</strong> for detecting coordinated or
+gregarious movement from trackway-derived trajectories. The main goal is
+to test whether the movement patterns that the package is designed to
+detect are effectively recovered in a modern biological system with
+observable group behaviour.</p>
+<div class="section level3" number="1.1">
+<h3 id="assumptions-underlying-coordinated-movement-detection">
+<span class="header-section-number">1.1</span> Assumptions underlying coordinated movement detection<a class="anchor" aria-label="anchor" href="#assumptions-underlying-coordinated-movement-detection"></a>
 </h3>
 <p>QuAnTeTrack is based on the premise that coordinated group movement
 should leave non-random signatures in the geometry and spatial
 relationships of individual trajectories. In particular, two main
 expectations are considered.</p>
-<div class="section level4">
-<h4 id="trajectory-covariation">Trajectory covariation<a class="anchor" aria-label="anchor" href="#trajectory-covariation"></a>
+<div class="section level4" number="1.1.1">
+<h4 id="trajectory-covariation">
+<span class="header-section-number">1.1.1</span> Trajectory covariation<a class="anchor" aria-label="anchor" href="#trajectory-covariation"></a>
 </h4>
-<p>In coordinated groups, individual trajectories are expected to be
-more similar to one another than expected by chance. This similarity may
+<p>In coordinated groups, individual trajectories are expected to be more
+similar to one another than expected by chance. This similarity may
 arise because individuals move with shared orientation, similar turning
 behaviour, common displacement trends, or sustained spatial coordination
 through time.</p>
-<p>In <strong>QuAnTeTrack</strong>, trajectory similarity is quantified
-using two complementary distance-based approaches: <strong>Dynamic Time
-Warping (DTW)</strong> and <strong>Fréchet distance</strong>. Although
-both are designed to compare trajectories, they capture different
-aspects of path similarity and are therefore informative in different
-ways.</p>
-<p><strong>Dynamic Time Warping</strong> measures similarity between
-trajectories by allowing flexible matching between points along two
-paths, even when movement along those paths occurs at different local
-rates. In practice, DTW aligns trajectories by “warping” their
-progression so that sections that are geometrically similar can be
-matched even if one individual moved faster, slower, or paused relative
-to another. This makes DTW especially useful when two individuals follow
-broadly similar routes but differ in the timing or pacing of their
-movement. As a result, DTW is well suited to detecting coordinated
-movement patterns in which individuals share a common directional or
-geometric structure without requiring strict synchrony in position
-through time.</p>
-<p>By contrast, the <strong>Fréchet distance</strong> quantifies the
-similarity between two trajectories while preserving the sequential
-order of points along each path and explicitly considering the geometry
-of the full curve. It is often intuitively described as the minimum
-leash length required for a person and a dog to traverse two separate
-paths from start to finish without backtracking. Unlike simpler
-pointwise comparisons, the Fréchet distance is sensitive not only to
-proximity between trajectories but also to their overall shape and
-ordering in space. This makes it particularly useful for evaluating how
-similarly two individuals moved through the landscape when the geometric
-form of their paths is of primary interest.</p>
+<p>In <strong>QuAnTeTrack</strong>, trajectory similarity is quantified using two
+complementary distance-based approaches: <strong>Dynamic Time Warping (DTW)</strong>
+and <strong>Fréchet distance</strong>. Although both are designed to compare
+trajectories, they capture different aspects of path similarity and are
+therefore informative in different ways.</p>
+<p><strong>Dynamic Time Warping</strong> measures similarity between trajectories by
+allowing flexible matching between points along two paths, even when
+movement along those paths occurs at different local rates. In practice,
+DTW aligns trajectories by “warping” their progression so that sections
+that are geometrically similar can be matched even if one individual
+moved faster, slower, or paused relative to another. This makes DTW
+especially useful when two individuals follow broadly similar routes but
+differ in the timing or pacing of their movement. As a result, DTW is
+well suited to detecting coordinated movement patterns in which
+individuals share a common directional or geometric structure without
+requiring strict synchrony in position through time.</p>
+<p>By contrast, the <strong>Fréchet distance</strong> quantifies the similarity between
+two trajectories while preserving the sequential order of points along
+each path and explicitly considering the geometry of the full curve. It
+is often intuitively described as the minimum leash length required for
+a person and a dog to traverse two separate paths from start to finish
+without backtracking. Unlike simpler pointwise comparisons, the Fréchet
+distance is sensitive not only to proximity between trajectories but
+also to their overall shape and ordering in space. This makes it
+particularly useful for evaluating how similarly two individuals moved
+through the landscape when the geometric form of their paths is of
+primary interest.</p>
 <p>These two metrics are complementary. DTW is more tolerant of local
 differences in movement rate and is therefore particularly effective for
 identifying similar trajectory structure despite temporal mismatch.
@@ -180,16 +178,16 @@ deviations in trajectory shape. Used together, they provide a robust
 framework for evaluating whether trajectories within a group exhibit
 non-random covariation.</p>
 <p>In <strong>QuAnTeTrack</strong>, these distances are implemented in
-<code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code> and <code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code>
-functions.</p>
+<code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code> and <code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code> functions.</p>
 <p>By comparing the observed pairwise distances among trajectories with
-appropriate null expectations, <strong>QuAnTeTrack</strong> can be used
-to test whether individuals in a putatively coordinated group moved in a
-more similar way than expected under random or non-coordinated movement
+appropriate null expectations, <strong>QuAnTeTrack</strong> can be used to test
+whether individuals in a putatively coordinated group moved in a more
+similar way than expected under random or non-coordinated movement
 scenarios.</p>
 </div>
-<div class="section level4">
-<h4 id="non-random-trajectory-intersection-patterns">Non-random trajectory intersection patterns<a class="anchor" aria-label="anchor" href="#non-random-trajectory-intersection-patterns"></a>
+<div class="section level4" number="1.1.2">
+<h4 id="non-random-trajectory-intersection-patterns">
+<span class="header-section-number">1.1.2</span> Non-random trajectory intersection patterns<a class="anchor" aria-label="anchor" href="#non-random-trajectory-intersection-patterns"></a>
 </h4>
 <p>Coordinated movement may also produce characteristic patterns of
 trajectory intersection depending on the relative positioning of
@@ -197,137 +195,102 @@ individuals within the group.</p>
 <p>Two broad expectations are considered:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>Higher intersection frequencies in front-behind
-configurations</strong>, such as queueing, following, or pursuit-like
-movement.</li>
+<strong>Higher intersection frequencies in front-behind configurations</strong>,
+such as queueing, following, or pursuit-like movement.</li>
 <li>
-<strong>Lower intersection frequencies in side-by-side
-configurations</strong>, such as parallel displacement or coordinated
-lateral movement.</li>
+<strong>Lower intersection frequencies in side-by-side configurations</strong>,
+such as parallel displacement or coordinated lateral movement.</li>
 </ol>
-<p>In <strong>QuAnTeTrack</strong>, these patterns are evaluated through
-trajectory intersection counts using <code><a href="../reference/track_intersection.html">track_intersection()</a></code>
-function.</p>
+<p>In <strong>QuAnTeTrack</strong>, these patterns are evaluated through trajectory
+intersection counts using <code><a href="../reference/track_intersection.html">track_intersection()</a></code> function.</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="theoretical-and-empirical-support-for-coordinated-trajectory-patterns">Theoretical and empirical support for coordinated trajectory
-patterns<a class="anchor" aria-label="anchor" href="#theoretical-and-empirical-support-for-coordinated-trajectory-patterns"></a>
+<div class="section level3" number="1.2">
+<h3 id="theoretical-and-empirical-support-for-coordinated-trajectory-patterns">
+<span class="header-section-number">1.2</span> Theoretical and empirical support for coordinated trajectory patterns<a class="anchor" aria-label="anchor" href="#theoretical-and-empirical-support-for-coordinated-trajectory-patterns"></a>
 </h3>
 <p>These assumptions are consistent with a broad body of theory and
 empirical work in movement ecology, collective behaviour, and
 self-organized motion. Coordinated movement is generally understood as a
-form of <strong>non-independent displacement</strong>, in which
-individuals adjust headings, speeds, and turning behaviour in response
-to neighbours.</p>
+form of <strong>non-independent displacement</strong>, in which individuals adjust
+headings, speeds, and turning behaviour in response to neighbours.</p>
 <p>Under this framework, coordinated groups are expected to produce
-<strong>structured covariation</strong> in movement trajectories rather
-than chance resemblance, because alignment, attraction–repulsion,
-leadership, and neighbour-dependent interactions generate correlated
-motion through time <span class="citation">(Couzin, Krause, James,
-Ruxton, &amp; Franks, 2002; Sumpter, 2006; Vicsek, Czirók, Ben-Jacob,
-Cohen, &amp; Shochet, 1995)</span>. This expectation is supported both
-empirically and theoretically. Empirical studies of collective movement
-consistently show that coordinated groups exhibit non-random similarity
-in direction, displacement, and movement dynamics, whereas theoretical
-and modelling approaches demonstrate that local interaction rules are
-sufficient to generate coherent, correlated motion at the group level
-<span class="citation">(Attanasi et al., 2014; Cavagna et al., 2010;
-Herbert-Read et al., 2011; Katz, Tunström, Ioannou, Huepe, &amp; Couzin,
-2011; Sumpter, 2006)</span>. In parallel, the movement-analysis
-literature explicitly treats correlated movement as a measurable
-signature of joint behaviour and emphasizes the importance of comparing
-observed similarity against null expectations in order to distinguish
-true coordination from chance resemblance or shared environmental
-constraints <span class="citation">(Joo, Etienne, Bez, &amp; Mahévas,
-2018; Long, Nelson, Webb, &amp; Gee, 2014; Spiegel, Leu, Sih, &amp;
-Bull, 2016)</span>.</p>
-<p>A second expectation concerns <strong>trajectory intersection
-patterns</strong>, which should depend on the spatial geometry of the
-moving group. In <strong>front–behind</strong> configurations, such as
-queueing, following, or pursuit-like movement, individuals repeatedly
-use the same corridor or path axis, which should increase spatial
-overlap and the likelihood of trajectory intersections. By contrast, in
-<strong>side-by-side</strong> or laterally offset configurations,
-individuals maintain parallel or quasi-parallel displacement while
-preserving lateral spacing, which should reduce overlap and lower the
-probability of crossings. This expectation is likewise supported by both
-empirical observations and theoretical models. Across studies of
-coordinated movement and traffic-like collective systems, front–behind
-organization is associated with repeated use of shared space, whereas
-side-by-side or lane-like organization is associated with spatial
-segregation and reduced conflict. The same general pattern emerges from
-self-organization theory and collective-motion models, which show that
-interaction rules can produce either shared-path use or parallel spatial
-structuring depending on the geometry of neighbour interactions <span class="citation">(Burger, Hittmeir, Ranetbauer, &amp; Wolfram, 2016;
-Czaczkes, Grüter, &amp; Ratnieks, 2015; Feliciani &amp; Nishinari, 2016;
-Helbing &amp; Vicsek, 1999; Mullick et al., 2022)</span>. Importantly,
+<strong>structured covariation</strong> in movement trajectories rather than chance
+resemblance, because alignment, attraction–repulsion, leadership, and
+neighbour-dependent interactions generate correlated motion through time
+<span class="citation">(Couzin, Krause, James, Ruxton, &amp; Franks, 2002; Sumpter, 2006; Vicsek, Czirók, Ben-Jacob, Cohen, &amp; Shochet, 1995)</span>. This expectation is
+supported both empirically and theoretically. Empirical studies of
+collective movement consistently show that coordinated groups exhibit
+non-random similarity in direction, displacement, and movement dynamics,
+whereas theoretical and modelling approaches demonstrate that local
+interaction rules are sufficient to generate coherent, correlated motion
+at the group level <span class="citation">(Attanasi et al., 2014; Cavagna et al., 2010; Herbert-Read et al., 2011; Katz, Tunström, Ioannou, Huepe, &amp; Couzin, 2011; Sumpter, 2006)</span>. In parallel, the movement-analysis literature
+explicitly treats correlated movement as a measurable signature of joint
+behaviour and emphasizes the importance of comparing observed similarity
+against null expectations in order to distinguish true coordination from
+chance resemblance or shared environmental constraints <span class="citation">(Joo, Etienne, Bez, &amp; Mahévas, 2018; Long, Nelson, Webb, &amp; Gee, 2014; Spiegel, Leu, Sih, &amp; Bull, 2016)</span>.</p>
+<p>A second expectation concerns <strong>trajectory intersection patterns</strong>,
+which should depend on the spatial geometry of the moving group. In
+<strong>front–behind</strong> configurations, such as queueing, following, or
+pursuit-like movement, individuals repeatedly use the same corridor or
+path axis, which should increase spatial overlap and the likelihood of
+trajectory intersections. By contrast, in <strong>side-by-side</strong> or laterally
+offset configurations, individuals maintain parallel or quasi-parallel
+displacement while preserving lateral spacing, which should reduce
+overlap and lower the probability of crossings. This expectation is
+likewise supported by both empirical observations and theoretical
+models. Across studies of coordinated movement and traffic-like
+collective systems, front–behind organization is associated with
+repeated use of shared space, whereas side-by-side or lane-like
+organization is associated with spatial segregation and reduced
+conflict. The same general pattern emerges from self-organization theory
+and collective-motion models, which show that interaction rules can
+produce either shared-path use or parallel spatial structuring depending
+on the geometry of neighbour interactions <span class="citation">(Burger, Hittmeir, Ranetbauer, &amp; Wolfram, 2016; Czaczkes, Grüter, &amp; Ratnieks, 2015; Feliciani &amp; Nishinari, 2016; Helbing &amp; Vicsek, 1999; Mullick et al., 2022)</span>. Importantly,
 the literature does not always quantify geometric trajectory
-intersections directly. Instead, related measures such as <strong>shared
-path use</strong>, <strong>trail fidelity</strong>, <strong>encounter
-rates</strong>, <strong>collisions</strong>, or
-<strong>collision-avoidance manoeuvres</strong> are often used to
-describe the same underlying spatial principle. Even so, these measures
-support the general expectation that front–behind organization channels
-movement into shared space, whereas side-by-side organization segregates
-movement and reduces crossing or conflict.</p>
-<p>Taken together, the literature supports the use of both
-<strong>trajectory covariation</strong> and <strong>trajectory
-intersection structure</strong> as biologically meaningful signatures of
-coordinated movement. Covariation reflects the non-independence
-generated by alignment, following, and neighbour-mediated responses,
-whereas intersection patterns reflect the spatial geometry of relative
-positioning within the moving group. Considered jointly, these
-expectations provide a movement-ecology basis for evaluating whether a
-set of trajectories is consistent with coordinated, non-random
-collective displacement.</p>
+intersections directly. Instead, related measures such as <strong>shared path
+use</strong>, <strong>trail fidelity</strong>, <strong>encounter rates</strong>, <strong>collisions</strong>, or
+<strong>collision-avoidance manoeuvres</strong> are often used to describe the same
+underlying spatial principle. Even so, these measures support the
+general expectation that front–behind organization channels movement
+into shared space, whereas side-by-side organization segregates movement
+and reduces crossing or conflict.</p>
+<p>Taken together, the literature supports the use of both <strong>trajectory
+covariation</strong> and <strong>trajectory intersection structure</strong> as biologically
+meaningful signatures of coordinated movement. Covariation reflects the
+non-independence generated by alignment, following, and
+neighbour-mediated responses, whereas intersection patterns reflect the
+spatial geometry of relative positioning within the moving group.
+Considered jointly, these expectations provide a movement-ecology basis
+for evaluating whether a set of trajectories is consistent with
+coordinated, non-random collective displacement.</p>
 </div>
-<div class="section level3">
-<h3 id="aim-of-this-validation-vignette">Aim of this validation vignette<a class="anchor" aria-label="anchor" href="#aim-of-this-validation-vignette"></a>
+<div class="section level3" number="1.3">
+<h3 id="aim-of-this-validation-vignette">
+<span class="header-section-number">1.3</span> Aim of this validation vignette<a class="anchor" aria-label="anchor" href="#aim-of-this-validation-vignette"></a>
 </h3>
-<p>The primary aim of this validation vignette is to test whether
-<strong>QuAnTeTrack</strong> is able to recover the movement signals
-expected to characterize genuinely coordinated displacement in animals.
-This is a fundamental requirement of the package, because its analytical
-framework is based on the premise that coordinated movement leaves
-detectable structure in trajectory data. Demonstrating that these
-signals can be identified in an extant system known to exhibit
-coordinated group motion is therefore a necessary proof of concept for
-the biological validity of the approach.</p>
-<p>To address this, the movement of a herd of domestic sheep recorded
-under open-field conditions was analysed as a modern analogue of
-coordinated collective displacement. The validation pipeline examines
-whether the package can detect the main signatures predicted by theory
-and empirical studies of collective movement, namely:</p>
+<p>The primary aim of this validation vignette is to test whether <strong>QuAnTeTrack</strong> is able to recover the movement signals expected to characterize genuinely coordinated displacement in animals. This is a fundamental requirement of the package, because its analytical framework is based on the premise that coordinated movement leaves detectable structure in trajectory data. Demonstrating that these signals can be identified in an extant system known to exhibit coordinated group motion is therefore a necessary proof of concept for the biological validity of the approach.</p>
+<p>To address this, the movement of a herd of domestic sheep recorded under open-field conditions was analysed as a modern analogue of coordinated collective displacement. The validation pipeline examines whether the package can detect the main signatures predicted by theory and empirical studies of collective movement, namely:</p>
 <ul>
-<li>greater pairwise trajectory similarity than expected under null
-movement simulations,</li>
-<li>non-random trajectory intersection patterns consistent with
-coordinated spatial organization, and</li>
-<li>graph/network structures compatible with cohesive group
-displacement.</li>
+<li>greater pairwise trajectory similarity than expected under null movement simulations,</li>
+<li>non-random trajectory intersection patterns consistent with coordinated spatial organization, and</li>
+<li>graph/network structures compatible with cohesive group displacement.</li>
 </ul>
-<p>In this sense, the objective of the vignette is not simply to
-describe sheep movement, but to demonstrate that
-<strong>QuAnTeTrack</strong> can successfully identify the types of
-coordinated movement signals it was designed to measure. If these
-expected signatures are recovered in a modern group with biologically
-interpretable collective behaviour, this provides direct support for the
-package’s core assumptions and for its use as a tool to investigate
-coordinated movement in trajectory datasets.</p>
+<p>In this sense, the objective of the vignette is not simply to describe sheep movement, but to demonstrate that <strong>QuAnTeTrack</strong> can successfully identify the types of coordinated movement signals it was designed to measure. If these expected signatures are recovered in a modern group with biologically interpretable collective behaviour, this provides direct support for the package’s core assumptions and for its use as a tool to investigate coordinated movement in trajectory datasets.</p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="materials-and-methods">Materials and methods<a class="anchor" aria-label="anchor" href="#materials-and-methods"></a>
+<div class="section level2" number="2">
+<h2 id="materials-and-methods">
+<span class="header-section-number">2</span> Materials and methods<a class="anchor" aria-label="anchor" href="#materials-and-methods"></a>
 </h2>
-<div class="section level3">
-<h3 id="study-system">Study system<a class="anchor" aria-label="anchor" href="#study-system"></a>
+<div class="section level3" number="2.1">
+<h3 id="study-system">
+<span class="header-section-number">2.1</span> Study system<a class="anchor" aria-label="anchor" href="#study-system"></a>
 </h3>
-<p>The validation dataset was obtained from a herd of domestic sheep.
-Sheep provide a suitable modern analogue for this purpose because they
-are strongly gregarious animals that commonly move as cohesive groups
-under naturalistic conditions, without the need for experimental
-manipulation.</p>
+<p>The validation dataset was obtained from a herd of domestic sheep. Sheep
+provide a suitable modern analogue for this purpose because they are
+strongly gregarious animals that commonly move as cohesive groups under
+naturalistic conditions, without the need for experimental manipulation.</p>
 <p>This system is particularly useful for validation because multiple
 individuals can be tracked simultaneously from aerial footage,
 group-level displacement is readily identifiable, and spatial
@@ -340,51 +303,47 @@ validation, including clear group structure, minimal observer
 disturbance, and a realistic behavioural setting in which collective
 motion emerges naturally.</p>
 </div>
-<div class="section level3">
-<h3 id="data-acquisition">Data acquisition<a class="anchor" aria-label="anchor" href="#data-acquisition"></a>
+<div class="section level3" number="2.2">
+<h3 id="data-acquisition">
+<span class="header-section-number">2.2</span> Data acquisition<a class="anchor" aria-label="anchor" href="#data-acquisition"></a>
 </h3>
-<div class="section level4">
-<h4 id="filming-location-permissions-and-setup">Filming location, permissions and setup<a class="anchor" aria-label="anchor" href="#filming-location-permissions-and-setup"></a>
+<div class="section level4" number="2.2.1">
+<h4 id="filming-location-permissions-and-setup">
+<span class="header-section-number">2.2.1</span> Filming location, permissions and setup<a class="anchor" aria-label="anchor" href="#filming-location-permissions-and-setup"></a>
 </h4>
-<p>The herd was recorded in an open farm setting near Santa María de
-Navas, in the province of Badajoz (Extremadura, southwestern Spain).
-Recording was conducted with the explicit permission of the landowner
-and involved no disturbance, handling, or experimental manipulation of
-the animals. The study therefore conforms to the ethical requirements
-generally applicable to non-invasive observational research under field
+<p>The herd was recorded in an open farm setting near Santa María de Navas,
+in the province of Badajoz (Extremadura, southwestern Spain). Recording
+was conducted with the explicit permission of the landowner and involved
+no disturbance, handling, or experimental manipulation of the animals.
+The study therefore conforms to the ethical requirements generally
+applicable to non-invasive observational research under field
 conditions.</p>
-<p>The herd was filmed using a <strong>DJI Mini 4 Pro</strong> drone
-during a <strong>static aerial recording</strong> session. The camera
-was oriented <strong>orthogonally to the ground surface</strong> (i.e.,
-<strong>90° downward</strong>), allowing the animals to be recorded from
-a near-vertical perspective and minimizing perspective-related
-distortion during subsequent trajectory extraction. The drone remained
-in a stable hovering position throughout filming in order to reduce
-camera-induced variation in reconstructed paths. In addition, the DJI
-Mini 4 Pro integrates a stabilized camera/gimbal system designed to
-maintain image stability during flight.</p>
-<p>The analysed footage was recorded at a resolution of <strong>3840 ×
-2160 px</strong> and a frame rate of <strong>29.97 fps</strong>, using
-<strong>HEVC / H.265</strong> video encoding. The <strong>DJI Mini 4
-Pro</strong> is equipped with a <strong>1/1.3-inch CMOS sensor</strong>,
-a <strong>24 mm equivalent lens</strong>, and an <strong>f/1.7
-aperture</strong>. Embedded metadata visible in the recording indicate
-the following camera settings for the analysed footage: <strong>ISO
-100</strong>, <strong>shutter speed 1/2500 s</strong>,
-<strong>f/1.7</strong>, <strong>EV 0</strong>, and <strong>24 mm focal
-length equivalent</strong>. The same metadata also indicate a
-<strong>relative flight altitude of 56.4 m</strong> above the take-off
-point. The recording analysed here was acquired on <strong>11 April
-2025</strong> at <strong>13:42 local time</strong>.</p>
-<p>Weather conditions during filming were <strong>sunny</strong>, with
-<strong>very weak wind</strong> (light breeze, estimated at <strong>&lt;
-5 km h⁻¹</strong>). These conditions were favourable for aerial
-observation because they provided high visibility and limited drone
-drift during acquisition.</p>
-<p>Given the <strong>static nadir-view geometry</strong>, <strong>stable
-flight conditions</strong>, and <strong>onboard camera
-stabilization</strong>, the footage provides a suitable basis for
-extracting planar movement trajectories from the herd.</p>
+<p>The herd was filmed using a <strong>DJI Mini 4 Pro</strong> drone during a <strong>static
+aerial recording</strong> session. The camera was oriented <strong>orthogonally to
+the ground surface</strong> (i.e., <strong>90° downward</strong>), allowing the animals to
+be recorded from a near-vertical perspective and minimizing
+perspective-related distortion during subsequent trajectory extraction.
+The drone remained in a stable hovering position throughout filming in
+order to reduce camera-induced variation in reconstructed paths. In
+addition, the DJI Mini 4 Pro integrates a stabilized camera/gimbal
+system designed to maintain image stability during flight.</p>
+<p>The analysed footage was recorded at a resolution of <strong>3840 × 2160 px</strong>
+and a frame rate of <strong>29.97 fps</strong>, using <strong>HEVC / H.265</strong> video
+encoding. The <strong>DJI Mini 4 Pro</strong> is equipped with a <strong>1/1.3-inch CMOS
+sensor</strong>, a <strong>24 mm equivalent lens</strong>, and an <strong>f/1.7 aperture</strong>.
+Embedded metadata visible in the recording indicate the following camera
+settings for the analysed footage: <strong>ISO 100</strong>, <strong>shutter speed 1/2500
+s</strong>, <strong>f/1.7</strong>, <strong>EV 0</strong>, and <strong>24 mm focal length equivalent</strong>. The
+same metadata also indicate a <strong>relative flight altitude of 56.4 m</strong>
+above the take-off point. The recording analysed here was acquired on
+<strong>11 April 2025</strong> at <strong>13:42 local time</strong>.</p>
+<p>Weather conditions during filming were <strong>sunny</strong>, with <strong>very weak
+wind</strong> (light breeze, estimated at <strong>&lt; 5 km h⁻¹</strong>). These conditions
+were favourable for aerial observation because they provided high
+visibility and limited drone drift during acquisition.</p>
+<p>Given the <strong>static nadir-view geometry</strong>, <strong>stable flight conditions</strong>,
+and <strong>onboard camera stabilization</strong>, the footage provides a suitable
+basis for extracting planar movement trajectories from the herd.</p>
 <p>The animals moved in an open and topographically unconstrained
 environment. This is important because it reduces the possibility that
 movement geometry was artificially imposed by strong physical
@@ -401,84 +360,76 @@ geometry as the original recording.</p>
 </div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="from-video-to-trajectories">From video to trajectories<a class="anchor" aria-label="anchor" href="#from-video-to-trajectories"></a>
+<div class="section level3" number="2.3">
+<h3 id="from-video-to-trajectories">
+<span class="header-section-number">2.3</span> From video to trajectories<a class="anchor" aria-label="anchor" href="#from-video-to-trajectories"></a>
 </h3>
-<div class="section level4">
-<h4 id="frame-extraction">Frame extraction<a class="anchor" aria-label="anchor" href="#frame-extraction"></a>
+<div class="section level4" number="2.3.1">
+<h4 id="frame-extraction">
+<span class="header-section-number">2.3.1</span> Frame extraction<a class="anchor" aria-label="anchor" href="#frame-extraction"></a>
 </h4>
 <p>The original aerial recording was decomposed into a sequence of still
-frames prior to digitization. Frames were extracted at a rate of
-<strong>2 frames per second</strong>, corresponding to one image every
-<strong>0.5 s</strong>, and a total of <strong>77 frames</strong> were
-used in the validation workflow (Figure @ref(fig:mosaic-frames)).</p>
-<p>The temporal interval between sampled frames was selected to provide
-a practical approximation to the average step cycle of sheep, so that
+frames prior to digitization. Frames were extracted at a rate of <strong>2
+frames per second</strong>, corresponding to one image every <strong>0.5 s</strong>, and a
+total of <strong>77 frames</strong> were used in the validation workflow (Figure <a href="#fig:mosaic-frames">2.1</a>).</p>
+<p>The temporal interval between sampled frames was selected to provide a
+practical approximation to the average step cycle of sheep, so that
 consecutive positions would be spaced in a way broadly comparable to the
 stride-based sampling logic commonly used in trackway analyses. This
 choice was not intended to imply that sheep move with perfectly regular
 step timing, but rather to generate a biologically meaningful temporal
 discretization for an initial validation exercise.</p>
-<p>Because step timing and speed vary among individuals and through
-time, the selected sampling rate should be regarded as an informed
+<p>Because step timing and speed vary among individuals and through time,
+the selected sampling rate should be regarded as an informed
 approximation rather than an exact representation of step periodicity. A
 formal sensitivity analysis exploring the effect of alternative frame
 intervals would be desirable in future work. Nevertheless, the chosen
 interval provides a reasonable and operational starting point for
-evaluating whether <strong>QuAnTeTrack</strong> is able to recover
-non-random movement structure in a modern gregarious system.</p>
+evaluating whether <strong>QuAnTeTrack</strong> is able to recover non-random
+movement structure in a modern gregarious system.</p>
 <div class="figure" style="text-align: center">
-<img src="figures/mosaic_frames_20cm_300ppi.png" class="r-plt" alt="Sequential aerial frames extracted at 2 frames per second from the original recording, illustrating the collective displacement of the sheep herd and providing the basis for subsequent trajectory digitization." width="85%"><p class="caption">
-Sequential aerial frames extracted at 2 frames per second from the
-original recording, illustrating the collective displacement of the
-sheep herd and providing the basis for subsequent trajectory
-digitization.
+<span style="display:block;" id="fig:mosaic-frames"></span>
+<img src="figures/mosaic_frames_20cm_300ppi.png" alt="Sequential aerial frames extracted at 2 frames per second from the original recording, illustrating the collective displacement of the sheep herd and providing the basis for subsequent trajectory digitization." width="85%"><p class="caption">
+Figure 2.1: Sequential aerial frames extracted at 2 frames per second from the original recording, illustrating the collective displacement of the sheep herd and providing the basis for subsequent trajectory digitization.
 </p>
 </div>
 </div>
-<div class="section level4">
-<h4 id="digitization-and-tps-generation">Digitization and TPS generation<a class="anchor" aria-label="anchor" href="#digitization-and-tps-generation"></a>
+<div class="section level4" number="2.3.2">
+<h4 id="digitization-and-tps-generation">
+<span class="header-section-number">2.3.2</span> Digitization and TPS generation<a class="anchor" aria-label="anchor" href="#digitization-and-tps-generation"></a>
 </h4>
-<p>Each extracted frame was digitized in TPS format by recording the
-positions of individual sheep through the image sequence, with each
-landmark placed at the most anterior part of the head in order to
-provide a consistent positional reference across frames. These digitized
-positions were initially stored as individual TPS files and subsequently
-merged into a single consolidated trajectory file using a custom
-preprocessing routine.</p>
+<p>Each extracted frame was digitized in TPS format by recording the positions of individual sheep through the image sequence, with each landmark placed at the most anterior part of the head in order to provide a consistent positional reference across frames. These digitized positions were initially stored as individual TPS files and subsequently merged into a single consolidated trajectory file using a custom preprocessing routine.</p>
 <p>This custom step was designed to standardize formatting and ensure
-compatibility with downstream import into <strong>QuAnTeTrack</strong>.
-In particular, the routine safely handled different text encodings,
-parsed landmark blocks across files, extracted coordinate and image
-metadata, normalized decimal separators when necessary, replaced spaces
-in IDs with underscores, and concatenated all valid coordinates
-associated with each individual into a single TPS block.</p>
-<p>Trajectories represented by fewer than <strong>five recorded
-positions</strong> were excluded from the final merged dataset in order
-to avoid the inclusion of extremely short or poorly sampled tracks. A
-per-file summary table was also generated during preprocessing to
-document which digitized files were retained and which were
-discarded.</p>
-<p>The result of this stage was a single standardized TPS file
-containing all retained trajectories and ready for import into
-<strong>QuAnTeTrack</strong>.</p>
+compatibility with downstream import into <strong>QuAnTeTrack</strong>. In
+particular, the routine safely handled different text encodings, parsed
+landmark blocks across files, extracted coordinate and image metadata,
+normalized decimal separators when necessary, replaced spaces in IDs
+with underscores, and concatenated all valid coordinates associated with
+each individual into a single TPS block.</p>
+<p>Trajectories represented by fewer than <strong>five recorded positions</strong> were
+excluded from the final merged dataset in order to avoid the inclusion
+of extremely short or poorly sampled tracks. A per-file summary table
+was also generated during preprocessing to document which digitized
+files were retained and which were discarded.</p>
+<p>The result of this stage was a single standardized TPS file containing
+all retained trajectories and ready for import into <strong>QuAnTeTrack</strong>.</p>
 </div>
-<div class="section level4">
-<h4 id="trajectory-construction-in-quantetrack">Trajectory construction in QuAnTeTrack<a class="anchor" aria-label="anchor" href="#trajectory-construction-in-quantetrack"></a>
+<div class="section level4" number="2.3.3">
+<h4 id="trajectory-construction-in-quantetrack">
+<span class="header-section-number">2.3.3</span> Trajectory construction in QuAnTeTrack<a class="anchor" aria-label="anchor" href="#trajectory-construction-in-quantetrack"></a>
 </h4>
-<p>The merged TPS dataset was then imported into
-<strong>QuAnTeTrack</strong>, where the digitized coordinate sequences
-were converted into a <code>track</code> object containing both
-footprint-level information and reconstructed trajectories. Coordinates
-were transformed from image units into real-world units using a scaling
-factor of <strong>0.012 m per pixel</strong>, derived from the
-calibration procedure described above.</p>
-<p>The import procedure was configured using an alternating right/left
-side pattern of length <strong>81</strong>, matching the structure of
-the validation dataset used in the analysis script. In the resulting
-object, each retained sheep was represented as an individual trajectory
-within a common spatial framework, allowing all paths to be analysed
-jointly and compared directly.</p>
+<p>The merged TPS dataset was then imported into <strong>QuAnTeTrack</strong>, where the
+digitized coordinate sequences were converted into a <code>track</code> object
+containing both footprint-level information and reconstructed
+trajectories. Coordinates were transformed from image units into
+real-world units using a scaling factor of <strong>0.012 m per pixel</strong>,
+derived from the calibration procedure described above.</p>
+<p>The import procedure was configured using an alternating right/left side
+pattern of length <strong>81</strong>, matching the structure of the validation
+dataset used in the analysis script. In the resulting object, each
+retained sheep was represented as an individual trajectory within a
+common spatial framework, allowing all paths to be analysed jointly and
+compared directly.</p>
 <p>Not all individuals were necessarily visible throughout the full
 duration of the recording, and trajectory length was therefore not
 assumed to be identical across sheep. Incomplete trajectories were
@@ -488,29 +439,29 @@ removed before analysis.</p>
 <p>This procedure yielded a set of comparable, scaled movement paths for
 the herd, all expressed in the same spatial reference frame and linked
 to a common sequence of sampled video frames. A general overview of the
-extracted trajectories was then produced from the imported
-<code>track</code> object to visualize overall herd structure,
-trajectory geometry, and the first recorded position of each individual
-prior to formal analysis.</p>
+extracted trajectories was then produced from the imported <code>track</code>
+object to visualize overall herd structure, trajectory geometry, and the
+first recorded position of each individual prior to formal analysis.</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="quantetrack-analyses">QuAnTeTrack analyses<a class="anchor" aria-label="anchor" href="#quantetrack-analyses"></a>
+<div class="section level3" number="2.4">
+<h3 id="quantetrack-analyses">
+<span class="header-section-number">2.4</span> QuAnTeTrack analyses<a class="anchor" aria-label="anchor" href="#quantetrack-analyses"></a>
 </h3>
-<div class="section level4">
-<h4 id="similarity-metrics">Similarity metrics<a class="anchor" aria-label="anchor" href="#similarity-metrics"></a>
+<div class="section level4" number="2.4.1">
+<h4 id="similarity-metrics">
+<span class="header-section-number">2.4.1</span> Similarity metrics<a class="anchor" aria-label="anchor" href="#similarity-metrics"></a>
 </h4>
 <p>Trajectory similarity was evaluated using two complementary
-distance-based measures implemented in <strong>QuAnTeTrack</strong>:
-<strong>Dynamic Time Warping</strong> (<code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code>)
-and <strong>Fréchet distance</strong>
-(<code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code>). All similarity analyses were
-conducted under <strong>centroid superposition</strong>. This
-standardization centres trajectories prior to comparison and therefore
-focuses the analysis on path geometry rather than absolute position
-within the scene. The objective was to determine whether the observed
-sheep trajectories were more similar to one another than expected under
-the null model.</p>
+distance-based measures implemented in <strong>QuAnTeTrack</strong>: <strong>Dynamic Time
+Warping</strong> (<code><a href="../reference/simil_DTW_metric.html">simil_DTW_metric()</a></code>) and <strong>Fréchet distance</strong>
+(<code><a href="../reference/simil_Frechet_metric.html">simil_Frechet_metric()</a></code>). All similarity analyses were conducted
+under <strong>centroid superposition</strong>.
+This standardization centres trajectories prior to comparison and
+therefore focuses the analysis on path geometry rather than absolute
+position within the scene. The objective was to determine whether the
+observed sheep trajectories were more similar to one another than
+expected under the null model.</p>
 <p>For each metric, the workflow produced an observed pairwise distance
 matrix among trajectories together with the corresponding pairwise
 significance matrix obtained by comparison with the simulated dataset.
@@ -519,37 +470,36 @@ Euclidean distance between the first recorded positions of individuals,
 allowing the relationship between initial spatial proximity and
 subsequent path similarity to be explored.</p>
 </div>
-<div class="section level4">
-<h4 id="intersection-metrics">Intersection metrics<a class="anchor" aria-label="anchor" href="#intersection-metrics"></a>
+<div class="section level4" number="2.4.2">
+<h4 id="intersection-metrics">
+<span class="header-section-number">2.4.2</span> Intersection metrics<a class="anchor" aria-label="anchor" href="#intersection-metrics"></a>
 </h4>
-<p>Trajectory intersections were analysed using
-<code><a href="../reference/track_intersection.html">track_intersection()</a></code>. This analysis was designed to test
-whether the observed frequency and structure of intersections among
-trajectories were consistent with non-random spatial organization within
-the herd.</p>
+<p>Trajectory intersections were analysed using <code><a href="../reference/track_intersection.html">track_intersection()</a></code>.
+This analysis was designed to test whether the observed frequency and
+structure of intersections among trajectories were consistent with
+non-random spatial organization within the herd.</p>
 <p>Because different coordinated movement configurations can generate
 opposite intersection expectations, two alternative one-tailed
-hypotheses were evaluated separately. Under the <strong>Lower</strong>
-hypothesis, the analysis tests whether individuals show fewer
-intersections than expected under the null model, as might be expected
-for side-by-side or broadly parallel movement. Under the
-<strong>Higher</strong> hypothesis, the analysis tests whether
-individuals show more intersections than expected, as might occur in
-front–behind configurations, following behaviour, or queue-like
-displacement.</p>
+hypotheses were evaluated separately. Under the <strong>Lower</strong> hypothesis,
+the analysis tests whether individuals show fewer intersections than
+expected under the null model, as might be expected for side-by-side or
+broadly parallel movement. Under the <strong>Higher</strong> hypothesis, the analysis
+tests whether individuals show more intersections than expected, as
+might occur in front–behind configurations, following behaviour, or
+queue-like displacement.</p>
 <p>For each hypothesis, the workflow generated an observed intersection
 matrix together with the corresponding pairwise significance values.
 These results were subsequently related to pairwise geometric summaries
 in order to assess how intersection structure varied with spacing and
 relative configuration within the herd.</p>
 </div>
-<div class="section level4">
-<h4 id="null-expectations">Null expectations<a class="anchor" aria-label="anchor" href="#null-expectations"></a>
+<div class="section level4" number="2.4.3">
+<h4 id="null-expectations">
+<span class="header-section-number">2.4.3</span> Null expectations<a class="anchor" aria-label="anchor" href="#null-expectations"></a>
 </h4>
 <p>Observed trajectories were contrasted against null expectations
-generated with <code><a href="../reference/simulate_track.html">simulate_track()</a></code> under the
-<strong>Unconstrained</strong> model. A total of <strong>100
-simulations</strong> were produced and used as the reference
+generated with <code><a href="../reference/simulate_track.html">simulate_track()</a></code> under the <strong>Unconstrained</strong> model. A
+total of <strong>100 simulations</strong> were produced and used as the reference
 distribution for all downstream significance tests.</p>
 <p>This null model provided the baseline against which the observed DTW,
 Fréchet, and intersection statistics were evaluated. In practical terms,
@@ -559,25 +509,26 @@ object was used throughout the similarity and intersection analyses,
 ensuring that all significance estimates were derived from a common null
 framework.</p>
 </div>
-<div class="section level4">
-<h4 id="combined-evidence">Combined evidence<a class="anchor" aria-label="anchor" href="#combined-evidence"></a>
+<div class="section level4" number="2.4.4">
+<h4 id="combined-evidence">
+<span class="header-section-number">2.4.4</span> Combined evidence<a class="anchor" aria-label="anchor" href="#combined-evidence"></a>
 </h4>
-<p>To assess whether multiple metrics converged on the same pairwise
-signal of coordinated movement, combined significance analyses were
-performed using <code><a href="../reference/combined_prob.html">combined_prob()</a></code>. These analyses integrated
-evidence from several metrics for each pair of trajectories under the
-same directional intersection hypothesis.</p>
+<p>To assess whether multiple metrics converged on the same pairwise signal
+of coordinated movement, combined significance analyses were performed
+using <code><a href="../reference/combined_prob.html">combined_prob()</a></code>. These analyses integrated evidence from several
+metrics for each pair of trajectories under the same directional
+intersection hypothesis.</p>
 <p>Two centroid-based combinations were evaluated separately for the
-<strong>Lower</strong> and <strong>Higher</strong> hypotheses:
-<strong>Intersection + Fréchet</strong>, and <strong>Intersection +
-DTW</strong>. For each combination, the workflow generated combined
-pairwise significance matrices. These analyses were intended to evaluate
-whether support for non-random association became stronger when multiple
-trajectory-based signals were considered jointly rather than in
-isolation.</p>
+<strong>Lower</strong> and <strong>Higher</strong> hypotheses: <strong>Intersection + Fréchet</strong>, and
+<strong>Intersection + DTW</strong>. For each
+combination, the workflow generated combined pairwise significance
+matrices. These analyses were intended to evaluate whether support for
+non-random association became stronger when multiple trajectory-based
+signals were considered jointly rather than in isolation.</p>
 </div>
-<div class="section level4">
-<h4 id="exploratory-visualization-and-data-export">Exploratory visualization and data export<a class="anchor" aria-label="anchor" href="#exploratory-visualization-and-data-export"></a>
+<div class="section level4" number="2.4.5">
+<h4 id="exploratory-visualization-and-data-export">
+<span class="header-section-number">2.4.5</span> Exploratory visualization and data export<a class="anchor" aria-label="anchor" href="#exploratory-visualization-and-data-export"></a>
 </h4>
 <p>In addition to the main statistical outputs, the workflow generated a
 series of exploratory visualizations and auxiliary data products to
@@ -588,25 +539,23 @@ pairwise significance values to two geometric summaries: the Euclidean
 distance between the first recorded positions of each pair of
 individuals and the angular difference between their relative initial
 configuration and their mean movement heading.</p>
-<p>This angular difference provides a geometric proxy for relative pair
-configuration. Values close to 0° indicate that individuals are arranged
-approximately along the direction of travel, as expected for
-front–behind pairs, whereas values close to 90° indicate lateral offset
-relative to the movement axis, as expected for side-by-side pairs.</p>
-<p>These plots were used to visualize how pairwise support for
-coordinated movement varied as a function of both initial spacing and
-relative orientation within the herd.</p>
+<p>This angular difference provides a geometric proxy for relative pair configuration. Values close to 0° indicate that individuals are arranged approximately along the direction of travel, as expected for front–behind pairs, whereas values close to 90° indicate lateral offset relative to the movement axis, as expected for side-by-side pairs.</p>
+<p>These plots were used to visualize how pairwise support for coordinated
+movement varied as a function of both initial spacing and relative
+orientation within the herd.</p>
 </div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="results">Results<a class="anchor" aria-label="anchor" href="#results"></a>
+<div class="section level2" number="3">
+<h2 id="results">
+<span class="header-section-number">3</span> Results<a class="anchor" aria-label="anchor" href="#results"></a>
 </h2>
-<div class="section level3">
-<h3 id="general-trajectory-structure">General trajectory structure<a class="anchor" aria-label="anchor" href="#general-trajectory-structure"></a>
+<div class="section level3" number="3.1">
+<h3 id="general-trajectory-structure">
+<span class="header-section-number">3.1</span> General trajectory structure<a class="anchor" aria-label="anchor" href="#general-trajectory-structure"></a>
 </h3>
-<p>The reconstructed trajectories (Figure
-@ref(fig-overview-trajectories)) show a clearly coherent herd-level
+<p>The reconstructed trajectories (Figure <a href="#fig:fig-overview-trajectories">3.1</a>)
+show a clearly coherent herd-level
 displacement pattern, with most individuals moving along a common
 directional axis and maintaining a broadly aligned configuration through
 time. Rather than forming a dispersed or isotropic cloud, the paths are
@@ -622,26 +571,24 @@ trajectories occur toward the margins of the plot, but these generally
 follow the same large-scale directional trend as the main body of the
 herd.</p>
 <div class="figure" style="text-align: center">
-<img src="figures/AllTrajectories_semitransparent.png" class="r-plt" alt="General overview of the filmed herd and the extracted trajectories. Semi-transparent lines represent individual sheep paths reconstructed from the digitized frame sequence, and labels indicate the first recorded position of each trajectory." width="85%"><p class="caption">
-General overview of the filmed herd and the extracted trajectories.
-Semi-transparent lines represent individual sheep paths reconstructed
-from the digitized frame sequence, and labels indicate the first
-recorded position of each trajectory.
+<span style="display:block;" id="fig:fig-overview-trajectories"></span>
+<img src="figures/AllTrajectories_semitransparent.png" alt="General overview of the filmed herd and the extracted trajectories. Semi-transparent lines represent individual sheep paths reconstructed from the digitized frame sequence, and labels indicate the first recorded position of each trajectory." width="85%"><p class="caption">
+Figure 3.1: General overview of the filmed herd and the extracted trajectories. Semi-transparent lines represent individual sheep paths reconstructed from the digitized frame sequence, and labels indicate the first recorded position of each trajectory.
 </p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="trajectory-similarity">Trajectory similarity<a class="anchor" aria-label="anchor" href="#trajectory-similarity"></a>
+<div class="section level3" number="3.2">
+<h3 id="trajectory-similarity">
+<span class="header-section-number">3.2</span> Trajectory similarity<a class="anchor" aria-label="anchor" href="#trajectory-similarity"></a>
 </h3>
 <p>Both trajectory similarity metrics indicate that the observed sheep
 paths were more structured than expected under the unconstrained null
 model, although the form of this relationship differs between DTW and
 Fréchet distance.</p>
-<p>For <strong>DTW</strong> (Figure
-@ref(dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100)), pairwise
-trajectory distance increases overall with the Euclidean distance
-between the first recorded positions of individuals, but the
-relationship is broad and non-linear. The point cloud forms a
+<p>For <strong>DTW</strong> (Figure <a href="#fig:dtw-centroid-vs-euclidean-coloured-by-pvalRAW-nsim100">3.2</a>),
+pairwise trajectory distance increases overall with the
+Euclidean distance between the first recorded positions of individuals,
+but the relationship is broad and non-linear. The point cloud forms a
 wedge-shaped distribution in which short to intermediate initial
 distances are associated with a wide range of DTW values, whereas more
 distant pairs tend to show larger DTW distances. Low p-values are
@@ -649,116 +596,129 @@ distributed across much of the cloud, indicating widespread non-random
 similarity among observed trajectories relative to the simulated
 baseline.</p>
 <div class="figure" style="text-align: center">
-<img src="figures/dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png" class="r-plt" alt="Pairwise DTW distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model." width="85%"><p class="caption">
-Pairwise DTW distance plotted against the Euclidean distance between the
-first recorded positions of individuals. Point colour represents the raw
-pairwise significance value relative to the unconstrained null model.
+<span style="display:block;" id="fig:dtw-centroid-vs-euclidean-coloured-by-pvalRAW-nsim100"></span>
+<img src="figures/dtw_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png" alt="Pairwise DTW distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model." width="85%"><p class="caption">
+Figure 3.2: Pairwise DTW distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model.
 </p>
 </div>
-<p>For <strong>Fréchet distance</strong> (Figure
-@ref(frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100)), the
-relationship with initial Euclidean spacing is more regular and more
-nearly linear. As the initial separation between sheep increases,
-Fréchet distance also tends to increase, indicating that more spatially
-distant pairs generally occupy more distinct trajectory geometries.
-Compared with DTW, the Fréchet signal is more orderly and shows a
-broader gradient of p-values across the dataset.</p>
+<p>For <strong>Fréchet distance</strong> (Figure <a href="#fig:frechet-centroid-vs-euclidean-coloured-by-pvalRAW-nsim100">3.3</a>),
+the relationship with initial Euclidean
+spacing is more regular and more nearly linear. As the initial
+separation between sheep increases, Fréchet distance also tends to
+increase, indicating that more spatially distant pairs generally occupy
+more distinct trajectory geometries. Compared with DTW, the Fréchet
+signal is more orderly and shows a broader gradient of p-values across
+the dataset.</p>
 <div class="figure" style="text-align: center">
-<img src="figures/frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png" class="r-plt" alt="Pairwise Fréchet distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model." width="85%"><p class="caption">
-Pairwise Fréchet distance plotted against the Euclidean distance between
-the first recorded positions of individuals. Point colour represents the
-raw pairwise significance value relative to the unconstrained null
-model.
+<span style="display:block;" id="fig:frechet-centroid-vs-euclidean-coloured-by-pvalRAW-nsim100"></span>
+<img src="figures/frechet_centroid_vs_euclidean_coloured_by_pvalRAW_nsim100.png" alt="Pairwise Fréchet distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model." width="85%"><p class="caption">
+Figure 3.3: Pairwise Fréchet distance plotted against the Euclidean distance between the first recorded positions of individuals. Point colour represents the raw pairwise significance value relative to the unconstrained null model.
 </p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="intersection-structure">Intersection structure<a class="anchor" aria-label="anchor" href="#intersection-structure"></a>
+<div class="section level3" number="3.3">
+<h3 id="intersection-structure">
+<span class="header-section-number">3.3</span> Intersection structure<a class="anchor" aria-label="anchor" href="#intersection-structure"></a>
 </h3>
 <p>The intersection analyses reveal different patterns under the two
 directional hypotheses.</p>
-<p>Under the <strong>Higher</strong> hypothesis (Figure
-@ref(scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100)), the
-lowest p-values are concentrated mainly among dyads with small angular
-differences, across a relatively broad range of Euclidean distances.
-This indicates that elevated intersection structure is associated
-primarily with pairs whose relative configuration is aligned with the
-main direction of displacement (Figure X).</p>
+<p>Under the <strong>Higher</strong> hypothesis (Figure <a href="#fig:scatter-angleDelta-vs-euclid-pvalueRAW-ALL-H1-Higher-nsim100">3.4</a>),
+the lowest p-values are concentrated
+mainly among dyads with small angular differences, across a relatively
+broad range of Euclidean distances. This indicates that elevated
+intersection structure is associated primarily with pairs whose relative
+configuration is aligned with the main direction of displacement (Figure
+X).</p>
 <div class="figure" style="text-align: center">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100.png" class="r-plt" alt="Pairwise significance for the Higher-intersection hypothesis plotted against initial Euclidean spacing and angular difference." width="85%"><p class="caption">
-Pairwise significance for the Higher-intersection hypothesis plotted
-against initial Euclidean spacing and angular difference.
+<span style="display:block;" id="fig:scatter-angleDelta-vs-euclid-pvalueRAW-ALL-H1-Higher-nsim100"></span>
+<img src="figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Higher_nsim100.png" alt="Pairwise significance for the Higher-intersection hypothesis plotted against initial Euclidean spacing and angular difference." width="85%"><p class="caption">
+Figure 3.4: Pairwise significance for the Higher-intersection hypothesis plotted against initial Euclidean spacing and angular difference.
 </p>
 </div>
-<p>Under the <strong>Lower</strong> hypothesis (Figure
-@ref(scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100)), the
-signal is weaker, but the lowest p-values tend to occur among nearby
-dyads with larger angular differences. In other words, reduced
-intersection structure is most evident among some pairs that were both
-spatially close and more laterally arranged relative to their mean
-direction of movement (Figure X).</p>
+<p>Under the <strong>Lower</strong> hypothesis (Figure <a href="#fig:scatter-angleDelta-vs-euclid-pvalueRAW-ALL-H1-Lower-nsim100">3.5</a>),
+the signal is weaker, but the lowest
+p-values tend to occur among nearby dyads with larger angular
+differences. In other words, reduced intersection structure is most
+evident among some pairs that were both spatially close and more
+laterally arranged relative to their mean direction of movement (Figure
+X).</p>
 <div class="figure" style="text-align: center">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100.png" class="r-plt" alt="Pairwise significance for the Lower-intersection hypothesis plotted against initial Euclidean spacing and angular difference." width="85%"><p class="caption">
-Pairwise significance for the Lower-intersection hypothesis plotted
-against initial Euclidean spacing and angular difference.
+<span style="display:block;" id="fig:scatter-angleDelta-vs-euclid-pvalueRAW-ALL-H1-Lower-nsim100"></span>
+<img src="figures/scatter_angleDelta_vs_euclid_pvalueRAW_ALL_H1-Lower_nsim100.png" alt="Pairwise significance for the Lower-intersection hypothesis plotted against initial Euclidean spacing and angular difference." width="85%"><p class="caption">
+Figure 3.5: Pairwise significance for the Lower-intersection hypothesis plotted against initial Euclidean spacing and angular difference.
 </p>
 </div>
 <p>Taken together, the two intersection analyses show that intersection
 structure varies systematically with pairwise geometric configuration
 rather than being randomly distributed across the herd.</p>
 </div>
-<div class="section level3">
-<h3 id="combined-metrics">Combined metrics<a class="anchor" aria-label="anchor" href="#combined-metrics"></a>
+<div class="section level3" number="3.4">
+<h3 id="combined-metrics">
+<span class="header-section-number">3.4</span> Combined metrics<a class="anchor" aria-label="anchor" href="#combined-metrics"></a>
 </h3>
-<p>The combined analyses integrate trajectory similarity and
-intersection information and therefore provide a more specific view of
-pairwise movement structure.</p>
-<p>For the <strong>DTW-based combinations</strong> (Figures
-@ref(combined-higher-dtw) and @ref(combined-lower-dtw))), the overall
-pattern remains strongly influenced by the widespread DTW similarity
-signal. Under the <strong>Higher</strong> hypothesis, the lowest
-combined p-values are still concentrated mainly among dyads with small
-angular differences, whereas under the <strong>Lower</strong> hypothesis
-the contrast is less pronounced.</p>
-<p><img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Higher_nsim100.gif" id="fig:combined-higher-dtw" style="width:85.0%" alt="Combined significance for Intersection + DTW under the Higher-intersection hypothesis."><img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Lower_nsim100.gif" id="fig:combined-lower-dtw" style="width:85.0%" alt="Combined significance for Intersection + DTW under the Lower-intersection hypothesis."></p>
-<p>For the <strong>Fréchet-based combinations</strong> (Figures
-@ref(combined-higher-frechet) and @ref(combined-lower-frechet))), the
-effect of adding intersection information is more clearly structured.
-Under the <strong>Higher</strong> hypothesis, the strongest combined
-support is concentrated among dyads with low angular differences. Under
-the <strong>Lower</strong> hypothesis, stronger support occurs mainly
-among nearby dyads with broader angular configurations.</p>
-<div class="float" id="fig:combined-higher-frechet">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Higher_nsim100.gif" style="width:85.0%" alt="Combined significance for Intersection + Frechet distance under the Higher-intersection hypothesis."><div class="figcaption">Combined significance for Intersection + Frechet
-distance under the Higher-intersection hypothesis.</div>
+<p>The combined analyses integrate trajectory similarity and intersection
+information and therefore provide a more specific view of pairwise
+movement structure.</p>
+<p>For the <strong>DTW-based combinations</strong>, the overall pattern remains strongly
+influenced by the widespread DTW similarity signal. Under the <strong>Higher</strong>
+hypothesis (Figure <a href="#fig:combined-higher-dtw">3.6</a>), the lowest combined p-values are still concentrated mainly
+among dyads with small angular differences, whereas under the <strong>Lower</strong>
+hypothesis (Figure <a href="#fig:combined-lower-dtw">3.7</a>), the contrast is less pronounced.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:combined-higher-dtw"></span>
+<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Higher_nsim100.gif" alt="Combined significance for Intersection + DTW under the Higher-intersection hypothesis." width="85%"><p class="caption">
+Figure 3.6: Combined significance for Intersection + DTW under the Higher-intersection hypothesis.
+</p>
 </div>
-<div class="float" id="fig:combined-lower-frechet">
-<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Lower_nsim100.gif" style="width:85.0%" alt="Combined significance for Intersection + Frechet distance under the Lower-intersection hypothesis."><div class="figcaption">Combined significance for Intersection + Frechet
-distance under the Lower-intersection hypothesis.</div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:combined-lower-dtw"></span>
+<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BDTW_Centroid_H1-Lower_nsim100.gif" alt="Combined significance for Intersection + DTW under the Lower-intersection hypothesis." width="85%"><p class="caption">
+Figure 3.7: Combined significance for Intersection + DTW under the Lower-intersection hypothesis.
+</p>
+</div>
+<p>For the <strong>Fréchet-based combinations</strong>, the effect of adding
+intersection information is more clearly structured. Under the
+<strong>Higher</strong> hypothesis (Figure <a href="#fig:combined-higher-frechet">3.8</a>), the strongest combined support is concentrated
+among dyads with low angular differences. Under the <strong>Lower</strong>
+hypothesis (Figure <a href="#fig:combined-lower-frechet">3.9</a>), stronger support occurs mainly among nearby dyads with
+broader angular configurations.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:combined-higher-frechet"></span>
+<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Higher_nsim100.gif" alt="Combined significance for Intersection + Fréchet distance under the Higher-intersection hypothesis." width="85%"><p class="caption">
+Figure 3.8: Combined significance for Intersection + Fréchet distance under the Higher-intersection hypothesis.
+</p>
+</div>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:combined-lower-frechet"></span>
+<img src="figures/scatter_angleDelta_vs_euclid_pvalueCOMBINED_RAW_Intersection%2BFrechet_Centroid_H1-Lower_nsim100.gif" alt="Combined significance for Intersection + Fréchet distance under the Lower-intersection hypothesis." width="85%"><p class="caption">
+Figure 3.9: Combined significance for Intersection + Fréchet distance under the Lower-intersection hypothesis.
+</p>
 </div>
 <p>Overall, the combined analyses show that pairwise support for
 coordinated movement is not uniformly distributed across the herd, but
 instead varies with both initial spacing and relative configuration.</p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="discussion-and-future-directions">Discussion and future directions<a class="anchor" aria-label="anchor" href="#discussion-and-future-directions"></a>
+<div class="section level2" number="4">
+<h2 id="discussion-and-future-directions">
+<span class="header-section-number">4</span> Discussion and future directions<a class="anchor" aria-label="anchor" href="#discussion-and-future-directions"></a>
 </h2>
-<div class="section level3">
-<h3 id="what-this-validation-supports">What this validation supports<a class="anchor" aria-label="anchor" href="#what-this-validation-supports"></a>
+<div class="section level3" number="4.1">
+<h3 id="what-this-validation-supports">
+<span class="header-section-number">4.1</span> What this validation supports<a class="anchor" aria-label="anchor" href="#what-this-validation-supports"></a>
 </h3>
 <p>This validation provides an initial empirical test of whether the
-assumptions implemented in <strong>QuAnTeTrack</strong> recover
-biologically meaningful movement patterns in a modern gregarious system.
-Overall, the results support that conclusion.</p>
-<p>First, the general trajectory overview shows that the sheep herd did
-not move as a set of independent, spatially unstructured paths. Instead,
-the trajectories display clear herd-level cohesion, a shared axis of
+assumptions implemented in <strong>QuAnTeTrack</strong> recover biologically
+meaningful movement patterns in a modern gregarious system. Overall, the
+results support that conclusion.</p>
+<p>First, the general trajectory overview shows that the sheep herd did not
+move as a set of independent, spatially unstructured paths. Instead, the
+trajectories display clear herd-level cohesion, a shared axis of
 displacement, and substantial overlap in directional space. This
 provides the basic biological context in which one would expect
 non-random covariation among trajectories.</p>
-<p>Second, both DTW and Fréchet analyses recovered widespread evidence
-of trajectory similarity exceeding null expectations. This supports the
+<p>Second, both DTW and Fréchet analyses recovered widespread evidence of
+trajectory similarity exceeding null expectations. This supports the
 first major assumption of the package: that coordinated movement should
 generate path covariation detectable through trajectory similarity
 metrics. At the same time, the two metrics did not behave identically.
@@ -767,15 +727,15 @@ Fréchet yielded a more structured geometric gradient. This difference is
 encouraging rather than problematic, because it suggests that the two
 metrics capture complementary aspects of coordinated movement rather
 than redundant information.</p>
-<p>Third, the intersection analyses support the second major assumption
-of the package: that different relative spatial arrangements can produce
+<p>Third, the intersection analyses support the second major assumption of
+the package: that different relative spatial arrangements can produce
 contrasting intersection patterns. Pairs aligned more closely with the
 direction of displacement tended to show stronger support under the
-<strong>Higher</strong> intersection hypothesis, whereas nearby
-laterally arranged pairs tended to show comparatively more support under
-the <strong>Lower</strong> hypothesis. Although the latter signal was
-weaker, the overall direction of the pattern is biologically coherent
-and matches the behavioural expectations laid out in the rationale.</p>
+<strong>Higher</strong> intersection hypothesis, whereas nearby laterally arranged
+pairs tended to show comparatively more support under the <strong>Lower</strong>
+hypothesis. Although the latter signal was weaker, the overall direction
+of the pattern is biologically coherent and matches the behavioural
+expectations laid out in the rationale.</p>
 <p>Fourth, the combined analyses demonstrate the practical value of
 integrating trajectory similarity with intersection structure.
 Similarity alone can identify pairs moving in comparable ways, but
@@ -785,41 +745,43 @@ front–behind versus side-by-side associations. In this dataset, that
 integrative signal was especially clear in the Fréchet-based
 combinations, where intersection information sharpened the geometric
 structure of the result.</p>
-<p>Taken together, these results show that <strong>QuAnTeTrack</strong>
-does not merely detect that movement is non-random. Rather, it recovers
-multiple, behaviourally interpretable signatures of coordinated group
-displacement and uses them in a way that is consistent with the known
-logic of collective movement in a modern herd.</p>
+<p>Taken together, these results show that <strong>QuAnTeTrack</strong> does not merely
+detect that movement is non-random. Rather, it recovers multiple,
+behaviourally interpretable signatures of coordinated group displacement
+and uses them in a way that is consistent with the known logic of
+collective movement in a modern herd.</p>
 </div>
-<div class="section level3">
-<h3 id="current-limitations">Current limitations<a class="anchor" aria-label="anchor" href="#current-limitations"></a>
+<div class="section level3" number="4.2">
+<h3 id="current-limitations">
+<span class="header-section-number">4.2</span> Current limitations<a class="anchor" aria-label="anchor" href="#current-limitations"></a>
 </h3>
 <p>Several limitations should nevertheless be acknowledged.</p>
-<div class="section level4">
-<h4 id="biological-scope">Biological scope<a class="anchor" aria-label="anchor" href="#biological-scope"></a>
+<div class="section level4" number="4.2.1">
+<h4 id="biological-scope">
+<span class="header-section-number">4.2.1</span> Biological scope<a class="anchor" aria-label="anchor" href="#biological-scope"></a>
 </h4>
-<p>This validation is based on a single extant study system and
-therefore does not yet capture the full diversity of coordinated
-movement patterns that may occur across taxa, ecological settings, or
-locomotor modes. A domestic sheep herd is a useful and tractable model
-for gregarious displacement, but it represents only one region of the
-broader behavioural space that <strong>QuAnTeTrack</strong> is intended
-to address.</p>
+<p>This validation is based on a single extant study system and therefore
+does not yet capture the full diversity of coordinated movement patterns
+that may occur across taxa, ecological settings, or locomotor modes. A
+domestic sheep herd is a useful and tractable model for gregarious
+displacement, but it represents only one region of the broader
+behavioural space that <strong>QuAnTeTrack</strong> is intended to address.</p>
 </div>
-<div class="section level4">
-<h4 id="frame-sampling-interval">Frame sampling interval<a class="anchor" aria-label="anchor" href="#frame-sampling-interval"></a>
+<div class="section level4" number="4.2.2">
+<h4 id="frame-sampling-interval">
+<span class="header-section-number">4.2.2</span> Frame sampling interval<a class="anchor" aria-label="anchor" href="#frame-sampling-interval"></a>
 </h4>
-<p>The temporal spacing between analysed frames was selected as a
-practical approximation to sheep step length, but real step timing is
-not constant among individuals or through time. Different frame
-extraction intervals could alter trajectory density, inferred path
-geometry, and the relative strength of downstream similarity and
-intersection metrics. The present results should therefore be
-interpreted as conditional on this specific temporal sampling
-choice.</p>
+<p>The temporal spacing between analysed frames was selected as a practical
+approximation to sheep step length, but real step timing is not constant
+among individuals or through time. Different frame extraction intervals
+could alter trajectory density, inferred path geometry, and the relative
+strength of downstream similarity and intersection metrics. The present
+results should therefore be interpreted as conditional on this specific
+temporal sampling choice.</p>
 </div>
-<div class="section level4">
-<h4 id="landmarking-and-digitization-effects">Landmarking and digitization effects<a class="anchor" aria-label="anchor" href="#landmarking-and-digitization-effects"></a>
+<div class="section level4" number="4.2.3">
+<h4 id="landmarking-and-digitization-effects">
+<span class="header-section-number">4.2.3</span> Landmarking and digitization effects<a class="anchor" aria-label="anchor" href="#landmarking-and-digitization-effects"></a>
 </h4>
 <p>The trajectories analysed here depend on manual digitization of
 individual positions across frames. As in any landmark-based workflow,
@@ -829,22 +791,23 @@ orientation is difficult to interpret. Such uncertainty could affect
 reconstructed trajectories and, by extension, the pairwise metrics
 derived from them.</p>
 </div>
-<div class="section level4">
-<h4 id="null-model-dependence">Null model dependence<a class="anchor" aria-label="anchor" href="#null-model-dependence"></a>
+<div class="section level4" number="4.2.4">
+<h4 id="null-model-dependence">
+<span class="header-section-number">4.2.4</span> Null model dependence<a class="anchor" aria-label="anchor" href="#null-model-dependence"></a>
 </h4>
 <p>Interpretation also depends partly on the selected null framework. In
 this vignette, significance was assessed relative to trajectories
-simulated under the <strong>Unconstrained</strong> model. This provides
-a reasonable first baseline, but alternative null structures could
-capture different aspects of non-coordinated movement and might lead to
-different levels of contrast with the observed data. The conclusions
-presented here therefore validate the performance of
-<strong>QuAnTeTrack</strong> under one explicit null scenario rather
-than exhaustively across all possible baselines.</p>
+simulated under the <strong>Unconstrained</strong> model. This provides a reasonable
+first baseline, but alternative null structures could capture different
+aspects of non-coordinated movement and might lead to different levels
+of contrast with the observed data. The conclusions presented here
+therefore validate the performance of <strong>QuAnTeTrack</strong> under one explicit
+null scenario rather than exhaustively across all possible baselines.</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="future-validation-scenarios">Future validation scenarios<a class="anchor" aria-label="anchor" href="#future-validation-scenarios"></a>
+<div class="section level3" number="4.3">
+<h3 id="future-validation-scenarios">
+<span class="header-section-number">4.3</span> Future validation scenarios<a class="anchor" aria-label="anchor" href="#future-validation-scenarios"></a>
 </h3>
 <p>Future work should expand validation across a wider range of movement
 contexts and biological systems. Particularly informative scenarios
@@ -852,8 +815,8 @@ would include: - side-by-side parallel movement, - queueing or following
 behaviour, - pursuit dynamics, - groups with explicit leadership
 structure, - taxa with different body sizes or locomotor modes, - and
 settings with stronger environmental or topographic constraints.</p>
-<p>Additional sensitivity analyses would also strengthen the framework.
-In particular, it would be valuable to evaluate: - the effect of frame
+<p>Additional sensitivity analyses would also strengthen the framework. In
+particular, it would be valuable to evaluate: - the effect of frame
 extraction interval, - the effect of landmarking uncertainty, - the
 effect of incomplete trajectories, - the effect of sample size and group
 density, - and the performance of alternative null models.</p>
@@ -862,14 +825,15 @@ across multiple extant systems that differ predictably in their style of
 coordination. Such comparisons would make it possible to determine
 whether specific combinations of similarity and intersection signals are
 consistently associated with particular collective configurations. This
-would substantially improve the interpretive power of
-<strong>QuAnTeTrack</strong> when applied to fossil trackway data, where
-behavioural inference necessarily depends on linking trajectory geometry
-to well-supported modern analogues.</p>
+would substantially improve the interpretive power of <strong>QuAnTeTrack</strong>
+when applied to fossil trackway data, where behavioural inference
+necessarily depends on linking trajectory geometry to well-supported
+modern analogues.</p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="reproducibility-and-supplementary-material">Reproducibility and supplementary material<a class="anchor" aria-label="anchor" href="#reproducibility-and-supplementary-material"></a>
+<div class="section level2" number="5">
+<h2 id="reproducibility-and-supplementary-material">
+<span class="header-section-number">5</span> Reproducibility and supplementary material<a class="anchor" aria-label="anchor" href="#reproducibility-and-supplementary-material"></a>
 </h2>
 <p>The main analytical workflow is outlined in this vignette. Full code
 used for preprocessing, frame extraction, TPS conversion, simulation,
@@ -878,92 +842,53 @@ and figure generation is provided as supplementary material.</p>
 folders, external files, or repository links.]</p>
 </div>
 <div class="section level2">
-<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-Attanasi2014" class="csl-entry">
-Attanasi, A., Cavagna, A., Del Castello, L., Giardina, I., Jelić, A.,
-Melillo, S., … Viale, M. (2014). Information transfer and behavioural
-inertia in starling flocks. <em>Nature Physics</em>, <em>10</em>(9),
-691–696. <a href="https://doi.org/10.1038/nphys3035" class="external-link">https://doi.org/10.1038/nphys3035</a>
+Attanasi, A., Cavagna, A., Del Castello, L., Giardina, I., Jelić, A., Melillo, S., … Viale, M. (2014). Information transfer and behavioural inertia in starling flocks. <em>Nature Physics</em>, <em>10</em>(9), 691–696. <a href="https://doi.org/10.1038/nphys3035" class="external-link">https://doi.org/10.1038/nphys3035</a>
 </div>
 <div id="ref-Burger2016" class="csl-entry">
-Burger, M., Hittmeir, S., Ranetbauer, H., &amp; Wolfram, M.-T. (2016).
-Lane formation by side-stepping. <em>SIAM Journal on Mathematical
-Analysis</em>, <em>48</em>(2), 981–1005. <a href="https://doi.org/10.1137/15M1033174" class="external-link">https://doi.org/10.1137/15M1033174</a>
+Burger, M., Hittmeir, S., Ranetbauer, H., &amp; Wolfram, M.-T. (2016). Lane formation by side-stepping. <em>SIAM Journal on Mathematical Analysis</em>, <em>48</em>(2), 981–1005. <a href="https://doi.org/10.1137/15M1033174" class="external-link">https://doi.org/10.1137/15M1033174</a>
 </div>
 <div id="ref-Cavagna2010" class="csl-entry">
-Cavagna, A., Cimarelli, A., Giardina, I., Parisi, G., Santagati, R.,
-Stefanini, F., &amp; Viale, M. (2010). Scale-free correlations in
-starling flocks. <em>Proceedings of the National Academy of Sciences of
-the United States of America</em>, <em>107</em>(26), 11865–11870. <a href="https://doi.org/10.1073/pnas.1005766107" class="external-link">https://doi.org/10.1073/pnas.1005766107</a>
+Cavagna, A., Cimarelli, A., Giardina, I., Parisi, G., Santagati, R., Stefanini, F., &amp; Viale, M. (2010). Scale-free correlations in starling flocks. <em>Proceedings of the National Academy of Sciences of the United States of America</em>, <em>107</em>(26), 11865–11870. <a href="https://doi.org/10.1073/pnas.1005766107" class="external-link">https://doi.org/10.1073/pnas.1005766107</a>
 </div>
 <div id="ref-Couzin2002" class="csl-entry">
-Couzin, I. D., Krause, J., James, R., Ruxton, G. D., &amp; Franks, N. R.
-(2002). Collective memory and spatial sorting in animal groups.
-<em>Journal of Theoretical Biology</em>, <em>218</em>(1), 1–11. <a href="https://doi.org/10.1006/jtbi.2002.3065" class="external-link">https://doi.org/10.1006/jtbi.2002.3065</a>
+Couzin, I. D., Krause, J., James, R., Ruxton, G. D., &amp; Franks, N. R. (2002). Collective memory and spatial sorting in animal groups. <em>Journal of Theoretical Biology</em>, <em>218</em>(1), 1–11. <a href="https://doi.org/10.1006/jtbi.2002.3065" class="external-link">https://doi.org/10.1006/jtbi.2002.3065</a>
 </div>
 <div id="ref-Czaczkes2015" class="csl-entry">
-Czaczkes, T. J., Grüter, C., &amp; Ratnieks, F. L. W. (2015). Trail
-pheromones: An integrative view of their role in social insect colony
-organization. <em>Annual Review of Entomology</em>, <em>60</em>,
-581–599. <a href="https://doi.org/10.1146/annurev-ento-010814-020627" class="external-link">https://doi.org/10.1146/annurev-ento-010814-020627</a>
+Czaczkes, T. J., Grüter, C., &amp; Ratnieks, F. L. W. (2015). Trail pheromones: An integrative view of their role in social insect colony organization. <em>Annual Review of Entomology</em>, <em>60</em>, 581–599. <a href="https://doi.org/10.1146/annurev-ento-010814-020627" class="external-link">https://doi.org/10.1146/annurev-ento-010814-020627</a>
 </div>
 <div id="ref-Feliciani2016" class="csl-entry">
-Feliciani, C., &amp; Nishinari, K. (2016). Empirical analysis of the
-lane formation process in bidirectional pedestrian flow. <em>Physical
-Review E</em>, <em>94</em>(3), 032304. <a href="https://doi.org/10.1103/PhysRevE.94.032304" class="external-link">https://doi.org/10.1103/PhysRevE.94.032304</a>
+Feliciani, C., &amp; Nishinari, K. (2016). Empirical analysis of the lane formation process in bidirectional pedestrian flow. <em>Physical Review E</em>, <em>94</em>(3), 032304. <a href="https://doi.org/10.1103/PhysRevE.94.032304" class="external-link">https://doi.org/10.1103/PhysRevE.94.032304</a>
 </div>
 <div id="ref-Helbing1999" class="csl-entry">
-Helbing, D., &amp; Vicsek, T. (1999). Optimal self-organization. <em>New
-Journal of Physics</em>, <em>1</em>(1), 13. <a href="https://doi.org/10.1088/1367-2630/1/1/313" class="external-link">https://doi.org/10.1088/1367-2630/1/1/313</a>
+Helbing, D., &amp; Vicsek, T. (1999). Optimal self-organization. <em>New Journal of Physics</em>, <em>1</em>(1), 13. <a href="https://doi.org/10.1088/1367-2630/1/1/313" class="external-link">https://doi.org/10.1088/1367-2630/1/1/313</a>
 </div>
 <div id="ref-HerbertRead2011" class="csl-entry">
-Herbert-Read, J. E., Perna, A., Mann, R. P., Schaerf, T. M., Sumpter, D.
-J. T., &amp; Ward, A. J. W. (2011). Inferring the rules of interaction
-of shoaling fish. <em>Proceedings of the National Academy of Sciences of
-the United States of America</em>, <em>108</em>(46), 18726–18731. <a href="https://doi.org/10.1073/pnas.1109355108" class="external-link">https://doi.org/10.1073/pnas.1109355108</a>
+Herbert-Read, J. E., Perna, A., Mann, R. P., Schaerf, T. M., Sumpter, D. J. T., &amp; Ward, A. J. W. (2011). Inferring the rules of interaction of shoaling fish. <em>Proceedings of the National Academy of Sciences of the United States of America</em>, <em>108</em>(46), 18726–18731. <a href="https://doi.org/10.1073/pnas.1109355108" class="external-link">https://doi.org/10.1073/pnas.1109355108</a>
 </div>
 <div id="ref-Joo2018" class="csl-entry">
-Joo, R., Etienne, M.-P., Bez, N., &amp; Mahévas, S. (2018). Metrics for
-describing dyadic movement: A review. <em>Movement Ecology</em>,
-<em>6</em>, 26. <a href="https://doi.org/10.1186/s40462-018-0144-2" class="external-link">https://doi.org/10.1186/s40462-018-0144-2</a>
+Joo, R., Etienne, M.-P., Bez, N., &amp; Mahévas, S. (2018). Metrics for describing dyadic movement: A review. <em>Movement Ecology</em>, <em>6</em>, 26. <a href="https://doi.org/10.1186/s40462-018-0144-2" class="external-link">https://doi.org/10.1186/s40462-018-0144-2</a>
 </div>
 <div id="ref-Katz2011" class="csl-entry">
-Katz, Y., Tunström, K., Ioannou, C. C., Huepe, C., &amp; Couzin, I. D.
-(2011). Inferring the structure and dynamics of interactions in
-schooling fish. <em>Proceedings of the National Academy of Sciences of
-the United States of America</em>, <em>108</em>(46), 18720–18725. <a href="https://doi.org/10.1073/pnas.1107583108" class="external-link">https://doi.org/10.1073/pnas.1107583108</a>
+Katz, Y., Tunström, K., Ioannou, C. C., Huepe, C., &amp; Couzin, I. D. (2011). Inferring the structure and dynamics of interactions in schooling fish. <em>Proceedings of the National Academy of Sciences of the United States of America</em>, <em>108</em>(46), 18720–18725. <a href="https://doi.org/10.1073/pnas.1107583108" class="external-link">https://doi.org/10.1073/pnas.1107583108</a>
 </div>
 <div id="ref-Long2014" class="csl-entry">
-Long, J. A., Nelson, T. A., Webb, S. L., &amp; Gee, K. L. (2014). A
-critical examination of indices of dynamic interaction for wildlife
-telemetry studies. <em>Journal of Animal Ecology</em>, <em>83</em>(5),
-1216–1233. <a href="https://doi.org/10.1111/1365-2656.12198" class="external-link">https://doi.org/10.1111/1365-2656.12198</a>
+Long, J. A., Nelson, T. A., Webb, S. L., &amp; Gee, K. L. (2014). A critical examination of indices of dynamic interaction for wildlife telemetry studies. <em>Journal of Animal Ecology</em>, <em>83</em>(5), 1216–1233. <a href="https://doi.org/10.1111/1365-2656.12198" class="external-link">https://doi.org/10.1111/1365-2656.12198</a>
 </div>
 <div id="ref-Mullick2022" class="csl-entry">
-Mullick, P., Fontaine, S., Appert-Rolland, C., Olivier, A.-H., Warren,
-W. H., &amp; Pettré, J. (2022). Analysis of emergent patterns in
-crossing flows of pedestrians reveals an invariant of
-<span><span>“stripe”</span></span> formation in human data. <em>PLOS
-Computational Biology</em>, <em>18</em>(6), e1010210. <a href="https://doi.org/10.1371/journal.pcbi.1010210" class="external-link">https://doi.org/10.1371/journal.pcbi.1010210</a>
+Mullick, P., Fontaine, S., Appert-Rolland, C., Olivier, A.-H., Warren, W. H., &amp; Pettré, J. (2022). Analysis of emergent patterns in crossing flows of pedestrians reveals an invariant of <span><span>“stripe”</span></span> formation in human data. <em>PLOS Computational Biology</em>, <em>18</em>(6), e1010210. <a href="https://doi.org/10.1371/journal.pcbi.1010210" class="external-link">https://doi.org/10.1371/journal.pcbi.1010210</a>
 </div>
 <div id="ref-Spiegel2016" class="csl-entry">
-Spiegel, O., Leu, S. T., Sih, A., &amp; Bull, C. M. (2016). Socially
-interacting or indifferent neighbours? Randomization of movement paths
-to tease apart social preference and spatial constraints. <em>Methods in
-Ecology and Evolution</em>, <em>7</em>(8), 971–979. <a href="https://doi.org/10.1111/2041-210X.12553" class="external-link">https://doi.org/10.1111/2041-210X.12553</a>
+Spiegel, O., Leu, S. T., Sih, A., &amp; Bull, C. M. (2016). Socially interacting or indifferent neighbours? Randomization of movement paths to tease apart social preference and spatial constraints. <em>Methods in Ecology and Evolution</em>, <em>7</em>(8), 971–979. <a href="https://doi.org/10.1111/2041-210X.12553" class="external-link">https://doi.org/10.1111/2041-210X.12553</a>
 </div>
 <div id="ref-Sumpter2006" class="csl-entry">
-Sumpter, D. J. T. (2006). The principles of collective animal behaviour.
-<em>Philosophical Transactions of the Royal Society B: Biological
-Sciences</em>, <em>361</em>(1465), 5–22. <a href="https://doi.org/10.1098/rstb.2005.1733" class="external-link">https://doi.org/10.1098/rstb.2005.1733</a>
+Sumpter, D. J. T. (2006). The principles of collective animal behaviour. <em>Philosophical Transactions of the Royal Society B: Biological Sciences</em>, <em>361</em>(1465), 5–22. <a href="https://doi.org/10.1098/rstb.2005.1733" class="external-link">https://doi.org/10.1098/rstb.2005.1733</a>
 </div>
 <div id="ref-Vicsek1995" class="csl-entry">
-Vicsek, T., Czirók, A., Ben-Jacob, E., Cohen, I., &amp; Shochet, O.
-(1995). Novel type of phase transition in a system of self-driven
-particles. <em>Physical Review Letters</em>, <em>75</em>(6), 1226–1229.
-<a href="https://doi.org/10.1103/PhysRevLett.75.1226" class="external-link">https://doi.org/10.1103/PhysRevLett.75.1226</a>
+Vicsek, T., Czirók, A., Ben-Jacob, E., Cohen, I., &amp; Shochet, O. (1995). Novel type of phase transition in a system of self-driven particles. <em>Physical Review Letters</em>, <em>75</em>(6), 1226–1229. <a href="https://doi.org/10.1103/PhysRevLett.75.1226" class="external-link">https://doi.org/10.1103/PhysRevLett.75.1226</a>
 </div>
 </div>
 </div>

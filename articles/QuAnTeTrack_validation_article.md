@@ -569,7 +569,7 @@ the lowest p-values are concentrated mainly among dyads with small
 angular differences, across a relatively broad range of Euclidean
 distances. This indicates that elevated intersection structure is
 associated primarily with pairs whose relative configuration is aligned
-with the main direction of displacement (Figure X).
+with the main direction of displacement.
 
 ![Pairwise significance for the Higher-intersection hypothesis plotted
 against initial Euclidean spacing and angular
@@ -584,7 +584,7 @@ the signal is weaker, but the lowest p-values tend to occur among nearby
 dyads with larger angular differences. In other words, reduced
 intersection structure is most evident among some pairs that were both
 spatially close and more laterally arranged relative to their mean
-direction of movement (Figure X).
+direction of movement.
 
 ![Pairwise significance for the Lower-intersection hypothesis plotted
 against initial Euclidean spacing and angular

@@ -569,7 +569,7 @@ the lowest p-values are concentrated mainly among dyads with small
 angular differences, across a relatively broad range of Euclidean
 distances. This indicates that elevated intersection structure is
 associated primarily with pairs whose relative configuration is aligned
-with the main direction of displacement (Figure X).
+with the main direction of displacement.
 
 ![Pairwise significance for the Higher-intersection hypothesis plotted
 against initial Euclidean spacing and angular
@@ -584,7 +584,7 @@ the signal is weaker, but the lowest p-values tend to occur among nearby
 dyads with larger angular differences. In other words, reduced
 intersection structure is most evident among some pairs that were both
 spatially close and more laterally arranged relative to their mean
-direction of movement (Figure X).
+direction of movement.
 
 ![Pairwise significance for the Lower-intersection hypothesis plotted
 against initial Euclidean spacing and angular
@@ -674,8 +674,11 @@ metrics. At the same time, the two metrics did not behave identically.
 DTW produced a broader and more pervasive signal of similarity, whereas
 Fréchet yielded a more structured geometric gradient. This difference is
 encouraging rather than problematic, because it suggests that the two
-metrics capture complementary aspects of coordinated movement rather
-than redundant information.
+metrics capture complementary rather than redundant aspects of
+coordinated movement, with DTW being more sensitive to variation in
+trajectory alignment under unequal progression rates, whereas Fréchet
+distance is more sensitive to the ordered geometric structure of the
+trajectories as complete curves.
 
 Third, the intersection analyses support the second major assumption of
 the package: that different relative spatial arrangements can produce
